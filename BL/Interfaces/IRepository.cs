@@ -15,7 +15,7 @@ namespace BL.Interfaces
 
         T GetById(int entityId);
 
-        void Insert(T entity);
+        T Insert(T entity);
         void InsertList(List<T> entity);
 
         void Update(T entity);

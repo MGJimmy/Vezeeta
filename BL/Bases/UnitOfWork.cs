@@ -10,17 +10,35 @@ using System.Threading.Tasks;
 
 namespace BL.Bases
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         DbContext Context;
         public UnitOfWork(VezeetaContext context )
         {
             Context = context;
+            BeginTransaction();
         }
 
-        public int Commit()
+        public int SaveChanges()
         {
             return Context.SaveChanges();
+        }
+        public void BeginTransaction()
+        {
+            //Context.Database.CloseConnection();
+
+            if (Context.Database.CurrentTransaction == null)
+                Context.Database.BeginTransaction();
+        }
+        public void CommitTransaction()
+        {
+            if (Context.Database.CurrentTransaction != null)
+                Context.Database.CommitTransaction();
+        }
+        public void RollbackTransaction()
+        {
+            if (Context.Database.CurrentTransaction != null)
+                Context.Database.RollbackTransaction();
         }
 
         private CityRepository cityRepo;
@@ -38,5 +56,6 @@ namespace BL.Bases
         {
             Context.Dispose();
         }
+
     }
 }

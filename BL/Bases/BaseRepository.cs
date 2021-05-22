@@ -89,7 +89,7 @@ namespace BL.Bases
         #endregion
 
         #region CRUD Methods
-        public virtual void Insert(T entity)
+        public virtual T Insert(T entity)
         {
             EntityEntry<T> dbEntityEntry = Context.Entry(entity);
             if (dbEntityEntry.State != EntityState.Detached)
@@ -98,8 +98,9 @@ namespace BL.Bases
             }
             else
             {
-                DbSet.Add(entity);
+               DbSet.Add(entity);
             }
+            return entity;
         }
 
         public virtual void InsertList(List<T> entityList)
@@ -117,7 +118,7 @@ namespace BL.Bases
             }
             dbEntityEntry.State = EntityState.Modified;
         }
-
+        
         public virtual void UpdateList(List<T> entityList)
         {
             foreach (T item in entityList)

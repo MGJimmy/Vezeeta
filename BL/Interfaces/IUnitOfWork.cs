@@ -9,8 +9,11 @@ namespace BL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        #region Methode
-        int Commit();
+        #region Methods
+        int SaveChanges();
+        void BeginTransaction();
+        void CommitTransaction();
+        void RollbackTransaction();
         #endregion
 
         CityRepository CityRepo { get; }

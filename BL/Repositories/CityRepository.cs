@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL.Bases;
+using BL.DTOs;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,7 +15,7 @@ namespace BL.Repositories
         public CityRepository(DbContext dbcontext):base(dbcontext)
         {
         }
-        
+
         public bool CheckExixt(City city)
         {
             return GetAny(c => c.ID == city.ID);

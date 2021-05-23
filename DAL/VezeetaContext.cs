@@ -22,6 +22,15 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<City>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+            builder.Entity<Area>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
+            builder.Entity<Specialty>()
+                .HasIndex(u => u.Name)
+                .IsUnique();
         }
 
         public DbSet<City> Cities { get; set; }

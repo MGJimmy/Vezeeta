@@ -17,6 +17,10 @@ namespace BL.Configurations
           
            CreateMap<City, CityDTO>()
                 .ReverseMap();
+           CreateMap<City, CreateCityDTO>()
+                .ReverseMap();
+           CreateMap<City, UpdateCityDTO>()
+                .ReverseMap();
 
             CreateMap<Area, AreaDTO>() 
                 .ReverseMap()

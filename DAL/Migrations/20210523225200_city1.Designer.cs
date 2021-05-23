@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210523014347_init")]
-    partial class init
+    [Migration("20210523225200_city1")]
+    partial class city1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -120,6 +120,22 @@ namespace DAL.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("City");
+                });
+
+            modelBuilder.Entity("DAL.Models.Specialty", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Specialty");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

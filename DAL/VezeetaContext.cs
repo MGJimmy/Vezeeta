@@ -26,5 +26,6 @@ namespace DAL
 
         public DbSet<City> Cities { get; set; }
         public DbSet<Area> Areas { get; set; }
+        public DbSet<Specialty> Specialties { get; set; }
     }
 }

@@ -17,10 +17,16 @@ namespace BL.Configurations
           
            CreateMap<City, CityDTO>()
                 .ReverseMap();
+
             CreateMap<Area, AreaDTO>() 
                 .ReverseMap()
                 .ForMember(m => m.City, m => m.Ignore());
-            
+
+            CreateMap<Specialty, SpecialtyDTO>()
+               .ReverseMap();
+            CreateMap<Specialty, CreateSpecialtyDTO>()
+              .ReverseMap();
+
 
         }
     }

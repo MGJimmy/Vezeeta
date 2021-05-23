@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210522223402_init")]
+    [Migration("20210523014347_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

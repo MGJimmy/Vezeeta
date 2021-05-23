@@ -17,5 +17,6 @@ namespace BL.Interfaces
         #endregion
 
         CityRepository CityRepo { get; }
+        SpecialtyRepository SpecialtyRepo { get; }
     }
 }

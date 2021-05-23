@@ -25,7 +25,8 @@ namespace BL.Bases
         }
         public void BeginTransaction()
         {
-            //Context.Database.CloseConnection();
+
+            Context.Database.CloseConnection();
 
             if (Context.Database.CurrentTransaction == null)
                 Context.Database.BeginTransaction();
@@ -49,6 +50,16 @@ namespace BL.Bases
                 if (cityRepo == null) 
                     cityRepo = new CityRepository(Context);
                 return cityRepo;
+            }
+        }
+        private SpecialtyRepository specialtyRepo;
+        public SpecialtyRepository SpecialtyRepo
+        {
+            get
+            {
+                if (specialtyRepo == null)
+                    specialtyRepo = new SpecialtyRepository(Context);
+                return specialtyRepo;
             }
         }
 

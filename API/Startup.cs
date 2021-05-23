@@ -74,8 +74,7 @@ namespace API
             // DI
             services.AddDbContext<VezeetaContext>(option =>
             {
-                option.UseSqlServer(Configuration.GetConnectionString("CS"),
-                    options => options.EnableRetryOnFailure());
+                option.UseSqlServer(Configuration.GetConnectionString("CS"));
             });
             services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
                 .AddEntityFrameworkStores<VezeetaContext>();
@@ -84,7 +83,8 @@ namespace API
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<GeneralAppService>();
             services.AddScoped<CityAppService>();
-            
+            services.AddScoped<SpecialtyAppService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

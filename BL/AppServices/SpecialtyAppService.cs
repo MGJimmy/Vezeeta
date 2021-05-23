@@ -20,11 +20,11 @@ namespace BL.AppServices
         #region CRUD
         public IEnumerable<SpecialtyDTO> GetAll()
         {
-            return Mapper.Map<IEnumerable<SpecialtyDTO>>(TheUnitOfWork.CityRepo.GetAll());
+            return Mapper.Map<IEnumerable<SpecialtyDTO>>(TheUnitOfWork.SpecialtyRepo.GetAll());
         }
         public SpecialtyDTO Get(int id)
         {
-            return Mapper.Map<SpecialtyDTO>(TheUnitOfWork.CityRepo.GetById(id));
+            return Mapper.Map<SpecialtyDTO>(TheUnitOfWork.SpecialtyRepo.GetById(id));
         }
         public CreateSpecialtyDTO Insert(CreateSpecialtyDTO createSpecialtyDTO)
         {
@@ -33,16 +33,17 @@ namespace BL.AppServices
 
             Specialty specialty = Mapper.Map<Specialty>(createSpecialtyDTO);
             TheUnitOfWork.SpecialtyRepo.Insert(specialty);
-            createSpecialtyDTO.ID = specialty.ID;
             TheUnitOfWork.SaveChanges();
+            createSpecialtyDTO.ID = specialty.ID;
             return createSpecialtyDTO;
         }
-        public bool Update(Specialty specialty)
+        public bool Update(UpdateSpecialtyDTO updateSpecialtyDTO)
         {
-            if (specialty == null)
+            if (updateSpecialtyDTO == null)
                 throw new ArgumentNullException();
 
             bool result = false;
+            var specialty = Mapper.Map<Specialty>(updateSpecialtyDTO);
             TheUnitOfWork.SpecialtyRepo.Update(specialty);
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;

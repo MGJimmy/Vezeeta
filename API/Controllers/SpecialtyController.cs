@@ -23,16 +23,17 @@ namespace API.Controllers
         }
         // GET: api/<SpecialtyController>
         [HttpGet]
-        public IEnumerable<SpecialtyDTO> Get()
+        public IActionResult GetAll()
         {
-            return _specialtyAppService.GetAll();
+           
+            return Ok (_specialtyAppService.GetAll());
         }
 
         // GET api/<SpecialtyController>/5
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
-            return Ok(_specialtyAppService.Get(1));
+            return Ok(_specialtyAppService.Get(id));
         }
 
         // POST api/<SpecialtyController>
@@ -62,14 +63,44 @@ namespace API.Controllers
 
         // PUT api/<SpecialtyController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Update(int id,UpdateSpecialtyDTO updateSpecialtyDTO)
         {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+
+              _specialtyAppService.Update(updateSpecialtyDTO);
+
+                _generalAppService.CommitTransaction();
+                return Ok("Specialty updated");
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
         }
 
         // DELETE api/<SpecialtyController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _specialtyAppService.Delete(id);
+                _generalAppService.CommitTransaction();
+                return Ok("deleted");
+            }
+            catch(Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

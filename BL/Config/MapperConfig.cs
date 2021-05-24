@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BL.DTOs;
+using BL.DTOs.AreaDTO;
 using DAL;
 using DAL.Models;
 using System;
@@ -15,14 +16,23 @@ namespace BL.Configurations
         public AutoMapperProfile()
         { 
           
-           CreateMap<City, CityDTO>()
+            CreateMap<City, CityDTO>()
                 .ReverseMap();
-           CreateMap<City, CreateCityDTO>()
+            CreateMap<City, CreateCityDTO>()
                 .ReverseMap();
-           CreateMap<City, UpdateCityDTO>()
+            CreateMap<City, UpdateCityDTO>()
                 .ReverseMap();
 
-            CreateMap<Area, AreaDTO>()
+            CreateMap<Area, CreateAreaDTO>()
+                .ReverseMap()
+                .ForMember(m => m.City, m => m.Ignore());
+            CreateMap<Area, UpdateAreaDTO>()
+                .ReverseMap()
+                .ForMember(m => m.City, m => m.Ignore());
+            CreateMap<Area, GetAreaDTO>()
+                .ReverseMap()
+                .ForMember(m => m.City, m => m.Ignore());
+            CreateMap<Area, GetAreaWithCityDTO>()
                 .ReverseMap()
                 .ForMember(m => m.City, m => m.Ignore());
 

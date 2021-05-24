@@ -1,0 +1,74 @@
+<section id="checkoutPage" class="checkoutPage">
+  <div class="container">
+    <h2 class="cartName text-center display-3 my-5">Checkout</h2>
+    <form  [formGroup]="paymentForm" id="checkoutForm" class="w-100">
+      <div class="row">
+        <div class="col-md-7">
+          <h3 class="mb-3">Billing details</h3>
+          
+            <div class="form-group">
+              <label for="">Card Owner Name<span class="required">*</span></label>
+              <input formControlName="cardOwnerName" type="text" class="form-control"  name="cardOwnerName" [class.is-invalid]="formFields.cardOwnerName?.invalid && formFields.cardOwnerName?.touched">
+              <div *ngIf="formFields.cardOwnerName?.invalid && formFields.cardOwnerName?.touched">
+                <small class="text-danger" *ngIf="formFields.cardOwnerName?.errors.required">User Name is required</small>
+             
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="">Card Number</label>
+              <input formControlName="CardNumber" type="text" class="form-control"  name="CardNumber" [class.is-invalid]="formFields.CardNumber?.invalid && formFields.CardNumber?.touched">
+              <div *ngIf="formFields.CardNumber?.invalid && formFields.CardNumber?.touched">
+                <small class="text-danger d-block" *ngIf="formFields.CardNumber?.errors.required">User Name is required</small> 
+                <small class="text-danger d-block" *ngIf="formFields.CardNumber?.errors.minlength">minmum length Length of 16 digits</small>
+                <small class="text-danger d-block" *ngIf="formFields.CardNumber?.errors.maxlength">maximum length Length of 16 digits</small>
+                <small class="text-danger d-block" *ngIf="formFields.CardNumber?.errors.pattern">accept only numbers</small> 
+            </div>
+            </div>
+          
+            <div class="form-group">
+              <label for="">CVC <span class="required">*</span></label>
+              <input formControlName="cvc" type="text" class="form-control"  name="cvc" [class.is-invalid]="formFields.cvc?.invalid && formFields.cvc?.touched">
+              <div *ngIf="formFields.cvc?.invalid && formFields.cvc?.touched">
+                <small class="text-danger d-block" *ngIf="formFields.cvc?.errors.required">CVC is required</small> 
+                <small class="text-danger d-block" *ngIf="formFields.cvc?.errors.minlength">minmum length Length of 3 digits</small>
+                <small class="text-danger d-block" *ngIf="formFields.cvc?.errors.maxlength">maximum length Length of 3 digits</small>
+                <small class="text-danger d-block" *ngIf="formFields.cvc?.errors.pattern">accept only numbers</small> 
+            </div>
+            </div>
+            <div class="form-group">
+              <label for="">Experation Date <span class="required">*</span></label>
+              <input formControlName="ExperationDate" type="date" class="form-control"  name="ExperationDate" [class.is-invalid]="formFields.ExperationDate?.invalid && formFields.cardOwnerName?.touched">
+              <div *ngIf="formFields.ExperationDate?.invalid && formFields.ExperationDate?.touched">
+                <small class="text-danger" *ngIf="formFields.ExperationDate?.errors.required">Experation Date  is required</small>
+             
+            </div>
+            </div>
+         
+            <button type="button" [disabled]="paymentForm.invalid" (click)="addPayment()" class="btn btn-dark btn-lg w-100">Add Payment</button>
+          
+        </div>
+        <div class="col-md-5">
+          <h3 class="mb-3">Your order</h3>
+          <table class="table table-striped mt-5">
+            <tbody>
+              <tr>
+                <td scope="row">Products price</td>
+                <td id="checkoutPrice">{{totalOrderPrice|currency}}</td>
+              </tr>
+              <tr>
+                <td scope="row">Shipping</td>
+                <td>$60</td>
+              </tr>
+              <tr>
+                <td>Total price</td>
+                <td id="checkoutTotPrice">{{totalOrderPrice|currency}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="button" (click)="checkOut()" class="btn btn-dark btn-lg w-100">Checkout</button>
+
+        </div>
+      </div>
+  </form>
+  </div>
+</section>

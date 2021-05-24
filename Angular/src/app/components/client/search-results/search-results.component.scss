@@ -1,0 +1,35 @@
+// rating
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #d3d3d3;
+}
+.full {
+  color: #ffc107 ;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffc107 ;
+}
+/*-------------- porducts ----------*/
+ .products .box .top {left: 0; top: 0;} 
+ .products .quickview {
+  background-color: rgb(0, 0, 0, 0.7);
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+ .products .quickview:hover {background-color: #b48619; color: #000;}
+
+ .products .option {opacity: 0;}
+ .products .option .add_chart {cursor: pointer;}
+ .products .option .add_chart:hover {color: #b48619;}
+ .products .option .fav {cursor: pointer;}
+ .products .option .fav:hover {color: #dc3545;}
+
+ .products .box:hover .top {opacity: 0;}
+ .products .box:hover .quickview {opacity: 1;}
+ .products .box:hover .option {opacity: 1;}

@@ -1,0 +1,85 @@
+<h2 class="text-center display-4 font-weight-bold my-5">My Orders</h2>
+<div class="container">
+    <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date</th>
+                <th scope="col">Total Price</th>
+              
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of allOrders;let i=index">
+                <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
+                <td>{{ order.date }}</td>
+                <td>{{ order.totalPrice }}</td>
+              
+                <td>
+    
+                    <button class="btn btn-info mx-2"    data-toggle="modal" data-target="#orderDetailsModal" (click) ="orderDetails(order.id)"  >Details</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- pagination -->
+    <nav aria-label="..." class="">
+        <div class="d-inline-block">
+            <ul class="pagination">
+                <li class="page-item" [ngClass]="{disabled:currentPageNumber <=1, cursorNotAllowed:currentPageNumber <=1}" >
+                    <button class="page-link" [disabled]="currentPageNumber <=1" (click)="getSelectedPage(currentPageNumber-1)">Previous</button>
+                </li>
+                <li class="page-item" *ngFor='let x of counter(numberOfPages) ;let i = index' [class.active]="currentPageNumber == (i+1)">
+                  <a class="page-link" (click)="getSelectedPage(i+1)">{{i+1}} </a>
+                </li>
+                <li class="page-item" [ngClass]="{disabled:currentPageNumber >=numberOfPages, cursorNotAllowed:currentPageNumber >=numberOfPages}">
+                    <button class="page-link" [disabled]="currentPageNumber >= numberOfPages" 
+                    (click)="getSelectedPage(currentPageNumber+1)">Next</button>
+                </li>
+            </ul>
+        </div>
+        <div class="float-right h5 mr-4 text-secondary">Showing {{currentPageNumber}} of {{numberOfPages}}</div>
+    </nav>
+</div>
+
+
+
+<!-- Modal -->
+<div  class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Order Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+             </button>
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Net Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orderProduct of orderDetailsList;let i=index">
+                        <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
+                        <td>{{ orderProduct.productName }}</td>
+                        <td>{{ orderProduct.productQuantity }}</td>
+                        <td>{{ orderProduct.productTotal }}</td>
+                        <td>{{ orderProduct.productDiscount }}%</td>
+                        <td>{{ orderProduct.productNetPrice}}</td>
+                   
+                    </tr>
+                </tbody>
+            </table>
+         
+        </div>
+    </div>
+</div>

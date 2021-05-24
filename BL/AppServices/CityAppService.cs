@@ -33,16 +33,17 @@ namespace BL.AppServices
 
             City city = Mapper.Map<City>(cityDTO);
             TheUnitOfWork.CityRepo.Insert(city);
-            cityDTO.ID = city.ID;
             TheUnitOfWork.SaveChanges();
+            cityDTO.ID = city.ID;
             return cityDTO;
         }
-        public bool Update(City city)
+        public bool Update(UpdateCityDTO updateCityDTO)
         {
-            if (city == null)
+            if (updateCityDTO == null)
                 throw new ArgumentNullException();
 
             bool result = false;
+            City city = Mapper.Map<City>(updateCityDTO);
             TheUnitOfWork.CityRepo.Update(city);
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;

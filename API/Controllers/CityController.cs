@@ -24,16 +24,16 @@ namespace API.Controllers
         }
         // GET: api/<CityController>
         [HttpGet]
-        public IEnumerable<string> GetAll()
+        public IActionResult GetAll()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_cityAppService.GetAll());
         }
 
         // GET api/<CityController>/5
         [HttpGet("{id}")]
-        public string GetByID(int id)
+        public IActionResult GetByID(int id)
         {
-            return "value";
+            return Ok(_cityAppService.Get(id));
         }
 
         // POST api/<CityController>
@@ -64,14 +64,49 @@ namespace API.Controllers
 
         // PUT api/<CityController>/5
         [HttpPut("{id}")]
-        public void Update(int id, UpdateCityDTO updateCityDTO)
+        public IActionResult Update(int id, UpdateCityDTO updateCityDTO)
         {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                _cityAppService.Update(updateCityDTO);
+
+                _generalAppService.CommitTransaction();
+
+                return Ok("city updated");
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
+
         }
 
         // DELETE api/<CityController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                _cityAppService.Delete(id);
+
+                _generalAppService.CommitTransaction();
+
+                return Ok("city deleted");
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
         }
     }
 }

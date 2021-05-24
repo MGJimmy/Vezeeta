@@ -18,6 +18,7 @@ namespace BL.Interfaces
 
         CityRepository CityRepo { get; }
         SpecialtyRepository SpecialtyRepo { get; }
+        AreaRepositories AreaRepo { get; }
         ClincServicesRepositry ClincServicesRepo { get; }
     }
 }

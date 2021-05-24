@@ -10,6 +10,7 @@ namespace BL.DTOs
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public bool ByAdmin { get; set; }
         public int CityID { get; set; }
     }
 }

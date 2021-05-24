@@ -20,14 +20,25 @@ namespace API.Controllers
             _areaAppServices = areaAppServices;
             _generalAppService = generalAppService;
         }
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_areaAppServices.GetAll());
+        }
 
         // GET: api/<AreaController>
         [HttpGet("{pageSize}/{pageNumber}")]
-        public IActionResult GetAll(int pageSize, int pageNumber)
+        public IActionResult GetByPage(int pageSize, int pageNumber)
         {
-            return Ok(_areaAppServices.GetAll(pageSize, pageNumber));
+            return Ok(_areaAppServices.GetPageRecords(pageSize, pageNumber));
         }
 
+        [Route("api/Admin")]
+        [HttpGet]
+        public IActionResult GetAllNotAccepted()
+        {
+            return Ok(_areaAppServices.GetAllNotAccepted());
+        }
 
 
         // GET api/<AreaController>/5

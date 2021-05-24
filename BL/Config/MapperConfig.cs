@@ -32,6 +32,9 @@ namespace BL.Configurations
               .ReverseMap();
             CreateMap<Specialty, UpdateSpecialtyDTO>()
            .ReverseMap();
+            CreateMap<SupSpecialization, SupSpecailizationDto>()
+              .ReverseMap()
+              .ForMember(m => m.specialty, m => m.Ignore());
 
 
         }

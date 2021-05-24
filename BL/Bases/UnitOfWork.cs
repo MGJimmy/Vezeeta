@@ -62,6 +62,16 @@ namespace BL.Bases
                 return specialtyRepo;
             }
         }
+        private SupSpecializationRepository sup_SpecializationRepo;
+        public SupSpecializationRepository SupSpecializationRepo
+        {
+            get
+            {
+                if (sup_SpecializationRepo == null)
+                    sup_SpecializationRepo = new SupSpecializationRepository(Context);
+                return sup_SpecializationRepo;
+            }
+        }
 
         public void Dispose()
         {

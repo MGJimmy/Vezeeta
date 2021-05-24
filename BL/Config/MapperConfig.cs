@@ -22,7 +22,7 @@ namespace BL.Configurations
            CreateMap<City, UpdateCityDTO>()
                 .ReverseMap();
 
-            CreateMap<Area, AreaDTO>() 
+            CreateMap<Area, AreaDTO>()
                 .ReverseMap()
                 .ForMember(m => m.City, m => m.Ignore());
 
@@ -32,6 +32,15 @@ namespace BL.Configurations
               .ReverseMap();
             CreateMap<Specialty, UpdateSpecialtyDTO>()
            .ReverseMap();
+            CreateMap<SupSpecialization, SupSpecailizationDto>()
+              .ReverseMap()
+              .ForMember(m => m.specialty, m => m.Ignore());
+
+            CreateMap<Clinicservice, ClinicServiceDto>()
+                .ReverseMap();
+
+
+
 
 
         }

@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace BL.DTOs
 {
-    [Table("Area")]
-    public class Area
+    public class SupSpecailizationDto
     {
         public int ID { get; set; }
         public string Name { get; set; }
         public bool ByAdmin { get; set; }
-
-        [ForeignKey("City")]
-        public int CityID { get; set; }
-
-        public City City { get; set; }
+        public int specialtyId { get; set; }
     }
 }

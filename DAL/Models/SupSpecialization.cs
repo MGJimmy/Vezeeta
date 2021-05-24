@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,17 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    [Table("Area")]
-    public class Area
+    public class SupSpecialization
     {
         public int ID { get; set; }
+
+        [Required, MinLength(3, ErrorMessage = "name should be at least 3 characters")]
         public string Name { get; set; }
         public bool ByAdmin { get; set; }
 
-        [ForeignKey("City")]
-        public int CityID { get; set; }
 
-        public City City { get; set; }
+        [ForeignKey("specialty")]
+         public int specialtyId { get; set; }
+         public Specialty specialty { get; set; }
     }
 }

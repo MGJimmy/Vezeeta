@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class city1 : Migration
+    public partial class editSubSpeciailize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,11 +52,24 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_City", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clinicservices",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clinicservices", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +78,7 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -184,7 +197,8 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false),
                     CityID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -198,10 +212,38 @@ namespace DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "supSpecializations",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    specialtyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_supSpecializations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_supSpecializations_Specialty_specialtyId",
+                        column: x => x.specialtyId,
+                        principalTable: "Specialty",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
                 table: "Area",
                 column: "CityID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Area_Name",
+                table: "Area",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -241,6 +283,23 @@ namespace DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_City_Name",
+                table: "City",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specialty_Name",
+                table: "Specialty",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_supSpecializations_specialtyId",
+                table: "supSpecializations",
+                column: "specialtyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -264,7 +323,10 @@ namespace DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Specialty");
+                name: "Clinicservices");
+
+            migrationBuilder.DropTable(
+                name: "supSpecializations");
 
             migrationBuilder.DropTable(
                 name: "City");
@@ -274,6 +336,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Specialty");
         }
     }
 }

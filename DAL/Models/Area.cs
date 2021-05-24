@@ -12,10 +12,11 @@ namespace DAL.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public bool ByAdmin { get; set; }
 
         [ForeignKey("City")]
         public int CityID { get; set; }
 
-        public City City { get; set; } 
+        public City City { get; set; }
     }
 }

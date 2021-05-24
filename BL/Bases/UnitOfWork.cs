@@ -52,6 +52,18 @@ namespace BL.Bases
                 return cityRepo;
             }
         }
+
+        private AreaRepositories areaRepo;
+        public AreaRepositories AreaRepo
+        {
+            get
+            {
+                if (areaRepo == null)
+                    areaRepo = new AreaRepositories(Context);
+                return areaRepo;
+            }
+        }
+
         private SpecialtyRepository specialtyRepo;
         public SpecialtyRepository SpecialtyRepo
         {

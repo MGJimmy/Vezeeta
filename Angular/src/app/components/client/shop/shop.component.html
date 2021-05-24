@@ -1,0 +1,124 @@
+<!-- <div class="sec_name clothes position-relative ">
+  <div class="overlay position-absolute"></div>
+  <div class="text text-capitalize text-center text-white position-absolute">
+    <h1 class="text-uppercase">Shop</h1>
+    <a class="px-2" routerLink="" >home</a>
+    <span class="px-2">Shop</span>
+  </div>
+</div> -->
+
+<!--************* End section name *********************-->
+
+<!---------------- Start section content  ------------------>
+<div class="sec_content container">
+  <div class="row">
+    <div class="sec_head col-12 py-3 my-5 font-weight-bold">
+      <div class="float-left text-uppercase">Shop</div>
+      <div class="float-right text-capitalize">
+        <a routerLink=""><i class="fas fa-home fa-lg"></i></a>
+        <span class="my_p px-2">></span>
+        <span class="main_color">Shop</span>
+      </div>
+    </div>
+
+    <!-------------------- side ------------------>
+    <div class="side col-md-3 pb-5">
+      <a class="btn btn-dark" [routerLink]="">All products</a>
+      <div class="categories">
+        <h5 class="text-uppercase py-3">categories <i
+            class="open_opotions_01 float-right text-black fas fa-plus fa-xs  d-md-none"></i></h5>
+        <div class="options_01 text-capitalize d-none d-md-block">
+          <ul class=" list-unstyled ml-3 ">
+            <li *ngFor="let category of allCategories" class="cursorPointer">
+              <a [routerLink]="" [queryParams]="{ categoryId: category.id}"
+                (click)="changeSelectedCategoryName(category.name)">
+                {{category.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="Colors">
+        <h5 class="text-uppercase py-3">Colors <i
+            class="open_opotions_01 float-right text-black fas fa-plus fa-xs  d-md-none"></i></h5>
+        <div class="options_01 text-capitalize d-none d-md-block">
+          <ul class=" list-unstyled ml-3 ">
+            <li *ngFor="let color of allColors" class="cursorPointer">
+              <a [routerLink]="" [queryParams]="{ colorId: color.id}" (click)="changeSelectedColorName(color.name)">
+                {{color.name}}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+    <!-------------------- products ------------------>
+    <div class=" products col-md-9" *ngIf="hasProducts">
+      <h2 class="text-center mb-3"> {{title}} </h2>
+      <div class="row">
+        <!-- foreach product  -->
+        <div class="col-md-4 box mb-4" *ngFor="let product of productsPerPage">
+
+          <div class="image position-relative overflow-hidden productImgWrapper">
+            <a routerLink="/product-details/{{ product.id }}">
+              <img class="w-100" [src]="createImgPath(product.image)" alt="img1">
+              <img class="top w-100 position-absolute" [src]="createImgPath(product.image)" alt="img1">
+            </a>
+            <div class="quickview position-absolute w-100 main_color text-center"><i class="fas fa-eye"></i> Quickview
+            </div>
+          </div>
+
+          <div class="details">
+            <p class="name my-0 text-secondary"> {{product.name}} </p>
+            <ngb-rating [(rate)]="product.averageRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+            <p class="name my-0 text-secondary">
+              <i class="fas fa-tag"></i> {{product.categoryName}}
+            </p>
+            <p class="price font-weight-bold text-danger"> {{product.price|currency}} </p>
+          </div>
+
+          <div class="option text-secondary border-top py-2">
+            <div class="add_chart float-left" (click)="addProductToCart(product.id)">
+              <i class="fas fa-shopping-bag"></i>&nbsp; Add to chart
+            </div>
+            <div class="fav float-right" (click)="addProductToWishlist(product.id)">
+              <i class="fas fa-heart fa-lg"></i>
+            </div>
+          </div>
+        </div>
+        <!-- pagination -->
+        <nav aria-label="..." class="col-12 mt-5">
+          <div class="d-inline-block">
+            <ul class="pagination">
+              <li class="page-item"
+                [ngClass]="{disabled:currentPageNumber <=1, cursorNotAllowed:currentPageNumber <=1}">
+                <button class="page-link" [disabled]="currentPageNumber <=1"
+                  (click)="getSelectedPage(currentPageNumber-1)">Previous</button>
+              </li>
+              <li class="page-item" *ngFor='let x of counter(numberOfPages);let i = index'
+                [class.active]="currentPageNumber == (i+1)">
+                <a class="page-link" (click)="getSelectedPage(i+1)">{{i+1}} </a>
+              </li>
+              <li class="page-item"
+                [ngClass]="{disabled:currentPageNumber >=numberOfPages, cursorNotAllowed:currentPageNumber >=numberOfPages}">
+                <button class="page-link" [disabled]="currentPageNumber >= numberOfPages"
+                  (click)="getSelectedPage(currentPageNumber+1)">Next</button>
+              </li>
+            </ul>
+          </div>
+          <div class="float-right h5 mr-4 text-secondary">Showing {{currentPageNumber}} of {{numberOfPages}}</div>
+        </nav>
+      </div>
+    </div>
+    <!-- no items to show alert -->
+    <div class="text-center alert alert-danger col-9 mx-auto" *ngIf="!hasProducts">
+      There's no products to show
+    </div>
+  </div>
+</div>
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill"><i class="fas fa-star fa-xs"></i></span><i class="fas fa-star fa-xs"></i>
+  </span>
+</ng-template>

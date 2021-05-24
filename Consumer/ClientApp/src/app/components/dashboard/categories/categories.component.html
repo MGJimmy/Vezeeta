@@ -1,0 +1,83 @@
+<h2 class="text-center display-4 font-weight-bold my-5">Categories</h2>
+
+<button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddCategoryModal();">
+  New
+</button>
+<table class="table table-bordered table-hover" *ngIf="hasCategories">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">image</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cat of allCategories;let i=index">
+            <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
+            <td>{{ cat.name }}</td>
+            <td>
+                <div class="dashboardImgWrapper">
+                    <img class="img-thumbnail img-fluid w-100" [src]="createImgPath(cat.image)" alt="category image">
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-success mx-2" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openUpdateCategoryModal(cat.id)">Update</button>
+                <button class="btn btn-danger mx-2" (click)="openDeleteCategoryModal(cat.id)" data-toggle="modal" data-target="#deleteModel">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- pagination -->
+<nav aria-label="..." class="" *ngIf="hasCategories">
+    <div class="d-inline-block">
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="{disabled:currentPageNumber <=1, cursorNotAllowed:currentPageNumber <=1}">
+                <button class="page-link" [disabled]="currentPageNumber <=1" (click)="getSelectedPage(currentPageNumber-1)">Previous</button>
+            </li>
+            <li class="page-item" *ngFor='let x of counter(numberOfPages) ;let i = index' [class.active]="currentPageNumber == (i+1)">
+                <a class="page-link" (click)="getSelectedPage(i+1)">{{i+1}} </a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:currentPageNumber >=numberOfPages, cursorNotAllowed:currentPageNumber >=numberOfPages}">
+                <button class="page-link" [disabled]="currentPageNumber >= numberOfPages" (click)="getSelectedPage(currentPageNumber+1)">Next</button>
+            </li>
+        </ul>
+    </div>
+    <div class="float-right h5 mr-4 text-secondary">Showing {{currentPageNumber}} of {{numberOfPages}}</div>
+</nav>
+
+<div class="row" *ngIf="!hasCategories">
+    <div class="text-center alert alert-danger col-9 mx-auto">
+        There's no categories to show
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addAndUpdateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{actionName}} category</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <form [formGroup]="categoryForm">
+                <div class="modal-body">
+                    <div class="form-group my-3">
+                        <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name" [class.is-invalid]="formFields.name?.invalid && formFields.name?.touched">
+                      
+                    </div>
+                    <div class="form-group my-3">
+                        <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #addOrUpdateModelCloseBtn>Close</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="loading" (click)="onAddOrUpdateSubmit()"> {{actionName}} </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<app-confirm-modal></app-confirm-modal>

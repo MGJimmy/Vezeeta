@@ -1,0 +1,99 @@
+.sec_name .overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgb(0, 0, 0, 0.4);
+}
+
+.sec_name .text {
+  bottom: 30%;
+  left: 50%;
+  z-index: 2;
+  -webkit-transform: translate(-50%, -30%);
+  -moz-transform: translate(-50%, -30%);
+  -ms-transform: translate(-50%, -30%);
+  -o-transform: translate(-50%, -30%);
+  transform: translate(-50%, -30%);
+}
+.sec_name .text h1 {font-size: 80px;}
+.sec_name .text a {font-size: 20px;  color: #fff; border-right: 1px solid #fff;}
+.sec_name .text span {font-size: 20px; color: #b48619;}
+.sec_name .text a:hover {color: #b48619;}
+/*************** End section name *****************/
+
+/*---------------- Start section content  -------------*/
+ .sec_head {background-color: #f5f5f5;}
+
+/*--------------- side ------------*/
+ .side h5 {color: #b48619; border-top: 4px solid;}
+ .side a:hover{color: #000;}
+ .side label {color: #555;}
+ .side button {
+  background-color: rgb(43, 43, 43);
+  color: #FFF;
+  border: none;
+  padding: 5px 20px;
+}
+ .side button:hover {background-color: #b48619;}
+
+/*-------------- porducts ----------*/
+ .products .box .top {left: 0; top: 0;} 
+ .products .quickview {
+  background-color: rgb(0, 0, 0, 0.7);
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+ .products .quickview:hover {background-color: #b48619; color: #000;}
+
+ .products .option {opacity: 0;}
+ .products .option .add_chart {cursor: pointer;}
+ .products .option .add_chart:hover {color: #b48619;}
+ .products .option .fav {cursor: pointer;}
+ .products .option .fav:hover {color: #dc3545;}
+
+ .products .box:hover .top {opacity: 0;}
+ .products .box:hover .quickview {opacity: 1;}
+ .products .box:hover .option {opacity: 1;}
+
+
+
+textarea.comment {
+  max-width: 40rem;
+  resize: none;
+}
+.review{
+  background-color: #777;
+}
+
+.card {
+  border: none;
+  box-shadow: 5px 6px 6px 2px #e9ecef;
+  border-radius: 4px
+}
+.user-img {
+  margin-top: 4px
+}
+.starInput {
+  font-size: 1.5rem;
+  color: #ffc107;
+}
+// rating
+.star {
+  position: relative;
+  display: inline-block;
+  font-size: 1.2rem;
+  color: #d3d3d3;
+}
+.full {
+  color: #ffc107 ;
+}
+.half {
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  color: #ffc107 ;
+}
+
+
+

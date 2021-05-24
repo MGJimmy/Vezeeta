@@ -1,0 +1,17 @@
+.dashboardSideBar{
+  min-height: 100vh;
+  height: 100%;
+  li{
+    margin-bottom: 1rem;
+    padding-bottom: 0.1rem;
+    font-size: 1.2rem;
+    a,i{
+      color: #aaa;
+      text-decoration: none;
+    }
+    &:hover{
+      transform: translateX(10px);
+      
+    }
+  }
+}

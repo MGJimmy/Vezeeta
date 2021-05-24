@@ -1,0 +1,47 @@
+<section id="searchPage" class="my-5 py-5">
+  <div class="container">
+    <h2 class="cartName text-center display-3 my-5">Search results for: {{searchKey}}</h2>
+    <div class="row productsContainer products" id="searchResultsContainer" *ngIf="foundProducts">
+      <div class="col-md-4 box mb-4 " *ngFor="let product of searchedProducts">
+
+        <div class="image position-relative overflow-hidden productImgWrapper">
+          <a routerLink="/product-details/{{ product.id }}">
+            <img class="w-100" [src]="createImgPath(product.image)" alt="img1">
+            <img class="top w-100 position-absolute" [src]="createImgPath(product.image)" alt="img1">
+          </a>
+          <div class="quickview position-absolute w-100 main_color text-center"><i class="fas fa-eye"></i> Quickview</div>
+        </div>
+        
+        <div class="details">
+          <p class="name my-0 text-secondary"> {{product.name}} </p>
+          <ngb-rating [(rate)]="product.averageRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <p class="name my-0 text-secondary"> 
+            <i class="fas fa-tag"></i> {{product.categoryName}} 
+          </p>
+          <p class="price font-weight-bold text-danger"> {{product.price|currency}} </p>
+        </div>
+
+        <div class="option text-secondary border-top py-2">
+          <div class="add_chart float-left" (click)="addProductToCart(product.id)">
+            <i class="fas fa-shopping-bag"></i>&nbsp; Add to chart
+          </div>
+          <div class="fav float-right" (click)="addProductToWishlist(product.id)">
+            <i class="fas fa-heart fa-lg"></i>
+          </div>
+        </div>
+      </div>
+      <!-- End the foreach -->
+    </div>
+    <!-- start if there's no result -->
+    <div id="noResults" *ngIf="!foundProducts">
+      <div class="alert alert-danger" role="alert">Sorry no match results</div>
+    </div>
+    <!-- End if there's no result -->
+  </div>
+</section>
+
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill"><i class="fas fa-star fa-xs"></i></span><i class="fas fa-star fa-xs"></i>
+  </span>
+</ng-template>

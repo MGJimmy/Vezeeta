@@ -1,0 +1,16 @@
+.cartPage .image {
+  width: 100px;
+}
+.cartPage .deleteItem i {
+  color: #920606;
+  cursor: pointer;
+}
+.cartPage .deleteItem i:hover {
+  color: #d60505;
+}
+.cartPage .itemQuantity {
+  width: 50px;
+}
+.cartPage .table td, .cartPage .table th {
+  text-align: center;
+}

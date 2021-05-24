@@ -47,7 +47,7 @@ namespace API.Controllers
             }
             try
             {
-                if (_areaAppServices.CheckExists(areaDTO))
+                if (_areaAppServices.CheckExistsByName(areaDTO))
                 {
                     return BadRequest("The Area Is Already Exist");
                 }

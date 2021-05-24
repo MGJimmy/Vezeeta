@@ -18,9 +18,9 @@ namespace BL.AppServices
 
         }
 
-        public IEnumerable<AreaDTO> GetAll(int pageSize, int pageNumber)
+        public IEnumerable<AreaDTO> GetAll()
         {
-            return Mapper.Map<IEnumerable<AreaDTO>>(GetPageRecords(pageSize, pageNumber));
+            return Mapper.Map<IEnumerable<AreaDTO>>(TheUnitOfWork.AreaRepo.GetAll());
         }
 
         public IEnumerable<AreaDTO> GetAllNotAccepted()

@@ -21,6 +21,13 @@ namespace API.Controllers
             _supSpecializationAppService = supSpecializationAppService;
             _generalAppService = generalAppService;
         }
+
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_supSpecializationAppService.GetPageRecords(pageSize, pageNumber));
+        }
+
         // GET: api/<SupSpecializationController>
         [HttpGet]
         public IActionResult GetAll()
@@ -35,6 +42,13 @@ namespace API.Controllers
             return Ok(_supSpecializationAppService.Get(id));
         }
 
+        [Route("api/Admin")]
+        [HttpGet]
+        public IActionResult GetAllNotAccepted()
+        {
+            return Ok(_supSpecializationAppService.GetAllNotAccepted());
+        }
+
         // POST api/<SupSpecializationController>
         [HttpPost]
         public IActionResult Create(SupSpecailizationDto createSupSpecailizationDtoDTO)
@@ -45,17 +59,32 @@ namespace API.Controllers
             }
             try
             {
-                SupSpecailizationDto result = _supSpecializationAppService.Insert(createSupSpecailizationDtoDTO);
+                if (_supSpecializationAppService.CheckExistsByName(createSupSpecailizationDtoDTO))
+                {
+                    return BadRequest("The SupSpecialize Is Already Exist");
+                }
+            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
+            try
+            {
+                SupSpecailizationDto newSupDTO;
+                if (User.IsInRole("Admin"))
+                {
+                    newSupDTO= _supSpecializationAppService.Insert(createSupSpecailizationDtoDTO, true);
+                }
+                else
+                {
+                    newSupDTO = _supSpecializationAppService.Insert(createSupSpecailizationDtoDTO, false);
+                }
                 _generalAppService.CommitTransaction();
-                return Created("SupSpecialization created", result);
+                return Created("SubSpecail created", newSupDTO);
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
-
                 return BadRequest(ex.Message);
-
             }
+           
         }
 
         // PUT api/<SupSpecializationController>/5
@@ -66,11 +95,13 @@ namespace API.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (id != SupSDTO.ID)
+            {
+                return BadRequest();
+            }
             try
             {
-
                 _supSpecializationAppService.Update(SupSDTO);
-
                 _generalAppService.CommitTransaction();
                 return Ok("SupSpecialize updated");
             }

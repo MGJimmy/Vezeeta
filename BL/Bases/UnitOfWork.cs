@@ -52,6 +52,18 @@ namespace BL.Bases
                 return cityRepo;
             }
         }
+
+        private AreaRepositories areaRepo;
+        public AreaRepositories AreaRepo
+        {
+            get
+            {
+                if (areaRepo == null)
+                    areaRepo = new AreaRepositories(Context);
+                return areaRepo;
+            }
+        }
+
         private SpecialtyRepository specialtyRepo;
         public SpecialtyRepository SpecialtyRepo
         {
@@ -72,6 +84,19 @@ namespace BL.Bases
                 return sup_SpecializationRepo;
             }
         }
+
+
+        private ClincServicesRepositry clincServicesRepositry;
+        public ClincServicesRepositry ClincServicesRepo
+        {
+            get
+            {
+                if (clincServicesRepositry == null)
+                    clincServicesRepositry = new ClincServicesRepositry(Context);
+                return clincServicesRepositry;
+            }
+        }
+
 
         public void Dispose()
         {

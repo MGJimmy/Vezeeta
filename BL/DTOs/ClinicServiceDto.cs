@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace BL.DTOs
 {
-    public class SupSpecailizationDto
+   public class ClinicServiceDto
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public bool ByAdmin { get; set; }
-        public int specialtyId { get; set; }
     }
 }

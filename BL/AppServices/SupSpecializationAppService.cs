@@ -23,17 +23,23 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetAll());
         }
 
+        public IEnumerable<SupSpecailizationDto> GetAllNotAccepted()
+        {
+            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetWhere(s => s.ByAdmin == false));
+        }
+
         public SupSpecailizationDto Get(int id)
         {
             return Mapper.Map<SupSpecailizationDto>(TheUnitOfWork.SupSpecializationRepo.GetById(id));
         }
 
-        public SupSpecailizationDto Insert(SupSpecailizationDto SupSDTO)
+        public SupSpecailizationDto Insert(SupSpecailizationDto SupSDTO, bool byAdmin)
         {
             if (SupSDTO == null)
                 throw new ArgumentNullException();
 
             SupSpecialization sup_specilize = Mapper.Map<SupSpecialization>(SupSDTO);
+            sup_specilize.ByAdmin = byAdmin;
             TheUnitOfWork.SupSpecializationRepo.Insert(sup_specilize);
             TheUnitOfWork.SaveChanges();
             SupSDTO.ID = sup_specilize.ID;
@@ -58,6 +64,15 @@ namespace BL.AppServices
             TheUnitOfWork.SupSpecializationRepo.Delete(id);
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;
+        }
+        public bool CheckExistsByName(SupSpecailizationDto SupSDTO)
+        {
+            SupSpecialization SupSpecial = Mapper.Map<SupSpecialization>(SupSDTO);
+            return TheUnitOfWork.SupSpecializationRepo.CheckExistByName(SupSpecial);
+        }
+        public IEnumerable<SupSpecailizationDto> GetPageRecords(int pageSize, int pageNumber)
+        {
+            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetPageRecords(pageSize, pageNumber));
         }
 
     }

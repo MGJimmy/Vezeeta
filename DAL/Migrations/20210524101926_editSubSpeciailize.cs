@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class SupSpecilize : Migration
+    public partial class editSubSpeciailize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,6 +57,19 @@ namespace DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_City", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Clinicservices",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clinicservices", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,6 +198,7 @@ namespace DAL.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false),
                     CityID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -194,6 +208,27 @@ namespace DAL.Migrations
                         name: "FK_Area_City_CityID",
                         column: x => x.CityID,
                         principalTable: "City",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "supSpecializations",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false),
+                    specialtyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_supSpecializations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_supSpecializations_Specialty_specialtyId",
+                        column: x => x.specialtyId,
+                        principalTable: "Specialty",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -260,6 +295,11 @@ namespace DAL.Migrations
                 table: "Specialty",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_supSpecializations_specialtyId",
+                table: "supSpecializations",
+                column: "specialtyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -283,7 +323,10 @@ namespace DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Specialty");
+                name: "Clinicservices");
+
+            migrationBuilder.DropTable(
+                name: "supSpecializations");
 
             migrationBuilder.DropTable(
                 name: "City");
@@ -293,6 +336,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Specialty");
         }
     }
 }

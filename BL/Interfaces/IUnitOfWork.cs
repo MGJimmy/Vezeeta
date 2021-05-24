@@ -20,5 +20,8 @@ namespace BL.Interfaces
         SpecialtyRepository SpecialtyRepo { get; }
         SupSpecializationRepository SupSpecializationRepo { get; }
 
+        AreaRepositories AreaRepo { get; }
+        ClincServicesRepositry ClincServicesRepo { get; }
     }
 }
+

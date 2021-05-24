@@ -14,6 +14,10 @@ namespace BL.Repositories
             public SupSpecializationRepository(DbContext dbcontext) : base(dbcontext)
             {
             }
+        public bool CheckExistByName(SupSpecialization SupSpecail)
+        {
+            return GetAny(ar => ar.Name == SupSpecail.Name);
+        }
 
     }
 }

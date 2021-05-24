@@ -24,8 +24,11 @@ namespace DAL
             base.OnModelCreating(builder);
         }
 
+     
         public DbSet<City> Cities { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
+        public DbSet<Clinicservice> Clinicservices{ get; set; }
+
     }
 }

@@ -120,6 +120,22 @@ namespace DAL.Migrations
                     b.ToTable("City");
                 });
 
+            modelBuilder.Entity("DAL.Models.Clinicservice", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Clinicservices");
+                });
+
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Property<int>("ID")

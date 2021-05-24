@@ -63,6 +63,19 @@ namespace BL.Bases
             }
         }
 
+
+        private ClincServicesRepositry clincServicesRepositry;
+        public ClincServicesRepositry ClincServicesRepo
+        {
+            get
+            {
+                if (clincServicesRepositry == null)
+                    clincServicesRepositry = new ClincServicesRepositry(Context);
+                return clincServicesRepositry;
+            }
+        }
+
+
         public void Dispose()
         {
             Context.Dispose();

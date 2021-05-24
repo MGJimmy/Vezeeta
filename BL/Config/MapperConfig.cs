@@ -29,6 +29,10 @@ namespace BL.Configurations
             CreateMap<Specialty, UpdateSpecialtyDTO>()
            .ReverseMap();
 
+            CreateMap<Clinicservice, ClinicServiceDto>()
+                .ReverseMap();
+
+
 
         }
     }

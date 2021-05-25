@@ -1,5 +1,6 @@
 ﻿using BL.AppServices;
 using BL.DTOs;
+using BL.DTOs.AreaDTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -25,19 +26,28 @@ namespace API.Controllers
         {
             return Ok(_areaAppServices.GetAll());
         }
+        
+        [HttpGet]
+        [Route("api/AreaWithCity")]
+        public IActionResult GetAllWithCity()
+        {
+            return Ok(_areaAppServices.GetAllWithCity());
+        }
 
-        // GET: api/<AreaController>
-        [HttpGet("{pageSize}/{pageNumber}")]
+        
+        [HttpGet]
+        [Route("api/AreaWithCity/{pageSize}/{pageNumber}")]
         public IActionResult GetByPage(int pageSize, int pageNumber)
         {
             return Ok(_areaAppServices.GetPageRecords(pageSize, pageNumber));
         }
 
-        [Route("api/Admin")]
+
         [HttpGet]
+        [Route("api/Admin/AreaWithCity")]
         public IActionResult GetAllNotAccepted()
         {
-            return Ok(_areaAppServices.GetAllNotAccepted());
+            return Ok(_areaAppServices.GetAllNotAcceptedWithCity());
         }
 
 
@@ -50,7 +60,7 @@ namespace API.Controllers
 
         // POST api/<AreaController>
         [HttpPost]
-        public IActionResult Post(AreaDTO areaDTO)
+        public IActionResult Post(CreateAreaDTO areaDTO)
         {
             if (ModelState.IsValid == false)
             {
@@ -58,7 +68,7 @@ namespace API.Controllers
             }
             try
             {
-                if (_areaAppServices.CheckExistsByName(areaDTO))
+                if (_areaAppServices.CheckExistsByName(areaDTO.Name))
                 {
                     return BadRequest("The Area Is Already Exist");
                 }
@@ -66,7 +76,7 @@ namespace API.Controllers
             catch (Exception ex) { return BadRequest(ex.Message); }
             try
             {
-                AreaDTO newAreaDTO;
+                CreateAreaDTO newAreaDTO;
                 if (User.IsInRole("Admin"))
                 {
                     newAreaDTO = _areaAppServices.Insert(areaDTO, true);
@@ -87,7 +97,7 @@ namespace API.Controllers
 
         // PUT api/<AreaController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, AreaDTO areaDTO)
+        public ActionResult Put(int id, UpdateAreaDTO areaDTO)
         {
             if (ModelState.IsValid == false)
                 return BadRequest(ModelState);

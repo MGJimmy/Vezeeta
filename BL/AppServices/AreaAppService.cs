@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.Bases;
 using BL.DTOs;
+using BL.DTOs.AreaDTO;
 using BL.Interfaces;
 using DAL.Models;
 using System;
@@ -17,23 +18,26 @@ namespace BL.AppServices
         {
 
         }
-
-        public IEnumerable<AreaDTO> GetAll()
+        
+        public IEnumerable<GetAreaDTO> GetAll()
         {
-            return Mapper.Map<IEnumerable<AreaDTO>>(TheUnitOfWork.AreaRepo.GetAll());
+            return Mapper.Map<IEnumerable<GetAreaDTO>>(TheUnitOfWork.AreaRepo.GetAll());
+        }
+        public IEnumerable<GetAreaWithCityDTO> GetAllWithCity()
+        {
+            return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetAllWithCity());
         }
 
-        public IEnumerable<AreaDTO> GetAllNotAccepted()
+        public IEnumerable<GetAreaWithCityDTO> GetAllNotAcceptedWithCity()
         {
-            return Mapper.Map<IEnumerable<AreaDTO>>(TheUnitOfWork.AreaRepo.GetWhere(i => i.ByAdmin == false));
+            return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetWhereWithCity(i => i.ByAdmin == false));
         }
 
-
-        public AreaDTO GetById(int id)
+        public GetAreaDTO GetById(int id)
         {
-            return Mapper.Map<AreaDTO>(TheUnitOfWork.AreaRepo.GetById(id));
+            return Mapper.Map<GetAreaDTO>(TheUnitOfWork.AreaRepo.GetById(id));
         }
-        public AreaDTO Insert(AreaDTO areaDTO, bool byAdmin)
+        public CreateAreaDTO Insert(CreateAreaDTO areaDTO, bool byAdmin)
         {
             if (areaDTO == null)
                 throw new ArgumentNullException();
@@ -43,9 +47,10 @@ namespace BL.AppServices
             TheUnitOfWork.AreaRepo.Insert(area);
             TheUnitOfWork.SaveChanges();
             areaDTO.ID = area.ID;
+            areaDTO.ByAdmin = byAdmin;
             return areaDTO;
         }
-        public bool Update(AreaDTO areaDTO)
+        public bool Update(UpdateAreaDTO areaDTO)
         {
             if (areaDTO == null)
                 throw new ArgumentNullException();
@@ -67,15 +72,16 @@ namespace BL.AppServices
             return result;
         }
 
-        public bool CheckExistsByName(AreaDTO areaDTO)
+        public bool CheckExistsByName(string areaName)
         {
-            Area area = Mapper.Map<Area>(areaDTO);
-            return TheUnitOfWork.AreaRepo.CheckExistByName(area);
+            return TheUnitOfWork.AreaRepo.CheckExistByName(areaName);
         }
 
-        public IEnumerable<AreaDTO> GetPageRecords(int pageSize, int pageNumber)
+        
+
+        public IEnumerable<GetAreaWithCityDTO> GetPageRecords(int pageSize, int pageNumber)
         {
-            return Mapper.Map<IEnumerable<AreaDTO>>(TheUnitOfWork.AreaRepo.GetPageRecords(pageSize, pageNumber));
+            return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetPageRecords(pageSize, pageNumber));
         }
     }
 }

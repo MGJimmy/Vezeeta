@@ -75,7 +75,7 @@ namespace API.Controllers
               _specialtyAppService.Update(updateSpecialtyDTO);
 
                 _generalAppService.CommitTransaction();
-                return Ok("Specialty updated");
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -101,6 +101,16 @@ namespace API.Controllers
                 _generalAppService.RollbackTransaction();
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpGet("count")]
+        public IActionResult SpecialityCount()
+        {
+            return Ok(_specialtyAppService.CountEntity());
+        }
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetSpecialitiesByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_specialtyAppService.GetPageRecords(pageSize, pageNumber));
         }
     }
 }

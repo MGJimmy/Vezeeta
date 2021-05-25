@@ -11,6 +11,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ConfirmModalComponent } from './components/_reusableComponents/confirm-modal/confirm-modal.component';
 import { UploadComponent } from './components/_reusableComponents/upload/upload.component';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
+import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
     DashboardSidebarComponent,
     UploadComponent,
     ConfirmModalComponent,
+    SpecialityComponent,
   ],
   imports: [
     BrowserModule,

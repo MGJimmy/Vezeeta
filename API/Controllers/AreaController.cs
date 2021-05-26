@@ -28,23 +28,29 @@ namespace API.Controllers
         }
         
         [HttpGet]
-        [Route("api/AreaWithCity")]
+        [Route("/api/AreaWithCity")]
         public IActionResult GetAllWithCity()
         {
             return Ok(_areaAppServices.GetAllWithCity());
         }
 
-        
+
         [HttpGet]
-        [Route("api/AreaWithCity/{pageSize}/{pageNumber}")]
+        [Route("/api/AreaWithCity/{pageSize}/{pageNumber}")]
         public IActionResult GetByPage(int pageSize, int pageNumber)
         {
             return Ok(_areaAppServices.GetPageRecords(pageSize, pageNumber));
         }
+        [HttpGet]
+        [Route("/api/AreaWithCity/Admin/{pageSize}/{pageNumber}")]
+        public IActionResult GetNotAcceptByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_areaAppServices.GetNotAcceptPageRecords(pageSize, pageNumber));
+        }
 
 
         [HttpGet]
-        [Route("api/Admin/AreaWithCity")]
+        [Route("/api/AreaWithCity/Admin")]
         public IActionResult GetAllNotAccepted()
         {
             return Ok(_areaAppServices.GetAllNotAcceptedWithCity());
@@ -131,6 +137,17 @@ namespace API.Controllers
                 _generalAppService.RollbackTransaction();
                 return BadRequest(ex2.Message);
             }
+        }
+
+        [HttpGet("count")]
+        public IActionResult AreaAcceptedCount()
+        {
+            return Ok(_areaAppServices.CountOfAccept());
+        }
+        [HttpGet("/api/area/admin/count")]
+        public IActionResult AreaNotAcceptedCount()
+        {
+            return Ok(_areaAppServices.CountOfNotAccept());
         }
     }
 }

@@ -16,6 +16,7 @@ export class AreaComponent implements OnInit {
   @ViewChild('modalConfirmCloseBtn')modalConfirmCloseBtn;
   allAreaWithCity:IAreaWithArea[];
   allCity:ICity=null;
+  acceptedArea:boolean=true
 
   currentPage:number=1;
   pageSize:number=5;
@@ -31,8 +32,8 @@ export class AreaComponent implements OnInit {
   constructor(private _areaService:AreaService,private fb:FormBuilder,private router:Router) { }
 
   ngOnInit(): void {
-    this.GetNumberOfPage();
-    this.GetPageingArea(this.currentPage);
+    this.GetNumberOfPageOfAcceptedArea();
+    this.GetPageingOfAcceptedArea(this.currentPage);
   }
 
   areaForm=this.fb.group({
@@ -40,19 +41,31 @@ export class AreaComponent implements OnInit {
     name:["",[Validators.required,Validators.minLength(3)]],
     cityID:["",[Validators.required]]
   })
-  GetNumberOfPage(){
-    this._areaService.getCountOfAreas().subscribe(data=>{
+  GetNumberOfPageOfAcceptedArea(){
+    this._areaService.countOfAcceptAreas().subscribe(data=>{
       this.countOfArea=data,
       this.numberOfPage=Math.ceil(this.countOfArea / this.pageSize)
     });
   }
-  GetPageingArea(currentPage:number){
+  GetNumberOfPageOfNotAcceptedArea(){
+    this._areaService.countOfNotAcceptAreas().subscribe(data=>{
+      this.countOfArea=data,
+      this.numberOfPage=Math.ceil(this.countOfArea / this.pageSize)
+    });
+  }
+  GetPageingOfAcceptedArea(currentPage:number){
     this._areaService.getAllByPage(this.pageSize,currentPage).subscribe(data=>{
       this.allAreaWithCity=data;
       this.currentPage=currentPage;
     })
   }
-
+  GetPageingOfNotAcceptedArea(currentPage:number){
+    this._areaService.getAllByPageOfNotAccepted(this.pageSize,currentPage).subscribe(data=>{
+      this.allAreaWithCity=data;
+      this.currentPage=currentPage;
+    })
+  }
+  
   getAllCity(){
     this._areaService.getAllCity().subscribe(data=>{          //delete ///update this section
       this.allCity=data;
@@ -60,6 +73,28 @@ export class AreaComponent implements OnInit {
   }
 
 
+  //acceptOr not
+  showAcceptedArea(){
+    this.acceptedArea=true
+    this.GetNumberOfPageOfAcceptedArea()
+    this.GetPageingOfAcceptedArea(1)
+  }
+  showNotAcceptedArea(){
+    this.acceptedArea=false
+    this.GetNumberOfPageOfNotAcceptedArea()
+    this.GetPageingOfNotAcceptedArea(1)
+  }
+  switchState(show){
+    if(show=="accept"){
+      this.acceptedArea=true
+      this.GetNumberOfPageOfAcceptedArea()
+      this.GetPageingOfAcceptedArea(1)
+    }else{
+      this.acceptedArea=false
+      this.GetNumberOfPageOfNotAcceptedArea()
+      this.GetPageingOfNotAcceptedArea(1)
+    }
+  }
 
   
   //Model 
@@ -90,7 +125,7 @@ export class AreaComponent implements OnInit {
       this.getAllCity();
   }
 
-  
+  //add / update 
   addOrUpdateArea(){
     if(this.modelActionType=="Add"){
       const newArea:IArea={
@@ -98,12 +133,14 @@ export class AreaComponent implements OnInit {
         cityID:this.cityID.value
       }
       this._areaService.insertArea(newArea).subscribe(()=>{
-        if(this.countOfArea++ %this.pageSize ==0){
-          this.GetNumberOfPage();
-          if(this.numberOfPage == this.currentPage)
-            this.currentPage++;
+        if(!this.acceptedArea){                                     //this.acceptedArea
+          if(this.countOfArea++ % this.pageSize ==0){
+            this.GetNumberOfPageOfNotAcceptedArea();                   //GetNumberOfPageOfAcceptedArea
+            if(this.numberOfPage == this.currentPage)
+              this.currentPage++;
+          }
         }
-        this.GetPageingArea(this.currentPage);
+        this.pageChange(this.currentPage);
         this.modalCloseBtn.nativeElement.click();
       })
     }
@@ -115,7 +152,14 @@ export class AreaComponent implements OnInit {
         cityID:this.cityID.value
       }
       this._areaService.updateArea(this.idArea.value,newArea).subscribe(()=>{
-        this.GetPageingArea(this.currentPage);
+        if(!this.acceptedArea){
+          if(--this.countOfArea %this.pageSize ==0){
+            this.GetNumberOfPageOfNotAcceptedArea();
+            if(this.numberOfPage == this.currentPage)
+              this.currentPage--;
+          }
+        }
+        this.pageChange(this.currentPage);
         this.modalCloseBtn.nativeElement.click();
       })
     }
@@ -132,11 +176,11 @@ export class AreaComponent implements OnInit {
   confirmDelete(){
     this._areaService.deleteArea(this.deleteAreaId).subscribe(()=>{
       if(--this.countOfArea %this.pageSize ==0){
-        this.GetNumberOfPage();
+        this.GetNumberOfPageOfAcceptedArea();
         if(this.numberOfPage == this.currentPage)
           this.currentPage--;
       }
-      this.GetPageingArea(this.currentPage);
+      this.pageChange(this.currentPage);
       this.modalConfirmCloseBtn.nativeElement.click();
     })
   }
@@ -148,7 +192,10 @@ export class AreaComponent implements OnInit {
     return new Array(i);
   }
   pageChange(pageNumber){
-    this.GetPageingArea(pageNumber);
+    if(this.acceptedArea)
+      this.GetPageingOfAcceptedArea(pageNumber);
+    else
+      this.GetPageingOfNotAcceptedArea(pageNumber)
   }
 
 

@@ -1,14 +1,19 @@
 <h2 class="text-center display-4 font-weight-bold my-5 pageTitle">Areas</h2>
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#AddOrUpdateModal"
-    (click)="openAddAreaModal()">
-    New Area
-</button>
+<div class="d-flex justify-content-between mb-2" style="align-items: center;">
+    <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AddOrUpdateModal"
+        (click)="openAddAreaModal()">
+        New Area
+    </button>
+    <select class=" w-auto form-control" (change)="switchState($event.target.value)">
+        <option value="accept">Accepted Area</option>
+        <option value="notAccept">Not Accepted Area</option>
+        
+    </select>
+</div>
 
 <!-- table -->
-<!-- *ngIf="hasSpecialities" -->
 <table class="table table-bordered ">
     <thead class="">
         <tr>
@@ -21,7 +26,6 @@
         </tr>
     </thead>
     <tbody>
-        <!-- *ngFor="let sp of allSpecialities;let i=index" -->
         <tr *ngFor="let area of allAreaWithCity;let i=index">
             <th scope="row">{{(pageSize*(currentPage-1))+i+1}}</th>
             <td>{{area.name}}</td>
@@ -30,19 +34,24 @@
             
 
             <td>
-                <button class="btn btn-success mx-2" data-toggle="modal" data-target="#AddOrUpdateModal"
-                    (click)="openUpdateAreaModal(area.id)">
+                <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#AddOrUpdateModal"
+                    (click)="openUpdateAreaModal(area.id)" *ngIf="!acceptedArea">
+                    Accept
+                </button>
+                <button class="btn btn-primary mx-2" data-toggle="modal" data-target="#AddOrUpdateModal"
+                    (click)="openUpdateAreaModal(area.id)" *ngIf="acceptedArea">
                     Update
                 </button>
                 <button class="btn btn-danger mx-2" (click)="openConfirmDelete(area.id)" data-toggle="modal" data-target="#deleteModel">
                     Delete
                 </button>
-                <!-- (click)="openDeleteSpecialtyModal(sp.id)" -->
             </td>
         </tr>
 
     </tbody>
 </table>
+
+
 
 <nav aria-label="...">
     <div class="d-flex justify-content-between " style="align-items: center;">

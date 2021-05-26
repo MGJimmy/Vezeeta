@@ -1,15 +1,4 @@
-.pagination{
-    li{
-        a:hover{
-            cursor: pointer;
-        }
-    }
-}
-.pageTitle{
-    color: #0170ce;
-}
 .table{
-    border: 1px solid red;
     thead{
         th{
             background-color: #e8f4f6;
@@ -21,5 +10,27 @@
             background-color: #e8f4f6;
             color: #0170CF;
         }
+            tr{
+                td{
+                    .btn-primary:hover{
+                        color: #0170ce !important;
+                        background-color: white;
+                    }
+                    .btn-danger:hover{
+                        color: #dc3545 !important;
+                        background-color: white;
+                    }
+                }
+            }
     } 
+}
+.pagination{
+    li{
+        a:hover{
+            cursor: pointer;
+        }
+    }
+}
+.pageTitle{
+    color: #0170ce;
 }

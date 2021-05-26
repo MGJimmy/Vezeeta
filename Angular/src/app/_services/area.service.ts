@@ -36,9 +36,23 @@ export class AreaService {
       })
       )
   }
+   
+  getAllByPageOfNotAccepted(pageSize: number, pageNumber: number): Observable<IAreaWithArea[]> {
+    return this._http.get<IAreaWithArea[]>(this.baseUrl + "AreaWithCity/admin/" + pageSize + "/" + pageNumber)
+      .pipe(catchError((err) => {
+        return throwError(err.message || "An Error Occur")
+      })
+      )
+  }
 
-  getCountOfAreas(): Observable<number> {
+  countOfAcceptAreas(): Observable<number> {
     return this._http.get<number>(this.baseUrl + "area/count").pipe(catchError((err) => {
+      return throwError(err.message || "An Error Occur")
+    })
+    )
+  }
+  countOfNotAcceptAreas(): Observable<number> {
+    return this._http.get<number>(this.baseUrl + "area/admin/count").pipe(catchError((err) => {
       return throwError(err.message || "An Error Occur")
     })
     )

@@ -1,0 +1,25 @@
+.pagination{
+    li{
+        a:hover{
+            cursor: pointer;
+        }
+    }
+}
+.pageTitle{
+    color: #0170ce;
+}
+.table{
+    border: 1px solid red;
+    thead{
+        th{
+            background-color: #e8f4f6;
+            color: #0170ce;
+        }
+    }
+    tbody{
+        tr:hover{
+            background-color: #e8f4f6;
+            color: #0170CF;
+        }
+    } 
+}

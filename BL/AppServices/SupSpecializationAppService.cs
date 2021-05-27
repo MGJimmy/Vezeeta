@@ -74,6 +74,10 @@ namespace BL.AppServices
         {
             return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetPageRecords(pageSize, pageNumber));
         }
+        public int CountEntity()
+        {
+            return TheUnitOfWork.SupSpecializationRepo.CountEntity();
+        }
 
     }
 }

@@ -41,11 +41,27 @@ namespace BL.Repositories
             pageSize = (pageSize <= 0) ? 10 : pageSize;
             pageNumber = (pageNumber < 1) ? 0 : pageNumber - 1;
 
-            return DbSet.Skip(pageNumber * pageSize).Take(pageSize).Include(a=>a.City);
+            return DbSet.Where(i => i.ByAdmin == true).Skip(pageNumber * pageSize).Take(pageSize).Include(a => a.City);
+        }
+
+        public IEnumerable<Area> GetNotAcceptPageRecords(int pageSize, int pageNumber)
+        {
+            pageSize = (pageSize <= 0) ? 10 : pageSize;
+            pageNumber = (pageNumber < 1) ? 0 : pageNumber - 1;
+
+            return DbSet.Where(i => i.ByAdmin == false).Skip(pageNumber * pageSize).Take(pageSize).Include(a => a.City);
         }
         public bool CheckExistByName(string areaName)
         {
             return GetAny(ar => ar.Name == areaName);
+        }
+        public int CountOfAccept()
+        {
+            return DbSet.Where(i => i.ByAdmin == true).Count();
+        }
+        public int CountOfNotAccept()
+        {
+            return DbSet.Where(i => i.ByAdmin == false).Count();
         }
     }
 }

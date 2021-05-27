@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AreaComponent } from './components/dashboard/area/area.component';
 import { CategoriesComponent } from './components/dashboard/categories/categories.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
@@ -15,6 +16,8 @@ const routes: Routes = [
       {path: 'specialists', component: SpecialityComponent},
       {path: 'SubSpecialists', component: SubSpecialityComponent},
       
+      {path: 'area', component: AreaComponent},
+    
     ]
   },
 ];

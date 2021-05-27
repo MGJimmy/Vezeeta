@@ -56,6 +56,7 @@ namespace BL.AppServices
                 throw new ArgumentNullException();
 
             bool result = false;
+            areaDTO.ByAdmin = true;
             Area area = Mapper.Map<Area>(areaDTO);
             TheUnitOfWork.AreaRepo.Update(area);
             result = TheUnitOfWork.SaveChanges() > new int();
@@ -77,11 +78,23 @@ namespace BL.AppServices
             return TheUnitOfWork.AreaRepo.CheckExistByName(areaName);
         }
 
-        
 
+        
         public IEnumerable<GetAreaWithCityDTO> GetPageRecords(int pageSize, int pageNumber)
         {
             return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetPageRecords(pageSize, pageNumber));
+        }
+        public IEnumerable<GetAreaWithCityDTO> GetNotAcceptPageRecords(int pageSize, int pageNumber)
+        {
+            return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetNotAcceptPageRecords(pageSize, pageNumber));
+        }
+        public int CountOfAccept()
+        {
+            return TheUnitOfWork.AreaRepo.CountOfAccept();
+        }
+        public int CountOfNotAccept()
+        {
+            return TheUnitOfWork.AreaRepo.CountOfNotAccept();
         }
     }
 }

@@ -13,6 +13,7 @@ import { UploadComponent } from './components/_reusableComponents/upload/upload.
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
+import { AreaComponent } from './components/dashboard/area/area.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,6 @@ import { SubSpecialityComponent } from './components/dashboard/sub-speciality/su
     UploadComponent,
     ConfirmModalComponent,
     SpecialityComponent,
-    SubSpecialityComponent,
   ],
   imports: [
     BrowserModule,

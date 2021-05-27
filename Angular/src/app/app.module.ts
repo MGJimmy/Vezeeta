@@ -24,6 +24,9 @@ import { AreaComponent } from './components/dashboard/area/area.component';
     UploadComponent,
     ConfirmModalComponent,
     SpecialityComponent,
+    SubSpecialityComponent,
+    AreaComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,16 @@
 
-<h2 class="text-center display-4 font-weight-bold my-5">SubSpecialists</h2>
+<h2 class="text-center display-4 font-weight-bold my-5 pageTitle">SubSpecialists</h2>
 
 <button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddSubSpecialtyModal();">
   New
 </button>
 
 <table class="table table-bordered table-hover" *ngIf="hasSubSpecialities">
-    <thead class="thead-dark">
+    <thead>
         <tr>
             
             <th scope="col">#</th>
             <th scope="col">Name</th>
-         
             <th scope="col"></th>
             <th scope="col">byadmin</th>
         </tr>
@@ -67,7 +66,9 @@
         </button>
             </div>
             <!-- [formGroup]="categoryForm" -->
-            <form [formGroup]="SubspecialityForm"  >
+            <!-- [formGroup]="SubspecialityForm" -->
+            
+            <form [formGroup]="SubspecialityForm">
                 <div class="modal-body">
                     <div class="form-group my-3">
                         <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name" [class.is-invalid]="formFields.name?.invalid && formFields.name?.touched">
@@ -92,5 +93,4 @@
         </div>
     </div>
 </div>
-
-<app-confirm-modal></app-confirm-modal>
+ <app-confirm-modal></app-confirm-modal> 

@@ -164,12 +164,12 @@ export class AreaComponent implements OnInit {
   closeConfirmDelete(){
     this.deleteAreaId=null;
   }
-  confirmDelete(){
+  confirmDelete(){  
     this._areaService.deleteArea(this.deleteAreaId).subscribe(()=>{
       if(--this.countOfArea %this.pageSize ==0){
-        this.GetNumberOfPageOfAcceptedArea();
         if(this.numberOfPage == this.currentPage)
           this.currentPage--;
+        this.numberOfPage=Math.ceil(this.countOfArea / this.pageSize)
       }
       this.pageChange(this.currentPage);
       this.modalConfirmCloseBtn.nativeElement.click();

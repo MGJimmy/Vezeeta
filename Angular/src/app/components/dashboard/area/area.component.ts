@@ -74,16 +74,6 @@ export class AreaComponent implements OnInit {
 
 
   //acceptOr not
-  showAcceptedArea(){
-    this.acceptedArea=true
-    this.GetNumberOfPageOfAcceptedArea()
-    this.GetPageingOfAcceptedArea(1)
-  }
-  showNotAcceptedArea(){
-    this.acceptedArea=false
-    this.GetNumberOfPageOfNotAcceptedArea()
-    this.GetPageingOfNotAcceptedArea(1)
-  }
   switchState(show){
     if(show=="accept"){
       this.acceptedArea=true
@@ -106,7 +96,7 @@ export class AreaComponent implements OnInit {
       name:"",
       cityID:""
     })
-    if(this.allCity ==null)
+    if(this.allCity == null)
       this.getAllCity();
   }
 
@@ -144,6 +134,7 @@ export class AreaComponent implements OnInit {
         this.modalCloseBtn.nativeElement.click();
       })
     }
+    
     else if(this.modelActionType=="Update"){
       console.error(this.idArea.value)
       const newArea:IArea={

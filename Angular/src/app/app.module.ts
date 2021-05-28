@@ -12,6 +12,7 @@ import { ConfirmModalComponent } from './components/_reusableComponents/confirm-
 import { UploadComponent } from './components/_reusableComponents/upload/upload.component';
 import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
+import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { AreaComponent } from './components/dashboard/area/area.component';
 
 @NgModule({
@@ -23,7 +24,9 @@ import { AreaComponent } from './components/dashboard/area/area.component';
     UploadComponent,
     ConfirmModalComponent,
     SpecialityComponent,
+    SubSpecialityComponent,
     AreaComponent,
+
   ],
   imports: [
     BrowserModule,

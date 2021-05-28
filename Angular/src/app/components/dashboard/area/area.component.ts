@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IArea, IAreaWithArea } from 'src/app/_models/_interfaces/IArea';
 import { AreaService } from 'src/app/_services/area.service';

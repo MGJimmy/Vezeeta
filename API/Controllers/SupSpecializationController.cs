@@ -28,6 +28,12 @@ namespace API.Controllers
             return Ok(_supSpecializationAppService.GetPageRecords(pageSize, pageNumber));
         }
 
+        [HttpGet("count")]
+        public IActionResult SubSpecialityCount()
+        {
+            return Ok(_supSpecializationAppService.CountEntity());
+        }
+
         // GET: api/<SupSpecializationController>
         [HttpGet]
         public IActionResult GetAll()
@@ -103,7 +109,7 @@ namespace API.Controllers
             {
                 _supSpecializationAppService.Update(SupSDTO);
                 _generalAppService.CommitTransaction();
-                return Ok("SupSpecialize updated");
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -122,7 +128,7 @@ namespace API.Controllers
             {
                 _supSpecializationAppService.Delete(id);
                 _generalAppService.CommitTransaction();
-                return Ok("deleted");
+                return NoContent();
             }
             catch (Exception ex)
             {

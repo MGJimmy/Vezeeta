@@ -1,4 +1,5 @@
-﻿using BL.AppServices;
+﻿using API.helpers;
+using BL.AppServices;
 using BL.DTOs;
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -62,7 +63,6 @@ namespace API.Controllers
             }
         }
 
-        // PUT api/<CityController>/5
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdateCityDTO updateCityDTO)
         {
@@ -76,19 +76,18 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
 
-                return Ok("city updated");
+                return Ok(new Response { Status = 200, Message="City updated"});
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Status = 500, Message =ex.Message });
 
             }
 
         }
 
-        // DELETE api/<CityController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -107,6 +106,16 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
 
             }
+        }
+        [HttpGet("count")]
+        public IActionResult GetCitiesCount()
+        {
+            return Ok( _cityAppService.CountEntity() );
+        }
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetCitiesByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_cityAppService.GetPageRecords(pageSize, pageNumber));
         }
     }
 }

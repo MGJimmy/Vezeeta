@@ -14,6 +14,7 @@ import { AuthInterceptor } from './_helpers/auth.interceptor';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { AreaComponent } from './components/dashboard/area/area.component';
+import { CityComponent } from './components/dashboard/city/city.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { AreaComponent } from './components/dashboard/area/area.component';
     SpecialityComponent,
     SubSpecialityComponent,
     AreaComponent,
+    CityComponent,
 
   ],
   imports: [

@@ -67,9 +67,9 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<CityDTO>>(TheUnitOfWork.CityRepo.GetPageRecords(pageSize, pageNumber));
         }
         #endregion
-        public bool CheckCityExists(City city)
+        public bool CheckCityExistByName(string  cityName)
         {
-            return TheUnitOfWork.CityRepo.CheckExixt(city);
+            return TheUnitOfWork.CityRepo.CheckCityExistByName(cityName);
         }
     }
 }

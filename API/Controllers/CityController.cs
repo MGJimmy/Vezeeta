@@ -48,7 +48,10 @@ namespace API.Controllers
             }
             try
             {
-                 CreateCityDTO result = _cityAppService.Insert(createCityDTO);
+                bool isExist = _cityAppService.CheckCityExistByName(createCityDTO.Name);
+                if (isExist)
+                    return BadRequest(new Response { Message = "City name already exist" });
+                CreateCityDTO result = _cityAppService.Insert(createCityDTO);
 
                 _generalAppService.CommitTransaction();
 
@@ -58,7 +61,7 @@ namespace API.Controllers
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Message = ex.Message });
 
             }
         }
@@ -76,13 +79,13 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
 
-                return Ok(new Response { Status = 200, Message="City updated"});
+                return Ok(new Response { Message="City updated"});
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(new Response { Status = 500, Message =ex.Message });
+                return BadRequest(new Response { Message =ex.Message });
 
             }
 
@@ -97,13 +100,13 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
 
-                return Ok("city deleted");
+                return Ok(new Response { Message = "City deleted successfully" });
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Message = ex.Message });
 
             }
         }

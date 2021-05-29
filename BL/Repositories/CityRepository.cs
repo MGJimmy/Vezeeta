@@ -16,9 +16,9 @@ namespace BL.Repositories
         {
         }
 
-        public bool CheckExixt(City city)
+        public bool CheckCityExistByName(string cityName)
         {
-            return GetAny(c => c.ID == city.ID);
+            return GetAny(c => c.Name == cityName);
         }
     }
 }

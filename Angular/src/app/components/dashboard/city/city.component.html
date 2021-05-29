@@ -59,11 +59,8 @@
                 <div class="modal-body">
                     <div class="form-group my-3">
                         <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name" [class.is-invalid]="formFields.name?.invalid && formFields.name?.touched">
-                      
                     </div>
-                    <!-- <div class="form-group my-3">
-                        <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
-                    </div> -->
+                    <small class="text-danger" *ngIf="errorMsg">{{errorMsg}}</small>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" #addOrUpdateModelCloseBtn>Close</button>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { ICity } from 'src/app/_models/_interfaces/ICity';
+import { IResponse } from 'src/app/_models/_interfaces/IResponse';
 import { CityService } from 'src/app/_services/city.service';
 import { environment } from 'src/environments/environment';
 import { ConfirmModalComponent } from '../../_reusableComponents/confirm-modal/confirm-modal.component';
@@ -19,6 +20,7 @@ export class CityComponent implements OnInit {
   private _cityToUpdate:ICity;
   allCities:ICity[]; 
   errorMsg:string;
+  successMsg:string;
   cityForm : FormGroup;
   loading = false;
   submitted = false;
@@ -73,13 +75,16 @@ export class CityComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
+              console.log("ok")
                 this._router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this._router.onSameUrlNavigation = 'reload';
                 this.addOrUpdateModelCloseBtn.nativeElement.click();
                 this._router.navigate([this._router.url]);
             },
             error => {
-                this.errorMsg = error;
+              //let response:IResponse = error;
+              console.log(error);
+              this.errorMsg = "there's an error but we can't know it becuase error is empty";
                 this.loading = false;
             });
   }

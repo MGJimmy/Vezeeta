@@ -20,11 +20,16 @@ namespace API.Controllers
             _doctorAttachmentAppService = doctorAttachmentAppService;
             _generalAppService = generalAppService;
         }
-        // GET: api/<DoctorAttachmentController>
         [HttpGet]
-        public IActionResult GetNotAcceptedDoctorAttachment()
+        public IActionResult GetAll()
         {
-            return Ok(_doctorAttachmentAppService.GetNotAcceptedDoctorAttachment());
+            return Ok(_doctorAttachmentAppService.GetAll());
+        }
+        // GET: api/<DoctorAttachmentController>
+        [HttpGet("isAccepted")]
+        public IActionResult GetDoctorAttachment(bool isAcepted)
+        {
+            return Ok(_doctorAttachmentAppService.GetDoctorAttachment(isAcepted));
         }
 
         // GET api/<DoctorAttachmentController>/5

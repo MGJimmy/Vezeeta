@@ -16,10 +16,13 @@ namespace BL.AppServices
         {
 
         }
-
-        public IEnumerable<DoctorAttachmentDto> GetNotAcceptedDoctorAttachment()
+        public IEnumerable<DoctorAttachmentDto> GetAll()
         {
-            return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetNotAcceptedDoctorAttachment());
+            return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetAll());
+        }
+        public IEnumerable<DoctorAttachmentDto> GetDoctorAttachment(bool isAccepted)
+        {
+            return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetDoctorAttachment(isAccepted));
         }
     }
 }

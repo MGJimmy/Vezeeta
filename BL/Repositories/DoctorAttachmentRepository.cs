@@ -14,9 +14,9 @@ namespace BL.Repositories
         public DoctorAttachmentRepository(DbContext dbContext) : base(dbContext)
         {
         }
-        public IEnumerable<DoctorAttachment> GetNotAcceptedDoctorAttachment()
+        public IEnumerable<DoctorAttachment> GetDoctorAttachment(bool isAccepted)
         {
-            return DbSet.Where(doctorAttchament => doctorAttchament.Doctor.IsAccepted == false);
+            return DbSet.Where(doctorAttchament => doctorAttchament.Doctor.IsAccepted == isAccepted);
         }
     }
 }

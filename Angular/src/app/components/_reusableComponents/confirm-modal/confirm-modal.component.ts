@@ -26,12 +26,14 @@ export class ConfirmModalComponent implements OnInit {
     .pipe(first())
         .subscribe(
             data => {
+              console.log("ok")
               this._router.routeReuseStrategy.shouldReuseRoute = () => false;
               this._router.onSameUrlNavigation = 'reload';
               this.modalCloseBtn.nativeElement.click();
               this._router.navigate([this.pageUrl]);
             },
             error => {
+              console.log(error);
                 //this.errorMsg = error;
                 this.loading = false;
             });

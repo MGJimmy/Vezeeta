@@ -17,7 +17,10 @@ namespace DAL
         }
         public VezeetaContext(DbContextOptions options) : base(options)
         {
-
+            /*
+                new ApplicationIdentityUser { UserName = "admin", Email = "example.gmail.com", Gender = Gender.Male };
+            manager.Create(user, "12345678");
+             */
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,6 +34,9 @@ namespace DAL
             builder.Entity<Specialty>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
+            builder.Entity<ApplicationUserIdentity>().HasData(
+             new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com",PasswordHash="123456" }
+            );
         }
 
      
@@ -39,6 +45,8 @@ namespace DAL
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<SupSpecialization> supSpecializations { get; set; }
         public DbSet<Clinicservice> Clinicservices{ get; set; }
+        public DbSet<Doctor> Doctors{ get; set; }
+        public DbSet<Clinic> Clinics{ get; set; }
 
     }
 }

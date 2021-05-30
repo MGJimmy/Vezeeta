@@ -48,7 +48,6 @@ namespace API.Controllers
             {
               
                 CreateSpecialtyDTO result = _specialtyAppService.Insert(createSpecialtyDTO);
-               
                 _generalAppService.CommitTransaction();
                 return Created("Specialty created", result);
             }

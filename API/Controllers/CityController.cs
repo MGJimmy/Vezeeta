@@ -1,4 +1,5 @@
-﻿using BL.AppServices;
+﻿using API.helpers;
+using BL.AppServices;
 using BL.DTOs;
 using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -47,7 +48,10 @@ namespace API.Controllers
             }
             try
             {
-                 CreateCityDTO result = _cityAppService.Insert(createCityDTO);
+                bool isExist = _cityAppService.CheckCityExistByName(createCityDTO.Name);
+                if (isExist)
+                    return BadRequest(new Response { Message = "City name already exist" });
+                CreateCityDTO result = _cityAppService.Insert(createCityDTO);
 
                 _generalAppService.CommitTransaction();
 
@@ -57,12 +61,11 @@ namespace API.Controllers
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Message = ex.Message });
 
             }
         }
 
-        // PUT api/<CityController>/5
         [HttpPut("{id}")]
         public IActionResult Update(int id, UpdateCityDTO updateCityDTO)
         {
@@ -76,19 +79,18 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
 
-                return Ok("city updated");
+                return Ok(new Response { Message="City updated"});
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Message =ex.Message });
 
             }
 
         }
 
-        // DELETE api/<CityController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -98,15 +100,25 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
 
-                return Ok("city deleted");
+                return Ok(new Response { Message = "City deleted successfully" });
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
 
-                return BadRequest(ex.Message);
+                return BadRequest(new Response { Message = ex.Message });
 
             }
+        }
+        [HttpGet("count")]
+        public IActionResult GetCitiesCount()
+        {
+            return Ok( _cityAppService.CountEntity() );
+        }
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetCitiesByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_cityAppService.GetPageRecords(pageSize, pageNumber));
         }
     }
 }

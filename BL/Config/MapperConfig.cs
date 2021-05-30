@@ -49,6 +49,11 @@ namespace BL.Configurations
             CreateMap<Clinicservice, ClinicServiceDto>()
                 .ReverseMap();
 
+            CreateMap<DoctorAttachment, DoctorAttachmentDto>()
+              .ReverseMap();
+
+
+
 
 
 

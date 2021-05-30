@@ -16,11 +16,12 @@ namespace DAL
 {
     public class ApplicationUserIdentity : IdentityUser
     {
-
+        public string FullName { get; set; }
+        public bool IsDoctor { get; set; }
+        public Doctor Doctor { get; set; }
     }
     public class ApplicationUserStore : UserStore<ApplicationUserIdentity>
     {
-
         public ApplicationUserStore() : base(new VezeetaContext())
         {
 

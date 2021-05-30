@@ -1,4 +1,5 @@
-﻿using BL.AppServices;
+﻿using API.helpers;
+using BL.AppServices;
 using BL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -27,6 +28,11 @@ namespace API.Controllers
         {
             return Ok(_clinicServicesAppServices.GetAll());
         }
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetByPage( int pageSize , int pageNumber ) {
+
+            return Ok(_clinicServicesAppServices.GetPageRecords(pageSize, pageNumber));
+        }
 
         // GET api/<ClincServicesController>/5
         [HttpGet("{id}")]
@@ -45,6 +51,10 @@ namespace API.Controllers
             }
             try
             {
+                if (_clinicServicesAppServices.CheckClinicServicesExistsByName(clinicServiceDto.Name))
+                {
+                    return BadRequest( new Response() { Message = "This service is Added before" });
+                }
 
                 ClinicServiceDto result = _clinicServicesAppServices.Insert(clinicServiceDto);
 
@@ -102,6 +112,11 @@ namespace API.Controllers
                 _generalAppService.RollbackTransaction();
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpGet("count")]
+        public IActionResult GetClincServiceCount()
+        {
+            return Ok(_clinicServicesAppServices.CountEntity());
         }
     }
 }

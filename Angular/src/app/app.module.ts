@@ -15,6 +15,7 @@ import { SpecialityComponent } from './components/dashboard/speciality/specialit
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { AreaComponent } from './components/dashboard/area/area.component';
 import { CityComponent } from './components/dashboard/city/city.component';
+import { ClinicServicesComponent } from './components/dashboard/clinic-services/clinic-services.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CityComponent } from './components/dashboard/city/city.component';
     SubSpecialityComponent,
     AreaComponent,
     CityComponent,
+    ClinicServicesComponent,
 
   ],
   imports: [

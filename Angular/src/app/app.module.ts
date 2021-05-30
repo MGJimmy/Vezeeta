@@ -15,6 +15,12 @@ import { SpecialityComponent } from './components/dashboard/speciality/specialit
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { AreaComponent } from './components/dashboard/area/area.component';
 import { CityComponent } from './components/dashboard/city/city.component';
+import { ClientComponent } from './components/client/client.component';
+import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
+import { ClientHeaderComponent } from './components/client/client-header/client-header.component';
+import { ClientFooterComponent } from './components/client/client-footer/client-footer.component';
+import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +34,12 @@ import { CityComponent } from './components/dashboard/city/city.component';
     SubSpecialityComponent,
     AreaComponent,
     CityComponent,
+    ClientComponent,
+    DoctorDashboardComponent,
+    ClientHeaderComponent,
+    ClientFooterComponent,
+    RegisterDoctorComponent,
+    LoginComponent,
 
   ],
   imports: [

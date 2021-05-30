@@ -39,6 +39,8 @@ namespace DAL
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<SupSpecialization> supSpecializations { get; set; }
         public DbSet<Clinicservice> Clinicservices{ get; set; }
+        public DbSet<Doctor> Doctors{ get; set; }
+        public DbSet<Clinic> Clinics{ get; set; }
 
     }
 }

@@ -21,6 +21,7 @@ import { ClientHeaderComponent } from './components/client/client-header/client-
 import { ClientFooterComponent } from './components/client/client-footer/client-footer.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 import { LoginComponent } from './components/login/login.component';
+import { DoctorAttachmentsComponent } from './components/dashboard/doctor-attachments/doctor-attachments.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { LoginComponent } from './components/login/login.component';
     ClientFooterComponent,
     RegisterDoctorComponent,
     LoginComponent,
+    DoctorAttachmentsComponent,
 
   ],
   imports: [

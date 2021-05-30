@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Config\" />
+    <Folder Include="DTOs\AccountDTO\" />
   </ItemGroup>
 
 </Project>

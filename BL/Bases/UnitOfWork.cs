@@ -96,6 +96,16 @@ namespace BL.Bases
                 return clincServicesRepositry;
             }
         }
+        private DoctorRepository doctorRepo;
+        public DoctorRepository DoctorRepo
+        {
+            get
+            {
+                if (doctorRepo == null)
+                    doctorRepo = new DoctorRepository(Context);
+                return doctorRepo;
+            }
+        }
 
 
         public void Dispose()

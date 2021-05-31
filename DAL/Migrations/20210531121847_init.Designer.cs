@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210531072628_init2")]
-    partial class init2
+    [Migration("20210531121847_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3a53fd98-5459-4fc2-b2e7-eefebc129dd8",
+                            Id = "ffeaa154-8a29-426b-bfde-8fbffe1361d4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f6bc8326-3947-4703-9484-704f925374ea",
+                            ConcurrencyStamp = "00a2c9c7-0ec8-4089-9840-8d2518ae808e",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "778c98d9-975e-429e-b97b-ca642d70a962",
+                            SecurityStamp = "dd71c17a-5b81-4cba-a2a9-ecbc805b7128",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -163,6 +163,9 @@ namespace DAL.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExaminationTime")
                         .HasColumnType("int");
 
@@ -178,6 +181,8 @@ namespace DAL.Migrations
                     b.HasKey("DoctorId");
 
                     b.HasIndex("AreaId");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Clinic");
                 });
@@ -453,8 +458,14 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
                     b.HasOne("DAL.Models.Area", "Area")
-                        .WithMany()
+                        .WithMany("clinics")
                         .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.City", "City")
+                        .WithMany("Clinics")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -465,6 +476,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Area");
+
+                    b.Navigation("City");
 
                     b.Navigation("Doctor");
                 });
@@ -567,9 +580,16 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("DAL.Models.Area", b =>
+                {
+                    b.Navigation("clinics");
+                });
+
             modelBuilder.Entity("DAL.Models.City", b =>
                 {
                     b.Navigation("Areas");
+
+                    b.Navigation("Clinics");
                 });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>

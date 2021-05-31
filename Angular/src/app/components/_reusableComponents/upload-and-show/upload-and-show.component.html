@@ -1,0 +1,19 @@
+<div class="container">
+    <div [formGroup]="form" class="row align-items-center justify-content-center" style="margin-bottom:15px;">
+      <div class="col-md-3">
+        <img [src]="photo" class="img-fluid">
+      </div>
+      <div class="col-md-3">
+        <input type="file" formControlName="image"  #file placeholder="Choose file" (change)="uploadFile(file.files)" accept="image/*" style="display:none;">
+        <button type="button"  class="btn btn-primary" (click)="file.click()">Upload Image</button>
+      </div>
+      <div class="col-md-4">
+        <span class="upload" *ngIf="progress > 0">
+          {{progress}}%
+        </span>
+        <span class="upload" *ngIf="message">
+          {{message}}
+        </span>
+      </div>
+    </div>
+  </div>

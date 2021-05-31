@@ -14,6 +14,10 @@ namespace BL.Repositories
         public DoctorAttachmentRepository(DbContext dbContext) : base(dbContext)
         {
         }
+        public DoctorAttachment GetById(string id)
+        {
+            return DbSet.Where(i => i.DoctorId == id).Include(i => i.Doctor).FirstOrDefault();
+        }
         public IEnumerable<DoctorAttachment> GetDoctorAttachment(bool isAccepted)
         {
             var t= DbSet.Where(doctorAttchament => doctorAttchament.Doctor.IsAccepted == isAccepted);

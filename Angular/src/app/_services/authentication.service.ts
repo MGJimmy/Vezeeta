@@ -1,11 +1,12 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from '../_models/_classes/user';
+import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -21,6 +22,13 @@ export class AuthenticationService {
 
     public get userValue(): User {
         return this.userSubject.value;
+    }
+    register(registerDoctor:IRegisterDoctor ){
+        return this.http.post<IRegisterDoctor>(`${environment.apiUrl}/api/doctor`,registerDoctor)
+        .pipe(catchError((err)=>{
+            return throwError(err.message ||"Internal Server error contact site adminstarator");
+            }
+        ));
     }
 
     login(username: string, PasswordHash: string) {

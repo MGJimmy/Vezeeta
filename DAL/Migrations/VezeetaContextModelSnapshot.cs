@@ -38,6 +38,12 @@ namespace DAL.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDoctor")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -82,6 +88,23 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "28ef8428-c451-4046-985c-3318e958c357",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ca2b9d31-736f-4958-91f7-ea081fa8e1e2",
+                            Email = "example.gmail.com",
+                            EmailConfirmed = false,
+                            IsDoctor = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "123456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6cbb4804-cf64-4c09-9a38-7d2e725c408b",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
@@ -130,6 +153,53 @@ namespace DAL.Migrations
                     b.ToTable("City");
                 });
 
+            modelBuilder.Entity("DAL.Models.Clinic", b =>
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AreaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExaminationTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Fees")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WatingTime")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorId");
+
+                    b.HasIndex("AreaId");
+
+                    b.ToTable("Clinic");
+                });
+
+            modelBuilder.Entity("DAL.Models.ClinicImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
+
+                    b.ToTable("ClinicImage");
+                });
+
             modelBuilder.Entity("DAL.Models.Clinicservice", b =>
                 {
                     b.Property<int>("ID")
@@ -144,6 +214,50 @@ namespace DAL.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Clinicservices");
+                });
+
+            modelBuilder.Entity("DAL.Models.Doctor", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TitleDegree")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("doctorInfo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Doctor");
+                });
+
+            modelBuilder.Entity("DAL.Models.DoctorAttachment", b =>
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DoctorSyndicateIdImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpenClinicPermissionImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonalIdImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DoctorId");
+
+                    b.ToTable("DoctorAttachment");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
@@ -331,6 +445,56 @@ namespace DAL.Migrations
                     b.Navigation("City");
                 });
 
+            modelBuilder.Entity("DAL.Models.Clinic", b =>
+                {
+                    b.HasOne("DAL.Models.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("DAL.Models.ClinicImage", b =>
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("ClinicImages")
+                        .HasForeignKey("ClinicId");
+
+                    b.Navigation("Clinic");
+                });
+
+            modelBuilder.Entity("DAL.Models.Doctor", b =>
+                {
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithOne("Doctor")
+                        .HasForeignKey("DAL.Models.Doctor", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DAL.Models.DoctorAttachment", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithOne("DoctorAttachment")
+                        .HasForeignKey("DAL.Models.DoctorAttachment", "DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
                 {
                     b.HasOne("DAL.Models.Specialty", "specialty")
@@ -393,9 +557,24 @@ namespace DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DAL.ApplicationUserIdentity", b =>
+                {
+                    b.Navigation("Doctor");
+                });
+
             modelBuilder.Entity("DAL.Models.City", b =>
                 {
                     b.Navigation("Areas");
+                });
+
+            modelBuilder.Entity("DAL.Models.Clinic", b =>
+                {
+                    b.Navigation("ClinicImages");
+                });
+
+            modelBuilder.Entity("DAL.Models.Doctor", b =>
+                {
+                    b.Navigation("DoctorAttachment");
                 });
 #pragma warning restore 612, 618
         }

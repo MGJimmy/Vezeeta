@@ -19,7 +19,7 @@ const routes: Routes = [
       {path: 'specialists', component: SpecialityComponent},
       {path: 'SubSpecialists', component: SubSpecialityComponent}, 
       {path: 'area', component: AreaComponent},
-      {path:'clinicServices' , component:ClinicServicesComponent }
+      {path:'clinicServices' , component:ClinicServicesComponent },
       {path: 'doctorAttachments', component: DoctorAttachmentsComponent},
     
     ]

@@ -5,6 +5,8 @@ import { CityComponent } from './components/dashboard/city/city.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
+import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
+import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,11 @@ const routes: Routes = [
     
     ]
   },
+  {path:'doctorDashboard',component:DoctorDashboardComponent,
+    children:[
+      {path:'attachment',component:DoctorDashboardAttachmentComponent}
+    ]
+  }
 ];
 
 @NgModule({

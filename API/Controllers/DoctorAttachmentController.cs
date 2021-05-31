@@ -1,4 +1,6 @@
-﻿using BL.AppServices;
+﻿using API.helpers;
+using BL.AppServices;
+using BL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -41,8 +43,22 @@ namespace API.Controllers
 
         // POST api/<DoctorAttachmentController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post( DoctorAttachmentDto doctorDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                doctorDto.DoctorId = "3b9a541e-b4dd-4906-ba4c-728119e9f00b";    //change after login story
+                DoctorAttachmentDto doctor = _doctorAttachmentAppService.Insert(doctorDto);
+                _generalAppService.CommitTransaction();
+                return Created("attachment send", doctorDto);
+            }
+            catch(Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response() { Message = ex.Message });
+            }
         }
 
         // PUT api/<DoctorAttachmentController>/5

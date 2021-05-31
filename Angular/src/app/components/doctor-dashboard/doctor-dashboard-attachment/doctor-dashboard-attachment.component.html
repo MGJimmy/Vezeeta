@@ -1,0 +1,25 @@
+<div class="attachment p-0 m-0">
+    <div class="header-info text-center p-2">
+        Doctor Attachment
+    </div>
+
+    <form [formGroup]="formAttachment" class="p-4">
+        
+        <label>Personal Id</label>
+        <app-upload-and-show (onUploadFinished)="uploadPersonImage($event)" [formGroupFromParent]="PersonalIdImage"></app-upload-and-show>
+        
+        <label >Syndicate Id</label>
+        <app-upload-and-show (onUploadFinished)="uploadDoctorSyndicateIdImage($event)" [formGroupFromParent]="DoctorSyndicateIdImage"></app-upload-and-show>
+        
+        <label>Open Clinic Permission</label>
+        <app-upload-and-show (onUploadFinished)="uploadOpenClinicPermissionImage($event)" [formGroupFromParent]="OpenClinicPermissionImage"></app-upload-and-show>
+
+
+        <div class="text-right">
+            <button type="button" (click)="saveAttachment()" class="btn btn-primary text-right" [disabled]="formAttachment.invalid">
+                Save Attachment
+            </button>
+        </div>
+        
+    </form>
+</div>

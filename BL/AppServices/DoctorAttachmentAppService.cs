@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL.DTOs;
+using DAL.Models;
 
 namespace BL.AppServices
 {
@@ -23,6 +24,16 @@ namespace BL.AppServices
         public IEnumerable<DoctorAttachmentDto> GetDoctorAttachment(bool isAccepted)
         {
             return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetDoctorAttachment(isAccepted));
+        }
+        public DoctorAttachmentDto Insert(DoctorAttachmentDto doctorDto)
+        {
+            if (doctorDto == null)
+                throw new ArgumentNullException();
+            DoctorAttachment doctor = Mapper.Map<DoctorAttachment>(doctorDto);
+            TheUnitOfWork.DoctorAttachmentRepo.Insert(doctor);
+            TheUnitOfWork.SaveChanges();
+            doctorDto.DoctorId = doctor.DoctorId;
+            return doctorDto;
         }
     }
 }

@@ -21,5 +21,7 @@ namespace DAL.Models
         public int CityID { get; set; }
 
         public City City { get; set; }
+
+        public List<Clinic> clinics { get; set; }
     }
 }

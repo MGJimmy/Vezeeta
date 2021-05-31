@@ -3,23 +3,85 @@
         Doctor Attachment
     </div>
 
-    <form [formGroup]="formAttachment" class="p-4">
-        
-        <label>Personal Id</label>
-        <app-upload-and-show (onUploadFinished)="uploadPersonImage($event)" [formGroupFromParent]="PersonalIdImage"></app-upload-and-show>
-        
-        <label >Syndicate Id</label>
-        <app-upload-and-show (onUploadFinished)="uploadDoctorSyndicateIdImage($event)" [formGroupFromParent]="DoctorSyndicateIdImage"></app-upload-and-show>
-        
-        <label>Open Clinic Permission</label>
-        <app-upload-and-show (onUploadFinished)="uploadOpenClinicPermissionImage($event)" [formGroupFromParent]="OpenClinicPermissionImage"></app-upload-and-show>
 
+    <div *ngIf="!isBinding && !isAccepted && !doctorEnterAttachmentInPast">
+        <form [formGroup]="formAttachment" class="p-4">
+        
+            <label>Personal Id</label>
+            <app-upload-and-show (onUploadFinished)="uploadPersonImage($event)" [formGroupFromParent]="PersonalIdImage"></app-upload-and-show>
+            
+            <label >Syndicate Id</label>
+            <app-upload-and-show (onUploadFinished)="uploadDoctorSyndicateIdImage($event)" [formGroupFromParent]="DoctorSyndicateIdImage"></app-upload-and-show>
+            
+            <label>Open Clinic Permission</label>
+            <app-upload-and-show (onUploadFinished)="uploadOpenClinicPermissionImage($event)" [formGroupFromParent]="OpenClinicPermissionImage"></app-upload-and-show>
+    
+    
+            <div class="text-right">
+                <button type="button" (click)="saveAttachment()" class="btn btn-primary text-right" [disabled]="formAttachment.invalid">
+                    Save Attachment
+                </button>
+            </div>
+            
+        </form>
+    </div>
 
-        <div class="text-right">
-            <button type="button" (click)="saveAttachment()" class="btn btn-primary text-right" [disabled]="formAttachment.invalid">
-                Save Attachment
-            </button>
+    <div *ngIf="isBinding && !isAccepted && doctorEnterAttachmentInPast">
+        <div class="text-center p-4 font-weight-bold text-success">
+            Waiting for revision attachment and accept by admin
         </div>
+    </div>
+
+    <div *ngIf="!isBinding && isAccepted && doctorEnterAttachmentInPast">
+        <div class="p-4">
+            <div class="form-group">
+                <label >personal Id</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.personalIdImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label >Syndicate Id</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.doctorSyndicateIdImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label >open Clinic Permission</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.openClinicPermissionImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isBinding && !isAccepted && doctorEnterAttachmentInPast">
+        <div class="alert-danger text-center p-1">
+            Attachment are rejected . should upload correct attachment 
+        </div>
+        <form [formGroup]="formAttachment" class="p-4">
         
-    </form>
+            <label>Personal Id</label>
+            <app-upload-and-show (onUploadFinished)="uploadPersonImage($event)" [formGroupFromParent]="PersonalIdImage"></app-upload-and-show>
+            
+            <label >Syndicate Id</label>
+            <app-upload-and-show (onUploadFinished)="uploadDoctorSyndicateIdImage($event)" [formGroupFromParent]="DoctorSyndicateIdImage"></app-upload-and-show>
+            
+            <label>Open Clinic Permission</label>
+            <app-upload-and-show (onUploadFinished)="uploadOpenClinicPermissionImage($event)" [formGroupFromParent]="OpenClinicPermissionImage"></app-upload-and-show>
+    
+            <div class="text-right">
+                <button type="button" (click)="UpdateAttachment()" class="btn btn-primary text-right" [disabled]="formAttachment.invalid">
+                    Save Attachment
+                </button>
+            </div>
+            
+        </form>
+        
+        
+        
+    </div>
+
+
+    
 </div>

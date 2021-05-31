@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IArea, IAreaWithArea } from 'src/app/_models/_interfaces/IArea';
+import { ICity } from 'src/app/_models/_interfaces/ICity';
 import { AreaService } from 'src/app/_services/area.service';
+import { CityService } from 'src/app/_services/city.service';
 import { ConfirmModalComponent } from '../../_reusableComponents/confirm-modal/confirm-modal.component';
 
 @Component({
@@ -15,7 +17,7 @@ export class AreaComponent implements OnInit {
   @ViewChild('modalCloseBtn')modalCloseBtn;
   @ViewChild('modalConfirmCloseBtn')modalConfirmCloseBtn;
   allAreaWithCity:IAreaWithArea[];
-  allCity:ICity=null;
+  allCity:ICity[]=null;
   acceptedArea:boolean=true
 
   currentPage:number=1;
@@ -29,7 +31,8 @@ export class AreaComponent implements OnInit {
   
   
 
-  constructor(private _areaService:AreaService,private fb:FormBuilder,private router:Router) { }
+  constructor(private _areaService:AreaService,private fb:FormBuilder,private router:Router,
+    private _cityService:CityService) { }
 
   ngOnInit(): void {
     this.GetNumberOfPageOfAcceptedArea();
@@ -67,7 +70,7 @@ export class AreaComponent implements OnInit {
   }
   
   getAllCity(){
-    this._areaService.getAllCity().subscribe(data=>{          //delete ///update this section
+    this._cityService.getAllCities().subscribe(data=>{          //delete ///update this section
       this.allCity=data;
     })
   }
@@ -195,7 +198,4 @@ export class AreaComponent implements OnInit {
   get name(){  return this.areaForm.get("name")   }  
   get cityID(){ return this.areaForm.get("cityID")  }
 }
-interface ICity{
-  id:number
-  name:string
-}
+

@@ -21,8 +21,8 @@ export class UploadAndShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.form=this._fb.group({
-        image:["",Validators.required]
-      })
+      image:["",Validators.required]
+    })
   }
   
   @Input('formGroupFromParent') form;
@@ -51,7 +51,6 @@ export class UploadAndShowComponent implements OnInit {
           this.progress = Math.round(100 * event.loaded / event.total);
         else if (event.type === HttpEventType.Response) {
           this.message = 'Upload success.';
-          console.error("in post upload")
           this.onUploadFinished.emit(event.body);
         }
       });

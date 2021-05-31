@@ -30,7 +30,7 @@ const routes: Routes = [
     children:[
       {path:'attachment',component:DoctorDashboardAttachmentComponent}
     ]
-  }
+  },
   {path:"registerDoctor", component:RegisterDoctorComponent}
 ];
 

@@ -106,6 +106,16 @@ namespace BL.Bases
                 return doctorRepo;
             }
         }
+        private DoctorAttachmentRepository doctorAttachmentRepo;
+        public DoctorAttachmentRepository DoctorAttachmentRepo
+        {
+            get
+            {
+                if (doctorAttachmentRepo == null)
+                    doctorAttachmentRepo = new DoctorAttachmentRepository(Context);
+                return doctorAttachmentRepo;
+            }
+        }
 
 
         public void Dispose()

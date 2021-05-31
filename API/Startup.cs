@@ -87,6 +87,7 @@ namespace API
             services.AddScoped<AreaAppService>();
             services.AddScoped<ClinicServicesAppServices>();
             services.AddScoped<SupSpecializationAppService>();
+            services.AddScoped<DoctorAttachmentAppService>();
 
         }
 

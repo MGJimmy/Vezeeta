@@ -327,7 +327,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "71951a1d-8941-4214-ba6c-487b5ddd8705", 0, "8502c2e6-0ded-41d5-bb64-8cc4739f2eeb", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "9dfa780c-2612-486e-b747-011d343e51e7", false, "admin" });
+                values: new object[] { "28ef8428-c451-4046-985c-3318e958c357", 0, "ca2b9d31-736f-4958-91f7-ea081fa8e1e2", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "6cbb4804-cf64-4c09-9a38-7d2e725c408b", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",

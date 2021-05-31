@@ -19,6 +19,7 @@ namespace DAL.Models
         public string DoctorSyndicateIdImage { get; set; }
         [Required]
         public string OpenClinicPermissionImage { get; set; }
+        public bool isBinding { get; set; }
         public Doctor Doctor { get; set; }
     }
 }

@@ -16,7 +16,28 @@ namespace BL.Repositories
         }
         public IEnumerable<DoctorAttachment> GetDoctorAttachment(bool isAccepted)
         {
-            return DbSet.Where(doctorAttchament => doctorAttchament.Doctor.IsAccepted == isAccepted);
+            var t= DbSet.Where(doctorAttchament => doctorAttchament.Doctor.IsAccepted == isAccepted);
+            return t;
+        }
+        public override int CountEntity()
+        {
+            return DbSet.Where(doctorAttchament => doctorAttchament.isBinding == true).Count();
+        }
+        public override IEnumerable<DoctorAttachment> GetPageRecords(int pageSize, int pageNumber)
+        {
+            pageSize = (pageSize <= 0) ? 10 : pageSize;
+            pageNumber = (pageNumber < 1) ? 0 : pageNumber - 1;
+
+            return DbSet
+                .Where(doctorAttchament => doctorAttchament.isBinding == true)
+                .Skip(pageNumber * pageSize).Take(pageSize).ToList();
+        }
+        public void acceptAttchments(string doctorId)
+        {
+            //accept attchment
+            DoctorAttachment doctorAttachment= DbSet.FirstOrDefault(attachment => attachment.DoctorId == doctorId);
+            doctorAttachment.isBinding = false;
+          
         }
     }
 }

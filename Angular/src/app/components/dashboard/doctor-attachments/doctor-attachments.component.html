@@ -1,1 +1,88 @@
-<p>doctor-attachments works!</p>
+<h2 class="text-center display-4 font-weight-bold my-5">Doctor Attachments</h2>
+<label class="h6 mr-2">Status:</label>
+
+<select class="form-control w-25 mb-3 d-inline-block" #status (change)="StatusChanged(status.value)">
+    <option value="NotAccepted">Not Accepted</option>
+    <option value="Accepted">Accepted</option>
+</select>
+
+<table class="table table-bordered table-hover" *ngIf="hasDoctorAttachments">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Personal Image</th>
+            <th scope="col">Syndicate Doctor ID image</th>
+            <th scope="col">Open Clinic Permission Image</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let attachment of _doctorAttachments;let i=index">
+            <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
+            <td >
+           
+                    <img class="attachmentTableImg" data-toggle="modal" data-target="#imagemodal"  (click)="openImage(createImgPath(attachment.personalIdImage))" #attachment [src]="createImgPath(attachment.personalIdImage)" >
+             
+            </td>
+         
+            <td>
+          
+                    <img class="attachmentTableImg" data-toggle="modal" data-target="#imagemodal" (click)="openImage(createImgPath(attachment.doctorSyndicateIdImage))"  [src]="createImgPath(attachment.doctorSyndicateIdImage)" >
+               
+            </td>
+            <td>
+               
+                    <img class="attachmentTableImg" data-toggle="modal" data-target="#imagemodal" (click)="openImage(createImgPath(attachment.openClinicPermissionImage))"  [src]="createImgPath(attachment.openClinicPermissionImage)">
+              
+            </td>
+         
+    
+            <td>
+                <button class="btn btn-success mx-2" (click)="openAcceptAttachmentModal(attachment.DoctorId)" data-toggle="modal"  data-target="#confirmationModal">Accept</button>
+                <button class="btn btn-danger mx-2" (click)="openDeleteCategoryModal(cat.id)" data-toggle="modal" data-target="#confirmationModal">Regect</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- pagination -->
+<nav aria-label="..." class="" *ngIf="hasDoctorAttachments">
+    <div class="d-inline-block">
+        <ul class="pagination">
+            <li class="page-item" [ngClass]="{disabled:currentPageNumber <=1, cursorNotAllowed:currentPageNumber <=1}">
+                <button class="page-link" [disabled]="currentPageNumber <=1" (click)="getSelectedPage(currentPageNumber-1,isAccepted)">Previous</button>
+            </li>
+            <li class="page-item" *ngFor='let x of counter(numberOfPages) ;let i = index' [class.active]="currentPageNumber == (i+1)">
+                <a class="page-link" (click)="getSelectedPage(i+1,isAccepted)">{{i+1}} </a>
+            </li>
+            <li class="page-item" [ngClass]="{disabled:currentPageNumber >=numberOfPages, cursorNotAllowed:currentPageNumber >=numberOfPages}">
+                <button class="page-link" [disabled]="currentPageNumber >= numberOfPages" (click)="getSelectedPage(currentPageNumber+1,isAccepted)">Next</button>
+            </li>
+        </ul>
+    </div>
+    <div class="float-right h5 mr-4 text-secondary">Showing {{currentPageNumber}} of {{numberOfPages}}</div>
+</nav>
+
+<div class="row" *ngIf="!hasDoctorAttachments">
+    <div class="text-center alert alert-danger col-9 mx-auto">
+        There's no Attachments to show
+    </div>
+</div>
+
+
+<div class="modal fade" id="imagemodal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Attachment preview</h4>
+        </div>
+        <div class="modal-body">
+          <img [src]="currtentImageUrlToPreview" id="imagepreview" style="width:100%; height:100%;" >
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-confirm-modal></app-confirm-modal>

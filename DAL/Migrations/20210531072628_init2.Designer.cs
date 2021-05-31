@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    partial class VezeetaContextModelSnapshot : ModelSnapshot
+    [Migration("20210531072628_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3b9a541e-b4dd-4906-ba4c-728119e9f00b",
+                            Id = "3a53fd98-5459-4fc2-b2e7-eefebc129dd8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "09a371e6-c98e-43e7-b6e5-c507f82f54f6",
+                            ConcurrencyStamp = "f6bc8326-3947-4703-9484-704f925374ea",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "645e3ae5-a358-48df-be2f-dd2684113ffc",
+                            SecurityStamp = "778c98d9-975e-429e-b97b-ca642d70a962",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -161,9 +163,6 @@ namespace DAL.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ExaminationTime")
                         .HasColumnType("int");
 
@@ -179,8 +178,6 @@ namespace DAL.Migrations
                     b.HasKey("DoctorId");
 
                     b.HasIndex("AreaId");
-
-                    b.HasIndex("CityId");
 
                     b.ToTable("Clinic");
                 });
@@ -456,14 +453,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
                     b.HasOne("DAL.Models.Area", "Area")
-                        .WithMany("clinics")
+                        .WithMany()
                         .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.City", "City")
-                        .WithMany("Clinics")
-                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -474,8 +465,6 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Area");
-
-                    b.Navigation("City");
 
                     b.Navigation("Doctor");
                 });
@@ -578,16 +567,9 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
-            modelBuilder.Entity("DAL.Models.Area", b =>
-                {
-                    b.Navigation("clinics");
-                });
-
             modelBuilder.Entity("DAL.Models.City", b =>
                 {
                     b.Navigation("Areas");
-
-                    b.Navigation("Clinics");
                 });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>

@@ -19,5 +19,10 @@ namespace BL.Repositories
         {
             return GetAny(cs => cs.ID == clinicservice.ID);
         }
+
+        public bool CheckExixtByName(string clinicserviceName)
+        {
+            return GetAny(cs => cs.Name == clinicserviceName);
+        }
     }
 }

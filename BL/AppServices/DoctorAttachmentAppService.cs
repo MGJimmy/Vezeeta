@@ -23,7 +23,26 @@ namespace BL.AppServices
         }
         public IEnumerable<DoctorAttachmentDto> GetDoctorAttachment(bool isAccepted)
         {
-            return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetDoctorAttachment(isAccepted));
+            var t= Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetDoctorAttachment(isAccepted));
+            return t;
+        }
+
+        public int CountEntity()
+        {
+            return TheUnitOfWork.DoctorAttachmentRepo.CountEntity();
+        }
+
+        public object GetPageRecords(int pageSize, int pageNumber)
+        {
+            return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetPageRecords(pageSize,pageNumber));
+
+        }
+        public void changeBindingStatus(string doctorId)
+        {
+           
+            TheUnitOfWork.DoctorAttachmentRepo.changeBindingStatus(doctorId);
+            TheUnitOfWork.SaveChanges();
+           
         }
         public DoctorAttachmentDto Insert(DoctorAttachmentDto doctorDto)
         {

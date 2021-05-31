@@ -1,8 +1,9 @@
 export interface IDoctorAttachment{
-  doctorId?:string;
-  personalIdImage:string;
-  doctorSyndicateIdImage:string;
-  openClinicPermissionImage:string;
-}
+  doctorId:string;
+  PersonalIdImage:string;
+  DoctorSyndicateIdImage:string;
+  OpenClinicPermissionImage:string;
+  isBinding:boolean;
+  }
 
 

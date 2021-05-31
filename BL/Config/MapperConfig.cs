@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BL.DTOs;
+using BL.DTOs.AccountDTO;
 using BL.DTOs.AreaDTO;
+using BL.DTOs.DoctorDTO;
 using DAL;
 using DAL.Models;
 using System;
@@ -51,6 +53,15 @@ namespace BL.Configurations
 
             CreateMap<DoctorAttachment, DoctorAttachmentDto>()
               .ReverseMap();
+
+            CreateMap<Doctor, CreateDoctorDTO>()
+            .ReverseMap()
+            .ForMember(m => m.User, m => m.Ignore())
+            .ForMember(m => m.DoctorAttachment, m => m.Ignore());
+
+            CreateMap<ApplicationUserIdentity, RegisterAccountDTO>()
+            .ReverseMap()
+            .ForMember(m => m.Doctor, m => m.Ignore());
 
 
 

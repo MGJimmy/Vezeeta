@@ -16,10 +16,12 @@ namespace API.Controllers
     public class DoctorAttachmentController : ControllerBase
     {
         private DoctorAttachmentAppService _doctorAttachmentAppService;
+        private DoctorAppService _doctorAppService;
         private GeneralAppService _generalAppService;
-        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, GeneralAppService generalAppService)
+        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, DoctorAppService doctorAppService, GeneralAppService generalAppService)
         {
             _doctorAttachmentAppService = doctorAttachmentAppService;
+            _doctorAppService = doctorAppService;
             _generalAppService = generalAppService;
         }
         [HttpGet]
@@ -28,18 +30,22 @@ namespace API.Controllers
             return Ok(_doctorAttachmentAppService.GetAll());
         }
         // GET: api/<DoctorAttachmentController>
-        [HttpGet("isAccepted")]
-        public IActionResult GetDoctorAttachment(bool isAcepted)
+        [HttpGet("{isAccepted}")]
+        public IActionResult GetDoctorAttachment(bool isAccepted)
         {
-            return Ok(_doctorAttachmentAppService.GetDoctorAttachment(isAcepted));
+           
+            var t= _doctorAttachmentAppService.GetDoctorAttachment(isAccepted);
+            return Ok(t);
         }
-
-        // GET api/<DoctorAttachmentController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("count")]
+        public IActionResult DoctorAttachmentCount()
         {
-            return "value";
+            return Ok(_doctorAttachmentAppService.CountEntity());
         }
+        [HttpGet("{pageSize}/{pageNumber}")]
+        public IActionResult GetSpecialitiesByPage(int pageSize, int pageNumber)
+        {
+            return Ok(_doctorAttachmentAppService.GetPageRecords(pageSize, pageNumber));
 
         // POST api/<DoctorAttachmentController>
         [HttpPost]
@@ -60,17 +66,63 @@ namespace API.Controllers
                 return BadRequest(new Response() { Message = ex.Message });
             }
         }
-
-        // PUT api/<DoctorAttachmentController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("acceptAttachments/{id}")]
+        public IActionResult acceptAttachment(string id)
         {
+            try
+            {
+                _doctorAttachmentAppService.changeBindingStatus(id);
+                _doctorAppService.activateDoctor(id);
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message="attachments is accepted"});
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("rejecteAttachments/{id}")]
+        public IActionResult rejecteAttachment(string id)
+        {
+            try
+            {
+                _doctorAttachmentAppService.changeBindingStatus(id);
+                _doctorAppService.deactivateDoctor(id);
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message = "attachments is rejected" });
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
         }
 
-        // DELETE api/<DoctorAttachmentController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
+        // GET api/<DoctorAttachmentController>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        // POST api/<DoctorAttachmentController>
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
+
+        //// PUT api/<DoctorAttachmentController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+        //// DELETE api/<DoctorAttachmentController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

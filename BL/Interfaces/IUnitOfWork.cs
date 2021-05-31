@@ -24,7 +24,8 @@ namespace BL.Interfaces
         ClincServicesRepositry ClincServicesRepo { get; }
         DoctorRepository DoctorRepo { get; }
         DoctorAttachmentRepository DoctorAttachmentRepo { get; }
-        
+        AccountRepository AccountRepo { get; }
+
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using BL.Interfaces;
 using BL.Repositories;
 using DAL;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,16 @@ namespace BL.Bases
     public class UnitOfWork : IUnitOfWork
     {
         DbContext Context;
-        public UnitOfWork(VezeetaContext context )
+        UserManager<ApplicationUserIdentity> _userManager;
+        RoleManager<IdentityRole> _roleManager;
+
+        public UnitOfWork(VezeetaContext context,
+            UserManager<ApplicationUserIdentity> userManager,
+            RoleManager<IdentityRole> roleManager)
         {
             Context = context;
+            _roleManager = roleManager;
+            _userManager = userManager;
             BeginTransaction();
         }
 
@@ -114,6 +122,16 @@ namespace BL.Bases
                 if (doctorAttachmentRepo == null)
                     doctorAttachmentRepo = new DoctorAttachmentRepository(Context);
                 return doctorAttachmentRepo;
+            }
+        }
+        private AccountRepository accountRepo;
+        public AccountRepository AccountRepo
+        {
+            get
+            {
+                if (accountRepo == null)
+                    accountRepo = new AccountRepository(Context,_userManager, _roleManager);
+                return accountRepo;
             }
         }
 

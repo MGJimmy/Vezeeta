@@ -5,6 +5,7 @@ import { CityComponent } from './components/dashboard/city/city.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
+import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     
     ]
   },
+  {path:"registerDoctor", component:RegisterDoctorComponent}
 ];
 
 @NgModule({

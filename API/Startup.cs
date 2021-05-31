@@ -88,6 +88,8 @@ namespace API
             services.AddScoped<ClinicServicesAppServices>();
             services.AddScoped<SupSpecializationAppService>();
             services.AddScoped<DoctorAttachmentAppService>();
+            services.AddScoped<DoctorAppService>();
+            services.AddScoped<AccountAppService>();
 
         }
 

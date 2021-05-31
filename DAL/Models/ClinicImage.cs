@@ -11,6 +11,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public string Image { get; set; }
+
         [ForeignKey("Clinic")]
         public string ClinicId { get; set; }
         public Clinic Clinic { get; set; }

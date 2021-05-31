@@ -263,7 +263,8 @@ namespace DAL.Migrations
                     DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PersonalIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DoctorSyndicateIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OpenClinicPermissionImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    OpenClinicPermissionImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isBinding = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -285,6 +286,7 @@ namespace DAL.Migrations
                     Fees = table.Column<int>(type: "int", nullable: false),
                     ExaminationTime = table.Column<int>(type: "int", nullable: false),
                     WatingTime = table.Column<int>(type: "int", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
                     AreaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -296,6 +298,12 @@ namespace DAL.Migrations
                         principalTable: "Area",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Clinic_City_CityId",
+                        column: x => x.CityId,
+                        principalTable: "City",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Clinic_Doctor_DoctorId",
                         column: x => x.DoctorId,
@@ -327,7 +335,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "28ef8428-c451-4046-985c-3318e958c357", 0, "ca2b9d31-736f-4958-91f7-ea081fa8e1e2", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "6cbb4804-cf64-4c09-9a38-7d2e725c408b", false, "admin" });
+                values: new object[] { "ffeaa154-8a29-426b-bfde-8fbffe1361d4", 0, "00a2c9c7-0ec8-4089-9840-8d2518ae808e", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "dd71c17a-5b81-4cba-a2a9-ecbc805b7128", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
@@ -389,6 +397,11 @@ namespace DAL.Migrations
                 name: "IX_Clinic_AreaId",
                 table: "Clinic",
                 column: "AreaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Clinic_CityId",
+                table: "Clinic",
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClinicImage_ClinicId",

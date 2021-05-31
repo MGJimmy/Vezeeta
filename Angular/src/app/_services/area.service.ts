@@ -81,18 +81,4 @@ export class AreaService {
 
 
 
-  //delete city
-  getAllCity(){
-    return this._http.get<ICity>(environment.apiUrl + "/api/city").pipe(catchError((err) => {
-      return throwError(err.message || "An Error Occur")
-    })
-    )
-  }
-  // end delete
-
-
-}
-interface ICity{
-  id:number
-  name:string
 }

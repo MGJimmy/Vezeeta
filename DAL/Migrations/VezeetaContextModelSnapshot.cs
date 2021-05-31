@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "28ef8428-c451-4046-985c-3318e958c357",
+                            Id = "ffeaa154-8a29-426b-bfde-8fbffe1361d4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca2b9d31-736f-4958-91f7-ea081fa8e1e2",
+                            ConcurrencyStamp = "00a2c9c7-0ec8-4089-9840-8d2518ae808e",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6cbb4804-cf64-4c09-9a38-7d2e725c408b",
+                            SecurityStamp = "dd71c17a-5b81-4cba-a2a9-ecbc805b7128",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -161,6 +161,9 @@ namespace DAL.Migrations
                     b.Property<int>("AreaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ExaminationTime")
                         .HasColumnType("int");
 
@@ -176,6 +179,8 @@ namespace DAL.Migrations
                     b.HasKey("DoctorId");
 
                     b.HasIndex("AreaId");
+
+                    b.HasIndex("CityId");
 
                     b.ToTable("Clinic");
                 });
@@ -254,6 +259,9 @@ namespace DAL.Migrations
                     b.Property<string>("PersonalIdImage")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isBinding")
+                        .HasColumnType("bit");
 
                     b.HasKey("DoctorId");
 
@@ -448,8 +456,14 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
                     b.HasOne("DAL.Models.Area", "Area")
-                        .WithMany()
+                        .WithMany("clinics")
                         .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.City", "City")
+                        .WithMany("Clinics")
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -460,6 +474,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Area");
+
+                    b.Navigation("City");
 
                     b.Navigation("Doctor");
                 });
@@ -562,9 +578,16 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("DAL.Models.Area", b =>
+                {
+                    b.Navigation("clinics");
+                });
+
             modelBuilder.Entity("DAL.Models.City", b =>
                 {
                     b.Navigation("Areas");
+
+                    b.Navigation("Clinics");
                 });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>

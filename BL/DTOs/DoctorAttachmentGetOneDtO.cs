@@ -1,25 +1,23 @@
-﻿using System;
+﻿using DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace BL.DTOs
 {
-    [Table("DoctorAttachment")]
-    public class DoctorAttachment
+    public class DoctorAttachmentGetOneDtO
     {
-        [Key,ForeignKey("Doctor")]
         public string DoctorId { get; set; }
-        [Required]
         public string PersonalIdImage { get; set; }
         [Required]
         public string DoctorSyndicateIdImage { get; set; }
         [Required]
         public string OpenClinicPermissionImage { get; set; }
+
         public bool isBinding { get; set; }
-        public Doctor Doctor { get; set; }
+        public bool DoctorIsAccepted { get; set; }
     }
 }

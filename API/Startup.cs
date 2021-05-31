@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,11 @@ namespace API
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
 
             services.AddHttpContextAccessor(); //allow me to get user information such as id
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -71,6 +77,7 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+
             // DI
             services.AddDbContext<VezeetaContext>(option =>
             {
@@ -78,6 +85,7 @@ namespace API
             });
             services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
                 .AddEntityFrameworkStores<VezeetaContext>();
+
             services.AddScoped<UserManager<ApplicationUserIdentity>>();
             services.AddScoped<RoleManager<IdentityRole>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -20,9 +20,9 @@ namespace DAL.Models
         [MinLength(0)]
         public int WatingTime { get; set; }
         public Doctor Doctor { get; set; }
-        //[ForeignKey("City")]
-        //public int CityId { get; set; }
-        //public City City { get; set; }
+        [ForeignKey("City")]
+        public int CityId { get; set; }
+        public City City { get; set; }
         [ForeignKey("Area")]
         public int AreaId { get; set; }
         public Area Area { get; set; }

@@ -15,10 +15,12 @@ namespace API.Controllers
     public class DoctorAttachmentController : ControllerBase
     {
         private DoctorAttachmentAppService _doctorAttachmentAppService;
+        private DoctorAppService _doctorAppService;
         private GeneralAppService _generalAppService;
-        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, GeneralAppService generalAppService)
+        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, DoctorAppService doctorAppService, GeneralAppService generalAppService)
         {
             _doctorAttachmentAppService = doctorAttachmentAppService;
+            _doctorAppService = doctorAppService;
             _generalAppService = generalAppService;
         }
         [HttpGet]
@@ -44,14 +46,31 @@ namespace API.Controllers
         {
             return Ok(_doctorAttachmentAppService.GetPageRecords(pageSize, pageNumber));
         }
-        [HttpPut("{id}")]
+        [HttpPut("acceptAttachments/{id}")]
         public IActionResult acceptAttachment(string id)
         {
             try
             {
-                _doctorAttachmentAppService.acceptAttachments(id);
+                _doctorAttachmentAppService.changeBindingStatus(id);
+                _doctorAppService.activateDoctor(id);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message="attachments is accepted"});
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("rejecteAttachments/{id}")]
+        public IActionResult rejecteAttachment(string id)
+        {
+            try
+            {
+                _doctorAttachmentAppService.changeBindingStatus(id);
+                _doctorAppService.deactivateDoctor(id);
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message = "attachments is rejected" });
             }
             catch (Exception ex)
             {

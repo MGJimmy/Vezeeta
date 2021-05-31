@@ -32,12 +32,15 @@ namespace BL.Repositories
                 .Where(doctorAttchament => doctorAttchament.isBinding == true)
                 .Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
-        public void acceptAttchments(string doctorId)
+      
+        public void changeBindingStatus(string doctorId)
         {
             //accept attchment
             DoctorAttachment doctorAttachment= DbSet.FirstOrDefault(attachment => attachment.DoctorId == doctorId);
             doctorAttachment.isBinding = false;
+           
           
         }
+     
     }
 }

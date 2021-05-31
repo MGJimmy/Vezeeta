@@ -36,9 +36,12 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetPageRecords(pageSize,pageNumber));
 
         }
-        public void acceptAttachments(string doctorId)
+        public void changeBindingStatus(string doctorId)
         {
-            TheUnitOfWork.DoctorAttachmentRepo.acceptAttchments(doctorId);
+           
+            TheUnitOfWork.DoctorAttachmentRepo.changeBindingStatus(doctorId);
+            TheUnitOfWork.SaveChanges();
+           
         }
     }
 }

@@ -39,6 +39,7 @@ export class DoctorAttachmentsComponent implements OnInit {
     this._doctorAttachmentService.getDoctorAttachmentCount().subscribe(
       data => {
         this.doctorAttachmentsCount = data
+       
         this.numberOfPages = Math.ceil(this.doctorAttachmentsCount / this.pageSize)
         
       },
@@ -53,6 +54,7 @@ export class DoctorAttachmentsComponent implements OnInit {
       data => {
         this._doctorAttachments = data
         this.currentPageNumber = currentPageNumber;
+        console.log(this._doctorAttachments);
         if(data.length != 0)
           this.hasDoctorAttachments = true;
         else
@@ -66,7 +68,7 @@ export class DoctorAttachmentsComponent implements OnInit {
     ) 
   }
   public createImgPath = (serverPath: string) => {
-    console.log(`${environment.apiUrl}/${serverPath}`);
+ 
     return `${environment.apiUrl}/${serverPath}`;
   }
   counter(i: number) {
@@ -87,11 +89,19 @@ export class DoctorAttachmentsComponent implements OnInit {
     
   }
   openAcceptAttachmentModal(doctorID:string){
-    console.log(doctorID);
+   
     this.confirmModal.pointerToFunction = this._doctorAttachmentService.acceptDoctorAttachment
-    this.confirmModal.title = "Delete Category";
+    this.confirmModal.title = "Confirmation";
     this.confirmModal.itemId = doctorID;
     this.confirmModal.message = "Are you sure to accept these attachments";
+    this.confirmModal.pageUrl = this._router.url;
+  }
+  openRejectAttachmentModal(doctorID:string){
+   
+    this.confirmModal.pointerToFunction = this._doctorAttachmentService.rejectDoctorAttachment
+    this.confirmModal.title = "Confirmation";
+    this.confirmModal.itemId = doctorID;
+    this.confirmModal.message = "Are you sure to reject these attachments";
     this.confirmModal.pageUrl = this._router.url;
   }
 

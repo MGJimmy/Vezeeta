@@ -36,8 +36,16 @@ export class DoctorAttachmentService {
   }
  
   acceptDoctorAttachment(doctorId:string):Observable<any>{
-    let url = `${environment.apiUrl}/api/category/${doctorId}`;
-    return this._http.delete<any>(url).pipe(catchError((err)=>
+    let url = `${environment.apiUrl}/api/DoctorAttachment/acceptAttachments/${doctorId}`;
+    return this._http.put<any>(url,null).pipe(catchError((err)=>
+    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
+   
+  rejectDoctorAttachment(doctorId:string):Observable<any>{
+    let url = `${environment.apiUrl}/api/DoctorAttachment/rejecteAttachments/${doctorId}`;
+    return this._http.put<any>(url,null).pipe(catchError((err)=>
     {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));

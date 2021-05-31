@@ -25,5 +25,15 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
             return createdDoctor;
         }
+        public void activateDoctor(string doctorId)
+        {
+            TheUnitOfWork.DoctorRepo.activateDoctor(doctorId);
+            TheUnitOfWork.SaveChanges();
+        }
+        public void deactivateDoctor(string doctorId)
+        {
+            TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
+            TheUnitOfWork.SaveChanges();
+        }
     }
 }

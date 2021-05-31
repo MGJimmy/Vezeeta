@@ -15,6 +15,7 @@ import { SpecialityComponent } from './components/dashboard/speciality/specialit
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { AreaComponent } from './components/dashboard/area/area.component';
 import { CityComponent } from './components/dashboard/city/city.component';
+import { ClinicServicesComponent } from './components/dashboard/clinic-services/clinic-services.component';
 import { ClientComponent } from './components/client/client.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { ClientHeaderComponent } from './components/client/client-header/client-header.component';
@@ -35,6 +36,7 @@ import { DoctorAttachmentsComponent } from './components/dashboard/doctor-attach
     SubSpecialityComponent,
     AreaComponent,
     CityComponent,
+    ClinicServicesComponent,
     ClientComponent,
     DoctorDashboardComponent,
     ClientHeaderComponent,

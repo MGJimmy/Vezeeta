@@ -71,6 +71,7 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+
             // DI
             services.AddDbContext<VezeetaContext>(option =>
             {
@@ -78,6 +79,7 @@ namespace API
             });
             services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
                 .AddEntityFrameworkStores<VezeetaContext>();
+
             services.AddScoped<UserManager<ApplicationUserIdentity>>();
             services.AddScoped<RoleManager<IdentityRole>>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

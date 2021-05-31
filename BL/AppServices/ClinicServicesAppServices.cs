@@ -26,6 +26,8 @@ namespace BL.AppServices
         {
             return Mapper.Map<ClinicServiceDto>(TheUnitOfWork.ClincServicesRepo.GetById(id));
         }
+
+        
         public ClinicServiceDto Insert(ClinicServiceDto clinicServiceDto)
         {
             if (clinicServiceDto == null)
@@ -67,9 +69,14 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<ClinicServiceDto>>(TheUnitOfWork.ClincServicesRepo.GetPageRecords(pageSize, pageNumber));
         }
         #endregion
-        public bool CheckCityExists(Clinicservice clinicservice)
+        public bool CheckClinicServicesExists(Clinicservice clinicservice)
         {
             return TheUnitOfWork.ClincServicesRepo.CheckExixt(clinicservice);
+        }
+
+        public bool CheckClinicServicesExistsByName(string clinicserviceName)
+        {
+            return TheUnitOfWork.ClincServicesRepo.CheckExixtByName(clinicserviceName);
         }
     }
 }

@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-body{font-family: SourceSansPro !important;}
+body{
+    font-family: SourceSansPro !important;
+    background-color: rgb(226, 230, 234);
+}
 *{
     transition: all 0.2s ease-in-out;
 }

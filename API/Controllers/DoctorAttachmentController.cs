@@ -46,7 +46,7 @@ namespace API.Controllers
         public IActionResult GetSpecialitiesByPage(int pageSize, int pageNumber)
         {
             return Ok(_doctorAttachmentAppService.GetPageRecords(pageSize, pageNumber));
-
+        }
         // POST api/<DoctorAttachmentController>
         [HttpPost]
         public IActionResult Post( DoctorAttachmentDto doctorDto)
@@ -66,6 +66,7 @@ namespace API.Controllers
                 return BadRequest(new Response() { Message = ex.Message });
             }
         }
+
         [HttpPut("acceptAttachments/{id}")]
         public IActionResult acceptAttachment(string id)
         {

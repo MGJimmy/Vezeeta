@@ -61,9 +61,10 @@ export class DoctorDashboardAttachmentComponent implements OnInit {
   saveAttachment(){
     let doctorAttach:IDoctorAttachment={
       doctorId:"1",
-      personalIdImage:this.PersonalIdImage.get("Image").value[0].dbPath,
-      doctorSyndicateIdImage:this.DoctorSyndicateIdImage.get("Image").value[0].dbPath,
-      openClinicPermissionImage:this.OpenClinicPermissionImage.get("Image").value[0].dbPath,
+      PersonalIdImage:this.PersonalIdImage.get("Image").value[0].dbPath,
+      DoctorSyndicateIdImage:this.DoctorSyndicateIdImage.get("Image").value[0].dbPath,
+      OpenClinicPermissionImage:this.OpenClinicPermissionImage.get("Image").value[0].dbPath,
+      isBinding:true
     }
     console.log(doctorAttach)
     this._doctorAttachmentService.InsertAttachment(doctorAttach)

@@ -90,6 +90,12 @@ export class AreaService {
   }
   // end delete
 
+  getAllAreaWhere(Cityid){
+    return this._http.get<IArea[]>(this.baseUrl+"GetAllWhere/"+Cityid).pipe(catchError((err) => {
+      return throwError(err.message || "An Error Occur")
+    })
+    )
+  }
 
 }
 interface ICity{

@@ -23,6 +23,10 @@ namespace BL.AppServices
         {
             return Mapper.Map<IEnumerable<GetAreaDTO>>(TheUnitOfWork.AreaRepo.GetAll());
         }
+        public IEnumerable<GetAreaDTO> GetAllWhere(int cityId)
+        {
+            return Mapper.Map<IEnumerable<GetAreaDTO>>(TheUnitOfWork.AreaRepo.GetWhere(a=>a.CityID==cityId));
+        }
         public IEnumerable<GetAreaWithCityDTO> GetAllWithCity()
         {
             return Mapper.Map<IEnumerable<GetAreaWithCityDTO>>(TheUnitOfWork.AreaRepo.GetAllWithCity());

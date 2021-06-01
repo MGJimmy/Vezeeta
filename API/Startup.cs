@@ -98,6 +98,10 @@ namespace API
             services.AddScoped<DoctorAttachmentAppService>();
             services.AddScoped<DoctorAppService>();
             services.AddScoped<AccountAppService>();
+            services.AddScoped<ClinicAppService>();
+            services.AddScoped<ClinicImagesAppService>();
+
+            
 
         }
 

@@ -1,0 +1,102 @@
+<div class="attachment p-0 m-0">
+    <div class="header-info text-center p-2">
+        My Clinc
+    </div>
+
+
+    <div class="d-flex" style="justify-content: center;">
+
+
+        <form [formGroup]="ClinicForm" (ngSubmit)="onSubmit()" class="p-5 border col-12">
+            <div class="form-group d-flex">
+                <label for="Street" class="col-3">Street</label>
+                <div class="col-9">
+                    <input type="text" formControlName="Street" class="form-control" placeholder="Enter Clinc Street" name="Street">
+                    <div *ngIf="formFields.Street.invalid && formFields.Street.touched">
+                        <small class="text-danger" *ngIf="formFields.Street.errors?.required"> Street Is Required</small>
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="form-group d-flex">
+                <label for="Fees" class="col-3">Fees</label>
+                <div class="col-9">
+                <input type="number" formControlName="Fees" class="form-control" placeholder="Enter Amount Of Fees" name="Fees">
+                <div *ngIf="formFields.Fees.invalid && formFields.Fees.touched">
+                    <small class="text-danger" *ngIf="formFields.Fees.errors?.required"> Fees Is Required</small>
+                </div>
+</div>
+            </div>
+           
+
+            <div class="form-group d-flex">
+                <label for="ExaminationTime" class="col-3">Examination Time</label>
+                <div class="col-9">
+
+                
+                <input type="number" formControlName="ExaminationTime" class="form-control" placeholder="Enter the Time For Patient Examination (Minutes)"
+                    name="Examination">
+                    <div *ngIf="formFields.ExaminationTime.invalid && formFields.ExaminationTime.touched">
+                        <small class="text-danger" *ngIf="formFields.ExaminationTime.errors?.required"> ExaminationTime Is Required</small>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group d-flex">
+                <label for="WatingTime" class="col-3">Wating Time</label>
+                <div class="col-9">
+                <input type="number" formControlName="WatingTime" class="form-control" placeholder="Enter the Time For Wating (Minutes)"
+                    name="WatingTime">
+                    <div *ngIf="formFields.WatingTime.invalid && formFields.WatingTime.touched">
+                        <small class="text-danger" *ngIf="formFields.WatingTime.errors?.required"> WatingTime Is Required</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group d-flex">
+                <label for="" class="col-3">City</label>
+                <div class="col-9">
+                <select class="form-control" id="City" formControlName="CityId" (change)='onOptionsSelected($event)'>
+                    <option style="display:none"></option>
+                    <option *ngFor="let c of Cityies"  value="{{c.id}}">{{c.name}}</option>
+                   
+                </select>
+                <div *ngIf="formFields.CityId.invalid && formFields.CityId.touched">
+                    <small class="text-danger" *ngIf="formFields.CityId.errors?.required"> City Is Required</small>
+                </div>
+                </div>
+            </div>
+            <div class="form-group d-flex">
+                <label for="" class="col-3">Area</label>
+                <div class="col-9">
+                <select class="form-control" id="Area" formControlName="AreaId">
+                    <option style="display:none"></option>
+                    <option *ngFor="let area of Areas" value="{{area.id}}" >{{area.name}}</option>
+         
+                </select>
+                 <div *ngIf="formFields.AreaId.invalid && formFields.AreaId.touched">
+                    <small class="text-danger" *ngIf="formFields.AreaId.errors?.required"> Area Is Required</small>
+                </div>
+            </div>
+            </div>
+
+            
+            <app-upload-multiple (onUploadFinished)="uploadClinicImages($event)"></app-upload-multiple>
+
+
+            <div class="mt-5">
+                <button class="btn btn-primary mr-3 col-3" [disabled]="ClinicForm.invalid">
+                    <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
+                    Save
+                </button>
+                <button class="btn btn-primary col-3">
+                    Clear
+                </button>
+            </div>
+
+            <!-- <div class="alert alert-danger mt-3 mb-0"></div> -->
+        </form>
+    </div>
+</div>

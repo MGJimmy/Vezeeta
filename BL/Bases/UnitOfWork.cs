@@ -135,6 +135,29 @@ namespace BL.Bases
             }
         }
 
+        private ClinicRepository clinicRepo;
+        public ClinicRepository ClinicRepo
+        {
+            get
+            {
+                if (clinicRepo == null)
+                    clinicRepo = new ClinicRepository(Context);
+                return clinicRepo;
+            }
+        }
+
+        private ClinicImagesRepository clinicImagesRepo;
+        public ClinicImagesRepository ClinicImagesRepo
+        {
+            get
+            {
+                if (clinicImagesRepo == null)
+                    clinicImagesRepo = new ClinicImagesRepository(Context);
+                return clinicImagesRepo;
+            }
+        }
+        
+
 
         public void Dispose()
         {

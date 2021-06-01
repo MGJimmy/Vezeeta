@@ -55,6 +55,8 @@ namespace BL.Configurations
 
             CreateMap<DoctorAttachment, DoctorAttachmentDto>()
               .ReverseMap();
+            CreateMap<DoctorAttachment, DoctorAttachmentGetOneDtO>()
+              .ReverseMap();
 
             CreateMap<Doctor, CreateDoctorDTO>()
             .ReverseMap()

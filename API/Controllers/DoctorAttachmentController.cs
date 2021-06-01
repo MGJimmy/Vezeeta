@@ -24,6 +24,12 @@ namespace API.Controllers
             _doctorAppService = doctorAppService;
             _generalAppService = generalAppService;
         }
+        [HttpGet("getOne")]
+        public IActionResult GetOne()
+        {
+            string id = "ffeaa154-8a29-426b-bfde-8fbffe1361d4";    // will change in future
+            return Ok(_doctorAttachmentAppService.GetById(id));
+        }
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -43,7 +49,7 @@ namespace API.Controllers
             return Ok(_doctorAttachmentAppService.CountEntity());
         }
         [HttpGet("{pageSize}/{pageNumber}")]
-        public IActionResult GetSpecialitiesByPage(int pageSize, int pageNumber)
+        public IActionResult GetDoctorAttachmentsPage(int pageSize, int pageNumber)
         {
             return Ok(_doctorAttachmentAppService.GetPageRecords(pageSize, pageNumber));
         }
@@ -55,7 +61,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             try
             {
-                doctorDto.DoctorId = "3b9a541e-b4dd-4906-ba4c-728119e9f00b";    //change after login story
+                doctorDto.DoctorId = "ffeaa154-8a29-426b-bfde-8fbffe1361d4";    //change after login story
                 DoctorAttachmentDto doctor = _doctorAttachmentAppService.Insert(doctorDto);
                 _generalAppService.CommitTransaction();
                 return Created("attachment send", doctorDto);
@@ -64,6 +70,27 @@ namespace API.Controllers
             {
                 _generalAppService.RollbackTransaction();
                 return BadRequest(new Response() { Message = ex.Message });
+            }
+        }
+
+        // PUT api/<DoctorAttachmentController>/5
+        [HttpPut]
+        public IActionResult Put(DoctorAttachmentDto attachmentDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                _doctorAttachmentAppService.Update(attachmentDto);
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message = "attachment are updated" });
+            }
+            catch(Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = ex.Message });
             }
         }
 

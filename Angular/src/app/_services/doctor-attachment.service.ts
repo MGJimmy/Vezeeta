@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
-import { IDoctorAttachment } from '../_models/_interfaces/IDoctorAttachments';
+import { IDoctorAttachment, IDoctorAttachmentGetOne } from '../_models/_interfaces/IDoctorAttachments';
 
 @Injectable({
   providedIn: 'root'
@@ -51,12 +51,21 @@ export class DoctorAttachmentService {
     }));
   }
 
+
   url=`${environment.apiUrl}/api/DoctorAttachment`;
-  
-  
+  getById():Observable<IDoctorAttachmentGetOne>{
+    return this._http.get<IDoctorAttachmentGetOne>(this.url+"/getOne").pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }))
+  } 
 
   InsertAttachment(dto:IDoctorAttachment):Observable<IDoctorAttachment>{
     return this._http.post<IDoctorAttachment>(this.url,dto).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }))
+  }
+  UpdateAttachment(dto:IDoctorAttachment):Observable<any>{
+    return this._http.put<any>(this.url,dto).pipe(catchError(err=>{
       return throwError(err.message||"an error occur");
     }))
   }

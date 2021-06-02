@@ -25,6 +25,8 @@ namespace BL.Interfaces
         DoctorRepository DoctorRepo { get; }
         DoctorAttachmentRepository DoctorAttachmentRepo { get; }
         AccountRepository AccountRepo { get; }
+        WorkingDayRepository WorkingDayRepo { get; }
+        DayShiftRepository DayShiftRepo { get; }
 
     }
 }

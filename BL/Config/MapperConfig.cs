@@ -2,7 +2,9 @@
 using BL.DTOs;
 using BL.DTOs.AccountDTO;
 using BL.DTOs.AreaDTO;
+using BL.DTOs.DayShiftDTO;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.WorkingDayDTO;
 using DAL;
 using DAL.Models;
 using System;
@@ -64,6 +66,15 @@ namespace BL.Configurations
             CreateMap<ApplicationUserIdentity, RegisterAccountDTO>()
             .ReverseMap()
             .ForMember(m => m.Doctor, m => m.Ignore());
+
+            CreateMap<WorkingDay, CreateWorkingDayDTO>()
+            .ReverseMap()
+            .ForMember(m => m.Clinic, m => m.Ignore());
+
+
+            CreateMap<DayShift, CreateDayShiftDTO>()
+            .ReverseMap()
+            .ForMember(m => m.WorkingDay, m => m.Ignore());
 
 
 

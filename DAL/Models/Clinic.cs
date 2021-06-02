@@ -27,5 +27,6 @@ namespace DAL.Models
         public int AreaId { get; set; }
         public Area Area { get; set; }
         public ICollection<ClinicImage> ClinicImages { get; set; }
+        public ICollection<WorkingDay> WorkingDays { get; set; }
     }
 }

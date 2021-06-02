@@ -134,6 +134,26 @@ namespace BL.Bases
                 return accountRepo;
             }
         }
+        private WorkingDayRepository workingDayRepo;
+        public WorkingDayRepository WorkingDayRepo
+        {
+            get
+            {
+                if (workingDayRepo == null)
+                    workingDayRepo = new WorkingDayRepository(Context);
+                return workingDayRepo;
+            }
+        }
+        private DayShiftRepository dayShiftRepo;
+        public DayShiftRepository DayShiftRepo
+        {
+            get
+            {
+                if (dayShiftRepo == null)
+                    dayShiftRepo = new DayShiftRepository(Context);
+                return dayShiftRepo;
+            }
+        }
 
 
         public void Dispose()

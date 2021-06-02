@@ -49,7 +49,7 @@ namespace API.Controllers
             return Ok(_doctorAttachmentAppService.CountEntity());
         }
         [HttpGet("{pageSize}/{pageNumber}")]
-        public IActionResult GetSpecialitiesByPage(int pageSize, int pageNumber)
+        public IActionResult GetDoctorAttachmentsPage(int pageSize, int pageNumber)
         {
             return Ok(_doctorAttachmentAppService.GetPageRecords(pageSize, pageNumber));
         }

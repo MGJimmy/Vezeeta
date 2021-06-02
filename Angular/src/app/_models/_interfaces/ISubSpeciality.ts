@@ -1,6 +1,6 @@
 export interface ISubSpecialty{
     id?:number;
     name:string;
-    byAdmin:boolean;
+    byAdmin?:boolean;
     specialtyId:number;
   }

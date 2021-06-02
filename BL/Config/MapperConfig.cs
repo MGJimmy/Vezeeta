@@ -74,6 +74,13 @@ namespace BL.Configurations
             .ForMember(m => m.Doctor, m => m.Ignore())
             .ForMember(m => m.ClinicImages, m => m.Ignore());
 
+            CreateMap<Clinic, UpdateClinicDto>()
+            .ReverseMap()
+            .ForMember(m => m.Area, m => m.Ignore())
+            .ForMember(m => m.City, m => m.Ignore())
+            .ForMember(m => m.Doctor, m => m.Ignore())
+            .ForMember(m => m.ClinicImages, m => m.Ignore());
+
 
             CreateMap<Clinic, GetClinicDto>()
            .ReverseMap()
@@ -86,8 +93,11 @@ namespace BL.Configurations
             CreateMap<ClinicImage, CreateClinicImagesDto>()
             .ReverseMap()
             .ForMember(m => m.Clinic, m => m.Ignore());
+            CreateMap<ClinicImage, GetClinicImageDto>()
+           .ReverseMap()
+           .ForMember(m => m.Clinic, m => m.Ignore());
 
-            
+
 
 
 

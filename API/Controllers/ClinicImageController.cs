@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -16,13 +17,16 @@ namespace API.Controllers
         
         private GeneralAppService _generalAppService;
         private ClinicImagesAppService _clinicImagesAppService;
-        public ClinicImageController(GeneralAppService generalAppService, ClinicImagesAppService clinicImagesAppService)
+        IHttpContextAccessor _httpContextAccessor;
+        public ClinicImageController(GeneralAppService generalAppService, IHttpContextAccessor httpContextAccessor, ClinicImagesAppService clinicImagesAppService)
         {
             _generalAppService = generalAppService;
             _clinicImagesAppService = clinicImagesAppService;
+            _httpContextAccessor = httpContextAccessor;
+
         }
-        [HttpPost("{clinicId}")]
-        public IActionResult Create(List<CreateClinicImagesDto> clinicImgs,string clinicId)
+        [HttpPost]
+        public IActionResult Create(List<CreateClinicImagesDto> clinicImgs)
         {
             if (ModelState.IsValid == false)
             {
@@ -30,7 +34,9 @@ namespace API.Controllers
             }
             try
             {
-                  List<CreateClinicImagesDto>newsclinicImgs = _clinicImagesAppService.InsertList(clinicImgs, clinicId);
+                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                List<CreateClinicImagesDto>newsclinicImgs = _clinicImagesAppService.InsertList(clinicImgs,DoctorId);
                      _generalAppService.CommitTransaction();
                     return Created("Images added", newsclinicImgs);
             }
@@ -40,6 +46,29 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+        [HttpGet("GetAllImages")]
+        public IActionResult GetClinicImages()
+        {
+            //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+            return Ok(_clinicImagesAppService.GetAllWhere(DoctorId));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _clinicImagesAppService.Delete(id);
+                _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

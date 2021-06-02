@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace API.Controllers
 {
@@ -17,17 +18,23 @@ namespace API.Controllers
         private ClinicAppService _clinicAppService;
         private GeneralAppService _generalAppService;
         private ClinicImagesAppService _clinicImagesAppService;
-        public ClinicController(ClinicAppService clinicAppService, GeneralAppService generalAppService, ClinicImagesAppService clinicImagesAppService)
+        IHttpContextAccessor _httpContextAccessor;
+        public ClinicController(ClinicAppService clinicAppService, GeneralAppService generalAppService,
+            ClinicImagesAppService clinicImagesAppService, IHttpContextAccessor httpContextAccessor)
         {
             _clinicAppService = clinicAppService;
             _generalAppService = generalAppService;
             _clinicImagesAppService = clinicImagesAppService;
+            this._httpContextAccessor = httpContextAccessor;
         }
 
-        [HttpGet]
-        public IActionResult GetById(int id)
+        [HttpGet("Myclinic")]
+        public IActionResult GetById()
         {
-            return Ok(_clinicAppService.Get(id));
+            //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+
+            return Ok(_clinicAppService.GetByStringId(DoctorId));
         }
 
         [HttpPost]
@@ -39,20 +46,14 @@ namespace API.Controllers
             }
             try
             {
-                CreateClinicDto newClinicDTO = _clinicAppService.Insert(clinicDto);
-                //string clinicID = newClinicDTO.DoctorId;
-                //if (clinicImgs == null)
-                //{
-                    _generalAppService.CommitTransaction();
-                    return Created("clinic created", newClinicDTO);
-                //}
-                //else
-                //{
-                //    _clinicImagesAppService.InsertList(clinicImgs, clinicID);
-                //    _generalAppService.CommitTransaction();
-                //    return Created("clinic & Images created", newClinicDTO);
-                //}
+                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                CreateClinicDto newClinicDTO = _clinicAppService.Insert(clinicDto, DoctorId);
+              
+                _generalAppService.CommitTransaction();
+                return Created("clinic created", newClinicDTO);
                 
+
             }
             catch (Exception ex)
             {
@@ -60,6 +61,30 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
 
+        }
+
+        [HttpPut]
+        public IActionResult Update(UpdateClinicDto clinicDto)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                 var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                _clinicAppService.Update(clinicDto,DoctorId);
+                _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
         }
     }
 }

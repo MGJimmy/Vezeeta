@@ -14,11 +14,12 @@ namespace API.Controllers
     public class UploadMultipleFilesController : ControllerBase
     {
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload()
+        public async Task<IActionResult> Upload()
         {
            
             try
             {
+                var formCollection = await Request.ReadFormAsync();
                 var files = Request.Form.Files;
                 var folderName = Path.Combine("StaticFiles", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);

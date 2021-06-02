@@ -1,7 +1,6 @@
 
 <div class="form-group">
     <label for="" class="d-block">Images</label>
-     <!-- <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;"> -->
      <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;" multiple>
      <div class="text-center">
      <img [src]="photo" class="img-fluid imgeUpload" for="" (click)="file.click()">
@@ -18,11 +17,9 @@
       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner col-5" style="justify-content: center;">
-      <div class="carousel-item active">
-        <img class="d-block w-100" [src]="photo" alt="First slide">
-      </div>
-      <div class="carousel-item" *ngFor="let img of Images">
-        <img class="d-block w-100" [src]="img" alt="Second slide">
+     
+      <div class="carousel-item mt-3" *ngFor="let img of Images;let i=index" [class.active] = "i === 0">
+        <img class="d-block w-100" style="height: 250px;" [src]="img" alt="Second slide">
       </div>
       
     </div>

@@ -15,9 +15,9 @@ namespace DAL.Models
         public string DoctorId { get; set; }
         public string Street { get; set; }
         public int Fees { get; set; }
-        [MinLength(5)]
+        //[MinLength(5)]
         public int ExaminationTime { get; set; }
-        [MinLength(0)]
+        //[MinLength(0)]
         public int WatingTime { get; set; }
         public Doctor Doctor { get; set; }
         [ForeignKey("City")]

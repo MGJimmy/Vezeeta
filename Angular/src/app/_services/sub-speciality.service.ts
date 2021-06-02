@@ -12,7 +12,7 @@ export class SubSpecialityService {
 
   constructor(private _http:HttpClient) { }
     url=environment.apiUrl+"/api/SupSpecialization";
-
+    baseUrl=environment.apiUrl+"/api/";
     getAllSubSpeciality():Observable<ISubSpecialty[]> {
       return this._http.get<ISubSpecialty[]>(this.url).pipe(catchError((err)=>
       {
@@ -59,5 +59,36 @@ export class SubSpecialityService {
       return this._http.put<any>(this.url+"/"+id,SubSpecial)
     }
 
+
+    getAllByPage(pageSize: number, pageNumber: number): Observable<ISubSpecialty[]> {
+      return this._http.get<ISubSpecialty[]>(this.url + "/" + pageSize + "/" + pageNumber)
+        .pipe(catchError((err) => {
+          return throwError(err.message || "An Error Occur")
+        })
+        )
+    }
+ 
+  
+    getAllByPageOfNotAccepted(pageSize: number, pageNumber: number): Observable<ISubSpecialty[]> {
+      return this._http.get<ISubSpecialty[]>(this.baseUrl + "NotAcceptedSubSpecail/Admin/"+pageSize+"/"+pageNumber)
+        .pipe(catchError((err) => {
+          return throwError(err.message || "An Error Occur")
+        })
+        )
+    }
+
+  countOfAcceptSubspecialization(): Observable<number> {
+      return this._http.get<number>(this.url+"/count").pipe(catchError((err) => {
+        return throwError(err.message || "An Error Occur")
+      })
+      )
+    }
+    countOfNotAcceptSubspecialization(): Observable<number> {
+      return this._http.get<number>(this.baseUrl + "SubspecailNotAccepted/admin/count").pipe(catchError((err) => {
+        return throwError(err.message || "An Error Occur")
+      })
+      )
+    }
+    
     
 }

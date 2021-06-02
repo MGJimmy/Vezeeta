@@ -7,7 +7,7 @@
     <div class="d-flex" style="justify-content: center;">
 
 
-        <form [formGroup]="ClinicForm" (ngSubmit)="onSubmit()" class="p-5 border col-12">
+        <form [formGroup]="ClinicForm"  class="p-5 border col-12">
             <div class="form-group d-flex">
                 <label for="Street" class="col-3">Street</label>
                 <div class="col-9">
@@ -58,7 +58,7 @@
             <div class="form-group d-flex">
                 <label for="" class="col-3">City</label>
                 <div class="col-9">
-                <select class="form-control" id="City" formControlName="CityId" (change)='onOptionsSelected($event)'>
+                <select class="form-control" id="City" formControlName="CityId" (change)='onOptionsSelected($event.target.value)'>
                     <option style="display:none"></option>
                     <option *ngFor="let c of Cityies"  value="{{c.id}}">{{c.name}}</option>
                    
@@ -81,18 +81,26 @@
                 </div>
             </div>
             </div>
+            <div class="mt-5 border d-flex" style="flex-direction: row;flex-wrap: wrap;" *ngIf="hasImage">
+                  <div class="col-3  mt-2" style="height: fit-content;" *ngFor="let item of MyClinicImages">
+                    <img [src]="createImgPath(item.image)" class="img-fluid" style="height: 300px;">
+                    <button class="btn btn-warning" style="position: absolute;height:35px;right:15px;top:0px" (click)="DeleteImage(item.id)">X</button>
+                  </div>
+                 
+
+            </div>
 
             
             <app-upload-multiple (onUploadFinished)="uploadClinicImages($event)"></app-upload-multiple>
 
-
+            
             <div class="mt-5">
-                <button class="btn btn-primary mr-3 col-3" [disabled]="ClinicForm.invalid">
+                <button class="btn btn-primary mr-3 col-3" (click)="onAddSubmit()" [disabled]="ClinicForm.invalid" *ngIf="!hasClinic">
                     <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
                     Save
                 </button>
-                <button class="btn btn-primary col-3">
-                    Clear
+                <button class="btn btn-primary col-3" *ngIf="hasClinic" [disabled]="ClinicForm.invalid" (click)="OnEditSubmit()">
+                    Save Edit
                 </button>
             </div>
 

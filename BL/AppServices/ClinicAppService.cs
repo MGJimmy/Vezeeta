@@ -22,12 +22,17 @@ namespace BL.AppServices
         {
             return Mapper.Map<GetClinicDto>(TheUnitOfWork.ClinicRepo.GetById(id));
         }
+        public GetClinicDto GetByStringId(string doctorID)
+        {
+            return Mapper.Map<GetClinicDto>(TheUnitOfWork.ClinicRepo.GetFirstOrDefault(c=>c.DoctorId== doctorID));
+        }
 
-        public CreateClinicDto Insert(CreateClinicDto clinicDTO)
+        public CreateClinicDto Insert(CreateClinicDto clinicDTO,string DoctorId)
         {
             if (clinicDTO == null)
                 throw new ArgumentNullException();
 
+            clinicDTO.DoctorId = DoctorId;
             Clinic clinic = Mapper.Map<Clinic>(clinicDTO);
             
             TheUnitOfWork.ClinicRepo.Insert(clinic);
@@ -35,12 +40,13 @@ namespace BL.AppServices
             clinicDTO.DoctorId = clinic.DoctorId;
             return clinicDTO;
         }
-        public bool Update(UpdateClinicDto clinicDto)
+        public bool Update(UpdateClinicDto clinicDto,string docID)
         {
             if (clinicDto == null)
                 throw new ArgumentNullException();
 
             bool result = false;
+            //clinicDto.DoctorId = docID;
             Clinic clinic = Mapper.Map<Clinic>(clinicDto);
             TheUnitOfWork.ClinicRepo.Update(clinic);
             result = TheUnitOfWork.SaveChanges() > new int();

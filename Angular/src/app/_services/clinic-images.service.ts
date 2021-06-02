@@ -11,13 +11,32 @@ import { IClinicImage } from '../_models/_interfaces/IClinicImage';
 export class ClinicImagesService {
 
   constructor(private _http:HttpClient) { }
-  url=environment.apiUrl+"api/ClinicImage/";
+  url=environment.apiUrl+"/api/ClinicImage";
+ 
 
-  AddImages(clinicImages,clinidID)
+  AddImages(clinicImages)
   {
-    return this._http.post<IClinicImage>(this.url+clinidID,clinicImages).pipe(catchError((err)=>
+    return this._http.post<IClinicImage[]>(this.url,clinicImages).pipe(catchError((err)=>
+    {
+      console.log("error Is:"+err);
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
+  // /api/ClinicImage/GetAllImages
+  GetClinicImages()
+  {
+    return this._http.get<IClinicImage[]>(this.url+"/GetAllImages").pipe(catchError((err)=>
     {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));
   }
+
+  DeleteImage(id)
+  {
+    return this._http.delete<any>(this.url+"/"+id).pipe(catchError((err)=>
+    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+
+}
 }

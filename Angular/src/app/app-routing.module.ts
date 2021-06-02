@@ -31,7 +31,7 @@ const routes: Routes = [
   {path:'doctorDashboard',component:DoctorDashboardComponent,
     children:[
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
-      {path:'clinc',component:DoctorClincComponent}
+      {path:'clinc',component:DoctorClincComponent},
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
     ]

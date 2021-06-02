@@ -152,9 +152,12 @@ export class DoctorClincComponent implements OnInit {
             console.log("error for enter Images" + err);
           })
       }
+      this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this._router.onSameUrlNavigation = 'reload';
+      this._router.navigate([this._router.url]);
     },
       err => {
-
+       
       })
 
   }

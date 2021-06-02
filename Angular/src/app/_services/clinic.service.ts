@@ -18,6 +18,7 @@ export class ClinicService {
   {
     return this._http.post<IClinic>(this.url,clnc).pipe(catchError((err)=>
     {
+      console.log(err);
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));
   }

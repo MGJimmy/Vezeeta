@@ -32,7 +32,7 @@ namespace API.Controllers
         public IActionResult GetById()
         {
             //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+            var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
 
             return Ok(_clinicAppService.GetByStringId(DoctorId));
         }
@@ -47,7 +47,7 @@ namespace API.Controllers
             try
             {
                 //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
                 CreateClinicDto newClinicDTO = _clinicAppService.Insert(clinicDto, DoctorId);
               
                 _generalAppService.CommitTransaction();
@@ -73,7 +73,7 @@ namespace API.Controllers
             try
             {
                 //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                 var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                 var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
                 _clinicAppService.Update(clinicDto,DoctorId);
                 _generalAppService.CommitTransaction();
                 return NoContent();

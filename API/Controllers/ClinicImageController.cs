@@ -35,7 +35,7 @@ namespace API.Controllers
             try
             {
                 //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+                var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
                 List<CreateClinicImagesDto>newsclinicImgs = _clinicImagesAppService.InsertList(clinicImgs,DoctorId);
                      _generalAppService.CommitTransaction();
                     return Created("Images added", newsclinicImgs);
@@ -51,7 +51,7 @@ namespace API.Controllers
         public IActionResult GetClinicImages()
         {
             //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var DoctorId = "edd940a6-786e-40b2-88df-670fcd6617ba";
+            var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
             return Ok(_clinicImagesAppService.GetAllWhere(DoctorId));
         }
 

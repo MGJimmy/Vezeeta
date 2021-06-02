@@ -27,6 +27,9 @@ namespace BL.Interfaces
         AccountRepository AccountRepo { get; }
         ClinicRepository ClinicRepo { get; }
         ClinicImagesRepository ClinicImagesRepo { get; }
+        WorkingDayRepository WorkingDayRepo { get; }
+        DayShiftRepository DayShiftRepo { get; }
+
     }
 }
 

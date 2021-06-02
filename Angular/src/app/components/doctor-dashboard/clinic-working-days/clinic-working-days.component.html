@@ -1,0 +1,121 @@
+<div class="attachment workingDays p-0 m-0">
+  <div class="header-info text-center p-2">
+    Clinic Working Days
+  </div>
+  <div class="p-5">
+    <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+    <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+    <form [formGroup]="workingDaysForm" (submit)="onSubmit()">
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="saturday" class="form-check-input" (change)="saturdayTouched($event)">
+          <span>Saturday</span>
+        </label>
+      </div>
+      <div class="shifts" formGroupName="saturdayShifts" *ngIf="isSaturdayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="sunday" class="form-check-input" (change)="sundayTouched($event)">
+          Sunday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="sundayShifts" *ngIf="isSundayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="monday" class="form-check-input" (change)="mondayTouched($event)">
+          Monday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="mondayShifts" *ngIf="isMondayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="tuesday" class="form-check-input" (change)="tuesdayTouched($event)">
+          Tuesday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="tuesdayShifts" *ngIf="isTuesdayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="wednesday" class="form-check-input" (change)="wednesdayTouched($event)">
+          Wednesday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="wednesdayShifts" *ngIf="isWednesdayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="thursday" class="form-check-input" (change)="thursdayTouched($event)">
+          Thursday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="thursdayShifts" *ngIf="isThursdayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" formControlName="friday" class="form-check-input" (change)="fridayTouched($event)">
+          Friday
+        </label>
+      </div>
+      <div class="shifts" formGroupName="fridayShifts" *ngIf="isFridayChecked">
+        <div class="form-group" formGroupName="shiftOne">
+          <label class="shift">Shift 1:</label>
+          <label class="d-inline-block">From</label>
+          <input type="time" value="01:00" class="form-control" formControlName="from">
+          <label class="d-inline-block">To</label>
+          <input type="time" value="01:00" class="form-control" formControlName="to">
+        </div>
+      </div>
+      <div class="submitWrapper mt-4">
+        <div class="text-danger" *ngIf="!isAnyDayChoosed">Choose at least one working day</div>
+        <button type="submit" class="btn btn-info mt-1" [disabled]="!isAnyDayChoosed || loading">Submit</button>
+      </div>
+    </form>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 using BL.AppServices;
 using BL.Bases;
+using BL.Config;
 using BL.Interfaces;
 using DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -22,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace API
@@ -39,7 +41,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -100,6 +108,8 @@ namespace API
             services.AddScoped<AccountAppService>();
             services.AddScoped<ClinicAppService>();
             services.AddScoped<ClinicImagesAppService>();
+            services.AddScoped<WorkingDayAppService>();
+            services.AddScoped<DayShiftAppService>();
 
             
 

@@ -18,12 +18,13 @@ namespace BL.AppServices
         {
         }
         #region CRUD
-        public WorkingDay Insert(CreateWorkingDayDTO createWorkingDayDTO)
+        public CreateWorkingDayDTO Insert(CreateWorkingDayDTO createWorkingDayDTO)
         {
             WorkingDay workingDay = Mapper.Map<WorkingDay>(createWorkingDayDTO);
             var result = TheUnitOfWork.WorkingDayRepo.Insert(workingDay);
             TheUnitOfWork.SaveChanges();
-            return result;
+            createWorkingDayDTO.Id = result.Id;
+            return createWorkingDayDTO;
         }
         #endregion
     }

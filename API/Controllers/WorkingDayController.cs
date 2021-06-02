@@ -1,5 +1,6 @@
 ﻿using BL.AppServices;
 using BL.DTOs.WorkingDayDTO;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,12 +31,14 @@ namespace API.Controllers
         {
             try
             {
+                List<CreateWorkingDayDTO> res = new List<CreateWorkingDayDTO>();
                 foreach (var createWorkingDayDTO in createWorkingDayDTOs)
                 {
-                    var insertedWorkingDay = _workingDayAppService.Insert(createWorkingDayDTO);
+                    if(createWorkingDayDTO != null)
+                       res.Add(_workingDayAppService.Insert(createWorkingDayDTO));
                 }
                 _generalAppService.CommitTransaction();
-                return Ok("added");
+                return Created("added",res);
             }
             catch
             {

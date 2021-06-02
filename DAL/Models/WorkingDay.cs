@@ -11,7 +11,13 @@ namespace DAL.Models
 {
     public enum Day
     {
-        Sunday
+        Saturday,
+        Sunday,
+        Monday,
+        Tuesday,
+        Wednesday,
+        Thursday,
+        Friday
     }
     public class WorkingDay
     {

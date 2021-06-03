@@ -12,13 +12,20 @@
           <span>Saturday</span>
         </label>
       </div>
-      <div class="shifts" formGroupName="saturdayShifts" *ngIf="isSaturdayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="saturdayShifts" *ngIf="isSaturdayChecked">
+        <div *ngFor="let formgroup of saturdayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Saturday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Saturday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -27,13 +34,20 @@
           Sunday
         </label>
       </div>
-      <div class="shifts" formGroupName="sundayShifts" *ngIf="isSundayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="sundayShifts" *ngIf="isSundayChecked">
+        <div *ngFor="let formgroup of sundayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Sunday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Sunday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -42,13 +56,20 @@
           Monday
         </label>
       </div>
-      <div class="shifts" formGroupName="mondayShifts" *ngIf="isMondayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="mondayShifts" *ngIf="isMondayChecked">
+        <div *ngFor="let formgroup of mondayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Monday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Monday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -57,13 +78,20 @@
           Tuesday
         </label>
       </div>
-      <div class="shifts" formGroupName="tuesdayShifts" *ngIf="isTuesdayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="tuesdayShifts" *ngIf="isTuesdayChecked">
+        <div *ngFor="let formgroup of tuesdayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Tuesday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Tuesday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -72,13 +100,20 @@
           Wednesday
         </label>
       </div>
-      <div class="shifts" formGroupName="wednesdayShifts" *ngIf="isWednesdayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="wednesdayShifts" *ngIf="isWednesdayChecked">
+        <div *ngFor="let formgroup of wednesdayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Tuesday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Tuesday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -87,13 +122,20 @@
           Thursday
         </label>
       </div>
-      <div class="shifts" formGroupName="thursdayShifts" *ngIf="isThursdayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="thursdayShifts" *ngIf="isThursdayChecked">
+        <div *ngFor="let formgroup of thursdayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Thursday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Thursday)">-</a>
         </div>
       </div>
       <div class="form-check">
@@ -102,20 +144,28 @@
           Friday
         </label>
       </div>
-      <div class="shifts" formGroupName="fridayShifts" *ngIf="isFridayChecked">
-        <div class="form-group" formGroupName="shiftOne">
-          <label class="shift">Shift 1:</label>
-          <label class="d-inline-block">From</label>
-          <input type="time" value="01:00" class="form-control" formControlName="from">
-          <label class="d-inline-block">To</label>
-          <input type="time" value="01:00" class="form-control" formControlName="to">
+      <div class="shifts" formArrayName="fridayShifts" *ngIf="isFridayChecked">
+        <div *ngFor="let formgroup of fridayShiftsArr.controls; let i=index">
+          <div class="form-group" formGroupName={{i}}>
+            <label class="shift">Shift {{i+1}}:</label>
+            <label class="d-inline-block">From</label>
+            <input type="time" class="form-control" formControlName="from">
+            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control" formControlName="to">
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Friday)">+</a>
+          <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Friday)">-</a>
         </div>
       </div>
       <div class="submitWrapper mt-4">
         <div class="text-danger" *ngIf="!isAnyDayChoosed">Choose at least one working day</div>
-        <button type="submit" class="btn btn-info mt-1" [disabled]="!isAnyDayChoosed || loading">Submit</button>
+        <button type="submit" class="btn btn-primary mt-1" [disabled]="!isAnyDayChoosed || loading">Save</button>
       </div>
     </form>
   </div>
+
 
 </div>

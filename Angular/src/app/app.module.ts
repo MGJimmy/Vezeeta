@@ -26,6 +26,9 @@ import { DoctorAttachmentsComponent } from './components/dashboard/doctor-attach
 import { DoctorDashboardSildbarComponent } from './components/doctor-dashboard/doctor-dashboard-sildbar/doctor-dashboard-sildbar.component';
 import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
 import { UploadAndShowComponent } from './components/_reusableComponents/upload-and-show/upload-and-show.component';
+import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc/doctor-clinc.component';
+import { UploadMultipleComponent } from './components/_reusableComponents/upload-multiple/upload-multiple.component';
+import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { UploadAndShowComponent } from './components/_reusableComponents/upload-
     DoctorDashboardSildbarComponent,
     DoctorDashboardAttachmentComponent,
     UploadAndShowComponent,
+    DoctorClincComponent,
+    UploadMultipleComponent,
+    ClinicWorkingDaysComponent,
 
   ],
   imports: [

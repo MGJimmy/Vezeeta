@@ -2,7 +2,10 @@
 using BL.DTOs;
 using BL.DTOs.AccountDTO;
 using BL.DTOs.AreaDTO;
+using BL.DTOs.DayShiftDTO;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.ClinicDto;
+using BL.DTOs.WorkingDayDTO;
 using DAL;
 using DAL.Models;
 using System;
@@ -10,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BL.DTOs.ClinicImagesDto;
 
 namespace BL.Configurations
 {
@@ -64,6 +68,46 @@ namespace BL.Configurations
             CreateMap<ApplicationUserIdentity, RegisterAccountDTO>()
             .ReverseMap()
             .ForMember(m => m.Doctor, m => m.Ignore());
+
+            CreateMap<Clinic, CreateClinicDto>()
+            .ReverseMap()
+            .ForMember(m => m.Area, m => m.Ignore())
+            .ForMember(m => m.City, m => m.Ignore())
+            .ForMember(m => m.Doctor, m => m.Ignore())
+            .ForMember(m => m.ClinicImages, m => m.Ignore());
+
+            CreateMap<Clinic, UpdateClinicDto>()
+            .ReverseMap()
+            .ForMember(m => m.Area, m => m.Ignore())
+            .ForMember(m => m.City, m => m.Ignore())
+            .ForMember(m => m.Doctor, m => m.Ignore())
+            .ForMember(m => m.ClinicImages, m => m.Ignore());
+
+
+            CreateMap<Clinic, GetClinicDto>()
+           .ReverseMap()
+           .ForMember(m => m.Area, m => m.Ignore())
+           .ForMember(m => m.City, m => m.Ignore())
+           .ForMember(m => m.Doctor, m => m.Ignore())
+           .ForMember(m => m.ClinicImages, m => m.Ignore());
+
+
+            CreateMap<ClinicImage, CreateClinicImagesDto>()
+            .ReverseMap()
+            .ForMember(m => m.Clinic, m => m.Ignore());
+            CreateMap<ClinicImage, GetClinicImageDto>()
+           .ReverseMap()
+           .ForMember(m => m.Clinic, m => m.Ignore());
+
+            CreateMap<WorkingDay, CreateWorkingDayDTO>()
+            .ReverseMap()
+            .ForMember(m => m.Clinic, m => m.Ignore());
+
+
+            CreateMap<DayShift, CreateDayShiftDTO>()
+            .ReverseMap()
+            .ForMember(m => m.WorkingDay, m => m.Ignore());
+
 
             CreateMap<ApplicationUserIdentity, LoginDto>().ReverseMap();
 

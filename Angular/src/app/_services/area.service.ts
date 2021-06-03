@@ -81,4 +81,24 @@ export class AreaService {
 
 
 
+  //delete city
+  getAllCity(){
+    return this._http.get<ICity>(environment.apiUrl + "/api/city").pipe(catchError((err) => {
+      return throwError(err.message || "An Error Occur")
+    })
+    )
+  }
+  // end delete
+
+  getAllAreaWhere(Cityid){
+    return this._http.get<IArea[]>(this.baseUrl+"GetAllWhere/"+Cityid).pipe(catchError((err) => {
+      return throwError(err.message || "An Error Occur")
+    })
+    )
+  }
+
+}
+interface ICity{
+  id:number
+  name:string
 }

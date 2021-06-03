@@ -75,14 +75,12 @@ export class CityComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-              console.log("ok")
                 this._router.routeReuseStrategy.shouldReuseRoute = () => false;
                 this._router.onSameUrlNavigation = 'reload';
                 this.addOrUpdateModelCloseBtn.nativeElement.click();
                 this._router.navigate([this._router.url]);
             },
             error => {
-              //let response:IResponse = error;
               console.log(error);
               this.errorMsg = "there's an error but we can't know it becuase error is empty";
                 this.loading = false;

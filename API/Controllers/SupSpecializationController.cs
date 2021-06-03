@@ -28,11 +28,39 @@ namespace API.Controllers
             return Ok(_supSpecializationAppService.GetPageRecords(pageSize, pageNumber));
         }
 
-        [HttpGet("count")]
-        public IActionResult SubSpecialityCount()
+        ///
+        [HttpGet]
+        [Route("/api/NotAcceptedSubSpecail/Admin/{pageSize}/{pageNumber}")]
+        public IActionResult GetNotAcceptByPage(int pageSize, int pageNumber)
         {
-            return Ok(_supSpecializationAppService.CountEntity());
+            return Ok(_supSpecializationAppService.GetNotAcceptPageRecords(pageSize, pageNumber));
         }
+
+
+        //[HttpGet]
+        //[Route("/api/NotAcceptedSubSpecail/Admin")]
+        //public IActionResult GetAllNotAccepted()
+        //{
+        //    return Ok(_supSpecializationAppService.GetAllNotAcceptedWithCity());
+        //}
+
+        [HttpGet("count")]
+        public IActionResult SubspecailAcceptedCount()
+        {
+            return Ok(_supSpecializationAppService.CountOfAccept());
+        }
+        [HttpGet("/api/SubspecailNotAccepted/admin/count")]
+        public IActionResult SubspecailNotAcceptedCount()
+        {
+            return Ok(_supSpecializationAppService.CountOfNotAccept());
+        }
+
+        //
+        //[HttpGet("count")]
+        //public IActionResult SubSpecialityCount()
+        //{
+        //    return Ok(_supSpecializationAppService.CountEntity());
+        //}
 
         // GET: api/<SupSpecializationController>
         [HttpGet]

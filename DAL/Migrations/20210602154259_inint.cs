@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class inint : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -296,14 +296,12 @@ namespace DAL.Migrations
                         name: "FK_Clinic_Area_AreaId",
                         column: x => x.AreaId,
                         principalTable: "Area",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_Clinic_City_CityId",
                         column: x => x.CityId,
                         principalTable: "City",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.NoAction);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_Clinic_Doctor_DoctorId",
                         column: x => x.DoctorId,
@@ -332,10 +330,51 @@ namespace DAL.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkingDay",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClinicId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Day = table.Column<int>(type: "int", maxLength: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkingDay", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkingDay_Clinic_ClinicId",
+                        column: x => x.ClinicId,
+                        principalTable: "Clinic",
+                        principalColumn: "DoctorId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DayShift",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    From = table.Column<TimeSpan>(type: "time", nullable: false),
+                    To = table.Column<TimeSpan>(type: "time", nullable: false),
+                    WorkingDayId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DayShift", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DayShift_WorkingDay_WorkingDayId",
+                        column: x => x.WorkingDayId,
+                        principalTable: "WorkingDay",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "ffeaa154-8a29-426b-bfde-8fbffe1361d4", 0, "00a2c9c7-0ec8-4089-9840-8d2518ae808e", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "dd71c17a-5b81-4cba-a2a9-ecbc805b7128", false, "admin" });
+                values: new object[] { "07a9b0d4-a093-4466-87de-309b5e699609", 0, "a45f0c55-165b-4600-939e-f5a77803fda0", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "02293aca-64fe-4ad5-a94e-107d002a6986", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
@@ -409,6 +448,11 @@ namespace DAL.Migrations
                 column: "ClinicId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DayShift_WorkingDayId",
+                table: "DayShift",
+                column: "WorkingDayId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Specialty_Name",
                 table: "Specialty",
                 column: "Name",
@@ -418,6 +462,11 @@ namespace DAL.Migrations
                 name: "IX_supSpecializations_specialtyId",
                 table: "supSpecializations",
                 column: "specialtyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkingDay_ClinicId",
+                table: "WorkingDay",
+                column: "ClinicId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -444,6 +493,9 @@ namespace DAL.Migrations
                 name: "Clinicservices");
 
             migrationBuilder.DropTable(
+                name: "DayShift");
+
+            migrationBuilder.DropTable(
                 name: "DoctorAttachment");
 
             migrationBuilder.DropTable(
@@ -453,10 +505,13 @@ namespace DAL.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Clinic");
+                name: "WorkingDay");
 
             migrationBuilder.DropTable(
                 name: "Specialty");
+
+            migrationBuilder.DropTable(
+                name: "Clinic");
 
             migrationBuilder.DropTable(
                 name: "Area");

@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ffeaa154-8a29-426b-bfde-8fbffe1361d4",
+                            Id = "07a9b0d4-a093-4466-87de-309b5e699609",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00a2c9c7-0ec8-4089-9840-8d2518ae808e",
+                            ConcurrencyStamp = "a45f0c55-165b-4600-939e-f5a77803fda0",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dd71c17a-5b81-4cba-a2a9-ecbc805b7128",
+                            SecurityStamp = "02293aca-64fe-4ad5-a94e-107d002a6986",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -221,6 +221,29 @@ namespace DAL.Migrations
                     b.ToTable("Clinicservices");
                 });
 
+            modelBuilder.Entity("DAL.Models.DayShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<TimeSpan>("From")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("To")
+                        .HasColumnType("time");
+
+                    b.Property<int>("WorkingDayId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkingDayId");
+
+                    b.ToTable("DayShift");
+                });
+
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
                     b.Property<string>("UserId")
@@ -309,6 +332,27 @@ namespace DAL.Migrations
                     b.HasIndex("specialtyId");
 
                     b.ToTable("supSpecializations");
+                });
+
+            modelBuilder.Entity("DAL.Models.WorkingDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Day")
+                        .HasMaxLength(6)
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClinicId");
+
+                    b.ToTable("WorkingDay");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -458,13 +502,13 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Models.Area", "Area")
                         .WithMany("clinics")
                         .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.City", "City")
                         .WithMany("Clinics")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Doctor", "Doctor")
@@ -487,6 +531,17 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
+                });
+
+            modelBuilder.Entity("DAL.Models.DayShift", b =>
+                {
+                    b.HasOne("DAL.Models.WorkingDay", "WorkingDay")
+                        .WithMany("DayShifts")
+                        .HasForeignKey("WorkingDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WorkingDay");
                 });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
@@ -520,6 +575,15 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("specialty");
+                });
+
+            modelBuilder.Entity("DAL.Models.WorkingDay", b =>
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("WorkingDays")
+                        .HasForeignKey("ClinicId");
+
+                    b.Navigation("Clinic");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -593,11 +657,18 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
                     b.Navigation("ClinicImages");
+
+                    b.Navigation("WorkingDays");
                 });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
                     b.Navigation("DoctorAttachment");
+                });
+
+            modelBuilder.Entity("DAL.Models.WorkingDay", b =>
+                {
+                    b.Navigation("DayShifts");
                 });
 #pragma warning restore 612, 618
         }

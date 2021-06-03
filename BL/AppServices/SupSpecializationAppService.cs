@@ -78,6 +78,17 @@ namespace BL.AppServices
         {
             return TheUnitOfWork.SupSpecializationRepo.CountEntity();
         }
-
+        public IEnumerable<SupSpecailizationDto> GetNotAcceptPageRecords(int pageSize, int pageNumber)
+        {
+            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetNotAcceptPageRecords(pageSize, pageNumber));
+        }
+        public int CountOfAccept()
+        {
+            return TheUnitOfWork.SupSpecializationRepo.CountOfAccept();
+        }
+        public int CountOfNotAccept()
+        {
+            return TheUnitOfWork.SupSpecializationRepo.CountOfNotAccept();
+        }
     }
 }

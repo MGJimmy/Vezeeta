@@ -7,6 +7,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DoctorAttachmentsComponent } from './components/dashboard/doctor-attachments/doctor-attachments.component';
 import { SpecialityComponent } from './components/dashboard/speciality/speciality.component';
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
+import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc/doctor-clinc.component';
+import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
 import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
@@ -29,7 +31,10 @@ const routes: Routes = [
   },
   {path:'doctorDashboard',component:DoctorDashboardComponent,
     children:[
-      {path:'attachment',component:DoctorDashboardAttachmentComponent}
+      {path:'attachment',component:DoctorDashboardAttachmentComponent},
+      {path:'clinc',component:DoctorClincComponent},
+      {path:'attachment',component:DoctorDashboardAttachmentComponent},
+      {path:'workingDays',component:ClinicWorkingDaysComponent},
     ]
   },
   {path:"registerDoctor", component:RegisterDoctorComponent},

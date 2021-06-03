@@ -34,6 +34,16 @@ namespace DAL
             builder.Entity<ApplicationUserIdentity>().HasData(
              new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com",PasswordHash="123456" }
             );
+            builder.Entity<City>()
+                .HasMany(ci => ci.Clinics)
+                .WithOne(cl => cl.City)
+                .HasForeignKey(cl=>cl.CityId)
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Area>()
+                .HasMany(a => a.clinics)
+                .WithOne(cl => cl.Area)
+                .HasForeignKey(cl => cl.AreaId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
 
      

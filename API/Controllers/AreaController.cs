@@ -26,7 +26,14 @@ namespace API.Controllers
         {
             return Ok(_areaAppServices.GetAll());
         }
-        
+
+        [HttpGet]
+        [Route("/api/GetAllWhere/{Cityid}")]
+        public IActionResult GetAllwhere(int Cityid)
+        {
+            return Ok(_areaAppServices.GetAllWhere(Cityid));
+        }
+
         [HttpGet]
         [Route("/api/AreaWithCity")]
         public IActionResult GetAllWithCity()

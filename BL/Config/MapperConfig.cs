@@ -65,7 +65,7 @@ namespace BL.Configurations
             .ReverseMap()
             .ForMember(m => m.Doctor, m => m.Ignore());
 
-
+            CreateMap<ApplicationUserIdentity, LoginDto>().ReverseMap();
 
 
 

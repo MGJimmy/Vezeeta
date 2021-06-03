@@ -24,7 +24,7 @@ namespace BL.Repositories
         }
         public async Task<IdentityResult> Register(ApplicationUserIdentity registerUser)
         {
-            var identityResult = await _userManager.CreateAsync(registerUser);
+            var identityResult = await _userManager.CreateAsync(registerUser,registerUser.PasswordHash);
             return identityResult;
         }
         public ApplicationUserIdentity GetAccountById(string id)
@@ -46,6 +46,7 @@ namespace BL.Repositories
             var userRoles = await _userManager.GetRolesAsync(user);
             return userRoles;
         }
+       
 
         public async Task<ApplicationUserIdentity> FindById(string id)
         {

@@ -9,6 +9,7 @@ import { SpecialityComponent } from './components/dashboard/speciality/specialit
 import { SubSpecialityComponent } from './components/dashboard/sub-speciality/sub-speciality.component';
 import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 
 const routes: Routes = [
@@ -31,7 +32,8 @@ const routes: Routes = [
       {path:'attachment',component:DoctorDashboardAttachmentComponent}
     ]
   },
-  {path:"registerDoctor", component:RegisterDoctorComponent}
+  {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"login", component:LoginComponent}
 ];
 
 @NgModule({

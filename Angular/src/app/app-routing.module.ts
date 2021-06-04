@@ -12,6 +12,7 @@ import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic
 import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
+import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent},
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
+      {path:'doctorServices',component:DoctorServicesComponent},
     ]
   },
   {path:"registerDoctor", component:RegisterDoctorComponent}

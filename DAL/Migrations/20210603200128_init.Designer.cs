@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    partial class VezeetaContextModelSnapshot : ModelSnapshot
+    [Migration("20210603200128_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3a9b9719-2d12-475c-b69e-ec56ae9bbfc4",
+                            Id = "48b6e37a-302c-4748-9408-6d3e3a22611b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7770036a-75ab-4ec9-8d77-8f867d867e38",
+                            ConcurrencyStamp = "c15b6d03-f634-49cd-a245-7732223d5c71",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14375851-8c90-4646-a1b7-e90415081b64",
+                            SecurityStamp = "87de51e4-b2e6-4fe6-8a9a-c278a6d57a37",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -291,25 +293,6 @@ namespace DAL.Migrations
                     b.ToTable("DoctorAttachment");
                 });
 
-            modelBuilder.Entity("DAL.Models.DoctorSercive", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("ByAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DoctorSercive");
-                });
-
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Property<int>("ID")
@@ -372,21 +355,6 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
-                });
-
-            modelBuilder.Entity("DoctorDoctorSercive", b =>
-                {
-                    b.Property<int>("DoctorSercivesID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DoctorsUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("DoctorSercivesID", "DoctorsUserId");
-
-                    b.HasIndex("DoctorsUserId");
-
-                    b.ToTable("DoctorDoctorSercive");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -618,21 +586,6 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
-                });
-
-            modelBuilder.Entity("DoctorDoctorSercive", b =>
-                {
-                    b.HasOne("DAL.Models.DoctorSercive", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorSercivesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

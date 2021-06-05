@@ -49,7 +49,7 @@ export class SubSpecialityComponent implements OnInit {
       name: ['', Validators.required],
       specialtyId: ['', Validators.required]
     });
-    this.specilatyService.getAllCategories().subscribe(
+    this.specilatyService.getAllSpecialities().subscribe(
       data => {
         this.SpecialityList = data
       },

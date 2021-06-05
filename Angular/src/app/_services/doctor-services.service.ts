@@ -45,8 +45,8 @@ export class DoctorServicesService {
   }
   addNewDoctorService(newDoctorService:IDoctorService):Observable<IDoctorService>{
   
-    let url = `${environment.apiUrl}/api/DoctorService`;
-    console.log(url)
+    let url=`${environment.apiUrl}/api/DoctorService`;
+    //console.log(url)
     return this._http.post<IDoctorService>(url, newDoctorService)
             .pipe(catchError((err)=>{
               return throwError(err.message ||"Internal Server error contact site adminstarator");
@@ -65,4 +65,20 @@ export class DoctorServicesService {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));
   }
+  acceptDoctorService(id:string):Observable<any>{
+    let url = `${environment.apiUrl}/api/DoctorService/acceptDoctorService/${id}`;
+    return this._http.put<any>(url,null).pipe(catchError((err)=>
+    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
+   
+  rejectDoctorService(id:string):Observable<any>{
+    let url = `${environment.apiUrl}/api/DoctorService/rejectDoctorService/${id}`;
+    return this._http.put<any>(url,null).pipe(catchError((err)=>
+    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
+
 }

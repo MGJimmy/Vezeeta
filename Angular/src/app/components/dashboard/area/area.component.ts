@@ -163,6 +163,7 @@ export class AreaComponent implements OnInit {
   //DeleteArea
   openConfirmDelete(id){
     this.deleteAreaId=id;
+    console.log(id)
   }
   closeConfirmDelete(){
     this.deleteAreaId=null;

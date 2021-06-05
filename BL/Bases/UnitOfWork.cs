@@ -182,7 +182,7 @@ namespace BL.Bases
             get
             {
                 if (roleRepo == null)
-                    roleRepo = new RoleRepository(Context,_roleManager);
+                    roleRepo = new RoleRepository(Context, _roleManager);
                 return roleRepo;
             }
         }

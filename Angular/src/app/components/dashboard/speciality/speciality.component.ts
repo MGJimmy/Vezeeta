@@ -85,6 +85,7 @@ export class SpecialityComponent implements OnInit {
             error => {
                 this.errorMsg = error;
                 this.loading = false;
+                console.log(error)
             });
   }
 
@@ -131,7 +132,7 @@ export class SpecialityComponent implements OnInit {
 
   openUpdateSpecialtyyModal(SpecialtyID){
     this.actionName = "Update";
-    this._specialityService.getCategoryById(SpecialtyID)
+    this._specialityService.getSpecialityById(SpecialtyID)
         .pipe(first())
         .subscribe(
             data => {

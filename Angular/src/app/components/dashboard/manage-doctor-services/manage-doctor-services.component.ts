@@ -25,6 +25,7 @@ export class ManageDoctorServicesComponent implements OnInit {
   submitted = false;
   actionName:string;
   DoctorServicesCount:number;
+  byAdmin:boolean=true;
   pageSize:number = 8;
   currentPageNumber:number = 1;
   numberOfPages:number; 
@@ -37,16 +38,16 @@ export class ManageDoctorServicesComponent implements OnInit {
     private _router:Router) { }
 
   ngOnInit(): void {
-    this.getDoctorServicesCount();
+    this.getDoctorServicesCount(this.byAdmin);
     this.DoctorServiceForm = this._formBuilder.group({
       name:['', Validators.required],
    
     });
-    this.getSelectedPage(1);
+    this.getSelectedPage(1,this.byAdmin);
   }
 
-  private getDoctorServicesCount(){
-    this._DoctorServicesService.getDoctorServicesCount(true).subscribe(
+  private getDoctorServicesCount(byAdmin:boolean){
+    this._DoctorServicesService.getDoctorServicesCount(byAdmin).subscribe(
       data => {
         this.DoctorServicesCount = data
         this.numberOfPages = Math.ceil(this.DoctorServicesCount / this.pageSize)
@@ -163,8 +164,8 @@ export class ManageDoctorServicesComponent implements OnInit {
   counter(i: number) {
     return new Array(i);
   }
-  getSelectedPage(currentPageNumber:number){
-    this._DoctorServicesService.getDoctorServicesByPage(this.pageSize,currentPageNumber,true).subscribe(
+  getSelectedPage(currentPageNumber:number,byAdmin:boolean){
+    this._DoctorServicesService.getDoctorServicesByPage(this.pageSize,currentPageNumber,byAdmin).subscribe(
       data => {
         this.allDoctorServices = data
         this.currentPageNumber = currentPageNumber;
@@ -181,6 +182,30 @@ export class ManageDoctorServicesComponent implements OnInit {
       }
     ) 
   }
+  StatusChanged(filterBy:string){
+     if(filterBy==="ByAdmin")
+       this.byAdmin=true;
+     else
+      this.byAdmin=false;
 
+      this.getDoctorServicesCount(this.byAdmin);
+      this.getSelectedPage(this.currentPageNumber,this.byAdmin);
+  }
+  openAcceptDoctorServicetModal(id:string){
+   
+    this.confirmModal.pointerToFunction = this._DoctorServicesService.acceptDoctorService
+    this.confirmModal.title = "Confirmation";
+    this.confirmModal.itemId = id;
+    this.confirmModal.message = "Are you sure to accept this Doctor Service";
+    this.confirmModal.pageUrl = this._router.url;
+  }
+  openRejectDoctorServiceModal(id:string){
+   
+    this.confirmModal.pointerToFunction = this._DoctorServicesService.rejectDoctorService
+    this.confirmModal.title = "Confirmation";
+    this.confirmModal.itemId = id;
+    this.confirmModal.message = "Are you sure to reject this Doctor Service";
+    this.confirmModal.pageUrl = this._router.url;
+  }
 
 }

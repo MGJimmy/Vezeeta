@@ -40,6 +40,7 @@ export class ClincServicesService {
   }
   updateClinicService(id:number, clinicService:IClinicServices):Observable<IClinicServices>{
     let _url = `${this.url}/${id}`;
+    console.log(_url);
     return this._http.put<IClinicServices>(_url,clinicService)
             .pipe(catchError((err)=>{
               return throwError(err.message ||"Internal Server error contact site adminstarator");
@@ -47,7 +48,8 @@ export class ClincServicesService {
               ));
   }
   deleteClinicService(id:number):Observable<any>{
-    let _url = `${this.url}/${id}`;
+    let _url = `${environment.apiUrl}/api/ClincServices/${id}`;
+
     return this._http.delete<any>(_url).pipe(catchError((err)=>
     {
       return throwError(err.message ||"Internal Server error contact site adminstarator");

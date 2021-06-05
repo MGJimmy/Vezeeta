@@ -37,5 +37,20 @@ namespace BL.Repositories
                 .Where(doctorService => doctorService.ByAdmin == byAdmin)
                 .Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
+        public void acceptDoctorService(int id)
+        {
+           
+            DoctorService doctorService = DbSet.FirstOrDefault(doctorService => doctorService.ID == id);
+            doctorService.ByAdmin = true;
+
+
+        }
+        public void rejectDoctorService(int id)
+        {
+          
+            DoctorService doctorService = DbSet.FirstOrDefault(doctorService => doctorService.ID == id);
+            this.Delete(id);
+
+        }
     }
 }

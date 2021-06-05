@@ -26,6 +26,12 @@ namespace BL.AppServices
             createWorkingDayDTO.Id = result.Id;
             return createWorkingDayDTO;
         }
+
+        public IEnumerable<GetWorkingDaysDTO> GetWorkingDaysForDoctor(string doctorId)
+        {
+            var workingDays = TheUnitOfWork.WorkingDayRepo.GetWorkingDaysForDoctor(doctorId);
+            return Mapper.Map<IEnumerable<GetWorkingDaysDTO>>(workingDays);
+        }
         #endregion
     }
 }

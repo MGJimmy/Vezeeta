@@ -1,10 +1,12 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,16 +20,23 @@ namespace API.Controllers
         private DoctorAttachmentAppService _doctorAttachmentAppService;
         private DoctorAppService _doctorAppService;
         private GeneralAppService _generalAppService;
-        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, DoctorAppService doctorAppService, GeneralAppService generalAppService)
+        private IHttpContextAccessor _httpContextAccessor;
+        public DoctorAttachmentController(
+            DoctorAttachmentAppService doctorAttachmentAppService,
+            DoctorAppService doctorAppService, 
+            GeneralAppService generalAppService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _doctorAttachmentAppService = doctorAttachmentAppService;
             _doctorAppService = doctorAppService;
             _generalAppService = generalAppService;
+            _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet("getOne")]
         public IActionResult GetOne()
         {
-            string id = "ffeaa154-8a29-426b-bfde-8fbffe1361d4";    // will change in future
+            var id = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             return Ok(_doctorAttachmentAppService.GetById(id));
         }
         [HttpGet]
@@ -61,7 +70,12 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             try
             {
-                doctorDto.DoctorId = "ffeaa154-8a29-426b-bfde-8fbffe1361d4";    //change after login story
+                var x = Request.Headers;
+                var g = User;
+                doctorDto.DoctorId = g.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //var y = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
+
                 DoctorAttachmentDto doctor = _doctorAttachmentAppService.Insert(doctorDto);
                 _generalAppService.CommitTransaction();
                 return Created("attachment send", doctorDto);

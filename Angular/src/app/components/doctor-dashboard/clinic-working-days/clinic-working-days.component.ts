@@ -43,7 +43,8 @@ export class ClinicWorkingDaysComponent implements OnInit {
   get fridayShiftsArr(){return this.workingDaysForm.get('fridayShifts') as FormArray}
   constructor(
     private _formBuilder:FormBuilder,
-    private _workingDaysService:WorkingDaysService) { }
+    private _workingDaysService:WorkingDaysService
+    ) { }
   
   private createFormShift(){
     return this._formBuilder.group({
@@ -73,7 +74,6 @@ export class ClinicWorkingDaysComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initWorkingDaysForm();
-    console.log(this.Saturday)
    }
   onSubmit(){
     this.loading = true;
@@ -102,7 +102,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
       });
       saturday = {
         clinicId:this.testClinictId,
-        day:"saturday",
+        day:this.Saturday,
         dayShifts:saturdayShifts
       }
     }
@@ -309,4 +309,19 @@ export class ClinicWorkingDaysComponent implements OnInit {
     else if(day == Day.Friday && this.fridayShiftsArr.length > 1)
       this.fridayShiftsArr.removeAt(this.fridayShiftsArr.length - 1);
   }
+  test1(){
+    this._workingDaysService.test1().subscribe(
+      data=>{
+        this.workingDays = data;
+        console.log(data);
+        this.successMsg = "successfully"
+        this.loading =false;
+      },
+      error=>{
+        this.errorMsg = "Error"
+        this.loading = false;
+      }
+    );
+  }
 }
+

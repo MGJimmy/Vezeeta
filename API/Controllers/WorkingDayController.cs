@@ -1,11 +1,13 @@
 ﻿using BL.AppServices;
 using BL.DTOs.WorkingDayDTO;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -48,10 +50,12 @@ namespace API.Controllers
             
         }
         [HttpGet]
-        public IActionResult get()
+        [Authorize(AuthenticationSchemes ="Bearer")]
+        public IActionResult GetWorkingDaysForLoggedDoctor()
         {
-
-            return Ok(_dayShiftAppService.getDay());
+            string doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<GetWorkingDaysDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctorId);
+            return Ok(workingDaysDTOs);
         }
     }
 }

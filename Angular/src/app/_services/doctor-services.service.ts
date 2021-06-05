@@ -44,7 +44,8 @@ export class DoctorServicesService {
   }
   addNewDoctorService(newDoctorService:IDoctorService):Observable<IDoctorService>{
   
-    let url = `${environment.apiUrl}/api/DoctorService`;
+   
+    let url=`${environment.apiUrl}/api/DoctorService`;
     console.log(url)
     return this._http.post<IDoctorService>(url, newDoctorService)
             .pipe(catchError((err)=>{

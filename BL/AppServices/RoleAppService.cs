@@ -19,8 +19,9 @@ namespace BL.AppServices
         }
         public async Task CreateRoles()
         {
-           await TheUnitOfWork.RoleRepo.CreateRoles();
+            await TheUnitOfWork.RoleRepo.CreateRoles();
             TheUnitOfWork.SaveChanges();
+            TheUnitOfWork.CommitTransaction();
         }
         public RoleDTO GetRoleById(string id)
         {

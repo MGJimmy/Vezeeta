@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.Bases;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.DoctorServiceDtos;
 using BL.Interfaces;
 using DAL.Models;
 using System;
@@ -36,7 +37,7 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
         }
 
-        public bool UpdateServicesList(List<DoctorSercive> _doctorservice, string docID)
+        public bool UpdateServicesList(List<DoctorServiceDto> _doctorservice, string docID)
         {
             if (_doctorservice == null)
                 throw new ArgumentNullException();
@@ -45,8 +46,8 @@ namespace BL.AppServices
 
             Doctor doctor=TheUnitOfWork.DoctorRepo.GetByStringId(docID);
 
-            doctor.DoctorSercives = _doctorservice;
-        
+            doctor.doctorServices =Mapper.Map<List<DoctorService>>(_doctorservice);
+
             TheUnitOfWork.DoctorRepo.Update(doctor);
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;

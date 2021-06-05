@@ -1,14 +1,17 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.DoctorServiceDtos;
 using BL.StaticClasses;
 using DAL;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -62,28 +65,29 @@ namespace API.Controllers
             
         }
 
-        //[HttpPut("addServices")]
-        //public IActionResult AddServiceForDoctor(List<DoctorSercive> doctorservives)
-        //{
-        //    if (ModelState.IsValid == false)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-               
-        //        _doctorAppService.UpdateServicesList(doctorservives, DoctorId);
-        //        _generalAppService.CommitTransaction();
-        //        return NoContent(); 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _generalAppService.RollbackTransaction();
+        [HttpPut("addServices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult AddServiceForDoctor(List<DoctorServiceDto> doctorservives)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-        //        return BadRequest(ex.Message);
+                _doctorAppService.UpdateServicesList(doctorservives, DoctorId);
+                _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
 
-        //    }
-        //}
+                return BadRequest(ex.Message);
+
+            }
+        }
     }
 }

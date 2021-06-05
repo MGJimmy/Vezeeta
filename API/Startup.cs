@@ -52,12 +52,12 @@ namespace API
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
             });
-            services.AddSwaggerGen(c =>
-            {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
-            });
+            //services.AddSwaggerGen(c =>
+            //{
+            //    options.JsonSerializerOptions.IgnoreNullValues = true;
+            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            //    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            //});
             services.AddDbContext<VezeetaContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("CS"));

@@ -13,9 +13,10 @@ export class DoctorServicesService {
 
   constructor(private _http:HttpClient) { }
   getAllDoctorServices():Observable<IDoctorService[]> {
-    let url = `${environment.apiUrl}/api/Specialty`;
+    let url = `${environment.apiUrl}/api/DoctorService`;
     return this._http.get<IDoctorService[]>(url).pipe(catchError((err)=>
     {
+      console.log(err);
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));
   }

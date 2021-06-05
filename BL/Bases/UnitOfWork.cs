@@ -176,7 +176,17 @@ namespace BL.Bases
                 return clinicImagesRepo;
             }
         }
-        
+        private RoleRepository roleRepo;
+        public RoleRepository RoleRepo
+        {
+            get
+            {
+                if (roleRepo == null)
+                    roleRepo = new RoleRepository(Context,_roleManager);
+                return roleRepo;
+            }
+        }
+
 
 
         public void Dispose()

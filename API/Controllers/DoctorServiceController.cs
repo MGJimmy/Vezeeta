@@ -121,5 +121,39 @@ namespace API.Controllers
                 return BadRequest(new Response { Message = ex.Message });
             }
         }
+        [HttpPut("acceptDoctorService/{id}")]
+        public IActionResult acceptDoctorService(int id)
+        {
+            try
+            {
+                _doctorServiceAppService.acceptDoctorService(id);
+               
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message = "Doctor Service is accepted" });
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPut("rejectDoctorService/{id}")]
+        public IActionResult rejectDoctorService(int id)
+        {
+            try
+            {
+                _doctorServiceAppService.rejectDoctorService(id);
+                _generalAppService.CommitTransaction();
+                return Ok(new Response { Message = "Doctor Service is rejected" });
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
     }
 }

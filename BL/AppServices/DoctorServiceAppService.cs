@@ -78,7 +78,16 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<DoctorServiceDto>>(TheUnitOfWork.DoctorServiceRepo.GetPageRecords(pageSize, pageNumber,byAdmin));
         }
 
-      
+       public void acceptDoctorService(int id)
+        {
+            TheUnitOfWork.DoctorServiceRepo.acceptDoctorService(id);
+            TheUnitOfWork.SaveChanges();
+        }
+        public void rejectDoctorService(int id)
+        {
+            TheUnitOfWork.DoctorServiceRepo.rejectDoctorService(id);
+            TheUnitOfWork.SaveChanges();
+        }
 
     }
 }

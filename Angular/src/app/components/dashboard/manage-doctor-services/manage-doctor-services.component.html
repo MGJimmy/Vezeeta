@@ -1,9 +1,12 @@
 <h2 class="text-center display-4 font-weight-bold my-5">Doctor Services</h2>
 
-<button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddDoctorServiceModal();">
+<button class="btn btn-primary mb-2 dBAddNewBtn d-block" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddDoctorServiceModal();">
   New
 </button>
-
+<select class="form-control w-25 mb-3 d-inline-block" #status (change)="StatusChanged(status.value)">
+    <option value="ByAdmin">By Admin</option>
+    <option value="ByDoctor">By Doctor</option>
+</select>
 <table class="table table-bordered table-hover" *ngIf="hasDoctorServices">
     <thead class="thead-dark">
         <tr>
@@ -18,9 +21,13 @@
             <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
             <td>{{ ds.name }}</td>
           
-            <td>
+            <td *ngIf='byAdmin'>
                 <button class="btn btn-success mx-2" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openUpdateDoctorServiceModal(ds.id)">Update</button>
                 <button class="btn btn-danger mx-2" (click)="openDeleteDoctorServiceModal(ds.id)" data-toggle="modal" data-target="#confirmationModal">Delete</button>
+            </td>
+            <td *ngIf='!byAdmin'>
+                <button class="btn btn-success mx-2" (click)="openAcceptDoctorServicetModal(ds.id)" data-toggle="modal"  data-target="#confirmationModal" >Accept</button>
+                <button class="btn btn-danger mx-2" (click)="openRejectDoctorServiceModal(ds.id)" data-toggle="modal"  data-target="#confirmationModal" >Reject</button>
             </td>
         </tr>
     </tbody>

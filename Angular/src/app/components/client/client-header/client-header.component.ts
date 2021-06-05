@@ -15,5 +15,8 @@ export class ClientHeaderComponent implements OnInit {
   Logout(){
      this._authenticationService.logout();
   }
+  isLoggedIn(){
+    return this._authenticationService.isLoggedIn();
+  }
 
 }

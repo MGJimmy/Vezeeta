@@ -1,17 +1,20 @@
 ﻿using BL.AppServices;
 using BL.DTOs.WorkingDayDTO;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class WorkingDayController : ControllerBase
     {
         WorkingDayAppService _workingDayAppService;
@@ -31,27 +34,35 @@ namespace API.Controllers
         {
             try
             {
+                string ClinicId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(ClinicId);
+                _workingDayAppService.DeleteList(workingDaysDTOs);
                 List<CreateWorkingDayDTO> res = new List<CreateWorkingDayDTO>();
                 foreach (var createWorkingDayDTO in createWorkingDayDTOs)
                 {
-                    if(createWorkingDayDTO != null)
-                       res.Add(_workingDayAppService.Insert(createWorkingDayDTO));
+                    if (createWorkingDayDTO != null)
+                    {
+                        createWorkingDayDTO.ClinicId = ClinicId;
+                        res.Add(_workingDayAppService.Insert(createWorkingDayDTO));
+                    }
                 }
                 _generalAppService.CommitTransaction();
                 return Created("added",res);
             }
-            catch
+            catch(Exception ex)
             {
                 _generalAppService.RollbackTransaction();
-                return BadRequest("Error");
+                return BadRequest(ex.Message);
             }
             
         }
         [HttpGet]
-        public IActionResult get()
+        [Authorize(AuthenticationSchemes ="Bearer")]
+        public IActionResult GetWorkingDaysForLoggedDoctor()
         {
-
-            return Ok(_dayShiftAppService.getDay());
+            string doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctorId);
+            return Ok(workingDaysDTOs);
         }
     }
 }

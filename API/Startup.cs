@@ -52,6 +52,12 @@ namespace API
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
             });
+            services.AddSwaggerGen(c =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            });
             services.AddDbContext<VezeetaContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("CS"));
@@ -115,14 +121,18 @@ namespace API
             services.AddScoped<ClinicImagesAppService>();
             services.AddScoped<WorkingDayAppService>();
             services.AddScoped<DayShiftAppService>();
-            services.AddScoped<DoctorServiceAppService>();
+            services.AddScoped<RoleAppService>();
 
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            RoleAppService _roleAppService,
+            AccountAppService _accountAppService)
         {
             if (env.IsDevelopment())
             {
@@ -159,10 +169,10 @@ namespace API
                 endpoints.MapControllers();
             });
 
-            // create custom roles 
-                //roleAppService.CreateRoles().Wait();
+            //create custom roles
+            _roleAppService.CreateRoles().Wait();
             // add custom first admin
-                //accountAppService.CreateFirstAdmin().Wait();
+           // _accountAppService.CreateFirstAdmin().Wait();
         }
     }
 }

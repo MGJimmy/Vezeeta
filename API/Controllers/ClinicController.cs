@@ -8,11 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using BL.StaticClasses;
 
 namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ClinicController : ControllerBase
     {
         private ClinicAppService _clinicAppService;
@@ -31,8 +34,7 @@ namespace API.Controllers
         [HttpGet("Myclinic")]
         public IActionResult GetById()
         {
-            //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
+            var DoctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             return Ok(_clinicAppService.GetByStringId(DoctorId));
         }
@@ -46,8 +48,7 @@ namespace API.Controllers
             }
             try
             {
-                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
+                var DoctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 CreateClinicDto newClinicDTO = _clinicAppService.Insert(clinicDto, DoctorId);
               
                 _generalAppService.CommitTransaction();
@@ -72,8 +73,7 @@ namespace API.Controllers
             }
             try
             {
-                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                 var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
+                var DoctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 _clinicAppService.Update(clinicDto,DoctorId);
                 _generalAppService.CommitTransaction();
                 return NoContent();

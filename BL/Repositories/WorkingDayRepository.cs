@@ -15,5 +15,10 @@ namespace BL.Repositories
         public WorkingDayRepository(DbContext dbcontext):base(dbcontext)
         {
         }
+
+        internal IEnumerable<WorkingDay> GetWorkingDaysForDoctor(string doctorId)
+        {
+            return DbSet.Where(w => w.ClinicId == doctorId).Include(w => w.DayShifts).ToList();
+        }
     }
 }

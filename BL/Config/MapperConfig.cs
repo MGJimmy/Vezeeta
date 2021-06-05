@@ -103,6 +103,9 @@ namespace BL.Configurations
             CreateMap<WorkingDay, CreateWorkingDayDTO>()
             .ReverseMap()
             .ForMember(m => m.Clinic, m => m.Ignore());
+            CreateMap<WorkingDay, GetWorkingDayDTO>()
+            .ReverseMap()
+            .ForMember(m => m.Clinic, m => m.Ignore());
 
 
             CreateMap<DayShift, CreateDayShiftDTO>()

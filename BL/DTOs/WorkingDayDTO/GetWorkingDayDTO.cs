@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BL.DTOs.WorkingDayDTO
 {
-    public class GetWorkingDaysDTO
+    public class GetWorkingDayDTO
     {
-        public GetWorkingDaysDTO()
+        public GetWorkingDayDTO()
         {
             DayShifts = new List<CreateDayShiftDTO>();
         }

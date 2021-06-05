@@ -41,14 +41,13 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddControllers()
-            //    .AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.IgnoreNullValues = true;
-            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
-            //});
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -113,8 +112,9 @@ namespace API
             services.AddScoped<ClinicImagesAppService>();
             services.AddScoped<WorkingDayAppService>();
             services.AddScoped<DayShiftAppService>();
+            services.AddScoped<RoleAppService>();
 
-            
+
 
         }
 

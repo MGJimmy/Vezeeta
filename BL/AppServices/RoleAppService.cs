@@ -20,6 +20,7 @@ namespace BL.AppServices
         public async Task CreateRoles()
         {
            await TheUnitOfWork.RoleRepo.CreateRoles();
+            TheUnitOfWork.SaveChanges();
         }
         public RoleDTO GetRoleById(string id)
         {

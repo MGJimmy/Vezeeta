@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using BL.StaticClasses;
 
 namespace API.Controllers
 {

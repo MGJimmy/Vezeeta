@@ -32,6 +32,12 @@ namespace BL.AppServices
 
             return registerUser;
         }
+        public async Task<IdentityResult> AssignToRole(string userid, string rolename)
+        {
+            if (userid == null || rolename == null)
+                return null;
+            return await TheUnitOfWork.AccountRepo.AssignToRole(userid, rolename);
+        }
         public async Task<bool> checkUsernameExist(string userName)
         {
             var user = await TheUnitOfWork.AccountRepo.FindByName(userName);

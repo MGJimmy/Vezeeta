@@ -28,13 +28,18 @@ namespace BL.Repositories
 
         public async Task CreateRoles()
         {
-            
             if (!await manager.RoleExistsAsync(UserRoles.Admin))
-                await manager.CreateAsync(new IdentityRole(UserRoles.Admin));
+            {
+                var x = await manager.CreateAsync(new IdentityRole { Name = UserRoles.Admin });
+            }
             if (!await manager.RoleExistsAsync(UserRoles.Doctor))
-                await manager.CreateAsync(new IdentityRole(UserRoles.Doctor));
+            {
+                var x = await manager.CreateAsync(new IdentityRole(UserRoles.Doctor));
+            }
             if (!await manager.RoleExistsAsync(UserRoles.Patient))
-                await manager.CreateAsync(new IdentityRole(UserRoles.Patient));
+            {
+                var x = await manager.CreateAsync(new IdentityRole(UserRoles.Patient));
+            }
 
         }
         public IdentityResult Create(string role)

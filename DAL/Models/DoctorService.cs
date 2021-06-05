@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DAL.Models
 {
-    [Table("DoctorSercive")]
-    public class DoctorSercive
+    [Table("DoctorService")]
+    public class DoctorService
     {
         public int ID { get; set; }
 

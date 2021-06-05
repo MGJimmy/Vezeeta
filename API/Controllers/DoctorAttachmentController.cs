@@ -16,7 +16,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class DoctorAttachmentController : ControllerBase
     {
         private DoctorAttachmentAppService _doctorAttachmentAppService;
@@ -43,8 +43,7 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var userID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+         
             return Ok(_doctorAttachmentAppService.GetAll());
         }
         // GET: api/<DoctorAttachmentController>

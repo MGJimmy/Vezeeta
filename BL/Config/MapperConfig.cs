@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BL.DTOs.ClinicImagesDto;
+using BL.DTOs.DoctorServiceDtos;
 
 namespace BL.Configurations
 {
@@ -110,6 +111,10 @@ namespace BL.Configurations
 
 
             CreateMap<ApplicationUserIdentity, LoginDto>().ReverseMap();
+
+            CreateMap<DoctorService, DoctorServiceDto>().ReverseMap();
+
+
 
 
 

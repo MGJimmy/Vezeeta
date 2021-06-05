@@ -176,7 +176,17 @@ namespace BL.Bases
                 return clinicImagesRepo;
             }
         }
-        
+        private DoctorServiceRepository doctorServiceRepository;
+        public DoctorServiceRepository DoctorServiceRepo
+        {
+            get
+            {
+                if (doctorServiceRepository == null)
+                    doctorServiceRepository = new DoctorServiceRepository(Context);
+                return doctorServiceRepository;
+            }
+        }
+
 
 
         public void Dispose()

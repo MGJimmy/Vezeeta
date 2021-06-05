@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210604081400_init2")]
-    partial class init2
+    [Migration("20210605044906_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3a9b9719-2d12-475c-b69e-ec56ae9bbfc4",
+                            Id = "e2db6c72-d590-4bf4-9dfd-810c627c6b56",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7770036a-75ab-4ec9-8d77-8f867d867e38",
+                            ConcurrencyStamp = "33063400-40ba-45d5-8b08-74f802abc2c5",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14375851-8c90-4646-a1b7-e90415081b64",
+                            SecurityStamp = "1e57d9d2-ab5d-4a93-a69b-a6ae1736dd79",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -293,7 +293,7 @@ namespace DAL.Migrations
                     b.ToTable("DoctorAttachment");
                 });
 
-            modelBuilder.Entity("DAL.Models.DoctorSercive", b =>
+            modelBuilder.Entity("DAL.Models.DoctorService", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -309,7 +309,7 @@ namespace DAL.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("DoctorSercive");
+                    b.ToTable("DoctorService");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
@@ -376,19 +376,19 @@ namespace DAL.Migrations
                     b.ToTable("WorkingDay");
                 });
 
-            modelBuilder.Entity("DoctorDoctorSercive", b =>
+            modelBuilder.Entity("DoctorDoctorService", b =>
                 {
-                    b.Property<int>("DoctorSercivesID")
-                        .HasColumnType("int");
-
                     b.Property<string>("DoctorsUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("DoctorSercivesID", "DoctorsUserId");
+                    b.Property<int>("doctorServicesID")
+                        .HasColumnType("int");
 
-                    b.HasIndex("DoctorsUserId");
+                    b.HasKey("DoctorsUserId", "doctorServicesID");
 
-                    b.ToTable("DoctorDoctorSercive");
+                    b.HasIndex("doctorServicesID");
+
+                    b.ToTable("DoctorDoctorService");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -622,17 +622,17 @@ namespace DAL.Migrations
                     b.Navigation("Clinic");
                 });
 
-            modelBuilder.Entity("DoctorDoctorSercive", b =>
+            modelBuilder.Entity("DoctorDoctorService", b =>
                 {
-                    b.HasOne("DAL.Models.DoctorSercive", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorSercivesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DAL.Models.Doctor", null)
                         .WithMany()
                         .HasForeignKey("DoctorsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.DoctorService", null)
+                        .WithMany()
+                        .HasForeignKey("doctorServicesID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

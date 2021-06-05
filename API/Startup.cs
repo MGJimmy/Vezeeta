@@ -40,23 +40,34 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //services.AddControllers()
-            //    .AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.IgnoreNullValues = true;
-            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            //    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
-            //});
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-            });
             services.AddCors(c =>
             {
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
+
+            services.AddControllers()
+                .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            });
+            services.AddSwaggerGen(c =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            });
+            services.AddDbContext<VezeetaContext>(option =>
+            {
+                option.UseSqlServer(Configuration.GetConnectionString("CS"));
+            });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+            });
+           
             services.Configure<FormOptions>(o => {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
@@ -89,10 +100,7 @@ namespace API
             });
           
             // DI
-            services.AddDbContext<VezeetaContext>(option =>
-            {
-                option.UseSqlServer(Configuration.GetConnectionString("CS"));
-            });
+          
 
             services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
                 .AddEntityFrameworkStores<VezeetaContext>();
@@ -113,13 +121,18 @@ namespace API
             services.AddScoped<ClinicImagesAppService>();
             services.AddScoped<WorkingDayAppService>();
             services.AddScoped<DayShiftAppService>();
+            services.AddScoped<RoleAppService>();
 
-            
+
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            RoleAppService _roleAppService,
+            AccountAppService _accountAppService)
         {
             if (env.IsDevelopment())
             {
@@ -127,25 +140,6 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
-            app.UseRouting();
-
-
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
-
-            app.UseCors(
-                options => options
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true) // allow any origin
-                .AllowCredentials());
-
-
-
-
             // make uploaded images stored in the Resources folder 
             //  make Resources folder it servable as well
             app.UseStaticFiles();
@@ -159,15 +153,26 @@ namespace API
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
                 RequestPath = new PathString("/StaticFiles")
             });
+
+            app.UseRouting();
+            app.UseCors(
+                options => options
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials());
+            app.UseAuthentication();
+
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
 
-            // create custom roles 
-                //roleAppService.CreateRoles().Wait();
+            //create custom roles
+            _roleAppService.CreateRoles().Wait();
             // add custom first admin
-                //accountAppService.CreateFirstAdmin().Wait();
+           // _accountAppService.CreateFirstAdmin().Wait();
         }
     }
 }

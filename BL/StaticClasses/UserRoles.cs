@@ -9,6 +9,7 @@ namespace BL.StaticClasses
     public static class UserRoles
     {
         public const string Admin = "admin";
-        public const string User = "user";
+        public const string Doctor = "doctor";
+        public const string Patient = "patient";
     }
 }

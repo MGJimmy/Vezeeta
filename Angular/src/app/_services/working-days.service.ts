@@ -19,4 +19,12 @@ export class WorkingDaysService {
       }
     ));
   }
+  test1():Observable<any>{
+    let url = `${environment.apiUrl}/api/WorkingDay`;
+     return this._http.get<IWorkingDay[]>(url)
+     .pipe(catchError((err)=>{
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }
+    ));
+  }
 }

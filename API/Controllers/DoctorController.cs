@@ -1,6 +1,7 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs.DoctorDTO;
+using BL.StaticClasses;
 using DAL;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +49,7 @@ namespace API.Controllers
             {
                 registerDoctorDTO.IsDoctor = true;
                 ApplicationUserIdentity registerUser = await _accountAppService.Register(registerDoctorDTO);
+                await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Doctor);
                 _doctorAppService.Create(registerUser.Id, registerDoctorDTO);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message="Doctor created successfully" });

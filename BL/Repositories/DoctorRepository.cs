@@ -24,6 +24,10 @@ namespace BL.Repositories
             Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
             doctor.IsAccepted = false;
         }
+        public Doctor GetByStringId(string id)
+        {
+            return DbSet.Find(id);
+        }
 
     }
 }

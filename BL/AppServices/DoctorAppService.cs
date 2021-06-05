@@ -35,5 +35,22 @@ namespace BL.AppServices
             TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
             TheUnitOfWork.SaveChanges();
         }
+
+        public bool UpdateServicesList(List<DoctorSercive> _doctorservice, string docID)
+        {
+            if (_doctorservice == null)
+                throw new ArgumentNullException();
+
+            bool result = false;
+
+            Doctor doctor=TheUnitOfWork.DoctorRepo.GetByStringId(docID);
+
+            doctor.DoctorSercives = _doctorservice;
+        
+            TheUnitOfWork.DoctorRepo.Update(doctor);
+            result = TheUnitOfWork.SaveChanges() > new int();
+            return result;
+
+        }
     }
 }

@@ -2,11 +2,13 @@
 using BL.AppServices;
 using BL.DTOs.DoctorDTO;
 using DAL;
+using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -18,14 +20,17 @@ namespace API.Controllers
         DoctorAppService _doctorAppService;
         AccountAppService _accountAppService;
         GeneralAppService _generalAppService;
+        IHttpContextAccessor _httpContextAccessor;
         public DoctorController(
             DoctorAppService doctorAppService, 
             AccountAppService accountAppService,
-            GeneralAppService generalAppService)
+            GeneralAppService generalAppService,
+             IHttpContextAccessor httpContextAccessor)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
+            _httpContextAccessor = httpContextAccessor;
 
         }
         [HttpPost]
@@ -54,5 +59,29 @@ namespace API.Controllers
             }
             
         }
+
+        //[HttpPut("addServices")]
+        //public IActionResult AddServiceForDoctor(List<DoctorSercive> doctorservives)
+        //{
+        //    if (ModelState.IsValid == false)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    try
+        //    {
+        //        var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+               
+        //        _doctorAppService.UpdateServicesList(doctorservives, DoctorId);
+        //        _generalAppService.CommitTransaction();
+        //        return NoContent(); 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _generalAppService.RollbackTransaction();
+
+        //        return BadRequest(ex.Message);
+
+        //    }
+        //}
     }
 }

@@ -12,7 +12,7 @@
                 Service ByAdmin
                 <div class="form-check" *ngFor="let item of ServicesList">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item.id,$event)">
-                    <label class="form-check-label" for="exampleCheck1">{{item.service}}</label>
+                    <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
                   </div>
                </div>
 
@@ -20,7 +20,7 @@
                  <span>Service By others doctor</span> 
                 <div class="form-check" *ngFor="let item of ServicesList2">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item.id,$event)">
-                    <label class="form-check-label" for="exampleCheck1">{{item.service}}</label>
+                    <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
                   </div>
                </div>
 

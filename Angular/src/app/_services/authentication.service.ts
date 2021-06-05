@@ -119,4 +119,12 @@ export class AuthenticationService {
         return moment(expiresAt);
     }  
     */
+   addservice(services)
+   {
+    return this.http.put<any>(`${environment.apiUrl}/api/Doctor/addServices`, services)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
 }

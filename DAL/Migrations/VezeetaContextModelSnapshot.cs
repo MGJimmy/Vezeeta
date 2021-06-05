@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3a9b9719-2d12-475c-b69e-ec56ae9bbfc4",
+                            Id = "1635b845-cd47-433f-941e-926040589110",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7770036a-75ab-4ec9-8d77-8f867d867e38",
+                            ConcurrencyStamp = "917dffea-92e9-4dab-97ef-4db39a46f832",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "14375851-8c90-4646-a1b7-e90415081b64",
+                            SecurityStamp = "d5bc9463-22d7-4253-82c9-a94eee967c6c",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 
 @Component({
   selector: 'app-doctor-services',
@@ -10,10 +11,10 @@ export class DoctorServicesComponent implements OnInit {
   hasServices:boolean=false;
   SelectedServiceIdList:number[]=[];
 
-  ServicesList=[{id:"1",service:"service1"},{id:"2",service:"service2"},{id:"3",service:"service3"},{id:"4",service:"service4"},{id:"5",service:"service5"},{id:"6",service:"service6"},{id:"7",service:"service7"},{id:"8",service:"service8"},{id:"9",service:"service9"},{id:"10",service:"service10"}];
-  ServicesList2=[{id:"11",service:"service1"},{id:"12",service:"service2"},{id:"13",service:"service3"},{id:"14",service:"service4"},{id:"15",service:"service5"},{id:"16",service:"service6"},{id:"17",service:"service7"},{id:"8",service:"service8"}];
+  ServicesList=[{id:"1",Name:"service1",byadmin:"true"},{id:"2",Name:"service2",byadmin:"true"},{id:"3",Name:"service3",byadmin:"true"},{id:"4",Name:"service4",byadmin:"true"},{id:"5",Name:"service5",byadmin:"true"},{id:"6",Name:"service6",byadmin:"true"},{id:"7",Name:"service7",byadmin:"false"},{id:"8",Name:"service8",byadmin:"true"},{id:"9",Name:"service9",byadmin:"true"},{id:"10",Name:"service10",byadmin:"true"}];
+  ServicesList2=[{id:"11",Name:"service1"},{id:"12",Name:"service2"},{id:"13",Name:"service3"},{id:"14",Name:"service4"},{id:"15",Name:"service5"},{id:"16",Name:"service6"},{id:"17",Name:"service7"},{id:"8",Name:"service8"}];
 
-  constructor() { }
+  constructor(private _authenticationService:AuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -41,6 +42,14 @@ export class DoctorServicesComponent implements OnInit {
   onAddSubmit()
   {
    console.log("add");
+   this._authenticationService.addservice(this.SelectedServiceIdList).subscribe(data=>
+    {
+      console.log("done");
+      console.log(data);
+    },err=>
+    {
+      console.log("errrrrrr");
+    })
    console.log(this.SelectedServiceIdList);
   }
   OnEditSubmit()

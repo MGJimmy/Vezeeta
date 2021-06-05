@@ -11,34 +11,42 @@ import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
 import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboard/doctor-dashboard-attachment/doctor-dashboard-attachment.component';
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 const routes: Routes = [
   {
     path:'dashboard',
     component:DashboardComponent,
-    
+    canActivate:[AuthGuard],
+    canActivateChild:[AuthGuard],
     children:[
-      {path: 'cities', component: CityComponent},
-      {path: 'specialists', component: SpecialityComponent},
-      {path: 'SubSpecialists', component: SubSpecialityComponent}, 
-      {path: 'area', component: AreaComponent},
-      {path:'clinicServices' , component:ClinicServicesComponent },
-      {path: 'doctorAttachments', component: DoctorAttachmentsComponent},
+      {path: 'cities', component: CityComponent,canActivate:[AuthGuard]},
+      {path: 'specialists', component: SpecialityComponent,canActivate:[AuthGuard]},
+      {path: 'SubSpecialists', component: SubSpecialityComponent,canActivate:[AuthGuard]}, 
+      {path: 'area', component: AreaComponent,canActivate:[AuthGuard]},
+      {path:'clinicServices' , component:ClinicServicesComponent,canActivate:[AuthGuard] },
+      {path: 'doctorAttachments', component: DoctorAttachmentsComponent,canActivate:[AuthGuard]},
     
     ]
   },
   {path:'doctorDashboard',component:DoctorDashboardComponent,
+  canActivate:[AuthGuard],
+  canActivateChild:[AuthGuard],
     children:[
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'clinc',component:DoctorClincComponent},
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
       {path:'doctorServices',component:DoctorServicesComponent},
+      {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
+      {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
     ]
   },
-  {path:"registerDoctor", component:RegisterDoctorComponent}
+  {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"login", component:LoginComponent}
 ];
 
 @NgModule({

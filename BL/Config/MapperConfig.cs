@@ -109,6 +109,7 @@ namespace BL.Configurations
             .ForMember(m => m.WorkingDay, m => m.Ignore());
 
 
+            CreateMap<ApplicationUserIdentity, LoginDto>().ReverseMap();
 
 
 

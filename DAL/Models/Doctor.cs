@@ -19,5 +19,7 @@ namespace DAL.Models
         public bool IsAccepted { get; set; }
         public ApplicationUserIdentity User { get; set; }
         public DoctorAttachment DoctorAttachment { get; set; }
+        public List<DoctorSercive> DoctorSercives { get; set; }
+
     }
 }

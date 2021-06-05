@@ -1,1 +1,44 @@
-<p>login works!</p>
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+      <h4 class="card-header">Login</h4>
+      <div class="card-body px-4">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+          <div class="form-group">
+            <label for="username">Username</label>
+            <div class="inputWrapper float-right">
+              <input formControlName="username" type="text" class="form-control" placeholder="User Name" name="username"
+                [class.is-invalid]="formFields.username?.invalid && formFields.username?.touched">
+              <div *ngIf="formFields.username?.invalid && formFields.username?.touched">
+                <small class="text-danger" *ngIf="formFields.username?.errors.required">User Name is required</small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="inputWrapper float-right">
+              <input formControlName="password" type="password" class="form-control" placeholder="Password"
+                name="password" [class.is-invalid]="formFields.password?.invalid && formFields.password?.touched">
+              <div *ngIf="formFields.password?.invalid && formFields.password?.touched">
+                <small class="text-danger" *ngIf="formFields.password?.errors.required">Password is required</small>
+              </div>
+            </div>
+          </div>
+
+
+      
+          <div class="loginBtnWrapper">
+            <button [disabled]="loading" class="btn btn-primary px-4">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm "></span>
+              login
+            </button>
+          </div>
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+        </form>
+        <div class="haveNotAccount">
+          don't have an account in Vezeeta ? 
+          <a routerLink="/registerDoctor">Register</a>
+        </div>
+      </div>
+    </div>
+  </div>

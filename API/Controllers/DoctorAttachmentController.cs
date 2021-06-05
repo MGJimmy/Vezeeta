@@ -1,10 +1,13 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,16 +16,23 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class DoctorAttachmentController : ControllerBase
     {
         private DoctorAttachmentAppService _doctorAttachmentAppService;
         private DoctorAppService _doctorAppService;
         private GeneralAppService _generalAppService;
-        public DoctorAttachmentController(DoctorAttachmentAppService doctorAttachmentAppService, DoctorAppService doctorAppService, GeneralAppService generalAppService)
+        IHttpContextAccessor _httpContextAccessor;
+        public DoctorAttachmentController(
+            DoctorAttachmentAppService doctorAttachmentAppService
+            , DoctorAppService doctorAppService,
+            GeneralAppService generalAppService,
+              IHttpContextAccessor httpContextAccessor)
         {
             _doctorAttachmentAppService = doctorAttachmentAppService;
             _doctorAppService = doctorAppService;
             _generalAppService = generalAppService;
+            _httpContextAccessor = httpContextAccessor;
         }
         [HttpGet("getOne")]
         public IActionResult GetOne()
@@ -33,6 +43,8 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            var userID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             return Ok(_doctorAttachmentAppService.GetAll());
         }
         // GET: api/<DoctorAttachmentController>
@@ -57,11 +69,16 @@ namespace API.Controllers
         [HttpPost]
         public IActionResult Post( DoctorAttachmentDto doctorDto)
         {
+            
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                doctorDto.DoctorId = "ffeaa154-8a29-426b-bfde-8fbffe1361d4";    //change after login story
+                var user =_httpContextAccessor.HttpContext.User.Claims;
+               
+                
+                var userID = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                doctorDto.DoctorId = userID; //"625a57bf-8c7d-4f34-b98f-92df9f2f86ad";    //change after login story
                 DoctorAttachmentDto doctor = _doctorAttachmentAppService.Insert(doctorDto);
                 _generalAppService.CommitTransaction();
                 return Created("attachment send", doctorDto);

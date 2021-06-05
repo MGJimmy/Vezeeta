@@ -41,13 +41,14 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers()
-                .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
-            });
+            //services.AddControllers()
+            //    .AddJsonOptions(options =>
+            //{
+            //    options.JsonSerializerOptions.IgnoreNullValues = true;
+            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            //    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+            //});
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -61,6 +62,7 @@ namespace API
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+           // services.Configure<JWT>(Configuration.GetSection("JWT"));
 
             services.AddHttpContextAccessor(); //allow me to get user information such as id
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -85,12 +87,13 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
-
+          
             // DI
             services.AddDbContext<VezeetaContext>(option =>
             {
                 option.UseSqlServer(Configuration.GetConnectionString("CS"));
             });
+
             services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
                 .AddEntityFrameworkStores<VezeetaContext>();
 
@@ -126,7 +129,9 @@ namespace API
             }
 
             app.UseRouting();
-            
+
+
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -137,6 +142,9 @@ namespace API
                 .AllowAnyHeader()
                 .SetIsOriginAllowed(origin => true) // allow any origin
                 .AllowCredentials());
+
+
+
 
             // make uploaded images stored in the Resources folder 
             //  make Resources folder it servable as well

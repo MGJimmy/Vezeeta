@@ -5,7 +5,8 @@
   <div class="p-5">
     <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
     <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
-    <form [formGroup]="workingDaysForm" (submit)="onSubmit()">
+    <div class="text-center alert alert-warning" *ngIf="!isHasClinic">You don't have Clinic, <a routerLink="/doctorDashboard/clinc">Add Clinic?</a></div>
+    <form [formGroup]="workingDaysForm" (submit)="onSubmit()" *ngIf="isHasClinic">
       <div class="form-check">
         <label class="form-check-label">
           <input type="checkbox" formControlName="saturday" class="form-check-input" [checked]="isSaturdayChecked" (change)="saturdayTouched($event)">

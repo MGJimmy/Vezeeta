@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations
 {
-    public partial class init : Migration
+    public partial class jimmy1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -412,7 +412,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e2db6c72-d590-4bf4-9dfd-810c627c6b56", 0, "33063400-40ba-45d5-8b08-74f802abc2c5", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "1e57d9d2-ab5d-4a93-a69b-a6ae1736dd79", false, "admin" });
+                values: new object[] { "077f7683-29a8-42d6-b497-1c773e4058ba", 0, "772c2895-ab44-408c-a66a-b893f3bd93e9", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "d35e3e32-f062-4c61-96f9-dc07c963f643", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",

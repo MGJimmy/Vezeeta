@@ -1,5 +1,6 @@
 ﻿using BL.AppServices;
 using BL.DTOs.WorkingDayDTO;
+using BL.StaticClasses;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer",Roles = UserRoles.Doctor)]
     public class WorkingDayController : ControllerBase
     {
         WorkingDayAppService _workingDayAppService;

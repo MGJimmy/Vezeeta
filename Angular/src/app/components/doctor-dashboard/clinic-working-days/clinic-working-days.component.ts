@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { Day } from 'src/app/_models/_enums/Day';
 import { IDayShift } from 'src/app/_models/_interfaces/IDayShift';
 import { IWorkingDay } from 'src/app/_models/_interfaces/IWorkingDay';
+import { ClinicService } from 'src/app/_services/clinic.service';
 import { WorkingDaysService } from 'src/app/_services/working-days.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
   isWednesdayChecked:boolean = false;
   isThursdayChecked:boolean = false;
   isFridayChecked:boolean = false;
+  isHasClinic:boolean = false;
 
   get formFields() {return this.workingDaysForm.controls}
   get saturdayShiftsArr(){return this.workingDaysForm.get('saturdayShifts') as FormArray}
@@ -42,7 +44,8 @@ export class ClinicWorkingDaysComponent implements OnInit {
   get fridayShiftsArr(){return this.workingDaysForm.get('fridayShifts') as FormArray}
   constructor(
     private _formBuilder:FormBuilder,
-    private _workingDaysService:WorkingDaysService
+    private _workingDaysService:WorkingDaysService,
+    private _clinicService:ClinicService
     ) { }
   
   private createFormShift(from,to){
@@ -72,6 +75,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
   
   }
   ngOnInit(): void {
+    this.checkClinicExist();
     this.initWorkingDaysForm();
     this.getWorkingDaysForCurrentDoctor();
    }
@@ -304,7 +308,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
       this.fridayShiftsArr.removeAt(this.fridayShiftsArr.length - 1);
   }
   getWorkingDaysForCurrentDoctor(){
-    this._workingDaysService.test1().subscribe(
+    this._workingDaysService.getWorkingDays().subscribe(
       data=>{
         this.workingDays = data;
         this.showWorkingDays();
@@ -369,6 +373,14 @@ export class ClinicWorkingDaysComponent implements OnInit {
       }
     });
     this.checkAnyDayChoosed()
+  }
+  checkClinicExist(){
+    this._clinicService.GetMyClinic().subscribe(
+      data=>{
+        console.log(data)
+        if(data != null)
+          this.isHasClinic = true
+      });
   }
 }
 

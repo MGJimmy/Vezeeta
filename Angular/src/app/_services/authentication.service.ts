@@ -119,6 +119,8 @@ export class AuthenticationService {
         return moment(expiresAt);
     }  
     */
+
+    //doctor Services
    addservice(services)
    {
     return this.http.put<any>(`${environment.apiUrl}/api/Doctor/addServices`, services)
@@ -127,4 +129,20 @@ export class AuthenticationService {
         return throwError(err.message || "An Error Occur")
       })
     )}
+    GetMyservices()
+    {
+     return this.http.get<any>(`${environment.apiUrl}/api/Doctor/Myservices`)
+     .pipe(catchError((err) => {
+         console.log(err);
+         return throwError(err.message || "An Error Occur")
+       })
+     )}
+Deleteservices()
+    {
+     return this.http.delete<any>(`${environment.apiUrl}/api/Doctor/DeleteDoctorservices`)
+     .pipe(catchError((err) => {
+         console.log(err);
+         return throwError(err.message || "An Error Occur")
+       })
+     )}
 }

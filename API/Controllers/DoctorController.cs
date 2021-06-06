@@ -89,5 +89,34 @@ namespace API.Controllers
 
             }
         }
+
+        [HttpGet("Myservices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult myServices()
+        {
+           
+          var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+           var services=_doctorAppService.GetDoctorServices(DoctorId);
+               
+           return Ok(services); 
+        }
+
+        [HttpDelete("DeleteDoctorservices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult DeleteServices()
+        {
+            try
+            {
+                var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _doctorAppService.DeleteServiceList(DoctorId);
+                _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace BL.Repositories
         }
         public Doctor GetByStringId(string id)
         {
-            return DbSet.Find(id);
+            return DbSet.Include(i => i.doctorServices).FirstOrDefault(d=>d.UserId==id);
         }
 
     }

@@ -45,13 +45,26 @@ namespace BL.AppServices
             bool result = false;
 
             Doctor doctor=TheUnitOfWork.DoctorRepo.GetByStringId(docID);
-
-            doctor.doctorServices =Mapper.Map<List<DoctorService>>(_doctorservice);
-
+            doctor.doctorServices=Mapper.Map<List<DoctorService>>(_doctorservice);
             TheUnitOfWork.DoctorRepo.Update(doctor);
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;
 
+        }
+        public bool DeleteServiceList(string docID)
+        {
+            bool result = false;
+            Doctor doctor = TheUnitOfWork.DoctorRepo.GetByStringId(docID);
+            doctor.doctorServices = null;
+            TheUnitOfWork.DoctorRepo.Update(doctor);
+            result = TheUnitOfWork.SaveChanges() > new int();
+            return result;
+        }
+
+        public IEnumerable<DoctorServiceDto> GetDoctorServices(string doctorId)
+        {
+            Doctor doctor = TheUnitOfWork.DoctorRepo.GetByStringId(doctorId);
+            return Mapper.Map<IEnumerable<DoctorServiceDto>>(doctor.doctorServices);
         }
     }
 }

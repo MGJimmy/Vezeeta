@@ -6,75 +6,110 @@
     <div class="d-flex" style="justify-content: center;">
 
 
-        <form  class="p-5 border col-12">
-           <div class="d-flex">
-               <div class="col-5 border" style="overflow-y:auto;height: 300px;">
-                Service ByAdmin
-                <div class="form-check" *ngFor="let item of ServicesList">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item.id,$event)">
-                    <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
+        <form class="p-5 border col-12">
+            <div class="d-flex">
+                <div class="col-5 border" style="overflow-y:auto;height: 300px;">
+                    Service ByAdmin
+                    <div class="form-check" *ngFor="let item of NewServiceList">
+                    <input type="checkbox" class="form-check-input"  (change)="changeStatus(item,$event)" [checked]="item.checked">
+                    <label class="form-check-label" for="exampleCheck1">{{item.name}}</label>
                   </div>
-               </div>
+                    <!-- <div class="form-check" *ngFor="let service of ServicesList">
+                        <div *ngFor="let doctorservice of SelectedServiceIdList">
+                            <div *ngIf="service.id == doctorservice.id">
+                              
+                                <input type="checkbox" class="form-check-input" (change)="changeStatus(service,$event)"
+                                    checked>
+                                <label class="form-check-label" for="exampleCheck1">{{service.name}}</label>
 
-               <div  class="col-5 ml-5 border" style="overflow-y:auto;height: 300px;">
-                 <span>Service By others doctor</span> 
-                <div class="form-check" *ngFor="let item of ServicesList2">
-                    <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item.id,$event)">
-                    <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
-                  </div>
-               </div>
+                            </div>
+                            <div *ngIf="service.id != doctorservice.id">
+                                <input type="checkbox" class="form-check-input" (change)="changeStatus(service,$event)">
+                                <label class="form-check-label" for="exampleCheck1">{{service.name}}</label>
 
-           </div>
-           <div class="mt-5 d-flex justify-content-end">
-            <!-- <button class="btn btn-primary mr-3 col-3"  (click)="AddNewService()">
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="col-5 ml-5 border" style="overflow-y:auto;height: 300px;">
+                    <span>Service By others doctor</span>
+                    <div class="form-check" *ngFor="let item of ServicesList2">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                            (change)="changeStatus(service,$event)">
+                        <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
+                    </div>
+                </div>
+                <!-- <input type="checkbox" checked="true">  -->
+
+            </div>
+            <div *ngIf="!hasServices" class="mt-5">
+                <p style="background-color: burlywood;"> You have not any service please the your services</p>
+            </div>
+            <div *ngIf="hasServices" class="mt-5">
+                <div class="col-5 border" style="overflow-y:auto;height: 300px;">
+                    My Services
+                    <div class="form-check" *ngFor="let item of SelectedServiceIdList">
+                        <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item,$event)"> -->
+                        <label class="form-check-label" for="exampleCheck1">{{item.name}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 d-flex justify-content-end">
+                <!-- <button class="btn btn-primary mr-3 col-3"  (click)="AddNewService()">
                 Add  MyService
             </button> -->
-            <button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel">
-                New
-              </button>
-           </div>
-      
-            
+                <button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel">
+                    New
+                </button>
+            </div>
 
-            
+
+
+
             <div class="mt-5">
-                <button class="btn btn-primary mr-3 col-3"  *ngIf="!hasServices" (click)="onAddSubmit()">
+                <button class="btn btn-primary mr-3 col-3" *ngIf="!hasServices" (click)="onAddSubmit()">
                     Save
                 </button>
-                <button class="btn btn-primary col-3" *ngIf="hasServices" (click)="OnEditSubmit()">
+                <button class="btn btn-primary col-3" *ngIf="hasServices" (click)="onEditSubmit()">
                     Save Edit
                 </button>
             </div>
         </form>
     </div>
-    
-    
 
 
-    
+
+
+
 </div>
-<div class="modal fade" id="addAndUpdateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="addAndUpdateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Add New Service</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <form >
+            <form [formGroup]="DoctorServiceForm">
                 <div class="modal-body">
                     <div class="form-group my-3">
-                        <input type="text" class="form-control" placeholder="Name" name="name" >
+                        <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name">
+                        <div *ngIf="formFields.name.invalid && formFields.name.touched">
+                            <small class="text-danger" *ngIf="formFields.name.errors?.required"> name Is Required</small>
+                        </div>
                     </div>
-                   
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #addOrUpdateModelCloseBtn>Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        #addOrUpdateModelCloseBtn>Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="AddNewService()">Add</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-

@@ -1,10 +1,13 @@
-<h2 class="text-center display-4 font-weight-bold my-5">Specialities</h2>
+<h2 class="text-center display-4 font-weight-bold my-5">Doctor Services</h2>
 
-<button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddSpecialtyModal();">
+<button class="btn btn-primary mb-2 dBAddNewBtn d-block" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openAddDoctorServiceModal();">
   New
 </button>
-
-<table class="table table-bordered table-hover" *ngIf="hasSpecialities">
+<select class="form-control w-25 mb-3 d-inline-block" #status (change)="StatusChanged(status.value)">
+    <option value="ByAdmin">By Admin</option>
+    <option value="ByDoctor">By Doctor</option>
+</select>
+<table class="table table-bordered table-hover" *ngIf="hasDoctorServices">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -14,19 +17,23 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let sp of allSpecialities;let i=index">
+        <tr *ngFor="let ds of allDoctorServices;let i=index">
             <th scope="row">{{i+(pageSize*(currentPageNumber-1))+1}}</th>
-            <td>{{ sp.name }}</td>
+            <td>{{ ds.name }}</td>
           
-            <td>
-                <button class="btn btn-success mx-2" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openUpdateSpecialtyyModal(sp.id)">Update</button>
-                <button class="btn btn-danger mx-2" (click)="openDeleteSpecialtyModal(sp.id)" data-toggle="modal" data-target="#confirmationModal">Delete</button>
+            <td *ngIf='byAdmin'>
+                <button class="btn btn-success mx-2" data-toggle="modal" data-target="#addAndUpdateModel" (click)="openUpdateDoctorServiceModal(ds.id)">Update</button>
+                <button class="btn btn-danger mx-2" (click)="openDeleteDoctorServiceModal(ds.id)" data-toggle="modal" data-target="#confirmationModal">Delete</button>
+            </td>
+            <td *ngIf='!byAdmin'>
+                <button class="btn btn-success mx-2" (click)="openAcceptDoctorServicetModal(ds.id)" data-toggle="modal"  data-target="#confirmationModal" >Accept</button>
+                <button class="btn btn-danger mx-2" (click)="openRejectDoctorServiceModal(ds.id)" data-toggle="modal"  data-target="#confirmationModal" >Reject</button>
             </td>
         </tr>
     </tbody>
 </table>
 <!-- pagination -->
-<nav aria-label="..." class="" *ngIf="hasSpecialities">
+<nav aria-label="..." class="" *ngIf="hasDoctorServices">
     <div class="d-inline-block">
         <ul class="pagination">
             <li class="page-item" [ngClass]="{disabled:currentPageNumber <=1, cursorNotAllowed:currentPageNumber <=1}">
@@ -43,9 +50,9 @@
     <div class="float-right h5 mr-4 text-secondary">Showing {{currentPageNumber}} of {{numberOfPages}}</div>
 </nav>
 
-<div class="row" *ngIf="!hasSpecialities">
+<div class="row" *ngIf="!hasDoctorServices">
     <div class="text-center alert alert-danger col-9 mx-auto">
-        There's no Specialities to show
+        There's no Doctor Services to show
     </div>
 </div>
 <!-- Modal -->
@@ -53,13 +60,13 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">{{actionName}} Specialty</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">{{actionName}} Doctor Service</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
             </div>
             <!-- [formGroup]="categoryForm" -->
-            <form [formGroup]="specialityForm"  >
+            <form [formGroup]="DoctorServiceForm"  >
                 <div class="modal-body">
                     <div class="form-group my-3">
                         <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name" [class.is-invalid]="formFields.name?.invalid && formFields.name?.touched">
@@ -77,3 +84,4 @@
 </div>
 
 <app-confirm-modal></app-confirm-modal>
+

@@ -14,23 +14,27 @@ import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-d
 import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
+import { AuthGuard } from './_helpers/auth.guard';
+import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 
 const routes: Routes = [
   {
     path:'dashboard',
     component:DashboardComponent,
-    
+ 
     children:[
       {path: 'cities', component: CityComponent},
       {path: 'specialists', component: SpecialityComponent},
       {path: 'SubSpecialists', component: SubSpecialityComponent}, 
       {path: 'area', component: AreaComponent},
-      {path:'clinicServices' , component:ClinicServicesComponent },
+      {path:'clinicServices' , component:ClinicServicesComponent},
       {path: 'doctorAttachments', component: DoctorAttachmentsComponent},
+      {path: 'doctorServices', component: ManageDoctorServicesComponent},
     
     ]
   },
   {path:'doctorDashboard',component:DoctorDashboardComponent,
+
     children:[
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'clinc',component:DoctorClincComponent},

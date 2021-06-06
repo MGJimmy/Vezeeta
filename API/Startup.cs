@@ -43,11 +43,11 @@ namespace API
 
             services.AddControllers()
                 .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
-            });
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter());
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
@@ -110,8 +110,9 @@ namespace API
             services.AddScoped<ClinicImagesAppService>();
             services.AddScoped<WorkingDayAppService>();
             services.AddScoped<DayShiftAppService>();
+            services.AddScoped<DoctorServiceAppService>();
 
-            
+
 
         }
 
@@ -126,7 +127,7 @@ namespace API
             }
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -157,9 +158,9 @@ namespace API
             });
 
             // create custom roles 
-                //roleAppService.CreateRoles().Wait();
+            //roleAppService.CreateRoles().Wait();
             // add custom first admin
-                //accountAppService.CreateFirstAdmin().Wait();
+            //accountAppService.CreateFirstAdmin().Wait();
         }
     }
 }

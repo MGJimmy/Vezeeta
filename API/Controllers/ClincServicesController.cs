@@ -86,7 +86,7 @@ namespace API.Controllers
                 _clinicServicesAppServices.Update(clinicServiceDto);
 
                 _generalAppService.CommitTransaction();
-                return Ok("updated");
+                return Ok(new Response { Message="Updated"});
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace API.Controllers
             {
                 _clinicServicesAppServices.Delete(id);
                 _generalAppService.CommitTransaction();
-                return Ok("deleted");
+                return Ok(new Response { Message="Deleted"});
             }
             catch (Exception ex)
             {

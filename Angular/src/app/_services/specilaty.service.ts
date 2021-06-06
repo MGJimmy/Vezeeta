@@ -32,7 +32,7 @@ export class SpecilatyService {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }));
   }
-  getCategoryById(id:number):Observable<ISpecialty>{
+  getSpecialityById(id:number):Observable<ISpecialty>{
     let url = `${environment.apiUrl}/api/Specialty/${id}`;
     return this._http.get<ISpecialty>(url).pipe(catchError((err)=>
     {

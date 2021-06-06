@@ -72,7 +72,7 @@ export class RegisterDoctorComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate([""]);
+          this._router.navigate(["login"]);
         },
         error => {
           this.error = error;

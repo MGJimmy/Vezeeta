@@ -32,6 +32,12 @@ namespace BL.AppServices
 
             return registerUser;
         }
+        public async Task<IdentityResult> AssignToRole(string userid, string rolename)
+        {
+            if (userid == null || rolename == null)
+                return null;
+            return await TheUnitOfWork.AccountRepo.AssignToRole(userid, rolename);
+        }
         public async Task<bool> checkUsernameExist(string userName)
         {
             var user = await TheUnitOfWork.AccountRepo.FindByName(userName);
@@ -68,7 +74,7 @@ namespace BL.AppServices
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
-                   new Claim("role",role),
+                   new Claim(ClaimTypes.Role,role),
                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
@@ -82,7 +88,7 @@ namespace BL.AppServices
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
+                expires: DateTime.Now.AddDays(1),
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                 );

@@ -24,5 +24,7 @@ namespace DAL.Models
         public DoctorAttachment DoctorAttachment { get; set; }
         public Specialty specialty { get; set; }
         public List<SupSpecialization> supSpecializations { get; set; }
+        public List<DoctorService> doctorServices { get; set; }
+
     }
 }

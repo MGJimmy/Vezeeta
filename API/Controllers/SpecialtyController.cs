@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BL.DTOs;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using API.helpers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +15,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+ 
     public class SpecialtyController : ControllerBase
     {
         private SpecialtyAppService _specialtyAppService;
@@ -25,7 +29,6 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-           
             return Ok (_specialtyAppService.GetAll());
         }
 
@@ -93,7 +96,7 @@ namespace API.Controllers
             {
                 _specialtyAppService.Delete(id);
                 _generalAppService.CommitTransaction();
-                return Ok("deleted");
+                return Ok(new Response { Message="Deleted"});
             }
             catch(Exception ex)
             {

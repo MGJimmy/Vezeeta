@@ -140,7 +140,7 @@ namespace BL.Bases
                 DbSet.Remove(entity);
             }
         }
-        public virtual void DeleteList(List<T> entityList)
+        public virtual void DeleteList(IEnumerable<T> entityList)
         {
             foreach (T item in entityList)
             {

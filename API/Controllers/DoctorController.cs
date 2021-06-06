@@ -1,5 +1,6 @@
 ﻿using API.helpers;
 using BL.AppServices;
+using BL.DTOs;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
 using BL.StaticClasses;
@@ -36,6 +37,40 @@ namespace API.Controllers
             _generalAppService = generalAppService;
             _httpContextAccessor = httpContextAccessor;
 
+        }
+
+        [HttpGet]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetCurrentUser()
+        {
+            try
+            {
+                //var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
+
+                Doctor doctor = _doctorAppService.GetById(doctorId);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+        [HttpGet("subSpecialty")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetSubSpecialtyOfCurrentDoctor()
+        {
+            try
+            {
+                //var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
+                List<DoctorSubSpecialtyDTO> doctor = _doctorAppService.GetSubSpecialtyByDoctorId(doctorId);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
         }
         [HttpPost]
         public async Task<IActionResult> RegisterDoctor(CreateDoctorDTO registerDoctorDTO)
@@ -116,6 +151,43 @@ namespace API.Controllers
             {
                 _generalAppService.RollbackTransaction();
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("assignSpecialty")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> InsertSpecialtyToDoctor(SpecialtyDTO specialtDto)
+        {
+            try
+            {
+                var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _doctorAppService.InsertSpecialtyToDoctor(doctorId, specialtDto);
+                _generalAppService.CommitTransaction();
+                return Ok("created");
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+        [HttpPost("assignSubSpecialty")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> InsertSubSpecialtyToDoctor(List<SupSpecailization> subSpecialtDto)
+        {
+            try
+            {
+                var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _doctorAppService.EmptySubSpecialtyInDoctor(doctorId);
+                //_generalAppService.CommitTransaction();
+                _doctorAppService.InsertSubSpecialtyToDoctor(doctorId, subSpecialtDto);
+                _generalAppService.CommitTransaction();
+                return Ok("created");
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = ex.Message });
             }
         }
     }

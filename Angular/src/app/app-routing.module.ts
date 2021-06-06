@@ -14,6 +14,7 @@ import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-d
 import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
+import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 
@@ -43,6 +44,7 @@ const routes: Routes = [
       {path:'doctorServices',component:DoctorServicesComponent},
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
+      {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
     ]
   },
   {path:"registerDoctor", component:RegisterDoctorComponent},

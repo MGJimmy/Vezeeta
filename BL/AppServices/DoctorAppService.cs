@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BL.Bases;
+using BL.DTOs;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
 using BL.Interfaces;
@@ -17,10 +18,22 @@ namespace BL.AppServices
         public DoctorAppService(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork,mapper)
         {
         }
-        public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
+        public Doctor GetById(string id)
+        {
+            Doctor doctor = TheUnitOfWork.DoctorRepo.GetById(id);
+            return doctor;
+        }
+        public List<DoctorSubSpecialtyDTO> GetSubSpecialtyByDoctorId(string id)
+        {
+            Doctor doctor = TheUnitOfWork.DoctorRepo.GetSubSpecialtyByDoctorId(id);
+            List<DoctorSubSpecialtyDTO> doctorSubSpecialty = Mapper.Map<List<DoctorSubSpecialtyDTO>>(doctor);
+            return doctorSubSpecialty;
+        }
+            public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
         {
             Doctor doctor = Mapper.Map<Doctor>(createDoctorDTO);
             doctor.UserId = userId;
+            doctor.specialtyId = 1;
             doctor.IsAccepted = false;
             var createdDoctor = TheUnitOfWork.DoctorRepo.Insert(doctor);
             TheUnitOfWork.SaveChanges();
@@ -65,6 +78,23 @@ namespace BL.AppServices
         {
             Doctor doctor = TheUnitOfWork.DoctorRepo.GetByStringId(doctorId);
             return Mapper.Map<IEnumerable<DoctorServiceDto>>(doctor.doctorServices);
+        }
+        public void InsertSpecialtyToDoctor(string doctorId, SpecialtyDTO speiatyDto)
+        {
+            var specialty = Mapper.Map<Specialty>(speiatyDto);
+            TheUnitOfWork.DoctorRepo.InsertSpecialtyToDoctor(doctorId, specialty);
+            TheUnitOfWork.SaveChanges();
+        }
+        public void InsertSubSpecialtyToDoctor(string doctorId, List<SupSpecailization> subSpeiatyDto)
+        {
+            List<SupSpecialization> subSpecializations = Mapper.Map<List<SupSpecialization>>(subSpeiatyDto);
+            TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId,subSpecializations);
+            TheUnitOfWork.SaveChanges();
+        }
+        public void EmptySubSpecialtyInDoctor(string doctorId)
+        {
+            TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
+            TheUnitOfWork.SaveChanges();
         }
     }
 }

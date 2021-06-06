@@ -1,8 +1,6 @@
 <div class="nav flex-column nav-pills siderbar mb-3">
-    <a class="nav-link nav-link-top active" data-toggle="pill" routerLink="doctorSpecialty">Specialty and SubSpecialty</a>
-    <a class="nav-link" data-toggle="pill" routerLink="attachment">Attachment</a>
-    <a class="nav-link" data-toggle="pill" routerLink="clinc">Clinic Details</a>
-    <a class="nav-link" data-toggle="pill" routerLink="workingDays">Clinic Working Days</a>
-    <a class="nav-link" data-toggle="pill" href="#v-pills-messages">Messages</a>
-    <a class="nav-link nav-link-bootom" data-toggle="pill" href="#v-pills-settings">Settings</a>
+    <a class="nav-link nav-link-top" data-toggle="pill" [class.active]="urlRouteName=='doctorSpecialty'" routerLink="doctorSpecialty">Specialty and SubSpecialty</a>
+    <a class="nav-link" data-toggle="pill" [class.active]="urlRouteName=='attachment'" routerLink="attachment" >Attachment</a>
+    <a class="nav-link" data-toggle="pill" [class.active]="urlRouteName=='clinc'" routerLink="clinc">Clinic Details</a>
+    <a class="nav-link nav-link-bootom" data-toggle="pill" [class.active]="urlRouteName=='workingDays'" routerLink="workingDays">Clinic Working Days</a>
 </div>

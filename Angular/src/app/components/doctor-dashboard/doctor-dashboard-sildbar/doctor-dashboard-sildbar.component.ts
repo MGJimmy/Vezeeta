@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-dashboard-sildbar',
@@ -7,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorDashboardSildbarComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private _route:Router) { }
+  urlRouteName:string
   ngOnInit(): void {
+    this.urlRouteName=this._route.url.replace('/doctorDashboard/',"");    
   }
-
 }

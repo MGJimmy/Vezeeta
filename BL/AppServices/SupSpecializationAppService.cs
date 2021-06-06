@@ -7,6 +7,7 @@ using AutoMapper;
 using BL.Bases;
 using BL.Interfaces;
 using BL.DTOs;
+using System.Linq.Expressions;
 using DAL.Models;
 
 namespace BL.AppServices
@@ -18,22 +19,26 @@ namespace BL.AppServices
 
         }
 
-        public IEnumerable<SupSpecailizationDto> GetAll()
+        public IEnumerable<SupSpecailization> GetAll()
         {
-            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetAll());
+            return Mapper.Map<IEnumerable<SupSpecailization>>(TheUnitOfWork.SupSpecializationRepo.GetAll());
         }
 
-        public IEnumerable<SupSpecailizationDto> GetAllNotAccepted()
+        public IEnumerable<SupSpecailization> GetAllNotAccepted()
         {
-            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetWhere(s => s.ByAdmin == false));
+            return Mapper.Map<IEnumerable<SupSpecailization>>(TheUnitOfWork.SupSpecializationRepo.GetWhere(s => s.ByAdmin == false));
         }
 
-        public SupSpecailizationDto Get(int id)
+        public SupSpecailization Get(int id)
         {
-            return Mapper.Map<SupSpecailizationDto>(TheUnitOfWork.SupSpecializationRepo.GetById(id));
+            return Mapper.Map<SupSpecailization>(TheUnitOfWork.SupSpecializationRepo.GetById(id));
+        }
+        public IEnumerable<SupSpecailization> GetWhere(Expression<Func<SupSpecialization, bool>> filter)
+        {
+            return Mapper.Map<IEnumerable<SupSpecailization>>(TheUnitOfWork.SupSpecializationRepo.GetWhere(filter));
         }
 
-        public SupSpecailizationDto Insert(SupSpecailizationDto SupSDTO, bool byAdmin)
+        public SupSpecailization Insert(SupSpecailization SupSDTO, bool byAdmin)
         {
             if (SupSDTO == null)
                 throw new ArgumentNullException();
@@ -45,8 +50,23 @@ namespace BL.AppServices
             SupSDTO.ID = sup_specilize.ID;
             return SupSDTO;
         }
-        
-        public bool Update(SupSpecailizationDto S_Specailize)
+        public List<SupSpecailization> InsertList(List<SupSpecailization> supSpecailizationsDto,bool byAdmin)
+        {
+            if (supSpecailizationsDto == null)
+                throw new ArgumentNullException();
+            
+            foreach (var item in supSpecailizationsDto)
+            {
+                SupSpecialization sup = Mapper.Map<SupSpecialization>(item);
+                sup.ByAdmin = byAdmin;
+                var insertedItem = TheUnitOfWork.SupSpecializationRepo.Insert(sup);
+                TheUnitOfWork.SaveChanges();
+                item.ID = insertedItem.ID;
+                item.ByAdmin = insertedItem.ByAdmin;
+            }
+            return supSpecailizationsDto;
+        }
+        public bool Update(SupSpecailization S_Specailize)
         {
             if (S_Specailize == null)
                 throw new ArgumentNullException();
@@ -65,22 +85,22 @@ namespace BL.AppServices
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;
         }
-        public bool CheckExistsByName(SupSpecailizationDto SupSDTO)
+        public bool CheckExistsByName(SupSpecailization SupSDTO)
         {
             SupSpecialization SupSpecial = Mapper.Map<SupSpecialization>(SupSDTO);
             return TheUnitOfWork.SupSpecializationRepo.CheckExistByName(SupSpecial);
         }
-        public IEnumerable<SupSpecailizationDto> GetPageRecords(int pageSize, int pageNumber)
+        public IEnumerable<SupSpecailization> GetPageRecords(int pageSize, int pageNumber)
         {
-            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetPageRecords(pageSize, pageNumber));
+            return Mapper.Map<IEnumerable<SupSpecailization>>(TheUnitOfWork.SupSpecializationRepo.GetPageRecords(pageSize, pageNumber));
         }
         public int CountEntity()
         {
             return TheUnitOfWork.SupSpecializationRepo.CountEntity();
         }
-        public IEnumerable<SupSpecailizationDto> GetNotAcceptPageRecords(int pageSize, int pageNumber)
+        public IEnumerable<SupSpecailization> GetNotAcceptPageRecords(int pageSize, int pageNumber)
         {
-            return Mapper.Map<IEnumerable<SupSpecailizationDto>>(TheUnitOfWork.SupSpecializationRepo.GetNotAcceptPageRecords(pageSize, pageNumber));
+            return Mapper.Map<IEnumerable<SupSpecailization>>(TheUnitOfWork.SupSpecializationRepo.GetNotAcceptPageRecords(pageSize, pageNumber));
         }
         public int CountOfAccept()
         {

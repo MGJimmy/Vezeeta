@@ -98,6 +98,21 @@
             </div>
           </div>
         </div>
+        <!-- sdd -->
+        <div class="form-group">
+          <label for="username">Specialty</label>
+          <div class="inputWrapper float-right">
+            <select class="form-control" formControlName="specialtyId">
+              <option value="" disabled selected hidden>Choose specialty</option>
+              <option *ngFor="let specialty of allSpecialty" value="{{specialty.id}}">{{specialty.name}}</option>
+            </select>
+
+            <div *ngIf="formFields.specialtyId?.invalid && formFields.specialtyId?.touched">
+              <small class="text-danger" *ngIf="formFields.specialtyId?.errors.required">specialty is required</small>
+            </div>
+          </div>
+        </div>
+        <!-- sdsa -->
         <div class="registerBtnWrapper text-center mt-5">
           <button [disabled]="loading" class="btn btn-danger px-4">
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

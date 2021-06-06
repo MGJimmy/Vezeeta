@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    partial class VezeetaContextModelSnapshot : ModelSnapshot
+    [Migration("20210603210346_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7029154f-1cad-42e4-9d55-7c29855d5baa",
+                            Id = "8c456b31-f4af-424d-b31f-af3db48d07b8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b2779560-6e25-438d-aa44-0e8805427c31",
+                            ConcurrencyStamp = "718b8182-5fb0-4926-800a-b8c159f94569",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5e4479a6-b9fd-4e76-9fb2-3ca9bfabd981",
+                            SecurityStamp = "a55c63b3-0238-4a50-ae97-c38632530cf5",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

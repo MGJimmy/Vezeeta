@@ -1,3 +1,5 @@
+import { ISubSpecialty } from "./ISubSpeciality";
+
 export interface IRegisterDoctor{
   fullName:string,
   userName:string,
@@ -7,5 +9,6 @@ export interface IRegisterDoctor{
   confirmPassword:string,
   doctorInfo:string,
   titleDegree:string,
-  image:string
+  image:string,
+  specialtyId:number
 }

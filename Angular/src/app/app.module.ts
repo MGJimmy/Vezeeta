@@ -29,7 +29,13 @@ import { UploadAndShowComponent } from './components/_reusableComponents/upload-
 import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc/doctor-clinc.component';
 import { UploadMultipleComponent } from './components/_reusableComponents/upload-multiple/upload-multiple.component';
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
+import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 
+// import {} from 'angular-ng-autocomplete';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +62,8 @@ import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic
     DoctorClincComponent,
     UploadMultipleComponent,
     ClinicWorkingDaysComponent,
-
+    DocotorSpecialtyComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -64,6 +71,9 @@ import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AutocompleteLibModule,
+    NgSelectModule,
     // BrowserAnimationsModule,
     // CarouselModul,
     // NgxSpinnerModule,

@@ -11,7 +11,7 @@ import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
 export class SpecilatyService {
 
   constructor(private _http:HttpClient) { }
-  getAllCategories():Observable<ISpecialty[]> {
+  getAllSpecialities():Observable<ISpecialty[]> {
     let url = `${environment.apiUrl}/api/Specialty`;
     return this._http.get<ISpecialty[]>(url).pipe(catchError((err)=>
     {

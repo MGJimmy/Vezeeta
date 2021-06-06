@@ -48,9 +48,9 @@ namespace BL.Configurations
               .ReverseMap();
             CreateMap<Specialty, UpdateSpecialtyDTO>()
            .ReverseMap();
-            CreateMap<SupSpecialization, SupSpecailizationDto>()
-              .ReverseMap()
-              .ForMember(m => m.specialty, m => m.Ignore());
+            CreateMap<SupSpecialization, SupSpecailization>()
+              .ReverseMap();
+              //.ForMember(m => m.specialty, m => m.Ignore());
 
             CreateMap<Clinicservice, ClinicServiceDto>()
                 .ReverseMap();
@@ -64,6 +64,19 @@ namespace BL.Configurations
             .ReverseMap()
             .ForMember(m => m.User, m => m.Ignore())
             .ForMember(m => m.DoctorAttachment, m => m.Ignore());
+            //CreateMap<Doctor, IEnumerable<DoctorSubSpecialtyDTO>>()
+            //    .ConstructUsing(x => x.supSpecializations.Select(y => CreateFoo(x, y)).ToList());
+            ////.ConvertUsing(DoctorConverter)
+            ////.ReverseMap();
+            CreateMap<Doctor, List<DoctorSubSpecialtyDTO>>()
+                    .ConvertUsing(source => source.supSpecializations.Select(p => new DoctorSubSpecialtyDTO
+                    {
+                        specialtyId = p.specialtyId,
+                        id = p.ID,
+                        name = p.Name,
+                        byAdmin = p.ByAdmin
+                    }).ToList());
+                   
 
             CreateMap<ApplicationUserIdentity, RegisterAccountDTO>()
             .ReverseMap()

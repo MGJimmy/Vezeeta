@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210602154259_inint")]
-    partial class inint
+    [Migration("20210603205029_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07a9b0d4-a093-4466-87de-309b5e699609",
+                            Id = "261e218b-7959-4690-963a-f5740ba605c6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a45f0c55-165b-4600-939e-f5a77803fda0",
+                            ConcurrencyStamp = "4a1808ab-9dfc-4fab-b666-5955f87660ba",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "02293aca-64fe-4ad5-a94e-107d002a6986",
+                            SecurityStamp = "2b3c705d-c07d-418d-8f60-528823458739",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });

@@ -19,6 +19,12 @@ export class SubSpecialityService {
         return throwError(err.message ||"Internal Server error contact site adminstarator");
       }));
     }
+    getAllSubSpecialityBySpecialtyId(id,byAdmin:boolean):Observable<ISubSpecialty[]> {
+      return this._http.get<ISubSpecialty[]>(this.url+"/getWhere/"+id+"/"+byAdmin).pipe(catchError((err)=>
+      {
+        return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }));
+    }
     getSubSpecialityById(id):Observable<ISubSpecialty> {
       return this._http.get<ISubSpecialty>(this.url+"/"+id).pipe(catchError((err)=>
       {
@@ -54,6 +60,14 @@ export class SubSpecialityService {
         return throwError(err.message ||"Internal Server error contact site adminstarator");
       }));
     }
+    /*********/
+    addListOfSubSpecialty(SubSpecial):Observable<ISubSpecialty[]>{
+      return this._http.post<ISubSpecialty[]>(this.url+"/insertList",SubSpecial).pipe(catchError((err)=>
+      {
+        return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }));
+    }
+    /********* */
     updateSubSpecialty(id:number,SubSpecial:ISubSpecialty):Observable<any>
     {
       return this._http.put<any>(this.url+"/"+id,SubSpecial)

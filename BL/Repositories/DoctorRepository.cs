@@ -14,6 +14,16 @@ namespace BL.Repositories
         public DoctorRepository(DbContext db):base(db)
         {
         }
+        public Doctor GetById(string id)
+        {
+            Doctor doctor = DbSet.FirstOrDefault(i => i.UserId == id);
+            return doctor;
+        }
+        //public Doctor GetSubSpecialtyByDoctorId(string id)
+        //{
+        //    Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i=>i.supSpecializations).FirstOrDefault();
+        //    return doctor;
+        //}
         public void activateDoctor(string doctorID)
         {
             Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
@@ -25,5 +35,16 @@ namespace BL.Repositories
             doctor.IsAccepted = false;
         }
 
+
+        //public void InsertSpecialtyToDoctor(string doctorId, Specialty specialty)
+        //{
+        //    var doctor = DbSet.Find(doctorId);
+        //    if (doctor != null)
+        //    {
+        //        doctor.specialtyId = specialty.ID;
+        //        DbSet.Update(doctor);
+        //    }
+        //}
+        
     }
 }

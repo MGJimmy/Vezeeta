@@ -93,8 +93,10 @@ namespace DAL.Migrations
                         new
                         {
                             Id = "d5ada6f5-4936-474b-8ad7-30a22360230f",
+                            Id = "07a9b0d4-a093-4466-87de-309b5e699609",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "603b806c-cd61-44fc-9433-29dde2bfe6d6",
+                            ConcurrencyStamp = "a45f0c55-165b-4600-939e-f5a77803fda0",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
@@ -102,6 +104,7 @@ namespace DAL.Migrations
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "40aa918d-675e-47ff-a059-4296a3e2d08a",
+                            SecurityStamp = "02293aca-64fe-4ad5-a94e-107d002a6986",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -282,7 +285,12 @@ namespace DAL.Migrations
                     b.Property<string>("doctorInfo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("specialtyId")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("specialtyId");
 
                     b.ToTable("Doctor");
                 });
@@ -393,21 +401,6 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.Property<string>("DoctorsUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("doctorServicesID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorsUserId", "doctorServicesID");
-
-                    b.HasIndex("doctorServicesID");
-
-                    b.ToTable("DoctorDoctorService");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -626,6 +619,14 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.Specialty", "specialty")
+                        .WithMany("doctors")
+                        .HasForeignKey("specialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("specialty");
+
                     b.Navigation("User");
                 });
 
@@ -658,21 +659,6 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.HasOne("DAL.Models.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.DoctorService", null)
-                        .WithMany()
-                        .HasForeignKey("doctorServicesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -760,6 +746,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
                     b.Navigation("DoctorAttachment");
+                });
+
+            modelBuilder.Entity("DAL.Models.Specialty", b =>
+                {
+                    b.Navigation("doctors");
                 });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>

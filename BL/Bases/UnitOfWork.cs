@@ -208,6 +208,17 @@ namespace BL.Bases
             }
         }
 
+        private DoctorSubSpecializationRepository doctorSubSpecializationRepository;
+        public DoctorSubSpecializationRepository DoctorSubSpecializationRepo
+        {
+            get
+            {
+                if (doctorSubSpecializationRepository == null)
+                    doctorSubSpecializationRepository = new DoctorSubSpecializationRepository(Context);
+                return doctorSubSpecializationRepository;
+            }
+        }
+
 
 
         public void Dispose()

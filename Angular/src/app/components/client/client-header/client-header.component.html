@@ -10,11 +10,11 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
         <a class="nav-item nav-link mr-5" routerLink="dashboard" *ngIf="isLoggedIn()">Dashboard</a>
-        <a class="nav-item nav-link signUp border" routerLink="register" *ngIf="!isLoggedIn()">Sign up</a>
+        <a class="nav-item nav-link signUp border" routerLink="registerUser" *ngIf="!isLoggedIn()">Sign up</a>
         <a class="nav-item nav-link border-right" routerLink="login" *ngIf="!isLoggedIn()">Login</a>
         <a class="nav-item nav-link border-right" (click)="Logout()" *ngIf="isLoggedIn()">Logout</a>
         <a class="nav-item nav-link border-right" routerLink="registerDoctor" *ngIf="!isLoggedIn()">Vezeeta for doctors</a>
-        <a class="nav-item nav-link border-right" routerLink="doctorDashboard/attachment" *ngIf="isLoggedIn()">doctors Dashboard</a>
+        <a class="nav-item nav-link border-right" routerLink="doctorDashboard/doctorSpecialty" *ngIf="isLoggedIn()">doctors Dashboard</a>
         <a class="nav-item nav-link border-right" href="#">Contact us</a>
         <a class="nav-item nav-link" href="#">عربي</a>
       </div>

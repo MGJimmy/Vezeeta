@@ -1,4 +1,5 @@
-﻿using BL.AppServices;
+﻿using API.helpers;
+using BL.AppServices;
 using BL.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -82,10 +83,16 @@ namespace API.Controllers
         {
             return Ok(_supSpecializationAppService.GetAllNotAccepted());
         }
+        [HttpGet("getWhere/{specialId}/{byAdmin}")]
+        public IActionResult GetAllWhere(int specialId,bool byAdmin)
+        {
+            return Ok(_supSpecializationAppService.GetWhere(i => i.specialtyId == specialId&& i.ByAdmin== byAdmin));
+        }
+
 
         // POST api/<SupSpecializationController>
         [HttpPost]
-        public IActionResult Create(SupSpecailizationDto createSupSpecailizationDtoDTO)
+        public IActionResult Create(SupSpecailization createSupSpecailizationDtoDTO)
         {
             if (ModelState.IsValid == false)
             {
@@ -101,7 +108,7 @@ namespace API.Controllers
             catch (Exception ex) { return BadRequest(ex.Message); }
             try
             {
-                SupSpecailizationDto newSupDTO;
+                SupSpecailization newSupDTO;
                 if (User.IsInRole("Admin"))
                 {
                     newSupDTO= _supSpecializationAppService.Insert(createSupSpecailizationDtoDTO, true);
@@ -121,9 +128,35 @@ namespace API.Controllers
            
         }
 
+        [HttpPost("insertList")]
+        public async Task<IActionResult> InsertList(List<SupSpecailization> supSpecailizations)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                List<SupSpecailization> newSup;
+                if (User.IsInRole("Admin"))
+                {
+                    newSup = _supSpecializationAppService.InsertList(supSpecailizations, true);
+                }
+                else
+                {
+                    newSup = _supSpecializationAppService.InsertList(supSpecailizations, false);
+                }
+                _generalAppService.CommitTransaction();
+                return Created("created", newSup);
+            }
+            catch(Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
         // PUT api/<SupSpecializationController>/5
         [HttpPut("{id}")]
-        public IActionResult Update(int id, SupSpecailizationDto SupSDTO)
+        public IActionResult Update(int id, SupSpecailization SupSDTO)
         {
             if (ModelState.IsValid == false)
             {

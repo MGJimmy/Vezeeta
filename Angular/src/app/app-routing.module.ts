@@ -13,8 +13,10 @@ import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboar
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
+import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 const routes: Routes = [
   {
@@ -38,9 +40,12 @@ const routes: Routes = [
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'clinc',component:DoctorClincComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
+      {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
     ]
   },
+  
   {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent}
 ];
 

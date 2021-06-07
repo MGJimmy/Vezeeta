@@ -109,6 +109,7 @@ namespace API.Controllers
         {
             try
             {
+                
                 _clinicServicesAppServices.Delete(id);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message="Deleted"});

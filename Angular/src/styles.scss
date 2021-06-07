@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 body{
     font-family: SourceSansPro !important;
     background-color: rgb(226, 230, 234);
@@ -44,3 +46,5 @@ body{
         color: #0170ce;
     }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

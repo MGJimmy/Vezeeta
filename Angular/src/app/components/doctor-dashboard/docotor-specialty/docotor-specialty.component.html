@@ -42,7 +42,8 @@
             </div>
             <hr>
             <div class="text-right">
-                <button class="btn btn-primary px-3" [disabled]="SubSpecialtySelected.length==0" (click)="saveDataToDoctor()">Save </button>
+                <button *ngIf="state=='insert'" class="btn btn-primary px-3" [disabled]="SubSpecialtySelected.length==0" (click)="saveDataToDoctor()">Save </button>
+                <button *ngIf="state=='update'" class="btn btn-primary px-3" [disabled]="SubSpecialtySelected.length==0" (click)="saveDataToDoctor()">Update </button>
             </div>
         </div>
     </div>

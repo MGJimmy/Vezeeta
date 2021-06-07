@@ -19,7 +19,7 @@ namespace DAL
         {
             
         }
-      
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -33,12 +33,12 @@ namespace DAL
                 .HasIndex(u => u.Name)
                 .IsUnique();
             builder.Entity<ApplicationUserIdentity>().HasData(
-             new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com",PasswordHash="123456" }
+             new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com", PasswordHash = "123456" }
             );
             builder.Entity<City>()
                 .HasMany(ci => ci.Clinics)
                 .WithOne(cl => cl.City)
-                .HasForeignKey(cl=>cl.CityId)
+                .HasForeignKey(cl => cl.CityId)
                 .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Area>()
                 .HasMany(a => a.clinics)
@@ -47,9 +47,11 @@ namespace DAL
                 .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Specialty>()
                 .HasMany(s => s.doctors)
-                .WithOne(d=>d.specialty)
-                .HasForeignKey(d=>d.specialtyId)
+                .WithOne(d => d.specialty)
+                .HasForeignKey(d => d.specialtyId)
                 .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<DoctorSubSpecialization>()
+                .HasKey(ds => new { ds.DoctorId, ds.subSpecializeId });
         }
 
      
@@ -59,7 +61,8 @@ namespace DAL
         public DbSet<SupSpecialization> supSpecializations { get; set; }
         public DbSet<Clinicservice> Clinicservices{ get; set; }
         public DbSet<Doctor> Doctors{ get; set; }
-        public DbSet<Clinic> Clinics{ get; set; }
+        public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
 
     }
 }

@@ -30,6 +30,7 @@ import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc
 import { UploadMultipleComponent } from './components/_reusableComponents/upload-multiple/upload-multiple.component';
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 
 // import {} from 'angular-ng-autocomplete';
@@ -64,6 +65,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     UploadMultipleComponent,
     ClinicWorkingDaysComponent,
     ManageDoctorServicesComponent,
+    UserRegisterComponent,
 
     DocotorSpecialtyComponent,
     

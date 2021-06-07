@@ -17,6 +17,7 @@ import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-se
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 const routes: Routes = [
   {
@@ -47,7 +48,9 @@ const routes: Routes = [
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
     ]
   },
+  
   {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent}
 ];
 

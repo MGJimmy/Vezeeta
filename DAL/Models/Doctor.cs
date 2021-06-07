@@ -23,8 +23,10 @@ namespace DAL.Models
         public ApplicationUserIdentity User { get; set; }
         public DoctorAttachment DoctorAttachment { get; set; }
         public Specialty specialty { get; set; }
-        public List<SupSpecialization> supSpecializations { get; set; }
+        
         public List<Doctor_DoctorService> doctor_doctorServices { get; set; }
+        public List<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
+        
 
     }
 }

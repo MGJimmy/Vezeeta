@@ -197,6 +197,28 @@ namespace BL.Bases
                 return doctorServiceRepository;
             }
         }
+        private ClinicClinicServiceRepository clinicClinicServiceRepo;
+        public ClinicClinicServiceRepository ClinicClinicServiceRepo
+        {
+            get
+            {
+                if (clinicClinicServiceRepo == null)
+                    clinicClinicServiceRepo = new ClinicClinicServiceRepository(Context);
+                return clinicClinicServiceRepo;
+            }
+        }
+
+        private DoctorSubSpecializationRepository doctorSubSpecializationRepository;
+        public DoctorSubSpecializationRepository DoctorSubSpecializationRepo
+        {
+            get
+            {
+                if (doctorSubSpecializationRepository == null)
+                    doctorSubSpecializationRepository = new DoctorSubSpecializationRepository(Context);
+                return doctorSubSpecializationRepository;
+            }
+        }
+
         
 
 

@@ -20,9 +20,9 @@ namespace BL.Repositories
         {
             return GetAny(c => c.Name == serviceName);
         }
-        public override IEnumerable<DoctorService> GetAll()
+        public override ICollection<DoctorService> GetAll()
         {
-            return DbSet.Where(doctorService => doctorService.ByAdmin == true);
+            return DbSet.Where(doctorService => doctorService.ByAdmin == true).ToList();
         }
         public int CountEntity(bool byAdmin)
         {

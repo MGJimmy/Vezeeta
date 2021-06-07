@@ -20,6 +20,6 @@ namespace DAL.Models
         [ForeignKey("specialty")]
          public int specialtyId { get; set; }
          public Specialty specialty { get; set; }
-        public List<Doctor> doctors { get; set; }
+        public List<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
     }
 }

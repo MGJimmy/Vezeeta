@@ -23,13 +23,7 @@ export class DoctorService {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
       }))
   }
-  getCurrentDoctorWithSubSpecialty():Observable<ISubSpecialty[]>{
-
-    return this._http.get<ISubSpecialty[]>(this.url+"/subSpecialty").pipe(catchError(
-      (err)=> { 
-      return throwError(err.message ||"Internal Server error contact site adminstarator");
-      }))
-  }
+ 
 
   assignSpecialtyToDoctor(specialty:ISpecialty):Observable<ISpecialty>{
     return this._http.post<any>(this.url+"/assignSpecialty",specialty).pipe(catchError(
@@ -38,12 +32,6 @@ export class DoctorService {
       }))
   }
 
-  assignSuubSpecialtyToDoctor(subSpecialty:ISubSpecialty[]):Observable<ISubSpecialty[]>{
-    return this._http.post<any>(this.url+"/assignSubSpecialty",subSpecialty).pipe(catchError(
-      (err)=> { 
-      return throwError(err.message ||"Internal Server error contact site adminstarator");
-      }))
-  }
 
 
 

@@ -9,9 +9,9 @@ namespace BL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
+        ICollection<T> GetAll();
 
-        IEnumerable<T> GetWhere(Expression<Func<T, bool>> filter = null, string includeProperties = "");
+        ICollection<T> GetWhere(Expression<Func<T, bool>> filter = null, string includeProperties = "");
 
         T GetById(int entityId);
 

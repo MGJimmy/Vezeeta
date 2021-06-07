@@ -1,6 +1,7 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using BL.StaticClasses;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,11 @@ namespace API.Controllers
             }
             try
             {
+                string userRole = HttpContext.User.FindFirst("role").Value;
+                if (userRole == UserRoles.Admin)
+                    clinicServiceDto.ByAdmin = true;
+                else
+                    clinicServiceDto.ByAdmin = false;
                 if (_clinicServicesAppServices.CheckClinicServicesExistsByName(clinicServiceDto.Name))
                 {
                     return BadRequest( new Response() { Message = "This service is Added before" });
@@ -103,6 +109,7 @@ namespace API.Controllers
         {
             try
             {
+                
                 _clinicServicesAppServices.Delete(id);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message="Deleted"});

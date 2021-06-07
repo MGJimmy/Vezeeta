@@ -12,5 +12,7 @@ namespace DAL.Models
         public int ID { get; set; }
         [Required , MinLength(5)]
         public string Name { get; set; }
+        public bool ByAdmin { get; set; }
+        public ICollection<ClinicClinicService> ClinicClinicServices { get; set; }
     }
 }

@@ -112,13 +112,19 @@ namespace API
             services.AddScoped<DayShiftAppService>();
             services.AddScoped<DoctorServiceAppService>();
             services.AddScoped<DoctorSubSpecializationAppService>();
+            services.AddScoped<RoleAppService>();
+            services.AddScoped<ClinicClinicServiceAppService>();
 
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            RoleAppService _roleAppService,
+            AccountAppService _accountAppService)
         {
             if (env.IsDevelopment())
             {
@@ -159,7 +165,7 @@ namespace API
             });
 
             // create custom roles 
-            //roleAppService.CreateRoles().Wait();
+            _roleAppService.CreateRoles().Wait();
             // add custom first admin
             //accountAppService.CreateFirstAdmin().Wait();
         }

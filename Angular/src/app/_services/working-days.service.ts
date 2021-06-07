@@ -19,7 +19,7 @@ export class WorkingDaysService {
       }
     ));
   }
-  test1():Observable<any>{
+  getWorkingDays():Observable<any>{
     let url = `${environment.apiUrl}/api/WorkingDay`;
      return this._http.get<IWorkingDay[]>(url)
      .pipe(catchError((err)=>{

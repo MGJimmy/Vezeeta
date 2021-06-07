@@ -31,17 +31,17 @@ namespace BL.Bases
         #endregion
 
         #region Get All Data Methods
-        public virtual IEnumerable<T> GetAll() 
+        public virtual ICollection<T> GetAll() 
         {
-            return DbSet;
+            return DbSet.ToList();
         }
 
-        public virtual IEnumerable<T> GetAllSorted<TKey>(Expression<Func<T, TKey>> sortingExpression)
+        public virtual ICollection<T> GetAllSorted<TKey>(Expression<Func<T, TKey>> sortingExpression)
         {
-            return DbSet.OrderBy<T, TKey>(sortingExpression);
+            return DbSet.OrderBy<T, TKey>(sortingExpression).ToList();
         }
 
-        public virtual IEnumerable<T> GetWhere(Expression<Func<T, bool>> filter = null, string includeProperties = "")
+        public virtual ICollection<T> GetWhere(Expression<Func<T, bool>> filter = null, string includeProperties = "")
         {
             IQueryable<T> query = DbSet;
 
@@ -52,7 +52,7 @@ namespace BL.Bases
             query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
 
-            return query;
+            return query.ToList();
         }
 
         public virtual bool GetAny(Expression<Func<T, bool>> filter = null)

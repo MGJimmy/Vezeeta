@@ -45,6 +45,8 @@ namespace DAL
                 .WithOne(cl => cl.Area)
                 .HasForeignKey(cl => cl.AreaId)
                 .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<ClinicClinicService>()
+                .HasKey(c => new { c.ClinicId, c.ClinicServiceId });
             builder.Entity<Specialty>()
                 .HasMany(s => s.doctors)
                 .WithOne(d => d.specialty)

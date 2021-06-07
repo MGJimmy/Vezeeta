@@ -34,7 +34,7 @@ export class AuthenticationService {
     register(registerDoctor:IRegisterDoctor ){
         return this.http.post<IRegisterDoctor>(`${environment.apiUrl}/api/doctor`,registerDoctor)
         .pipe(catchError((err)=>{
-            return throwError(err.message ||"Internal Server error contact site adminstarator");
+            return throwError(err ||"Internal Server error contact site adminstarator");
             }
         ));
     }

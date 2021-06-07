@@ -70,11 +70,11 @@
         <div class="form-group">
           <label for="titleDegree">Title Degree</label>
           <div class="inputWrapper float-right">
-            <input formControlName="titleDegree" type="text" class="form-control" placeholder="Write about yourself"
+            <input formControlName="titleDegree" type="text" class="form-control" placeholder="Your Title degree"
               name="titleDegree"
               [class.is-invalid]="formFields.titleDegree?.invalid && formFields.titleDegree?.touched">
             <div *ngIf="formFields.titleDegree?.invalid && formFields.titleDegree?.touched">
-              <small class="text-danger" *ngIf="formFields.titleDegree?.errors.required">Last Name is required</small>
+              <small class="text-danger" *ngIf="formFields.titleDegree?.errors.required">Your Title degree</small>
             </div>
           </div>
         </div>

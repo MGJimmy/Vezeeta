@@ -1,4 +1,5 @@
 export interface IDayShift{
   from:string,
-  to:string
+  to:string,
+  maxNumOfReservation:number
 }

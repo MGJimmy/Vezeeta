@@ -1,6 +1,7 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
 using BL.StaticClasses;
@@ -26,27 +27,30 @@ namespace API.Controllers
         AccountAppService _accountAppService;
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
+        Doctor_DoctorServiceAppService _doctor_DoctorServiceAppService;
         public DoctorController(
             DoctorAppService doctorAppService, 
             AccountAppService accountAppService,
             GeneralAppService generalAppService,
-             IHttpContextAccessor httpContextAccessor)
+             IHttpContextAccessor httpContextAccessor,
+             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
             _httpContextAccessor = httpContextAccessor;
+            _doctor_DoctorServiceAppService = doctor_DoctorServiceAppService;
 
         }
 
         [HttpGet]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetCurrentUser()
         {
             try
             {
-                //var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
+                var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
 
                 Doctor doctor = _doctorAppService.GetById(doctorId);
                 return Ok(doctor);
@@ -57,13 +61,13 @@ namespace API.Controllers
             }
         }
         [HttpGet("subSpecialty")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetSubSpecialtyOfCurrentDoctor()
         {
             try
             {
-                //var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
+                var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                //var doctorId = "3736d8fb-1ec3-4320-953a-7ddd06e084a6";
                 List<DoctorSubSpecialtyDTO> doctor = _doctorAppService.GetSubSpecialtyByDoctorId(doctorId);
                 return Ok(doctor);
             }
@@ -100,9 +104,10 @@ namespace API.Controllers
             
         }
 
-        [HttpPut("addServices")]
+        
+        [HttpPost("addServices")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public IActionResult AddServiceForDoctor(List<DoctorServiceDto> doctorservives)
+        public IActionResult AddServiceForDoctor(List<CreateDoctor_DoctorService> doctorservives)
         {
             if (ModelState.IsValid == false)
             {
@@ -112,7 +117,7 @@ namespace API.Controllers
             {
                 var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                _doctorAppService.UpdateServicesList(doctorservives, DoctorId);
+                _doctor_DoctorServiceAppService.InsertList(doctorservives,DoctorId);
                 _generalAppService.CommitTransaction();
                 return NoContent();
             }
@@ -124,35 +129,41 @@ namespace API.Controllers
 
             }
         }
-
         [HttpGet("Myservices")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult myServices()
         {
-           
-          var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-           var services=_doctorAppService.GetDoctorServices(DoctorId);
-               
-           return Ok(services); 
+            var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var services = _doctor_DoctorServiceAppService.GetDoctorServices(DoctorId);
+            return Ok(services);
         }
 
-        [HttpDelete("DeleteDoctorservices")]
+        [HttpPut("UpdateDoctorServices")]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public IActionResult DeleteServices()
+        public IActionResult UpdateDoctorServices(List<CreateDoctor_DoctorService> NewdoctorservivesList)
         {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
                 var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                _doctorAppService.DeleteServiceList(DoctorId);
-                _generalAppService.CommitTransaction();
+                _doctor_DoctorServiceAppService.UpdateServicesList(NewdoctorservivesList, DoctorId);
+                 _generalAppService.CommitTransaction();
                 return NoContent();
             }
             catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
+
                 return BadRequest(ex.Message);
+
             }
         }
+
+
+        
 
         [HttpPost("assignSpecialty")]
         [Authorize(AuthenticationSchemes = "Bearer")]

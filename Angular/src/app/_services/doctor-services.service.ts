@@ -81,4 +81,16 @@ export class DoctorServicesService {
     }));
   }
 
+  addListOfDoctorService(newDoctorServices:IDoctorService[]):Observable<IDoctorService[]>{
+  
+    let url=`${environment.apiUrl}/api/DoctorService/insertList`;
+    //console.log(url)
+    return this._http.post<IDoctorService[]>(url,newDoctorServices)
+            .pipe(catchError((err)=>{
+              return throwError(err.message ||"Internal Server error contact site adminstarator");
+                }
+              ));
+  }
+
+
 }

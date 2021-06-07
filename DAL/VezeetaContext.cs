@@ -50,6 +50,9 @@ namespace DAL
                 .WithOne(d=>d.specialty)
                 .HasForeignKey(d=>d.specialtyId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Doctor_DoctorService>().HasKey(dds => new { dds.doctorID, dds.serviceID });
+
         }
 
      
@@ -60,6 +63,8 @@ namespace DAL
         public DbSet<Clinicservice> Clinicservices{ get; set; }
         public DbSet<Doctor> Doctors{ get; set; }
         public DbSet<Clinic> Clinics{ get; set; }
+        public DbSet<Doctor_DoctorService> Doctor_DoctorServices { get; set; }
+        
 
     }
 }

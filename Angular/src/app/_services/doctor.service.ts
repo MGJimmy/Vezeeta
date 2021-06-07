@@ -46,4 +46,33 @@ export class DoctorService {
   }
 
 
+
+  //doctor_DoctorServices
+  addservice(services)
+  {
+   return this._http.post<any>(`${environment.apiUrl}/api/Doctor/addServices`, services)
+   .pipe(catchError((err) => {
+       console.log(err);
+       return throwError(err.message || "An Error Occur")
+     })
+   )}
+   GetMyservices()
+   {
+    return this._http.get<any>(`${environment.apiUrl}/api/Doctor/Myservices`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+Updateservices(services)
+   {
+    return this._http.put<any>(`${environment.apiUrl}/api/Doctor/UpdateDoctorServices`,services)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+
 }

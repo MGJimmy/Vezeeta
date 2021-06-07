@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DAL.Models
@@ -16,7 +17,7 @@ namespace DAL.Models
         [Required, MinLength(3, ErrorMessage = "Name should be more than 2 character")]
         public string Name { get; set; }
         public bool ByAdmin { get; set; }
-
-        public List<Doctor> Doctors { get; set; }
+        [JsonIgnore]
+        public List<Doctor_DoctorService> doctor_doctorServices { get; set; }
     }
 }

@@ -41,7 +41,7 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent},
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
-      {path:'doctorServices',component:DoctorServicesComponent},
+      {path:'doctorServices',component:DoctorServicesComponent,canActivate:[AuthGuard]},
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},

@@ -50,35 +50,7 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
         }
 
-        public bool UpdateServicesList(List<DoctorServiceDto> _doctorservice, string docID)
-        {
-            if (_doctorservice == null)
-                throw new ArgumentNullException();
-
-            bool result = false;
-
-            Doctor doctor=TheUnitOfWork.DoctorRepo.GetByStringId(docID);
-            doctor.doctorServices=Mapper.Map<List<DoctorService>>(_doctorservice);
-            TheUnitOfWork.DoctorRepo.Update(doctor);
-            result = TheUnitOfWork.SaveChanges() > new int();
-            return result;
-
-        }
-        public bool DeleteServiceList(string docID)
-        {
-            bool result = false;
-            Doctor doctor = TheUnitOfWork.DoctorRepo.GetByStringId(docID);
-            doctor.doctorServices = null;
-            TheUnitOfWork.DoctorRepo.Update(doctor);
-            result = TheUnitOfWork.SaveChanges() > new int();
-            return result;
-        }
-
-        public IEnumerable<DoctorServiceDto> GetDoctorServices(string doctorId)
-        {
-            Doctor doctor = TheUnitOfWork.DoctorRepo.GetByStringId(doctorId);
-            return Mapper.Map<IEnumerable<DoctorServiceDto>>(doctor.doctorServices);
-        }
+        
         public void InsertSpecialtyToDoctor(string doctorId, SpecialtyDTO speiatyDto)
         {
             var specialty = Mapper.Map<Specialty>(speiatyDto);

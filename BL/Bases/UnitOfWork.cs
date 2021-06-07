@@ -197,8 +197,19 @@ namespace BL.Bases
                 return doctorServiceRepository;
             }
         }
+        
 
 
+        private Doctor_DoctorServiceRepository doctor_DoctorServiceRepo;
+        public Doctor_DoctorServiceRepository Doctor_DoctorServiceRepo
+        {
+            get
+            {
+                if (doctor_DoctorServiceRepo == null)
+                    doctor_DoctorServiceRepo = new Doctor_DoctorServiceRepository(Context);
+                return doctor_DoctorServiceRepo;
+            }
+        }
 
         public void Dispose()
         {

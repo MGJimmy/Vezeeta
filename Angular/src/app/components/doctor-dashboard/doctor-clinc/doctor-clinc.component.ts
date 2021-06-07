@@ -38,6 +38,8 @@ export class DoctorClincComponent implements OnInit {
   Cityies: ICity[];
   Areas: IArea[];
 
+  
+
   ClinicForm = this._formBuilder.group({
     Street: ['', Validators.required],
     Fees: ['', Validators.required],
@@ -47,6 +49,13 @@ export class DoctorClincComponent implements OnInit {
     AreaId: ['', Validators.required]
 
   });
+
+  areaForm=this._formBuilder.group({
+    id:[""],
+    name:["",[Validators.required,Validators.minLength(3)]],
+    cityID:["",[Validators.required]]
+  })
+
   ngOnInit(): void {
 
     this._cityService.getAllCities().subscribe(data => {
@@ -219,5 +228,18 @@ export class DoctorClincComponent implements OnInit {
 
   public createImgPath = (serverPath: string) => {
     return `http://localhost:57320/${serverPath}`;
+  }
+
+  get idArea(){ return this.areaForm.get("id")  }
+  get name(){  return this.areaForm.get("name")   }  
+  get cityID(){ return this.areaForm.get("cityID")  }
+
+  openAddAreaModal()
+  {
+
+  }
+  addNewArea()
+  {
+
   }
 }

@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { IDoctorService, IDoctorServiceDisplay } from 'src/app/_models/_interfaces/IDoctorService';
+import { IDoctorService } from 'src/app/_models/_interfaces/IDoctorService';
+import { IDoctor_DoctorService } from 'src/app/_models/_interfaces/IDoctor_DoctorService';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { DoctorServicesService } from 'src/app/_services/doctor-services.service';
+import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
   selector: 'app-doctor-services',
@@ -14,211 +16,127 @@ import { DoctorServicesService } from 'src/app/_services/doctor-services.service
 export class DoctorServicesComponent implements OnInit {
 
   @ViewChild('addOrUpdateModelCloseBtn') addOrUpdateModelCloseBtn;
-  hasServices:boolean=false;
-  SelectedServiceIdList:IDoctorService[]=[];
-  DoctorServiceForm : FormGroup;
+  hasServices: boolean = false;
+  SelectedServiceIdList=new Array<IDoctorService>();
+  //  IDoctorService[]=[];
+  
 
-  ServicesList:IDoctorService[]=[];
-  // =[{id:"1",Name:"service1",byadmin:"true"},{id:"2",Name:"service2",byadmin:"true"},{id:"3",Name:"service3",byadmin:"true"},{id:"4",Name:"service4",byadmin:"true"},{id:"5",Name:"service5",byadmin:"true"},{id:"6",Name:"service6",byadmin:"true"},{id:"7",Name:"service7",byadmin:"false"},{id:"8",Name:"service8",byadmin:"true"},{id:"9",Name:"service9",byadmin:"true"},{id:"10",Name:"service10",byadmin:"true"}];
-  ServicesList2=[{id:"11",Name:"service1"},{id:"12",Name:"service2"},{id:"13",Name:"service3"},{id:"14",Name:"service4"},{id:"15",Name:"service5"},{id:"16",Name:"service6"},{id:"17",Name:"service7"},{id:"8",Name:"service8"}];
+  ServicesList: IDoctorService[] = [];
+  NotAcceptByAdminServiceSelected=new Array<IDoctorService>();
+  insertedServiceList= new Array<IDoctorService>();
+  
 
-  NewServiceList:IDoctorServiceDisplay[]=[];
+  constructor(private _authenticationService: AuthenticationService,
+    private _doctorServices: DoctorServicesService,
+    private _router: Router,
+    private _DoctorService: DoctorService) {
 
-  constructor(private _authenticationService:AuthenticationService,
-    private _doctorServices:DoctorServicesService,
-    private _formBuilder: FormBuilder,
-    private _router:Router) 
-    {
-      
-    }
+  }
 
-  get formFields() { return this.DoctorServiceForm.controls; }
-
+  
+  
   ngOnInit(): void {
-    this.DoctorServiceForm = this._formBuilder.group({
-      name:['', Validators.required],
    
-    });
 
-    this._doctorServices.getAllDoctorServices().subscribe(data=>
-      {
-        this.ServicesList=data;
-        console.log(this.ServicesList.length);
-       
-      })
 
-      this._authenticationService.GetMyservices().subscribe(data=>
-        {
-          if(data.length !==0)
-          {
-            console.log("my services done");
-            this.SelectedServiceIdList=data;
-            console.log(this.SelectedServiceIdList);
-            this.hasServices=true;
-            console.log(data);
-             this.setchecked();
-          }
-          else
-          {
-            this.hasServices=false;
-            console.log("doctor has not services");
-          }
-         
-        },err=>
-        {
-          console.log("errrrrrr");
-        })
-        
+    this._doctorServices.getAllDoctorServices().subscribe(data => {
+      this.ServicesList = data;
+      console.log(this.ServicesList);
 
-        
-  }
-
-  setchecked(){
-    console.log(this.ServicesList.length);
-    for (var i = 0; i < this.ServicesList.length; i++) {
-
-      var ismatch = false; 
-      console.log(this.SelectedServiceIdList.length);
-      for (var j = 0; j < this.SelectedServiceIdList.length; j++) {
-
-        if (this.ServicesList[i].id == this.SelectedServiceIdList[j].id) {
-          ismatch = true;
-          let servicedisplay:IDoctorServiceDisplay= 
-          {
-            id:this.ServicesList[i].id,
-            byAdmin:this.ServicesList[i].byAdmin,
-            name:this.ServicesList[i].name,
-            checked:true,
-
-          }
-          console.log("xccccccccccc");
-          this.NewServiceList.push(servicedisplay);
-          break;
-        }//End if
-        }
-      if (!ismatch) {
-        let servicedisplay:IDoctorServiceDisplay= 
-          {
-            id:this.ServicesList[i].id,
-            byAdmin:this.ServicesList[i].byAdmin,
-            name:this.ServicesList[i].name,
-            checked:false,
-
-          }
-          this.NewServiceList.push(servicedisplay);
-      } //End if
-    }
-    console.log(this.NewServiceList);
-  }
-
-  changeStatus(serv,e)
-  {
-    console.log(serv);
-    console.log(e);
-    console.log(e.target.checked);
-    let service:IDoctorService=
-    {
-       id:serv.id,
-      name:serv.name,
-      byAdmin:serv.byAdmin
-    };
-    if(e.target.checked==true)
-    {
-      this.SelectedServiceIdList.push(service);
-    }
-    else
-    {
-      console.log("enter else");
-      this.RemoveElementFromSelectedList(service.id);
-    }
-    console.log(this.SelectedServiceIdList);
-  }
-
-  RemoveElementFromSelectedList(key: number) {
-    this.SelectedServiceIdList.forEach((value,index)=>{
-        if(value.id==key) this.SelectedServiceIdList.splice(index,1);
-    });
-} 
-//   RemoveElementFromArray(element) {
-//     this.SelectedServiceIdList.forEach((value,index)=>{
-//         if(value==element) this.SelectedServiceIdList.splice(index,1);
-//     });
-// }
-  onAddSubmit()
-  {
-   console.log("add");
-   this._authenticationService.addservice(this.SelectedServiceIdList).subscribe(data=>
-    {
-      console.log("done");
-      console.log(data);
-    },err=>
-    {
-      console.log("errrrrrr");
     })
-   console.log(this.SelectedServiceIdList);
+
+    this._DoctorService.GetMyservices().subscribe(data=>
+    {
+      if(data.length !==0)
+       {
+        this.SelectedServiceIdList=data.filter(i=>i.byAdmin==true);;
+        this.NotAcceptByAdminServiceSelected=data.filter(i=>i.byAdmin==false);
+        this.hasServices=true;
+        console.log(this.SelectedServiceIdList);
+        console.log(this.NotAcceptByAdminServiceSelected);
+
+       }
+       else
+       {
+         this.hasServices=false;
+       }
+      
+    })
+
   }
-  onEditSubmit()
-  {
-    this._authenticationService.Deleteservices().subscribe(data=>
-      {
+
+ 
+
+  Doctor_Services = new Array<IDoctor_DoctorService>();
+  onAddSubmit() {
+    this.AddServicesList();
+    this.SelectedServiceIdList.forEach(service => {
+      let doctorServce: IDoctor_DoctorService = {
+        serviceID:service.id
+      }
+      this.Doctor_Services.push(doctorServce);
+    });
+
+    console.log(this.Doctor_Services);
+    this._DoctorService.addservice(this.Doctor_Services).subscribe(data => {
         console.log("done");
         console.log(data);
-        this._authenticationService.addservice(this.SelectedServiceIdList).subscribe(data=>
-          {
-            console.log("done");
-            console.log(data);
-          },err=>
-          {
-            console.log("errrrrrr in add");
-          })
-        
+    })
+
+    
+  }
+  onEditSubmit() {
+    this.AddServicesList();
+    // console.log(this.insertedServiceList);
+    // this.NotAcceptByAdminServiceSelected.push.apply(this.insertedServiceList);
+    // console.log(this.NotAcceptByAdminServiceSelected);
+    // this.SelectedServiceIdList.push.apply(this.NotAcceptByAdminServiceSelected);  
+    console.log(this.SelectedServiceIdList);
+    this.SelectedServiceIdList.forEach(service => {
+      let doctorServce: IDoctor_DoctorService = {
+        serviceID:service.id
+      }
+      this.Doctor_Services.push(doctorServce);
+    });
+    this._DoctorService.Updateservices( this.Doctor_Services).subscribe(data=>
+      {
+        console.log("Update done");
+        console.log(data);
+
       },err=>
       {
-        console.log("errrrrrr in delete");
+        console.log("errrrrrr in Update");
       })
+
+     
   }
 
-  AddNewService()
-  {
-    if (this.DoctorServiceForm.invalid) {
-      return;
-    }
-    let newDoctorService:IDoctorService = 
-    {
-      id:0 ,
-      name : this.formFields.name.value,
-      byAdmin:false
-
-    };
-    this._doctorServices.addNewDoctorService(newDoctorService)
-        .pipe(first())
-        .subscribe(
-            data => {
-                this._router.routeReuseStrategy.shouldReuseRoute = () => false;
-                this._router.onSameUrlNavigation = 'reload';
-                this.addOrUpdateModelCloseBtn.nativeElement.click();
-                this._router.navigate([this._router.url]);
-                console.log("added")
-            },
-            error => {
-                
-            });
-    console.log("add newdoctorService");
+  addNewServicesList=new Array<IDoctorService>();
+  insertServiceValue:string=""
+  addID=0;
+  add(value){
+    this.insertServiceValue='';
+    this.addNewServicesList.push({id:this.addID++,name:value, byAdmin: false});
+    console.log(this.addNewServicesList);
+  }
+  removefromNewServices(option){
+    let service = this.addNewServicesList.find(i=>i.id==option);
+    let elementIndex =this.addNewServicesList.indexOf(service);
+    this.addNewServicesList.splice(elementIndex,1)
+    console.log(this.addNewServicesList);
   }
 
-  checkExist(service)
-  {
-  
-    
-    this.SelectedServiceIdList.forEach(element => {
-    if(service.id==element.id)
-    {
-      console.log("enter if");
-      return true;
+  AddServicesList(){
+    if(this.addNewServicesList.length > 0){
+      this._doctorServices.addListOfDoctorService(this.addNewServicesList).subscribe(
+        data=>{
+          this.insertedServiceList=data;
+          console.log(this.insertedServiceList);
+          
+        },error=>console.error(error)
+      )
     }
-      
-  });
-   return false;
   }
   
+
 }

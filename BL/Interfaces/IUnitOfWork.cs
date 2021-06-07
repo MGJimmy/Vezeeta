@@ -32,6 +32,8 @@ namespace BL.Interfaces
         DayShiftRepository DayShiftRepo { get; }
         DoctorServiceRepository DoctorServiceRepo { get; }
 
+        Doctor_DoctorServiceRepository Doctor_DoctorServiceRepo { get; }
+
     }
 }
 

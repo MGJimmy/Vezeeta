@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using BL.StaticClasses;
+using BL.DTOs;
 
 namespace API.Controllers
 {
@@ -21,14 +22,18 @@ namespace API.Controllers
         private ClinicAppService _clinicAppService;
         private GeneralAppService _generalAppService;
         private ClinicImagesAppService _clinicImagesAppService;
+        private ClinicClinicServiceAppService _clinicClinicServiceAppService;
         IHttpContextAccessor _httpContextAccessor;
         public ClinicController(ClinicAppService clinicAppService, GeneralAppService generalAppService,
-            ClinicImagesAppService clinicImagesAppService, IHttpContextAccessor httpContextAccessor)
+            ClinicImagesAppService clinicImagesAppService,
+            ClinicClinicServiceAppService clinicClinicServiceAppService,
+            IHttpContextAccessor httpContextAccessor)
         {
             _clinicAppService = clinicAppService;
             _generalAppService = generalAppService;
             _clinicImagesAppService = clinicImagesAppService;
-            this._httpContextAccessor = httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
+            _clinicClinicServiceAppService = clinicClinicServiceAppService;
         }
 
         [HttpGet("Myclinic")]
@@ -86,5 +91,15 @@ namespace API.Controllers
 
             }
         }
+        [HttpPost("addClinicServices")]
+        public IActionResult addClinicServices(IEnumerable<ClinicServiceDto> clinicServiceDtos)
+        {
+            //var doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var doctorId = "c3d6e55b-5e5a-42f1-85b6-be9f18cb1941";
+            _clinicClinicServiceAppService.AddOrUpdateClinicClinicService(doctorId, clinicServiceDtos);
+            _generalAppService.CommitTransaction();
+            return Ok("done");
+        }
+
     }
 }

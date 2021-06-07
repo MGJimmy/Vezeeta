@@ -14,5 +14,14 @@ namespace BL.Repositories
         public ClinicRepository(DbContext dbcontext) : base(dbcontext)
         {
         }
+        public Clinic GetByStringId(string doctorID)
+        {
+            return GetFirstOrDefault(c=>c.DoctorId == doctorID);
+        }
+
+        //internal Clinic GetClinicWithClinicServices(string doctorId)
+        //{
+        //    return DbSet.Where(c => c.DoctorId == doctorId).Include(c=>c.ClinicServices).FirstOrDefault();
+        //}
     }
 }

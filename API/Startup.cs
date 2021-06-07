@@ -112,6 +112,7 @@ namespace API
             services.AddScoped<DayShiftAppService>();
             services.AddScoped<DoctorServiceAppService>();
             services.AddScoped<RoleAppService>();
+            services.AddScoped<ClinicClinicServiceAppService>();
 
 
 

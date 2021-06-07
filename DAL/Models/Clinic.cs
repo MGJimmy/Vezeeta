@@ -11,6 +11,12 @@ namespace DAL.Models
     [Table("Clinic")]
     public class Clinic
     {
+        public Clinic()
+        {
+            ClinicImages = new List<ClinicImage>();
+            ClinicClinicServices = new List<ClinicClinicService>();
+            WorkingDays = new List<WorkingDay>();
+        }
         [Key, ForeignKey("Doctor")]
         public string DoctorId { get; set; }
         public string Street { get; set; }
@@ -28,5 +34,6 @@ namespace DAL.Models
         public Area Area { get; set; }
         public ICollection<ClinicImage> ClinicImages { get; set; }
         public ICollection<WorkingDay> WorkingDays { get; set; }
+        public ICollection<ClinicClinicService> ClinicClinicServices { get; set; }
     }
 }

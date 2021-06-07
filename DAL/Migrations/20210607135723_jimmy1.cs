@@ -67,7 +67,8 @@ namespace DAL.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -349,6 +350,30 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClinicClinicService",
+                columns: table => new
+                {
+                    ClinicId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClinicServiceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClinicClinicService", x => new { x.ClinicId, x.ClinicServiceId });
+                    table.ForeignKey(
+                        name: "FK_ClinicClinicService_Clinic_ClinicId",
+                        column: x => x.ClinicId,
+                        principalTable: "Clinic",
+                        principalColumn: "DoctorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClinicClinicService_Clinicservices_ClinicServiceId",
+                        column: x => x.ClinicServiceId,
+                        principalTable: "Clinicservices",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ClinicImage",
                 columns: table => new
                 {
@@ -396,6 +421,7 @@ namespace DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     From = table.Column<TimeSpan>(type: "time", nullable: false),
                     To = table.Column<TimeSpan>(type: "time", nullable: false),
+                    MaxNumOfReservation = table.Column<int>(type: "int", nullable: false),
                     WorkingDayId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -412,7 +438,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "077f7683-29a8-42d6-b497-1c773e4058ba", 0, "772c2895-ab44-408c-a66a-b893f3bd93e9", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "d35e3e32-f062-4c61-96f9-dc07c963f643", false, "admin" });
+                values: new object[] { "d5ada6f5-4936-474b-8ad7-30a22360230f", 0, "603b806c-cd61-44fc-9433-29dde2bfe6d6", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "40aa918d-675e-47ff-a059-4296a3e2d08a", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
@@ -481,6 +507,11 @@ namespace DAL.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClinicClinicService_ClinicServiceId",
+                table: "ClinicClinicService",
+                column: "ClinicServiceId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClinicImage_ClinicId",
                 table: "ClinicImage",
                 column: "ClinicId");
@@ -530,10 +561,10 @@ namespace DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ClinicImage");
+                name: "ClinicClinicService");
 
             migrationBuilder.DropTable(
-                name: "Clinicservices");
+                name: "ClinicImage");
 
             migrationBuilder.DropTable(
                 name: "DayShift");
@@ -549,6 +580,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Clinicservices");
 
             migrationBuilder.DropTable(
                 name: "WorkingDay");

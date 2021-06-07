@@ -49,7 +49,6 @@ export class ClincServicesService {
   }
   deleteClinicService(id:number):Observable<any>{
     let _url = `${environment.apiUrl}/api/ClincServices/${id}`;
-
     return this._http.delete<any>(_url).pipe(catchError((err)=>
     {
       return throwError(err.message ||"Internal Server error contact site adminstarator");

@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,9 @@ const routes: Routes = [
       {path:'workingDays',component:ClinicWorkingDaysComponent},
     ]
   },
+  
   {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent}
 ];
 

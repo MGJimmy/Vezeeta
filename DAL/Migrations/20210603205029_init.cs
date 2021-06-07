@@ -75,20 +75,6 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DoctorService",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ByAdmin = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorService", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Specialty",
                 columns: table => new
                 {
@@ -292,30 +278,6 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DoctorDoctorService",
-                columns: table => new
-                {
-                    DoctorsUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    doctorServicesID = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorDoctorService", x => new { x.DoctorsUserId, x.doctorServicesID });
-                    table.ForeignKey(
-                        name: "FK_DoctorDoctorService_Doctor_DoctorsUserId",
-                        column: x => x.DoctorsUserId,
-                        principalTable: "Doctor",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DoctorDoctorService_DoctorService_doctorServicesID",
-                        column: x => x.doctorServicesID,
-                        principalTable: "DoctorService",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Clinic",
                 columns: table => new
                 {
@@ -412,7 +374,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "e2db6c72-d590-4bf4-9dfd-810c627c6b56", 0, "33063400-40ba-45d5-8b08-74f802abc2c5", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "1e57d9d2-ab5d-4a93-a69b-a6ae1736dd79", false, "admin" });
+                values: new object[] { "261e218b-7959-4690-963a-f5740ba605c6", 0, "4a1808ab-9dfc-4fab-b666-5955f87660ba", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "2b3c705d-c07d-418d-8f60-528823458739", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
@@ -491,11 +453,6 @@ namespace DAL.Migrations
                 column: "WorkingDayId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DoctorDoctorService_doctorServicesID",
-                table: "DoctorDoctorService",
-                column: "doctorServicesID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Specialty_Name",
                 table: "Specialty",
                 column: "Name",
@@ -542,9 +499,6 @@ namespace DAL.Migrations
                 name: "DoctorAttachment");
 
             migrationBuilder.DropTable(
-                name: "DoctorDoctorService");
-
-            migrationBuilder.DropTable(
                 name: "supSpecializations");
 
             migrationBuilder.DropTable(
@@ -552,9 +506,6 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "WorkingDay");
-
-            migrationBuilder.DropTable(
-                name: "DoctorService");
 
             migrationBuilder.DropTable(
                 name: "Specialty");

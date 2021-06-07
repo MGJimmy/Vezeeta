@@ -17,8 +17,13 @@ namespace DAL.Models
         public string TitleDegree { get; set; }
         public string doctorInfo { get; set; }
         public bool IsAccepted { get; set; }
+        [ForeignKey("specialty")]
+        public int specialtyId { get; set; }
+
         public ApplicationUserIdentity User { get; set; }
         public DoctorAttachment DoctorAttachment { get; set; }
+        public Specialty specialty { get; set; }
+        public List<SupSpecialization> supSpecializations { get; set; }
         public List<DoctorService> doctorServices { get; set; }
 
     }

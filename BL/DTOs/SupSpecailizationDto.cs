@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BL.DTOs
 {
-    public class SupSpecailizationDto
+    public class SupSpecailization
     {
         public int ID { get; set; }
         public string Name { get; set; }

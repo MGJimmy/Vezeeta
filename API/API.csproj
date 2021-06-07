@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="StaticFiles\Images\" />
+    <Folder Include="StaticFiles\Images\" />
   </ItemGroup>
 
 </Project>

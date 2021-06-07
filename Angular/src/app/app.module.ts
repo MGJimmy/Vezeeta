@@ -31,7 +31,13 @@ import { UploadMultipleComponent } from './components/_reusableComponents/upload
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 
+// import {} from 'angular-ng-autocomplete';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NgSelectModule } from '@ng-select/ng-select';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +67,8 @@ import { UserRegisterComponent } from './components/user-register/user-register.
     ManageDoctorServicesComponent,
     UserRegisterComponent,
 
+    DocotorSpecialtyComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -68,6 +76,9 @@ import { UserRegisterComponent } from './components/user-register/user-register.
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    AutocompleteLibModule,
+    NgSelectModule,
     // BrowserAnimationsModule,
     // CarouselModul,
     // NgxSpinnerModule,

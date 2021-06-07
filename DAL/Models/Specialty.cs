@@ -16,5 +16,7 @@ namespace DAL.Models
         [Required, MinLength(3, ErrorMessage = "name should be at least 3 characters")]
 
         public string Name { get; set; }
+
+        public List<Doctor> doctors{ get; set; }
     }
 }

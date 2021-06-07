@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e2db6c72-d590-4bf4-9dfd-810c627c6b56",
+                            Id = "07a9b0d4-a093-4466-87de-309b5e699609",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "33063400-40ba-45d5-8b08-74f802abc2c5",
+                            ConcurrencyStamp = "a45f0c55-165b-4600-939e-f5a77803fda0",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e57d9d2-ab5d-4a93-a69b-a6ae1736dd79",
+                            SecurityStamp = "02293aca-64fe-4ad5-a94e-107d002a6986",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -261,7 +261,12 @@ namespace DAL.Migrations
                     b.Property<string>("doctorInfo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("specialtyId")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("specialtyId");
 
                     b.ToTable("Doctor");
                 });
@@ -372,21 +377,6 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.Property<string>("DoctorsUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("doctorServicesID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorsUserId", "doctorServicesID");
-
-                    b.HasIndex("doctorServicesID");
-
-                    b.ToTable("DoctorDoctorService");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -586,6 +576,14 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.Specialty", "specialty")
+                        .WithMany("doctors")
+                        .HasForeignKey("specialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("specialty");
+
                     b.Navigation("User");
                 });
 
@@ -618,21 +616,6 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.HasOne("DAL.Models.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.DoctorService", null)
-                        .WithMany()
-                        .HasForeignKey("doctorServicesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -713,6 +696,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
                     b.Navigation("DoctorAttachment");
+                });
+
+            modelBuilder.Entity("DAL.Models.Specialty", b =>
+                {
+                    b.Navigation("doctors");
                 });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>

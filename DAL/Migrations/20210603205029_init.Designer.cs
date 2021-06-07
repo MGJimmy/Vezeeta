@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210605044906_init")]
+    [Migration("20210603205029_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e2db6c72-d590-4bf4-9dfd-810c627c6b56",
+                            Id = "261e218b-7959-4690-963a-f5740ba605c6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "33063400-40ba-45d5-8b08-74f802abc2c5",
+                            ConcurrencyStamp = "4a1808ab-9dfc-4fab-b666-5955f87660ba",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e57d9d2-ab5d-4a93-a69b-a6ae1736dd79",
+                            SecurityStamp = "2b3c705d-c07d-418d-8f60-528823458739",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -293,25 +293,6 @@ namespace DAL.Migrations
                     b.ToTable("DoctorAttachment");
                 });
 
-            modelBuilder.Entity("DAL.Models.DoctorService", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("ByAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DoctorService");
-                });
-
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Property<int>("ID")
@@ -374,21 +355,6 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.Property<string>("DoctorsUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("doctorServicesID")
-                        .HasColumnType("int");
-
-                    b.HasKey("DoctorsUserId", "doctorServicesID");
-
-                    b.HasIndex("doctorServicesID");
-
-                    b.ToTable("DoctorDoctorService");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -620,21 +586,6 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
-                });
-
-            modelBuilder.Entity("DoctorDoctorService", b =>
-                {
-                    b.HasOne("DAL.Models.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("DoctorsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.DoctorService", null)
-                        .WithMany()
-                        .HasForeignKey("doctorServicesID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

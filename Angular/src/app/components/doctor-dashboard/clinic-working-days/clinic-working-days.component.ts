@@ -48,29 +48,30 @@ export class ClinicWorkingDaysComponent implements OnInit {
     private _clinicService:ClinicService
     ) { }
   
-  private createFormShift(from,to){
+  private createFormShift(from,to,numOfReservation){
     return this._formBuilder.group({
       from:[from],
-      to:[to]
+      to:[to],
+      maxNumOfReservation:[numOfReservation]
     });
   }
   private initWorkingDaysForm(){
     this.workingDaysForm = this._formBuilder.group(
       {
         saturday:[''],
-        saturdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        saturdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         sunday:[''],
-        sundayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        sundayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         monday:[''],
-        mondayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        mondayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         tuesday:[''],
-        tuesdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        tuesdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         wednesday:[''],
-        wednesdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        wednesdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         thursday:[''],
-        thursdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        thursdayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
         friday:[''],
-        fridayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00")]),
+        fridayShifts:this._formBuilder.array([this.createFormShift("13:00","15:00",5)]),
       });
   
   }
@@ -102,6 +103,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         saturdayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       saturday = {
@@ -114,6 +116,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         sundayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       sunday = {
@@ -126,6 +129,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         mondayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       monday = {
@@ -138,6 +142,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         tuesdayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       tuesday = {
@@ -150,6 +155,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         wednesdayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       wednesday = {
@@ -162,6 +168,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         thursdayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       thursday = {
@@ -174,6 +181,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         fridayShifts.push({
           from: shiftGroup.get('from').value,
           to: shiftGroup.get('to').value,
+          maxNumOfReservation:shiftGroup.get('maxNumOfReservation').value
         })
       });
       friday = {
@@ -264,25 +272,25 @@ export class ClinicWorkingDaysComponent implements OnInit {
   }
   addDayShift(day:Day){
     if(day == Day.Saturday && this.saturdayShiftsArr.length < 3)
-      this.saturdayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.saturdayShiftsArr.push(this.createFormShift("13:00","15:00",5));
 
     else if(day == Day.Sunday && this.sundayShiftsArr.length < 3)
-      this.sundayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.sundayShiftsArr.push(this.createFormShift("13:00","15:00",5));
 
     else if(day == Day.Monday && this.mondayShiftsArr.length < 3)
-      this.mondayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.mondayShiftsArr.push(this.createFormShift("13:00","15:00",5));
 
     else if(day == Day.Tuesday && this.tuesdayShiftsArr.length < 3)
-      this.tuesdayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.tuesdayShiftsArr.push(this.createFormShift("13:00","15:00",5));
 
     else if(day == Day.Wednesday && this.wednesdayShiftsArr.length < 3)
-      this.wednesdayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.wednesdayShiftsArr.push(this.createFormShift("13:00","15:00",5));
 
     else if(day == Day.Thursday && this.thursdayShiftsArr.length < 3)
-      this.thursdayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.thursdayShiftsArr.push(this.createFormShift("13:00","15:00",5));
       
     else if(day == Day.Friday && this.fridayShiftsArr.length < 3)
-      this.fridayShiftsArr.push(this.createFormShift("13:00","15:00"));
+      this.fridayShiftsArr.push(this.createFormShift("13:00","15:00",5));
       
   }
   deleteDayShift(day:Day){
@@ -324,7 +332,7 @@ export class ClinicWorkingDaysComponent implements OnInit {
         this.isSaturdayChecked = true;
         this.saturdayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.saturdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.saturdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
       if(workingDay.day == this.Sunday){
@@ -332,14 +340,14 @@ export class ClinicWorkingDaysComponent implements OnInit {
         this.isSundayChecked = true;
         this.sundayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.sundayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.sundayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
       if(workingDay.day == this.Monday){
         this.isMondayChecked = true;
         this.mondayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.mondayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.mondayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
 
@@ -347,28 +355,28 @@ export class ClinicWorkingDaysComponent implements OnInit {
         this.isTuesdayChecked = true;
         this.tuesdayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.tuesdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.tuesdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
       if(workingDay.day == this.Wednesday){
         this.isWednesdayChecked = true;
         this.wednesdayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.wednesdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.wednesdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
       if(workingDay.day == this.Thursday){
         this.isThursdayChecked = true;
         this.thursdayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.thursdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.thursdayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
       if(workingDay.day == this.Friday){
         this.isFridayChecked = true;
         this.fridayShiftsArr.removeAt(0);
         workingDay.dayShifts.forEach(dayShift=>{
-          this.fridayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to))
+          this.fridayShiftsArr.push(this.createFormShift(dayShift.from,dayShift.to,dayShift.maxNumOfReservation))
         });
       }
     });

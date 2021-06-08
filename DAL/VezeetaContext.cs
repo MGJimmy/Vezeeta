@@ -68,8 +68,6 @@ namespace DAL
         public DbSet<Doctor> Doctors{ get; set; }
         public DbSet<Clinic> Clinics{ get; set; }
         public DbSet<Doctor_DoctorService> Doctor_DoctorServices { get; set; }
-        
-        public DbSet<Clinic> Clinics { get; set; }
         public DbSet<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
 
     }

@@ -73,14 +73,14 @@
                 <div class="col-9">
                 <select class="form-control" id="Area" formControlName="AreaId">
                     <option style="display:none"></option>
-                    <option *ngFor="let area of Areas" value="{{area.id}}" >{{area.name}}</option>
+                    <option *ngFor="let area of Areas" value="{{area.id}}" ng-selected="area.id==newAddId">{{area.name}}</option>
          
                 </select>
                  <div *ngIf="formFields.AreaId.invalid && formFields.AreaId.touched">
                     <small class="text-danger" *ngIf="formFields.AreaId.errors?.required"> Area Is Required</small>
                 </div>
                 <button class="btn btn-primary mt-3 d-flex" data-toggle="modal" data-target="#AddOrUpdateModal"
-                (click)="openAddAreaModal()">Add My Area</button>
+                  [disabled]="formFields.CityId.invalid">Add My Area</button>
             </div>
            
             </div>
@@ -113,7 +113,7 @@
 </div>
 
 
-//Modal
+<!-- Modal -->
 <div class="modal fade" id="AddOrUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -126,7 +126,7 @@
             <form [formGroup]="areaForm">
                 <div class="modal-body">
                     
-                        <label for="area-name" class="col-form-label">Name:</label>
+                        <label for="area-name" class="col-form-label">Area Name:</label>
                         <input type="text" class="form-control" id="area-name" formControlName="name">
                         <div *ngIf="name.invalid && name.touched">
                             <small class="text-danger" *ngIf="name.errors?.required">The Name in required</small>
@@ -134,14 +134,18 @@
                         </div>
 
                         
-                        <label for="cityName">City Name</label>
+                        <!-- <label for="cityName">City Name</label>
 
                         <select class="form-control" id="cityName" formControlName="cityID" >
                             
                             <option *ngFor="let city of Cityies" [ngValue]="city.id">
                                 {{city.name}}
                             </option>
-                        </select>
+                        </select> -->
+
+                        <div class="text-info mt-3">
+                            " Notic :the area will checked to be accepted " 
+                        </div>
                     
 
                 </div>

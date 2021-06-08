@@ -89,8 +89,8 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary m-1 sss" (click)="removefromNewServices(ser.id)" *ngFor="let ser of addNewServicesList">{{ser.name}} <i class="fas fa-times-circle"></i></button>
-                        <button class="btn btn-primary m-1 sss" (click)="removefromNewServices(ser.id)" *ngFor="let ser of NotAcceptByAdminServiceSelected">{{ser.name}} <i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNewServices(i)" *ngFor="let ser of addNewServicesList;let i = index">{{ser.name}} <i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNotAcceptedServices(i)" *ngFor="let ser of NotAcceptByAdminServiceSelected;let i = index">{{ser.name}} <i class="fas fa-times-circle"></i></button>
                     </div>
                     <span class="text-info" *ngIf="addNewServicesList.length>0">* after enter this waiting to accept by admin</span>
                     

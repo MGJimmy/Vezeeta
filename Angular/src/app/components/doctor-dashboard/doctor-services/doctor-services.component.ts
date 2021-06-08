@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { IDoctorService } from 'src/app/_models/_interfaces/IDoctorService';
 import { IDoctor_DoctorService } from 'src/app/_models/_interfaces/IDoctor_DoctorService';
-import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { DoctorServicesService } from 'src/app/_services/doctor-services.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
@@ -17,126 +16,137 @@ export class DoctorServicesComponent implements OnInit {
 
   @ViewChild('addOrUpdateModelCloseBtn') addOrUpdateModelCloseBtn;
   hasServices: boolean = false;
-  SelectedServiceIdList=new Array<IDoctorService>();
-  //  IDoctorService[]=[];
-  
+  //SelectedServiceIdList=new Array<IDoctorService>();
+  SelectedServiceIdList: IDoctorService[] = [];
+
 
   ServicesList: IDoctorService[] = [];
-  NotAcceptByAdminServiceSelected=new Array<IDoctorService>();
-  insertedServiceList= new Array<IDoctorService>();
-  
+  // NotAcceptByAdminServiceSelected=new Array<IDoctorService>();
+  // insertedServiceList= new Array<IDoctorService>();
 
-  constructor(private _authenticationService: AuthenticationService,
+  NotAcceptByAdminServiceSelected: IDoctorService[] = [];
+  insertedServiceList: IDoctorService[] = [];
+
+  constructor(
     private _doctorServices: DoctorServicesService,
     private _router: Router,
     private _DoctorService: DoctorService) {
 
   }
 
-  
-  
+
+
   ngOnInit(): void {
-   
+
 
 
     this._doctorServices.getAllDoctorServices().subscribe(data => {
       this.ServicesList = data;
-      console.log(this.ServicesList);
-
     })
 
-    this._DoctorService.GetMyservices().subscribe(data=>
-    {
-      if(data.length !==0)
-       {
-        this.SelectedServiceIdList=data.filter(i=>i.byAdmin==true);;
-        this.NotAcceptByAdminServiceSelected=data.filter(i=>i.byAdmin==false);
-        this.hasServices=true;
-        console.log(this.SelectedServiceIdList);
-        console.log(this.NotAcceptByAdminServiceSelected);
+    this._DoctorService.GetMyservices().subscribe(data => {
+      if (data.length !== 0) {
+        this.SelectedServiceIdList = data.filter(i => i.byAdmin == true);;
+        this.NotAcceptByAdminServiceSelected = data.filter(i => i.byAdmin == false);
+        this.hasServices = true;
+      }
+      else {
+        this.hasServices = false;
+      }
 
-       }
-       else
-       {
-         this.hasServices=false;
-       }
-      
     })
 
   }
+
+
 
  
-
-  Doctor_Services = new Array<IDoctor_DoctorService>();
+  Doctor_Services: IDoctor_DoctorService[] = [];
   onAddSubmit() {
-    this.AddServicesList();
-    this.SelectedServiceIdList.forEach(service => {
-      let doctorServce: IDoctor_DoctorService = {
-        serviceID:service.id
-      }
-      this.Doctor_Services.push(doctorServce);
-    });
+    this.SelectedServiceIdList.push.apply(this.SelectedServiceIdList, this.NotAcceptByAdminServiceSelected);
+    this.AddServicesList("Add");
 
-    console.log(this.Doctor_Services);
-    this._DoctorService.addservice(this.Doctor_Services).subscribe(data => {
-        console.log("done");
-        console.log(data);
-    })
 
-    
+
+
   }
   onEditSubmit() {
-    this.AddServicesList();
-    // console.log(this.insertedServiceList);
-    // this.NotAcceptByAdminServiceSelected.push.apply(this.insertedServiceList);
-    // console.log(this.NotAcceptByAdminServiceSelected);
-    // this.SelectedServiceIdList.push.apply(this.NotAcceptByAdminServiceSelected);  
-    console.log(this.SelectedServiceIdList);
+    
+    this.SelectedServiceIdList.push.apply(this.SelectedServiceIdList, this.NotAcceptByAdminServiceSelected);
+    this.AddServicesList("Update");
+
+  }
+
+  Update_Service_List() {
     this.SelectedServiceIdList.forEach(service => {
       let doctorServce: IDoctor_DoctorService = {
-        serviceID:service.id
+        serviceID: service.id
       }
       this.Doctor_Services.push(doctorServce);
     });
-    this._DoctorService.Updateservices( this.Doctor_Services).subscribe(data=>
-      {
-        console.log("Update done");
-        console.log(data);
-
-      },err=>
-      {
-        console.log("errrrrrr in Update");
-      })
-
-     
+    this._DoctorService.Updateservices(this.Doctor_Services).subscribe(data => { 
+      this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        this._router.navigate([this._router.url]);
+    })
   }
 
-  addNewServicesList=new Array<IDoctorService>();
-  insertServiceValue:string=""
-  addID=0;
-  add(value){
-    this.insertServiceValue='';
-    this.addNewServicesList.push({id:this.addID++,name:value, byAdmin: false});
-    console.log(this.addNewServicesList);
+  Add_Service_List() {
+    this.SelectedServiceIdList.forEach(service => {
+      let doctorServce: IDoctor_DoctorService = {
+        serviceID: service.id
+      }
+      this.Doctor_Services.push(doctorServce);
+    });
+
+    this._DoctorService.addservice(this.Doctor_Services).subscribe(data => {
+
+      this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this._router.onSameUrlNavigation = 'reload';
+        this._router.navigate([this._router.url]);
+     })
   }
-  removefromNewServices(option){
-    let service = this.addNewServicesList.find(i=>i.id==option);
-    let elementIndex =this.addNewServicesList.indexOf(service);
-    this.addNewServicesList.splice(elementIndex,1)
-    console.log(this.addNewServicesList);
+  addNewServicesList = new Array<IDoctorService>();
+  insertServiceValue: string = ""
+
+  add(value) {
+    this.insertServiceValue = '';
+    let s: IDoctorService =
+    {
+      name: value,
+      byAdmin: false
+    }
+    this.addNewServicesList.push(s);
+  }
+  removefromNewServices(index) {
+    this.addNewServicesList.splice(index, 1)
+  }
+  removefromNotAcceptedServices(index) {
+    this.NotAcceptByAdminServiceSelected.splice(index, 1)
   }
 
-  AddServicesList(){
-    if(this.addNewServicesList.length > 0){
+  AddServicesList(btnclick) {
+    if (this.addNewServicesList.length > 0) {
+
       this._doctorServices.addListOfDoctorService(this.addNewServicesList).subscribe(
-        data=>{
-          this.insertedServiceList=data;
-          console.log(this.insertedServiceList);
-          
-        },error=>console.error(error)
+        data => {
+          this.SelectedServiceIdList.push.apply(this.SelectedServiceIdList, data);
+          if (btnclick == "Update")
+            this.Update_Service_List();
+          else
+            this.Add_Service_List();
+
+        }, error => console.error(error)
       )
     }
+    else {
+      if (btnclick == "Update")
+        this.Update_Service_List();
+      else
+        this.Add_Service_List();
+
+    }
   }
-  
+
 
 }

@@ -39,6 +39,12 @@ namespace BL.AppServices
             clinicServiceDto.ID = clinicservice.ID;
             return clinicServiceDto;
         }
+
+        public IEnumerable<ClinicServiceDto> GetServicesAcceptedByAdmin()
+        {
+            return Mapper.Map<IEnumerable<ClinicServiceDto>>(TheUnitOfWork.ClincServicesRepo.GetServicesAcceptedByAdmin());
+        }
+
         public bool Update(ClinicServiceDto clinicServiceDto)
         {
             if (clinicServiceDto == null)

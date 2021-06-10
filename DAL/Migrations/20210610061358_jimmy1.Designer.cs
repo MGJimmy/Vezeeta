@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    partial class VezeetaContextModelSnapshot : ModelSnapshot
+    [Migration("20210610061358_jimmy1")]
+    partial class jimmy1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "127f4f6e-70b3-442f-8ee2-4ccf8a1546b8",
+                            Id = "9d9e3e47-d4f4-4a4a-bde6-d983950ca1ac",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f0cba1f6-a59e-4c38-8a12-2e61c90dcaf6",
+                            ConcurrencyStamp = "99ce124b-6ed0-4d96-a251-bca0b7172404",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "20609cad-24a2-469c-ac05-458409ac8ca8",
+                            SecurityStamp = "0bc258cc-5bb5-4d56-a68c-f5b66c097eba",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -372,9 +374,6 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

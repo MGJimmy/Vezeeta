@@ -18,6 +18,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
+      {path:'clinicServices',component:ChooseClinicServiceComponent},
     ]
   },
   

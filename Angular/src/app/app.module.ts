@@ -38,7 +38,8 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     UserRegisterComponent,
 
     DocotorSpecialtyComponent,
+      ChooseClinicServiceComponent,
     
   ],
   imports: [

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using BL.StaticClasses;
 using BL.DTOs;
+using BL.DTOs.ClinicClinicServiceDTO;
 
 namespace API.Controllers
 {
@@ -91,15 +92,20 @@ namespace API.Controllers
 
             }
         }
-        [HttpPost("addClinicServices")]
+        [HttpPost("addClinicServicesToClinic")]
         public IActionResult addClinicServices(IEnumerable<ClinicServiceDto> clinicServiceDtos)
         {
-            //var doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var doctorId = "c3d6e55b-5e5a-42f1-85b6-be9f18cb1941";
+            var doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             _clinicClinicServiceAppService.AddOrUpdateClinicClinicService(doctorId, clinicServiceDtos);
             _generalAppService.CommitTransaction();
             return Ok("done");
         }
-
+        [HttpGet("getClinicServices")]
+        public IActionResult GetClinicServices()
+        {
+            var DoctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            IEnumerable<ClinicServiceDto> clinicServices = _clinicClinicServiceAppService.GetClinicServices(DoctorId);
+            return Ok(clinicServices);
+        }
     }
 }

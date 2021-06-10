@@ -24,5 +24,10 @@ namespace BL.Repositories
         {
             return GetAny(cs => cs.Name == clinicserviceName);
         }
+
+        internal ICollection<Clinicservice> GetServicesAcceptedByAdmin()
+        {
+            return DbSet.Where(c => c.ByAdmin == true).ToList();
+        }
     }
 }

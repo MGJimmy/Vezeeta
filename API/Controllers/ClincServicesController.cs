@@ -2,10 +2,12 @@
 using BL.AppServices;
 using BL.DTOs;
 using BL.StaticClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,6 +31,11 @@ namespace API.Controllers
         {
             return Ok(_clinicServicesAppServices.GetAll());
         }
+        [HttpGet("getAccepted")]
+        public IActionResult GetServicesAcceptedByAdmin()
+        {
+            return Ok(_clinicServicesAppServices.GetServicesAcceptedByAdmin());
+        }
         [HttpGet("{pageSize}/{pageNumber}")]
         public IActionResult GetByPage( int pageSize , int pageNumber ) {
 
@@ -44,6 +51,7 @@ namespace API.Controllers
 
         // POST api/<ClincServicesController>
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Create(ClinicServiceDto clinicServiceDto)
         {
             if (ModelState.IsValid == false)
@@ -52,7 +60,8 @@ namespace API.Controllers
             }
             try
             {
-                string userRole = HttpContext.User.FindFirst("role").Value;
+                var x = HttpContext.Request;
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
                 if (userRole == UserRoles.Admin)
                     clinicServiceDto.ByAdmin = true;
                 else

@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f8fedcbd-6c08-4f9b-9215-82f469d6edd2",
+                            Id = "a1e71df9-6fdf-485a-a4be-845ab5836467",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "da7539a6-af36-409c-b62f-27bcbac3934f",
+                            ConcurrencyStamp = "fdd22977-ff97-4c0e-a9b1-79bb6038e27a",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da61926e-a443-46f2-98c6-cf0c9c33be4f",
+                            SecurityStamp = "c6602063-560b-4848-9c16-d2f54c4976af",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -185,6 +185,21 @@ namespace DAL.Migrations
                     b.ToTable("Clinic");
                 });
 
+            modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
+                {
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ClinicServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClinicId", "ClinicServiceId");
+
+                    b.HasIndex("ClinicServiceId");
+
+                    b.ToTable("ClinicClinicService");
+                });
+
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
                 {
                     b.Property<int>("Id")
@@ -212,6 +227,9 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -230,6 +248,9 @@ namespace DAL.Migrations
 
                     b.Property<TimeSpan>("From")
                         .HasColumnType("time");
+
+                    b.Property<int>("MaxNumOfReservation")
+                        .HasColumnType("int");
 
                     b.Property<TimeSpan>("To")
                         .HasColumnType("time");
@@ -330,6 +351,75 @@ namespace DAL.Migrations
                     b.ToTable("DoctorSubSpecialization");
                 });
 
+            modelBuilder.Entity("DAL.Models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reservation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Symptoms")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("dayShiftId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("doctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("dayShiftId");
+
+                    b.HasIndex("doctorId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Reservation");
+                });
+
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Property<int>("ID")
@@ -347,6 +437,26 @@ namespace DAL.Migrations
                         .IsUnique();
 
                     b.ToTable("Specialty");
+                });
+
+            modelBuilder.Entity("DAL.Models.SubOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OfferId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfferId");
+
+                    b.ToTable("SubOffers");
                 });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
@@ -578,6 +688,25 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Clinicservice", "ClinicService")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("ClinicService");
+                });
+
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
                 {
                     b.HasOne("DAL.Models.Clinic", "Clinic")
@@ -645,6 +774,40 @@ namespace DAL.Migrations
                     b.Navigation("doctor");
 
                     b.Navigation("supSpecialization");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reservation", b =>
+                {
+                    b.HasOne("DAL.Models.DayShift", "dayShift")
+                        .WithMany("reservations")
+                        .HasForeignKey("dayShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("Reservations")
+                        .HasForeignKey("doctorId");
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("reservations")
+                        .HasForeignKey("userId");
+
+                    b.Navigation("dayShift");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DAL.Models.SubOffer", b =>
+                {
+                    b.HasOne("DAL.Models.Offer", "Offer")
+                        .WithMany("SubOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Offer");
                 });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
@@ -736,6 +899,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.ApplicationUserIdentity", b =>
                 {
                     b.Navigation("Doctor");
+
+                    b.Navigation("reservations");
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
@@ -752,9 +917,21 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
+                    b.Navigation("ClinicClinicServices");
+
                     b.Navigation("ClinicImages");
 
                     b.Navigation("WorkingDays");
+                });
+
+            modelBuilder.Entity("DAL.Models.Clinicservice", b =>
+                {
+                    b.Navigation("ClinicClinicServices");
+                });
+
+            modelBuilder.Entity("DAL.Models.DayShift", b =>
+                {
+                    b.Navigation("reservations");
                 });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
@@ -762,6 +939,13 @@ namespace DAL.Migrations
                     b.Navigation("DoctorAttachment");
 
                     b.Navigation("DoctorSubSpecialization");
+
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("DAL.Models.Offer", b =>
+                {
+                    b.Navigation("SubOffers");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>

@@ -55,15 +55,16 @@ export class DocotorSpecialtyComponent implements OnInit {
     },error=>console.error(error));
   }
 
-
+  
   add(value){
     this.insertSubSpecialInputValue='';
     this.addNewSubSpecialty.push({id:0,name:value, byAdmin: true, specialtyId: this.currentDoctor.specialtyId})
   }
   removefromNewSubSpecial(option){
-    let subSpecial = this.addNewSubSpecialty.find(i=>i.id==option);
-    let elementIndex =this.addNewSubSpecialty.indexOf(subSpecial);
-    this.addNewSubSpecialty.splice(elementIndex,1)
+    this.addNewSubSpecialty.splice(option,1)
+  }
+  removefromNotAcceptByAdminSubSpecial(option){
+    this.NotAcceptByAdminSubSpecialtySelected.splice(option,1)
   }
   
   saveDataToDoctor(){
@@ -74,6 +75,7 @@ export class DocotorSpecialtyComponent implements OnInit {
         data=>{
           this.SubSpecialtySelected.push.apply(this.SubSpecialtySelected,data);
           this.insertRelatedToState();
+          console.error(this.SubSpecialtySelected)
         },error=>console.error(error)
       )
     }else{

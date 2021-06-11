@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _DayShiftsforDoctor, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class ShowDoctorsPageComponent implements OnInit {
 
   dayShiftsforDoctor: _DayShiftsforDoctor[] = [];
 
-  constructor(private activeRoute: ActivatedRoute,
+  constructor(private activeRoute: ActivatedRoute,private _router:Router,
+    private _dataSharedService:DataSharedService,
     private _doctorService: DoctorService, private datePipe: DatePipe) {
     this.activeRoute.params.subscribe(params =>
       this.SpecailtyId = params['id']
@@ -83,6 +85,26 @@ export class ShowDoctorsPageComponent implements OnInit {
   public createImgPath = (serverPath: string) => {
     return `http://localhost:57320/${serverPath}`;
 
+  }
+
+
+
+  reserve(shiftId,doctorName,date){
+    date=new Date(date).toISOString();
+    this._router.navigate(["/Reversation"])
+    .then(()=>{
+      this._dataSharedService.GoToReservationPage.next({dayShiftId:shiftId,doctorName:doctorName,date:date })
+    })
+
+
+
+    // date=date.
+    
+    // console.log(shiftId)
+    // console.log(doctorName)
+    console.log(date)
+    // // console.log(date.toLocaleDateString('en-GB'))
+    // console.log(date.toISOString())
   }
 
 }

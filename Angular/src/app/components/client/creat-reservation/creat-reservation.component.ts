@@ -23,16 +23,32 @@ export class CreatReservationComponent implements OnInit {
   
   constructor(private _router:Router,private _doctorService:DoctorService,private _reserveService:ReservationService,
     private _dayshiftService:DayshiftService, private _fb:FormBuilder,private _auth:AuthenticationService
-    ,private _sharedDateServes:DataSharedService) { }
+    ,private _sharedDateServes:DataSharedService)
+    {
+      _sharedDateServes.GoToReservationPage.subscribe(data=>{
+        if(data.dayShiftId!=0,data.doctorName!=""){
+          console.log("in shared data");
+          console.error(data)
+          this.doctorName=data.doctorName;
+          this.dayShiftId=data.dayShiftId;
+          this.dateOfReserve=data.date;
+          this.load();
+        }
+      })
+    }
 
   doctorName:string="bahy";
   dayShiftId:number=1;
+  dateOfReserve;
   
   doctorDetails:IDoctorDetails;
   dayShift:IDayShift;
   patient:IUserForReservation;
   
   ngOnInit(): void {
+    
+  }
+  load(){
     this._doctorService.getDoctorByName(this.doctorName).subscribe(data=>{
       this.doctorDetails=data;
       this.doctorDetails.image=environment.apiUrl+"/"+this.doctorDetails.image;
@@ -46,7 +62,6 @@ export class CreatReservationComponent implements OnInit {
 
     this.loadDataToFor()
   }
-
   reservationData=this._fb.group({
     UserName:['',Validators.required],
     Phone:['',Validators.required],

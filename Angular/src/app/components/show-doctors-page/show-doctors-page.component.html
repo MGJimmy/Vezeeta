@@ -64,10 +64,10 @@
                                         <button class="btn btn-primary w-100">{{ day.datee | date:'fullDate' }}</button>
 
                                         <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
-                                            <div *ngFor="let shift of day._dayShift" class="mb-2 border">
+
+                                            <div *ngFor="let shift of day._dayShift" class="mb-2 border" (click)="reserve(shift.id,doctor.user.userName,day.datee)">
                                                 <span>from : {{shift.from}}</span>
                                                 <br>
-                                                <!-- {{shift.id}} -->
                                                 <span>to : {{shift.to}}</span>
                                             </div>
                                             

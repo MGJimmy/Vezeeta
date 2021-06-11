@@ -46,7 +46,6 @@ import { ShowReservationToDoctorComponent } from './components/client/show-reser
 import { OfferComponent } from './components/dashboard/offer/offer.component';
 import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'

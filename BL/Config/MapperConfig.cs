@@ -142,7 +142,6 @@ namespace BL.Configurations
 
             CreateMap<Reservation, CreateReservationDTO>().ReverseMap();
             
-            CreateMap<Doctor, GetDoctorDTO>().ReverseMap();
 
             CreateMap<Doctor, GetDoctorWithClinicForReservetionCartDTO>().ReverseMap();
 

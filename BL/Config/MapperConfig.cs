@@ -17,6 +17,7 @@ using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.DoctorServiceDtos;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorSubSpecialization;
+using BL.DTOs.UserDto;
 
 namespace BL.Configurations
 {
@@ -143,6 +144,19 @@ namespace BL.Configurations
            
             CreateMap<CreateDoctor_DoctorService, GetDoctor_DoctorServiceWithService>()
             .ReverseMap();
+
+
+
+            CreateMap<Doctor, GetDoctorDto>()
+           .ReverseMap()
+           .ForMember(m => m.DoctorAttachment, m => m.Ignore())
+           .ForMember(m => m.doctor_doctorServices, m => m.Ignore())
+           .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
+           
+            
+          CreateMap<ApplicationUserIdentity, GetUserDto>()
+          .ReverseMap()
+          .ForMember(m => m.Doctor, m => m.Ignore());
 
             
 

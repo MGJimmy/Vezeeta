@@ -18,6 +18,8 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 
 const routes: Routes = [
   {
@@ -51,7 +53,10 @@ const routes: Routes = [
   
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
-  {path:"login", component:LoginComponent}
+  {path:"login", component:LoginComponent},
+  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"home", component:HomePageComponent},
+  {path:"**", component:HomePageComponent},
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ using BL.DTOs;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.WorkingDayDTO;
 using BL.StaticClasses;
 using DAL;
 using DAL.Models;
@@ -28,18 +29,39 @@ namespace API.Controllers
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
         Doctor_DoctorServiceAppService _doctor_DoctorServiceAppService;
+        DoctorSubSpecializationAppService _doctorSubSpecialization;
+        private ClinicAppService _clinicAppService;
+        private ClinicImagesAppService _clinicImagesAppService;
+        private AreaAppService _areaAppService;
+        private CityAppService _cityAppService;
+        WorkingDayAppService _workingDayAppService;
+        DayShiftAppService _dayShiftAppService;
         public DoctorController(
-            DoctorAppService doctorAppService, 
-            AccountAppService accountAppService,
-            GeneralAppService generalAppService,
+             DoctorAppService doctorAppService, 
+             AccountAppService accountAppService,
+             GeneralAppService generalAppService,
              IHttpContextAccessor httpContextAccessor,
-             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService)
+             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService,
+             DoctorSubSpecializationAppService doctorSubSpecialization,
+             ClinicAppService clinicAppService,
+             ClinicImagesAppService clinicImagesAppService,
+             AreaAppService areaAppService,
+             CityAppService cityAppService,
+             WorkingDayAppService workingDayAppService,
+             DayShiftAppService dayShiftAppService)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
             _httpContextAccessor = httpContextAccessor;
             _doctor_DoctorServiceAppService = doctor_DoctorServiceAppService;
+            _doctorSubSpecialization = doctorSubSpecialization;
+            _clinicAppService = clinicAppService;
+            _clinicImagesAppService = clinicImagesAppService;
+            _areaAppService = areaAppService;
+            _cityAppService = cityAppService;
+            _workingDayAppService = workingDayAppService;
+            _dayShiftAppService = dayShiftAppService;
 
         }
 
@@ -198,5 +220,30 @@ namespace API.Controllers
         //        return BadRequest(new Response { Message = ex.Message });
         //    }
         //}
+
+        [HttpGet("GetAllWhere/{SpecailtyID}")]
+        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
+        {
+            List<GetDoctorDto> doctors=this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
+            foreach(var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic=_clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+            }
+           
+
+            return Ok(doctors);
+        
+        }
     }
 }

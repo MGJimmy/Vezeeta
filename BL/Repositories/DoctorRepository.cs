@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,6 +50,21 @@ namespace BL.Repositories
         //        DbSet.Update(doctor);
         //    }
         //}
-        
+
+
+        public virtual IEnumerable<Doctor> Get_All_Doctors_Where(Expression<Func<Doctor, bool>> filter = null, string includeProperties = "")
+        {
+            IQueryable<Doctor> query = DbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter).Include(d=>d.User).Include(d=>d.DoctorSubSpecialization).Include(d=> d.doctor_doctorServices).Include(d => d.specialty);
+            }
+            query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+
+            return query;
+        }
+
     }
 }

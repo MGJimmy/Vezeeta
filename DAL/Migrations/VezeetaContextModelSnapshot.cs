@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b898f42a-4bf7-44f4-9042-a4c091ebe1fb",
+                            Id = "5b450e8e-1394-4d5f-a6da-5515658fcd24",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d38568ce-019c-4702-8da0-35d6fc84ea0b",
+                            ConcurrencyStamp = "2de455ab-d7d6-44f5-9b86-90bc7a437edb",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "79376bc4-d017-4dab-bf46-bdd9cb294b19",
+                            SecurityStamp = "f9ae829e-5211-4089-aef9-847689a45ef9",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -185,6 +185,21 @@ namespace DAL.Migrations
                     b.ToTable("Clinic");
                 });
 
+            modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
+                {
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ClinicServiceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ClinicId", "ClinicServiceId");
+
+                    b.HasIndex("ClinicServiceId");
+
+                    b.ToTable("ClinicClinicService");
+                });
+
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
                 {
                     b.Property<int>("Id")
@@ -212,6 +227,9 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -230,6 +248,9 @@ namespace DAL.Migrations
 
                     b.Property<TimeSpan>("From")
                         .HasColumnType("time");
+
+                    b.Property<int>("MaxNumOfReservation")
+                        .HasColumnType("int");
 
                     b.Property<TimeSpan>("To")
                         .HasColumnType("time");
@@ -315,6 +336,21 @@ namespace DAL.Migrations
                     b.ToTable("DoctorService");
                 });
 
+            modelBuilder.Entity("DAL.Models.DoctorSubSpecialization", b =>
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("subSpecializeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorId", "subSpecializeId");
+
+                    b.HasIndex("subSpecializeId");
+
+                    b.ToTable("DoctorSubSpecialization");
+                });
+
             modelBuilder.Entity("DAL.Models.Doctor_DoctorService", b =>
                 {
                     b.Property<string>("doctorID")
@@ -392,21 +428,6 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
-                });
-
-            modelBuilder.Entity("DoctorSupSpecialization", b =>
-                {
-                    b.Property<string>("doctorsUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("supSpecializationsID")
-                        .HasColumnType("int");
-
-                    b.HasKey("doctorsUserId", "supSpecializationsID");
-
-                    b.HasIndex("supSpecializationsID");
-
-                    b.ToTable("DoctorSupSpecialization");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -578,6 +599,25 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Clinicservice", "ClinicService")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clinic");
+
+                    b.Navigation("ClinicService");
+                });
+
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
                 {
                     b.HasOne("DAL.Models.Clinic", "Clinic")
@@ -628,6 +668,25 @@ namespace DAL.Migrations
                     b.Navigation("Doctor");
                 });
 
+            modelBuilder.Entity("DAL.Models.DoctorSubSpecialization", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "doctor")
+                        .WithMany("DoctorSubSpecialization")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.SupSpecialization", "supSpecialization")
+                        .WithMany("DoctorSubSpecialization")
+                        .HasForeignKey("subSpecializeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("doctor");
+
+                    b.Navigation("supSpecialization");
+                });
+
             modelBuilder.Entity("DAL.Models.Doctor_DoctorService", b =>
                 {
                     b.HasOne("DAL.Models.Doctor", "doctor")
@@ -665,21 +724,6 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
-                });
-
-            modelBuilder.Entity("DoctorSupSpecialization", b =>
-                {
-                    b.HasOne("DAL.Models.Doctor", null)
-                        .WithMany()
-                        .HasForeignKey("doctorsUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Models.SupSpecialization", null)
-                        .WithMany()
-                        .HasForeignKey("supSpecializationsID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -752,9 +796,16 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>
                 {
+                    b.Navigation("ClinicClinicServices");
+
                     b.Navigation("ClinicImages");
 
                     b.Navigation("WorkingDays");
+                });
+
+            modelBuilder.Entity("DAL.Models.Clinicservice", b =>
+                {
+                    b.Navigation("ClinicClinicServices");
                 });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
@@ -762,6 +813,8 @@ namespace DAL.Migrations
                     b.Navigation("doctor_doctorServices");
 
                     b.Navigation("DoctorAttachment");
+
+                    b.Navigation("DoctorSubSpecialization");
                 });
 
             modelBuilder.Entity("DAL.Models.DoctorService", b =>
@@ -772,6 +825,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Navigation("doctors");
+                });
+
+            modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
+                {
+                    b.Navigation("DoctorSubSpecialization");
                 });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>

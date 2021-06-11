@@ -38,7 +38,10 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +73,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     UserRegisterComponent,
 
     DocotorSpecialtyComponent,
+      HomePageComponent,
+      ShowDoctorsPageComponent,
+      FilterDoctorsideBarComponent,
     
   ],
   imports: [

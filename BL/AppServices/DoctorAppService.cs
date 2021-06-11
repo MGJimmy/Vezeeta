@@ -66,5 +66,13 @@ namespace BL.AppServices
         //    TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
         //    TheUnitOfWork.SaveChanges();
         //}
+
+        /// 
+        public List<GetDoctorDto> GetAllDoctorWhere(int SpecailtyId)
+        {
+            List<GetDoctorDto> doctors =Mapper.Map<List<GetDoctorDto>>( TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d=>d.specialtyId == SpecailtyId && d.IsAccepted==true).ToList()); 
+            return doctors;
+        }
+
     }
 }

@@ -219,6 +219,38 @@ namespace BL.Bases
             }
         }
 
+        private ReservationRepository reservationRepository;
+        public ReservationRepository ReservationRepo
+        {
+            get
+            {
+                if (reservationRepository == null)
+                    reservationRepository = new ReservationRepository(Context);
+                return reservationRepository;
+            }
+        }
+
+        private OfferRepository offerRepository;
+        public OfferRepository OfferRepo
+        {
+            get
+            {
+                if (offerRepository == null)
+                    offerRepository = new OfferRepository(Context);
+                return offerRepository;
+            }
+        }
+        private SubOfferRepository subOfferRepository;
+        public SubOfferRepository SubOfferRepo
+        {
+            get
+            {
+                if (subOfferRepository == null)
+                    subOfferRepository = new SubOfferRepository(Context);
+                return subOfferRepository;
+            }
+        }
+
 
 
         public void Dispose()

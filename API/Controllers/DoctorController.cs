@@ -52,21 +52,38 @@ namespace API.Controllers
                 return BadRequest(new Response { Message = ex.Message });
             }
         }
-        //[HttpGet("subSpecialty")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //public IActionResult GetSubSpecialtyOfCurrentDoctor()
-        //{
-        //    try
-        //    {
-        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //        List<DoctorSubSpecialtyDTO> doctor = _doctorAppService.GetSubSpecialtyByDoctorId(doctorId);
-        //        return Ok(doctor);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new Response { Message = ex.Message });
-        //    }
-        //}
+
+        [HttpGet("GetWithClinicForReservetionCart/{name}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetWithClinicForReservetionCart(string name)
+        {
+            try
+            {
+                GetDoctorWithClinicForReservetionCartDTO doctor = _doctorAppService.GetWithClinicForReservetionCart(name);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("doctorByName/{doctorName}")]
+        public IActionResult GetDoctorWithName(string doctorName)
+        {
+            try
+            {
+                GetDoctorDTO doctor = _doctorAppService.GetByName(doctorName);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> RegisterDoctor(CreateDoctorDTO registerDoctorDTO)
         {
@@ -95,41 +112,6 @@ namespace API.Controllers
             
         }
 
-        //[HttpPost("assignSpecialty")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //public async Task<IActionResult> InsertSpecialtyToDoctor(SpecialtyDTO specialtDto)
-        //{
-        //    try
-        //    {
-        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //        _doctorAppService.InsertSpecialtyToDoctor(doctorId, specialtDto);
-        //        _generalAppService.CommitTransaction();
-        //        return Ok("created");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _generalAppService.RollbackTransaction();
-        //        return BadRequest(new Response { Message = ex.Message });
-        //    }
-        //}
-        //[HttpPost("assignSubSpecialty")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //public async Task<IActionResult> InsertSubSpecialtyToDoctor(List<SupSpecailization> subSpecialtDto)
-        //{
-        //    try
-        //    {
-        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //        _doctorAppService.EmptySubSpecialtyInDoctor(doctorId);
-        //        //_generalAppService.CommitTransaction();
-        //        _doctorAppService.InsertSubSpecialtyToDoctor(doctorId, subSpecialtDto);
-        //        _generalAppService.CommitTransaction();
-        //        return Ok(new Response { Message="subspecialty inserted to doctor" });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _generalAppService.RollbackTransaction();
-        //        return BadRequest(new Response { Message = ex.Message });
-        //    }
-        //}
+       
     }
 }

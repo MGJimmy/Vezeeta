@@ -10,6 +10,10 @@ export class DataSharedService {
 
   IsDoctorSideBarChange=new BehaviorSubject(false);
 
-
+  convertToReservationContinuePage=new BehaviorSubject(ReservationContinueData);
   
+}
+const ReservationContinueData={
+  reserveId:0,
+  doctorName:""
 }

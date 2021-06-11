@@ -19,6 +19,7 @@ namespace DAL
         public string FullName { get; set; }
         public bool IsDoctor { get; set; }
         public Doctor Doctor { get; set; }
+        public List<Reservation> reservations { get; set; }
     }
     public class ApplicationUserStore : UserStore<ApplicationUserIdentity>
     {

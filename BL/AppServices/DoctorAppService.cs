@@ -22,13 +22,31 @@ namespace BL.AppServices
             Doctor doctor = TheUnitOfWork.DoctorRepo.GetById(id);
             return doctor;
         }
-        //public List<DoctorSubSpecialtyDTO> GetSubSpecialtyByDoctorId(string id)
-        //{
-        //    Doctor doctor = TheUnitOfWork.DoctorRepo.GetSubSpecialtyByDoctorId(id);
-        //    List<DoctorSubSpecialtyDTO> doctorSubSpecialty = Mapper.Map<List<DoctorSubSpecialtyDTO>>(doctor);
-        //    return doctorSubSpecialty;
-        //}
-            public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
+
+        public GetDoctorDTO GetByName(string name)
+        {
+            GetDoctorDTO doctorDTO = Mapper.Map<GetDoctorDTO>(TheUnitOfWork.DoctorRepo.GetByName(name));
+            return doctorDTO;
+        }
+
+        public GetDoctorWithClinicForReservetionCartDTO GetWithClinicForReservetionCart(string name)
+        {
+            Doctor doctor = TheUnitOfWork.DoctorRepo.GetWithClinicDetails(name);
+            Clinic clinic = TheUnitOfWork.ClinicRepo.GetByStringId(doctor.UserId);
+            Area area = TheUnitOfWork.AreaRepo.GetById(clinic.AreaId);
+            GetDoctorWithClinicForReservetionCartDTO dto = new GetDoctorWithClinicForReservetionCartDTO();
+
+            dto.UserFullName = doctor.User.UserName;
+            dto.ClinicFees = clinic.Fees;
+            dto.AreaName = area.Name;
+            dto.WatingTime = clinic.WatingTime;
+            //dto.ClinicPhone = clinic.phone;
+
+            return dto;
+        }
+
+
+        public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
         {
             Doctor doctor = Mapper.Map<Doctor>(createDoctorDTO);
             doctor.UserId = userId;
@@ -48,22 +66,6 @@ namespace BL.AppServices
             TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
             TheUnitOfWork.SaveChanges();
         }
-        //public void InsertSpecialtyToDoctor(string doctorId, SpecialtyDTO speiatyDto)
-        //{
-        //    var specialty = Mapper.Map<Specialty>(speiatyDto);
-        //    TheUnitOfWork.DoctorRepo.InsertSpecialtyToDoctor(doctorId, specialty);
-        //    TheUnitOfWork.SaveChanges();
-        //}
-        //public void InsertSubSpecialtyToDoctor(string doctorId, List<SupSpecailization> subSpeiatyDto)
-        //{
-        //    List<SupSpecialization> subSpecializations = Mapper.Map<List<SupSpecialization>>(subSpeiatyDto);
-        //    TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId,subSpecializations);
-        //    TheUnitOfWork.SaveChanges();
-        //}
-        //public void EmptySubSpecialtyInDoctor(string doctorId)
-        //{
-        //    TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
-        //    TheUnitOfWork.SaveChanges();
-        //}
+
     }
 }

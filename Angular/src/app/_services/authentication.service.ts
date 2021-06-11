@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { User } from '../_models/_classes/user';
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { IRegisterUser } from '../_models/_interfaces/IRegisterUser';
+import { IUserForReservation } from '../_models/_interfaces/IUserForReservation';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -112,6 +113,12 @@ export class AuthenticationService {
             return userID;
         }
         return null;
+    }
+
+    getCurrentUser():Observable<IUserForReservation>{
+        return this.http.get<IUserForReservation>(`${environment.apiUrl}/api/Account`).pipe(catchError(error=>{
+            return throwError(error||"an error occur");
+        }))
     }
     /*          
     public isLoggedIn() {

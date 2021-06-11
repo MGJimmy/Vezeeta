@@ -1,0 +1,101 @@
+.container{
+    font-family: sans-serif !important;
+}
+
+.reservation{
+    background-color: white;
+    border-radius: 1rem;
+    .header-info{
+        background-color:rgb(0, 112, 205);
+        color: white;
+        border-radius: 1rem 1rem 0rem 0rem;
+    }
+}
+
+*:focus {
+    outline: none;
+}
+.row{
+    padding-top: 4%;
+}
+.doctorDetails{
+    background-color: white;
+    border-radius: 1rem;
+    color: rgb(128, 129, 132);
+    padding-bottom: 6%;    
+    .doctorImage{
+        width: 30%;
+        img{
+            border-radius: 50%;
+            // width: 30%;
+            margin-top: -10%;
+            border: 1px solid #808184;
+        }
+        
+    }
+    .doctorInfo{
+        color: rgb(136, 136, 136);
+        .doctorText{
+            font-size: 14px;
+            padding-right: 1%;
+            vertical-align: super;
+        }
+        .doctorName{
+            font-size: 21px;
+        }
+    }
+    .reserveTime{
+        background-color: rgb(245, 245, 245);
+        margin-top: 5%;
+        color: rgb(136, 136, 136);
+        line-height: 24px;
+        h5{
+            font-family: sans-serif;
+            font-weight: 400px;
+            font-size: 16px;
+            span{
+                font-weight: 700;
+            }
+        }
+    }
+}
+form{
+    color: rgb(128, 129, 132);
+    padding: 5% 10%;
+    .input-group{
+        border-bottom: 2px solid rgb(204, 204, 204);
+        padding: 0px 3px;
+        margin-bottom: 10%;
+        .input-group-prepend{
+            .input-group-text{
+                border:none;
+                border-radius: 0rem;
+                background-color: white;
+                i{
+                    color:rgb(128, 129, 132)
+                }
+            }
+        }
+        .form-control{
+            border: none !important;
+        }
+    }
+    .submit{
+        display: grid;
+        grid-template-columns: 60% calc(40% - 20px);
+        gap: 4%;
+        .btn-reserve{
+            font-size: 16px;
+            color: rgb(255, 255, 255);
+            background-color: rgb(239, 15, 15);
+            border-radius: 5px;
+            padding: 7px 15px;
+        }
+        .btn-cancel{
+            color: rgb(111, 112, 114);
+            border: 1px solid rgb(159, 162, 164);
+            border-radius: 5px;
+        }
+    }
+    
+}

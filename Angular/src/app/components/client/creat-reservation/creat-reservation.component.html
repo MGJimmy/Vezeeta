@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="row">
+        <div class=" col-12 col-md-6 p-0">
+            <div class="doctorDetails">
+                <div class="d-flex px-3">
+                    <div class=" doctorImage "> 
+                        <img src="{{doctorDetails.image}}" class="img-fluid">
+                    </div>
+                    <div class="p-4 doctorInfo">
+                        <span class="d-block mb-4">
+                            <span class="doctorText">{{doctorDetails.titleDegree}}</span><span class="doctorName">{{doctorDetails.userFullName}}</span>
+                        </span>
+                        <span>
+                            {{doctorDetails.doctorInfo}}
+                        </span>
+                    </div>
+                </div>
+                <div class="reserveTime p-3">
+                    <h5>
+                        Tomorrow June 09 - from {{dayShift.from}} to {{dayShift.to}} ,
+                        <span>
+                            Pre-booking and first-come-first-served entry
+                        </span>
+                    </h5>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="reservation p-0 m-0">
+                <div class="header-info text-center p-1">
+                    Enter the reservation information
+                </div>
+            
+            
+                <div class="p-2">
+                    <form [formGroup]="reservationData">
+                        <div class="input-group input-group-sm ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+                            </div>
+                            <input formControlName="UserName" type="text" class="form-control" placeholder="Patient's full name">
+
+                        </div>
+
+                        <div class="input-group input-group-sm ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            </div>
+                            <input formControlName="Phone" type="text" class="form-control" placeholder="mobile number">
+
+                        </div>
+
+                        <div class="input-group input-group-sm ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <input formControlName="Email" type="text" class="form-control" placeholder="Email (optional)">
+
+                        </div>
+                        <div class="align-items-center d-flex py-3 form-check">
+                            <input type="checkbox" id="flexCheckDefault" value="I'm making a reservation on behalf of another patient" class="form-check-input" (change)="empty($event)">
+                            <label for="flexCheckDefault" class="ml-1" class="form-check-label">I'm making a reservation on behalf of another patient</label>
+                        </div>
+                        <div class="submit mt-4">
+                            <button class="btn btn-reserve" [disabled]="reservationData.invalid" (click)="submit()">Reserve</button>
+                            <button class="btn btn-cancel">cancel</button>
+                        </div>
+                        
+                    </form>
+                </div> 
+
+            </div>
+        </div>
+    </div>
+</div>

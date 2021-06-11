@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IDoctorDetails } from '../_models/_interfaces/IDoctorDetails';
+import { IDoctorWithClinic } from '../_models/_interfaces/IDoctorWithClinic';
 import { IDoctorWithSubSpecialty } from '../_models/_interfaces/IDoctorWithSubSpecialty';
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
@@ -23,7 +25,20 @@ export class DoctorService {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
       }))
   }
+
+  getDoctorWithClinicDetails(doctorName:string):Observable<IDoctorWithClinic>{
+    return this._http.get<IDoctorWithClinic>(this.url+"/GetWithClinicForReservetionCart/"+doctorName).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }))
+  }
  
+  getDoctorByName(doctorName:string):Observable<IDoctorDetails>{
+    return this._http.get<IDoctorDetails>(this.url+"/doctorByName/"+doctorName).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }))
+  }
 
   assignSpecialtyToDoctor(specialty:ISpecialty):Observable<ISpecialty>{
     return this._http.post<any>(this.url+"/assignSpecialty",specialty).pipe(catchError(

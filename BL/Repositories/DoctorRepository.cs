@@ -19,6 +19,18 @@ namespace BL.Repositories
             Doctor doctor = DbSet.FirstOrDefault(i => i.UserId == id);
             return doctor;
         }
+        public Doctor GetByName(string name)
+        {
+            Doctor doctor = DbSet.Where(i => i.User.UserName == name).Include(i => i.User).FirstOrDefault();
+            return doctor;
+        }
+
+        public Doctor GetWithClinicDetails(string name)
+        {
+            Doctor doctor = DbSet.Where(i => i.User.UserName == name).Include(i =>i.User).FirstOrDefault();
+            return doctor;
+        }
+
         //public Doctor GetSubSpecialtyByDoctorId(string id)
         //{
         //    Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i=>i.supSpecializations).FirstOrDefault();

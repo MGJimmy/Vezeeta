@@ -5,6 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IDoctorDetails } from '../_models/_interfaces/IDoctorDetails';
 import { IDoctorWithClinic } from '../_models/_interfaces/IDoctorWithClinic';
+import { IDoctor } from '../_models/_interfaces/IDoctorPresentaion';
 import { IDoctorWithSubSpecialty } from '../_models/_interfaces/IDoctorWithSubSpecialty';
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
@@ -77,5 +78,15 @@ Updateservices(services)
       })
     )}
 
+    /// show doctors
+
+  ShowSpecailtyDoctors(SpecailtyId)
+   {
+    return this._http.get<IDoctor[]>(`${environment.apiUrl}/api/Doctor/GetAllWhere/${SpecailtyId}`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
 
 }

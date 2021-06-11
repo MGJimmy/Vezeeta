@@ -24,6 +24,8 @@ import { ShowReservationToPatientComponent } from './components/client/show-rese
 import { ShowReservationToDoctorComponent } from './components/client/show-reservation-to-doctor/show-reservation-to-doctor.component';
 import { OfferComponent } from './components/dashboard/offer/offer.component';
 import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 
 const routes: Routes = [
   {
@@ -65,11 +67,9 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-
-
-
-
-  
+  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"home", component:HomePageComponent},
+  {path:"**", component:HomePageComponent},
 ];
 
 @NgModule({

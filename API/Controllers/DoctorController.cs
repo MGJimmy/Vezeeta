@@ -4,6 +4,7 @@ using BL.DTOs;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.WorkingDayDTO;
 using BL.StaticClasses;
 using DAL;
 using DAL.Models;
@@ -28,18 +29,39 @@ namespace API.Controllers
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
         Doctor_DoctorServiceAppService _doctor_DoctorServiceAppService;
+        DoctorSubSpecializationAppService _doctorSubSpecialization;
+        private ClinicAppService _clinicAppService;
+        private ClinicImagesAppService _clinicImagesAppService;
+        private AreaAppService _areaAppService;
+        private CityAppService _cityAppService;
+        WorkingDayAppService _workingDayAppService;
+        DayShiftAppService _dayShiftAppService;
         public DoctorController(
-            DoctorAppService doctorAppService, 
-            AccountAppService accountAppService,
-            GeneralAppService generalAppService,
+             DoctorAppService doctorAppService, 
+             AccountAppService accountAppService,
+             GeneralAppService generalAppService,
              IHttpContextAccessor httpContextAccessor,
-             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService)
+             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService,
+             DoctorSubSpecializationAppService doctorSubSpecialization,
+             ClinicAppService clinicAppService,
+             ClinicImagesAppService clinicImagesAppService,
+             AreaAppService areaAppService,
+             CityAppService cityAppService,
+             WorkingDayAppService workingDayAppService,
+             DayShiftAppService dayShiftAppService)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
             _httpContextAccessor = httpContextAccessor;
             _doctor_DoctorServiceAppService = doctor_DoctorServiceAppService;
+            _doctorSubSpecialization = doctorSubSpecialization;
+            _clinicAppService = clinicAppService;
+            _clinicImagesAppService = clinicImagesAppService;
+            _areaAppService = areaAppService;
+            _cityAppService = cityAppService;
+            _workingDayAppService = workingDayAppService;
+            _dayShiftAppService = dayShiftAppService;
 
         }
 
@@ -179,6 +201,41 @@ namespace API.Controllers
 
         
 
-       
+        //[HttpPost("assignSpecialty")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        //public async Task<IActionResult> InsertSpecialtyToDoctor(SpecialtyDTO specialtDto)
+        //{
+        //    try
+        //    {
+        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        //        _doctorAppService.InsertSpecialtyToDoctor(doctorId, specialtDto);
+        //        _generalAppService.CommitTransaction();
+        //        return Ok("created");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _generalAppService.RollbackTransaction();
+        //        return BadRequest(new Response { Message = ex.Message });
+        //    }
+        //}
+        //[HttpPost("assignSubSpecialty")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
+        //public async Task<IActionResult> InsertSubSpecialtyToDoctor(List<SupSpecailization> subSpecialtDto)
+        //{
+        //    try
+        //    {
+        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        //        _doctorAppService.EmptySubSpecialtyInDoctor(doctorId);
+        //        //_generalAppService.CommitTransaction();
+        //        _doctorAppService.InsertSubSpecialtyToDoctor(doctorId, subSpecialtDto);
+        //        _generalAppService.CommitTransaction();
+        //        return Ok(new Response { Message="subspecialty inserted to doctor" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _generalAppService.RollbackTransaction();
+        //        return BadRequest(new Response { Message = ex.Message });
+        //    }
+        //}
     }
 }

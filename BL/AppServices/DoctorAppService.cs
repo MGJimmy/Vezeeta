@@ -67,6 +67,22 @@ namespace BL.AppServices
             TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
             TheUnitOfWork.SaveChanges();
         }
-
+        //public void InsertSpecialtyToDoctor(string doctorId, SpecialtyDTO speiatyDto)
+        //{
+        //    var specialty = Mapper.Map<Specialty>(speiatyDto);
+        //    TheUnitOfWork.DoctorRepo.InsertSpecialtyToDoctor(doctorId, specialty);
+        //    TheUnitOfWork.SaveChanges();
+        //}
+        //public void InsertSubSpecialtyToDoctor(string doctorId, List<SupSpecailization> subSpeiatyDto)
+        //{
+        //    List<SupSpecialization> subSpecializations = Mapper.Map<List<SupSpecialization>>(subSpeiatyDto);
+        //    TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId,subSpecializations);
+        //    TheUnitOfWork.SaveChanges();
+        //}
+        //public void EmptySubSpecialtyInDoctor(string doctorId)
+        //{
+        //    TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
+        //    TheUnitOfWork.SaveChanges();
+        //}
     }
 }

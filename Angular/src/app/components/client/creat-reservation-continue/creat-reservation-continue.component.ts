@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IDayShift } from 'src/app/_models/_interfaces/IDayShift';
 import { IDoctorWithClinic } from 'src/app/_models/_interfaces/IDoctorWithClinic';
 import { IReservation } from 'src/app/_models/_interfaces/IReservation';
@@ -16,7 +17,7 @@ import { ReservationService } from 'src/app/_services/reservation.service';
 export class CreatReservationContinueComponent implements OnInit {
  
   constructor(private _sharedDataServices:DataSharedService,private _dayShiftServices:DayshiftService
-    ,private _doctorService:DoctorService,private _fb:FormBuilder,
+    ,private _doctorService:DoctorService,private _fb:FormBuilder,private _roter:Router,
     private _reserveService:ReservationService) {
       _sharedDataServices.convertToReservationContinuePage.subscribe(data=>{
         if(data.reserveId!=0&&data.doctorName!=""){
@@ -39,20 +40,6 @@ export class CreatReservationContinueComponent implements OnInit {
   clinicDetails:IDoctorWithClinic;
   dayShift:IDayShift;
   ngOnInit(): void {
-    // /** */
-    // this._reserveService.GetToShowInContinuePage(14).subscribe(data=>{
-    //   this._dayShiftServices.GetById(data.dayShiftId).subscribe(data=>{
-    //     this.dayShift=data;
-    //     data.from =this.tConvert(data.from);
-    //     data.to=this.tConvert(data.to);
-    //   })
-    //   this.reserve=data;
-    //   this.reserve.userName
-    // })
-    // this._doctorService.getDoctorWithClinicDetails("bahy").subscribe(data=>{
-    //   this.clinicDetails=data;
-    // })
-    // // /** */
   }
 
   reserveContinue=this._fb.group({
@@ -65,9 +52,8 @@ export class CreatReservationContinueComponent implements OnInit {
     this.reserve.age=this.reserveContinue.get("age").value;
     this.reserve.gender=this.reserveContinue.get("gender").value;
     this.reserve.symptoms=this.reserveContinue.get("symptom").value;
-    console.log(this.reserve)
     this._reserveService.update(this.reserve).subscribe(data=>{
-      console.log(data)
+      this._roter.navigate([""])
     },error=>console.error(error))
 
 

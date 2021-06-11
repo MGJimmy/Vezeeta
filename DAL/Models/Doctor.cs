@@ -26,7 +26,8 @@ namespace DAL.Models
         
         public List<Doctor_DoctorService> doctor_doctorServices { get; set; }
         public List<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
-        
+        public List<DoctorService> doctorServices { get; set; }
+        public List<Reservation> Reservations { get; set; }
 
     }
 }

@@ -69,6 +69,8 @@ namespace DAL
         public DbSet<Clinic> Clinics{ get; set; }
         public DbSet<Doctor_DoctorService> Doctor_DoctorServices { get; set; }
         public DbSet<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<SubOffer> SubOffers { get; set; }
 
     }
 }

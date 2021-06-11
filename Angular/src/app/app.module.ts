@@ -40,6 +40,17 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
+import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
+import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
+import { ShowReservationToDoctorComponent } from './components/client/show-reservation-to-doctor/show-reservation-to-doctor.component';
+import { OfferComponent } from './components/dashboard/offer/offer.component';
+import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
+
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'
 @NgModule({
   declarations: [
     AppComponent,

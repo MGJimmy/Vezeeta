@@ -16,19 +16,22 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class UploadAndShowComponent implements OnInit {
   public progress: number;
   public message: string;
+  photo:string="/assets/Image/uploadLogo.jpg"
+
   @Output() public onUploadFinished = new EventEmitter();
-  constructor(private http: HttpClient,private _fb:FormBuilder) { }
+  constructor(private http: HttpClient,private _fb:FormBuilder) {
+   }
 
   ngOnInit(): void {
     this.form=this._fb.group({
       image:["",Validators.required]
     })
-  }
+  }  
+  
   
   @Input('formGroupFromParent') form;
   
 
-  photo:string="/assets/Image/uploadLogo.jpg"
 
   public uploadFile = (files) => {
     if (files.length === 0) {

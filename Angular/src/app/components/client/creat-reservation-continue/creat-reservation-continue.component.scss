@@ -1,0 +1,114 @@
+
+.container{
+    margin-top: 2%;
+    font-family: sans-serif !important;
+}
+.reservationDetails{
+    background-color: white;
+    border-radius: 1rem;
+    color: rgb(128, 129, 132);
+    margin-bottom: 3%;
+    .img{
+        background-image: url("https://www.linkpicture.com/q/thankyou-banner.jpg");
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 193px;
+        border-radius: 1rem 1rem 0rem 0rem ;
+        position: relative;
+        span{
+            position: absolute;
+            bottom: 20%;
+            right: 2%;
+        }
+    }
+    .details{
+        margin: 2% 0px;
+        .icon-details{
+            font-size: 17px;
+            color: rgb(0, 112, 205);
+            font-family: icomoon !important;
+            position: relative;
+            .icon-details-line {
+                width: 10px;
+                height: 2px;
+                background: #ef0f0f;
+                text-align: center;
+                margin: auto !important;
+                position: absolute;
+                bottom: -2px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+    }
+    .bookingDetails{
+        display: grid;
+        grid-template-columns: 25% 58% 17%;
+        h5{
+            margin: auto 0px;
+            font-size: 16px;
+        }
+        span{
+            
+            font-size: 14px;
+        }
+        hr{            
+            margin-top: .5rem;
+            margin-bottom: .5rem;
+        }
+    }
+    
+}
+.moreData{
+    background-color: white;
+    border-radius: 1rem;
+    form{
+        padding: 5%;
+        .title{
+            font-size: 20px;
+            font-weight: 600;
+            span{                
+                font-size: 16px;
+                font-weight: 200;
+            }
+        }
+        .gender{
+            display: grid;
+            grid-template-columns: 45% 45%;
+            gap: 11%;
+            padding: 2% !important;
+        }
+        .input-group{
+            border-bottom: 2px solid rgb(204, 204, 204);
+            padding: 0px 3px;
+            margin-bottom: 10%;
+            
+            .input-group-prepend{
+                .input-group-text{
+                    border:none;
+                    border-radius: 0rem;
+                    background-color: white;
+                    i{
+                        color:rgb(128, 129, 132)
+                    }
+                }
+            }
+            .form-control{
+                border: none !important;
+            }
+        }
+        .submit{
+            display: grid;
+            grid-template-columns: 100% ;
+            .btn-reserve{
+                font-size: 16px;
+                color: rgb(255, 255, 255);
+                background-color: rgb(239, 15, 15);
+                border-radius: 5px;
+                padding: 7px 15px;
+            }
+        }
+    }
+}

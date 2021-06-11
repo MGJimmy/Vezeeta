@@ -4,10 +4,13 @@ using BL.DTOs.AccountDTO;
 using BL.DTOs.DoctorDTO;
 using BL.StaticClasses;
 using DAL;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -20,11 +23,23 @@ namespace API.Controllers
     {
         AccountAppService _accountAppService;
         GeneralAppService _generalAppService;
-        public AccountController(AccountAppService accountAppService, GeneralAppService generalAppService)
+        IHttpContextAccessor _httpContextAccessor;
+        public AccountController(AccountAppService accountAppService, GeneralAppService generalAppService, IHttpContextAccessor httpContextAccessor)
         {
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
+            _httpContextAccessor = httpContextAccessor;
         }
+
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            ApplicationUserIdentity user = await _accountAppService.GetUserById(userId);
+            return Ok(user);
+        }
+
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterAccountDTO registerAccountDTO)
         {

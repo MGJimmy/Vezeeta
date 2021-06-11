@@ -19,6 +19,14 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component';
+import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
+import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
+import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
+import { ShowReservationToDoctorComponent } from './components/client/show-reservation-to-doctor/show-reservation-to-doctor.component';
+import { OfferComponent } from './components/dashboard/offer/offer.component';
+import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 
 const routes: Routes = [
   {
@@ -33,6 +41,8 @@ const routes: Routes = [
       {path:'clinicServices' , component:ClinicServicesComponent},
       {path: 'doctorAttachments', component: DoctorAttachmentsComponent},
       {path: 'doctorServices', component: ManageDoctorServicesComponent},
+      {path:"offer",component:OfferComponent},
+      {path:"subOffer",component:SubOfferComponent},
     
     ]
   },
@@ -50,10 +60,18 @@ const routes: Routes = [
       {path:'clinicServices',component:ChooseClinicServiceComponent},
     ]
   },
+
+  {path:"Reversation",component:CreatReservationComponent},
+  {path:"ReversationContinue",component:CreatReservationContinueComponent},
+  {path:"UserAppointments",component:ShowReservationToPatientComponent},
+  {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
   
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
-  {path:"login", component:LoginComponent}
+  {path:"login", component:LoginComponent},
+  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"home", component:HomePageComponent},
+  {path:"**", component:HomePageComponent},
 ];
 
 @NgModule({

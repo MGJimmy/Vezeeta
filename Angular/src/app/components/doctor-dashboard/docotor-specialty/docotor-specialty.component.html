@@ -32,8 +32,8 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-primary m-1 sss" (click)="removefromNewSubSpecial(sup.id)" *ngFor="let sup of NotAcceptByAdminSubSpecialtySelected">{{sup.name}} <i class="fas fa-times-circle"></i></button>
-                        <button class="btn btn-primary m-1 sss" (click)="removefromNewSubSpecial(sup.id)" *ngFor="let sup of addNewSubSpecialty">{{sup.name}} <i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNotAcceptByAdminSubSpecial(i)" *ngFor="let sup of NotAcceptByAdminSubSpecialtySelected ; let i = index">{{sup.name}} <i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNewSubSpecial(i)" *ngFor="let sup of addNewSubSpecialty ; let i = index">{{sup.name}} <i class="fas fa-times-circle"></i></button>
                     </div>
                     <span class="text-warning" *ngIf="addNewSubSpecialty.length>0 || NotAcceptByAdminSubSpecialtySelected.length>0">* after enter this waiting to accept by admin</span>
                     

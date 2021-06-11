@@ -24,9 +24,9 @@ namespace BL.AppServices
             return doctor;
         }
 
-        public GetDoctorDTO GetByName(string name)
+        public GetDoctorForReservationDto GetByName(string name)
         {
-            GetDoctorDTO doctorDTO = Mapper.Map<GetDoctorDTO>(TheUnitOfWork.DoctorRepo.GetByName(name));
+            var doctorDTO = Mapper.Map<GetDoctorForReservationDto>(TheUnitOfWork.DoctorRepo.GetByName(name));
             return doctorDTO;
         }
 
@@ -67,22 +67,11 @@ namespace BL.AppServices
             TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
             TheUnitOfWork.SaveChanges();
         }
-        //public void InsertSpecialtyToDoctor(string doctorId, SpecialtyDTO speiatyDto)
-        //{
-        //    var specialty = Mapper.Map<Specialty>(speiatyDto);
-        //    TheUnitOfWork.DoctorRepo.InsertSpecialtyToDoctor(doctorId, specialty);
-        //    TheUnitOfWork.SaveChanges();
-        //}
-        //public void InsertSubSpecialtyToDoctor(string doctorId, List<SupSpecailization> subSpeiatyDto)
-        //{
-        //    List<SupSpecialization> subSpecializations = Mapper.Map<List<SupSpecialization>>(subSpeiatyDto);
-        //    TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId,subSpecializations);
-        //    TheUnitOfWork.SaveChanges();
-        //}
-        //public void EmptySubSpecialtyInDoctor(string doctorId)
-        //{
-        //    TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
-        //    TheUnitOfWork.SaveChanges();
-        //}
+
+        public List<GetDoctorDto> GetAllDoctorWhere(int SpecailtyId)
+        {
+            List<GetDoctorDto> doctors = Mapper.Map<List<GetDoctorDto>>(TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d => d.specialtyId == SpecailtyId && d.IsAccepted == true).ToList());
+            return doctors;
+        }
     }
 }

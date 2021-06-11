@@ -101,7 +101,7 @@ namespace API.Controllers
         {
             try
             {
-                GetDoctorDTO doctor = _doctorAppService.GetByName(doctorName);
+                var doctor = _doctorAppService.GetByName(doctorName);
                 return Ok(doctor);
             }
             catch (Exception ex)
@@ -198,8 +198,30 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetAllWhere/{SpecailtyID}")]
+        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
+        {
+            List<GetDoctorDto> doctors = this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
+            foreach (var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
 
-        
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+            }
+
+
+            return Ok(doctors);
+
+        }
 
         //[HttpPost("assignSpecialty")]
         //[Authorize(AuthenticationSchemes = "Bearer")]

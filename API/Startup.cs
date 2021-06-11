@@ -114,6 +114,9 @@ namespace API
             services.AddScoped<DoctorSubSpecializationAppService>();
             services.AddScoped<RoleAppService>();
             services.AddScoped<ClinicClinicServiceAppService>();
+            services.AddScoped<ReservationAppService>();
+            services.AddScoped<OfferAppService>();
+            services.AddScoped<SubOfferAppService>();
 
 
 

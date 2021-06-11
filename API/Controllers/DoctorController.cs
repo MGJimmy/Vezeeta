@@ -1,7 +1,9 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.DoctorServiceDtos;
 using BL.StaticClasses;
 using DAL;
 using DAL.Models;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -24,16 +27,19 @@ namespace API.Controllers
         AccountAppService _accountAppService;
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
+        Doctor_DoctorServiceAppService _doctor_DoctorServiceAppService;
         public DoctorController(
             DoctorAppService doctorAppService, 
             AccountAppService accountAppService,
             GeneralAppService generalAppService,
-            IHttpContextAccessor httpContextAccessor)
+             IHttpContextAccessor httpContextAccessor,
+             Doctor_DoctorServiceAppService doctor_DoctorServiceAppService)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
-            _httpContextAccessor=httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
+            _doctor_DoctorServiceAppService = doctor_DoctorServiceAppService;
 
         }
 
@@ -111,6 +117,67 @@ namespace API.Controllers
             }
             
         }
+
+        
+        [HttpPost("addServices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult AddServiceForDoctor(List<CreateDoctor_DoctorService> doctorservives)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                _doctor_DoctorServiceAppService.InsertList(doctorservives,DoctorId);
+                _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
+        }
+        [HttpGet("Myservices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult myServices()
+        {
+            var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var services = _doctor_DoctorServiceAppService.GetDoctorServices(DoctorId);
+            return Ok(services);
+        }
+
+        [HttpPut("UpdateDoctorServices")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult UpdateDoctorServices(List<CreateDoctor_DoctorService> NewdoctorservivesList)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _doctor_DoctorServiceAppService.UpdateServicesList(NewdoctorservivesList, DoctorId);
+                 _generalAppService.CommitTransaction();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+
+        
 
        
     }

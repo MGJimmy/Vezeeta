@@ -1,10 +1,12 @@
 ﻿using BL.AppServices;
 using BL.DTOs.ClinicImagesDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ClinicImageController : ControllerBase
     {
         
@@ -34,8 +37,8 @@ namespace API.Controllers
             }
             try
             {
-                //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
+                var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+               
                 List<CreateClinicImagesDto>newsclinicImgs = _clinicImagesAppService.InsertList(clinicImgs,DoctorId);
                      _generalAppService.CommitTransaction();
                     return Created("Images added", newsclinicImgs);
@@ -50,8 +53,8 @@ namespace API.Controllers
         [HttpGet("GetAllImages")]
         public IActionResult GetClinicImages()
         {
-            //var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var DoctorId = "8ccd318c-a9e2-407a-b649-bd6f847ccde6";
+            var DoctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             return Ok(_clinicImagesAppService.GetAllWhere(DoctorId));
         }
 

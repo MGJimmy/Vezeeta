@@ -46,6 +46,10 @@ namespace BL.Repositories
             Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
             doctor.IsAccepted = false;
         }
+        //public Doctor GetByStringId(string id)
+        //{
+        //    return DbSet.Include(i => i.doctorServices).FirstOrDefault(d=>d.UserId==id);
+        //}
 
 
         //public void InsertSpecialtyToDoctor(string doctorId, Specialty specialty)

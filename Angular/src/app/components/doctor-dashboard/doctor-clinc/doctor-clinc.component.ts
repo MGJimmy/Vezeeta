@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IArea } from 'src/app/_models/_interfaces/IArea';
@@ -19,7 +19,7 @@ import { ClinicService } from 'src/app/_services/clinic.service';
 export class DoctorClincComponent implements OnInit {
 
   public response: any;
-
+  @ViewChild('modalCloseBtn')modalCloseBtn;
 
   constructor(private _cityService: CityService, private _areaService: AreaService,
     private _formBuilder: FormBuilder, private _router: Router,
@@ -38,6 +38,8 @@ export class DoctorClincComponent implements OnInit {
   Cityies: ICity[];
   Areas: IArea[];
 
+  
+
   ClinicForm = this._formBuilder.group({
     Street: ['', Validators.required],
     Fees: ['', Validators.required],
@@ -47,15 +49,19 @@ export class DoctorClincComponent implements OnInit {
     AreaId: ['', Validators.required]
 
   });
+
+  areaForm=this._formBuilder.group({
+    id:[""],
+    name:["",[Validators.required,Validators.minLength(3)]],
+    // cityID:["",[Validators.required]]
+  })
+
   ngOnInit(): void {
 
     this._cityService.getAllCities().subscribe(data => {
 
       this.Cityies = data;
-    },
-      err => {
-        console.log("err" + err);
-      })
+    })
 
     //condition for auth
 
@@ -79,16 +85,12 @@ export class DoctorClincComponent implements OnInit {
           if (data.length !== 0) {
             this.MyClinicImages = data;
             this.hasImage = true;
-            console.log(this.MyClinicImages);
           }
           else {
             console.log("No Image");
           }
 
-        },
-          err => {
-            console.log("err" + err);
-          })
+        })
       }
 
 
@@ -105,11 +107,7 @@ export class DoctorClincComponent implements OnInit {
 
   onOptionsSelected(CityID) {
     this._areaService.getAllAreaWhere(CityID).subscribe(data => {
-      this.Areas = data;
-    },
-      err => {
-        console.log(err);
-      })
+      this.Areas = data;})
 
 
   }
@@ -128,7 +126,6 @@ export class DoctorClincComponent implements OnInit {
     }
     if (this.response != null) {
       for (var image of this.response) {
-        console.log(image);
         let Image: IClinicImage =
         {
           Image: image
@@ -136,21 +133,10 @@ export class DoctorClincComponent implements OnInit {
         this.clinicImages.push(Image);
       }
     }
-
-    console.log(this.clinicImages);
-
     this._clinicService.AddClinic(this.clinic).subscribe(data => {
-      console.log(data);
       this.DoctorID = data['doctorId'];
       if (this.clinicImages.length !== 0) {
-        console.log("entered length");
-        this._clinicImagesService.AddImages(this.clinicImages).subscribe(data => {
-          console.log("entered Images");
-          console.log(data);
-        },
-          err => {
-            console.log("error for enter Images" + err);
-          })
+        this._clinicImagesService.AddImages(this.clinicImages).subscribe(data => {})
       }
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
       this._router.onSameUrlNavigation = 'reload';
@@ -185,13 +171,7 @@ export class DoctorClincComponent implements OnInit {
       console.log(data);
       if (this.clinicImages.length !== 0) {
         console.log("entered length");
-        this._clinicImagesService.AddImages(this.clinicImages).subscribe(data => {
-          console.log("entered Images");
-          console.log(data);
-        },
-          err => {
-            console.log("error for enter Images" + err);
-          })
+        this._clinicImagesService.AddImages(this.clinicImages).subscribe(data => {})
       }
 
       this._router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -219,5 +199,23 @@ export class DoctorClincComponent implements OnInit {
 
   public createImgPath = (serverPath: string) => {
     return `http://localhost:57320/${serverPath}`;
+  }
+
+  get idArea(){ return this.areaForm.get("id")  }
+  get name(){  return this.areaForm.get("name")   }  
+  // get cityID(){ return this.areaForm.get("cityID")  }
+
+ 
+  addNewArea()
+  {
+    const newArea:IArea={
+      name:this.name.value,
+      cityID:this.formFields.CityId.value
+    }
+    this._areaService.insertArea(newArea).subscribe(data=>{
+      this.Areas.push(data);
+      this.modalCloseBtn.nativeElement.click();
+    })
+
   }
 }

@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorSubSpecialization;
 using BL.DTOs.ReversationDto;
 using BL.DTOs.OfferDto;
@@ -128,6 +129,16 @@ namespace BL.Configurations
 
             CreateMap<DoctorService, DoctorServiceDto>().ReverseMap();
 
+            CreateMap<Doctor_DoctorService,GetDoctor_DoctorService>()
+            .ReverseMap()
+            .ForMember(m => m.doctor, m => m.Ignore())
+            .ForMember(m => m.service, m => m.Ignore());
+
+            CreateMap<Doctor_DoctorService, CreateDoctor_DoctorService>()
+            .ReverseMap()
+            .ForMember(m => m.doctor, m => m.Ignore())
+            .ForMember(m => m.service, m => m.Ignore());
+
             CreateMap<Reservation, CreateReservationDTO>().ReverseMap();
             
             CreateMap<Doctor, GetDoctorDTO>().ReverseMap();
@@ -139,8 +150,14 @@ namespace BL.Configurations
             CreateMap<Offer, OfferDTO>().ReverseMap();
             CreateMap<SubOffer, SubOfferDto>().ReverseMap();
             CreateMap<SubOffer, GetSubOfferWithOfferDto>().ReverseMap();
+            CreateMap<Doctor_DoctorService,GetDoctor_DoctorServiceWithService>()
+            .ReverseMap()
+            .ForMember(m => m.doctor, m => m.Ignore());
+           
+            CreateMap<CreateDoctor_DoctorService, GetDoctor_DoctorServiceWithService>()
+            .ReverseMap();
 
-
+            
 
 
         }

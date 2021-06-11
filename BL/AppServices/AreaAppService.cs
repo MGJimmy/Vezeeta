@@ -25,7 +25,7 @@ namespace BL.AppServices
         }
         public IEnumerable<GetAreaDTO> GetAllWhere(int cityId)
         {
-            return Mapper.Map<IEnumerable<GetAreaDTO>>(TheUnitOfWork.AreaRepo.GetWhere(a=>a.CityID==cityId));
+            return Mapper.Map<IEnumerable<GetAreaDTO>>(TheUnitOfWork.AreaRepo.GetWhere(a=>a.CityID==cityId && a.ByAdmin==true));
         }
         public IEnumerable<GetAreaWithCityDTO> GetAllWithCity()
         {

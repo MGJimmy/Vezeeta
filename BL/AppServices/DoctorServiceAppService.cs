@@ -89,5 +89,27 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
         }
 
+        public List<DoctorServiceDto> InsertList(List<DoctorServiceDto> ServicesDto, bool byAdmin)
+        {
+            if (ServicesDto == null)
+                throw new ArgumentNullException();
+
+            foreach (var item in ServicesDto)
+            {
+                item.ByAdmin = byAdmin;
+            }
+           List<DoctorService> doctorServices = Mapper.Map<List<DoctorService>>(ServicesDto);
+            
+            TheUnitOfWork.DoctorServiceRepo.InsertList(doctorServices);
+            TheUnitOfWork.SaveChanges();
+
+            for (int i = 0; i < doctorServices.Count; i++)
+            {
+                ServicesDto[i].ID = doctorServices[i].ID;
+            }
+            
+            return ServicesDto;
+        }
+
     }
 }

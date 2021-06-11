@@ -52,6 +52,9 @@ namespace DAL
                 .WithOne(d => d.specialty)
                 .HasForeignKey(d => d.specialtyId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Doctor_DoctorService>().HasKey(dds => new { dds.doctorID, dds.serviceID });
+
             builder.Entity<DoctorSubSpecialization>()
                 .HasKey(ds => new { ds.DoctorId, ds.subSpecializeId });
         }
@@ -63,7 +66,8 @@ namespace DAL
         public DbSet<SupSpecialization> supSpecializations { get; set; }
         public DbSet<Clinicservice> Clinicservices{ get; set; }
         public DbSet<Doctor> Doctors{ get; set; }
-        public DbSet<Clinic> Clinics { get; set; }
+        public DbSet<Clinic> Clinics{ get; set; }
+        public DbSet<Doctor_DoctorService> Doctor_DoctorServices { get; set; }
         public DbSet<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<SubOffer> SubOffers { get; set; }

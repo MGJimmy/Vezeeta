@@ -2,6 +2,7 @@
 using BL.Bases;
 using BL.DTOs;
 using BL.DTOs.DoctorDTO;
+using BL.DTOs.DoctorServiceDtos;
 using BL.Interfaces;
 using DAL.Models;
 using System;

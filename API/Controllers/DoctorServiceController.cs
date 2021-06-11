@@ -153,6 +153,33 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost("insertList")]
+        public async Task<IActionResult> InsertList(List<DoctorServiceDto> _doctorServiceDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                List<DoctorServiceDto> NewServiceList;
+                if (User.IsInRole("Admin"))
+                {
+                    NewServiceList = _doctorServiceAppService.InsertList(_doctorServiceDto, true);
+                }
+                else
+                {
+                    NewServiceList = _doctorServiceAppService.InsertList(_doctorServiceDto, false);
+                }
+                _generalAppService.CommitTransaction();
+                return Created("created", NewServiceList);
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
+
 
 
     }

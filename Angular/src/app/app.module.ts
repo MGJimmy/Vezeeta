@@ -29,6 +29,7 @@ import { UploadAndShowComponent } from './components/_reusableComponents/upload-
 import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc/doctor-clinc.component';
 import { UploadMultipleComponent } from './components/_reusableComponents/upload-multiple/upload-multiple.component';
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
+import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
@@ -71,6 +72,7 @@ import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.co
     DoctorClincComponent,
     UploadMultipleComponent,
     ClinicWorkingDaysComponent,
+    DoctorServicesComponent,
     ManageDoctorServicesComponent,
     UserRegisterComponent,
 

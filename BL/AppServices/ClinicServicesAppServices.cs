@@ -84,5 +84,13 @@ namespace BL.AppServices
         {
             return TheUnitOfWork.ClincServicesRepo.CheckExixtByName(clinicserviceName);
         }
+
+        public List<ClinicServiceDto> InsertList(List<ClinicServiceDto> clinicServiceDtos)
+        {
+            List<Clinicservice> clinicservices = Mapper.Map<List<Clinicservice>>(clinicServiceDtos);
+            TheUnitOfWork.ClincServicesRepo.InsertList(clinicservices);
+            TheUnitOfWork.SaveChanges();
+            return Mapper.Map<List<ClinicServiceDto>>(clinicservices);
+        }
     }
 }

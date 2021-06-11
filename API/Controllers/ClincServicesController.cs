@@ -60,7 +60,6 @@ namespace API.Controllers
             }
             try
             {
-                var x = HttpContext.Request;
                 string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
                 if (userRole == UserRoles.Admin)
                     clinicServiceDto.ByAdmin = true;
@@ -75,6 +74,39 @@ namespace API.Controllers
 
                 _generalAppService.CommitTransaction();
                 return Created("created", result);
+            }
+            catch (Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpPost("addList")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult AddList(List<ClinicServiceDto> clinicServiceDtos)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+                foreach (var clinicServiceDto in clinicServiceDtos)
+                {
+                    if (userRole == UserRoles.Admin)
+                        clinicServiceDto.ByAdmin = true;
+                    else
+                        clinicServiceDto.ByAdmin = false;
+                }
+
+                var insertedClinicServices = _clinicServicesAppServices.InsertList(clinicServiceDtos);
+
+                _generalAppService.CommitTransaction();
+                return Created("created", insertedClinicServices);
             }
             catch (Exception ex)
             {

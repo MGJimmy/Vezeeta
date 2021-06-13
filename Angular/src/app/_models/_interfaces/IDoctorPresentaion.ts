@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { IClinicImage } from "./IClinicImage";
 
 export interface IDoctor {
     userId: string,
@@ -16,6 +17,7 @@ export interface IDoctor {
     clinicCityName: string,
     clinicAreaName: string,
     presentDaysWork?:IdoctorDayWork[],
+    clinic_Images?: IClinicImage[]
     
 
 }

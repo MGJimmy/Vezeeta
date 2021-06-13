@@ -20,6 +20,7 @@ import { ManageDoctorServicesComponent } from './components/dashboard/manage-doc
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,7 @@ const routes: Routes = [
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
   {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
   {path:"home", component:HomePageComponent},
   {path:"**", component:HomePageComponent},
 ];

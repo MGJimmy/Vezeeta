@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _DayShiftsforDoctor, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
@@ -22,7 +22,8 @@ export class ShowDoctorsPageComponent implements OnInit {
   dayShiftsforDoctor: _DayShiftsforDoctor[] = [];
 
   constructor(private activeRoute: ActivatedRoute,
-    private _doctorService: DoctorService, private datePipe: DatePipe) {
+    private _doctorService: DoctorService, private datePipe: DatePipe,
+    private _router:Router) {
     this.activeRoute.params.subscribe(params =>
       this.SpecailtyId = params['id']
     );
@@ -34,11 +35,9 @@ export class ShowDoctorsPageComponent implements OnInit {
       console.log(data);
       this.DoctorsList = data;
       this.DoctorsList.forEach(element => {
-        element.presentDaysWork = this.loadDays(element.workingDays);
+        element.presentDaysWork = this.chunks(this.loadDays(element.workingDays),3);
 
       });
-      console.error(this.DoctorsList);
-
 
     }, err => {
       console.log("Error");
@@ -84,5 +83,18 @@ export class ShowDoctorsPageComponent implements OnInit {
     return `http://localhost:57320/${serverPath}`;
 
   }
+  chunks(array, size) {
+    let results = [];
+    results = [];
+    while (array.length) {
+    results.push(array.splice(0, size));
+    }
+      return results;
+    }
 
+  ShowDetails(DoctorId)
+  {
+    console.log(DoctorId);
+    this._router.navigate(['ShowDoctorDetails',DoctorId]);
+  }
 }

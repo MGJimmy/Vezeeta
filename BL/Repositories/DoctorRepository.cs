@@ -66,5 +66,11 @@ namespace BL.Repositories
             return query;
         }
 
+        public Doctor GetDoctorDetailswithID(string id)
+        {
+            Doctor doctor = DbSet.Include(d => d.User).Include(d => d.DoctorSubSpecialization).Include(d => d.doctor_doctorServices).Include(d => d.specialty).FirstOrDefault(i => i.UserId == id);
+            return doctor;
+        }
+
     }
 }

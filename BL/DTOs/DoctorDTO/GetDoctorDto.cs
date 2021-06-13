@@ -1,4 +1,5 @@
 ﻿using BL.DTOs.ClinicDto;
+using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorServiceDtos;
 using BL.DTOs.DoctorSubSpecialization;
@@ -36,6 +37,8 @@ namespace BL.DTOs.DoctorDTO
         public string clinicCityName { get; set; }
         public string clinicAreaName { get; set; }
         public List<GetWorkingDayDTO> workingDays { get; set; }
+
+        public List<GetClinicImageDto> Clinic_Images { get; set; }
 
     }
 }

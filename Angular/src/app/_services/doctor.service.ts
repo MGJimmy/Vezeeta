@@ -74,4 +74,15 @@ Updateservices(services)
       })
     )}
 
+  ShowDoctorDetails(DoctorId)
+   {
+    return this._http.get<IDoctor>(`${environment.apiUrl}/api/Doctor/DoctorDetails/${DoctorId}`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+
+
 }

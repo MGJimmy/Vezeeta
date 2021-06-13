@@ -30,6 +30,7 @@ import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-m
 import { ClientOfferComponent } from './components/client-offer/client-offer.component';
 import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
 import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component';
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
 
 const routes: Routes = [
   {
@@ -80,6 +81,7 @@ const routes: Routes = [
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
   {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
   {path:"home", component:HomePageComponent},
   {path:"**", component:HomePageComponent},
 ];

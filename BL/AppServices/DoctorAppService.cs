@@ -73,5 +73,11 @@ namespace BL.AppServices
             List<GetDoctorDto> doctors = Mapper.Map<List<GetDoctorDto>>(TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d => d.specialtyId == SpecailtyId && d.IsAccepted == true).ToList());
             return doctors;
         }
+        public GetDoctorDto GetDoctorDetails(string Doctor_ID)
+        {
+            GetDoctorDto doctor = Mapper.Map<GetDoctorDto>(TheUnitOfWork.DoctorRepo.GetDoctorDetailswithID(Doctor_ID));
+            return doctor;
+        }
+
     }
 }

@@ -36,11 +36,9 @@ export class ShowDoctorsPageComponent implements OnInit {
       console.log(data);
       this.DoctorsList = data;
       this.DoctorsList.forEach(element => {
-        element.presentDaysWork = this.loadDays(element.workingDays);
+        element.presentDaysWork = this.chunks(this.loadDays(element.workingDays),3);
 
       });
-      console.error(this.DoctorsList);
-
 
     }, err => {
       console.log("Error");
@@ -106,5 +104,18 @@ export class ShowDoctorsPageComponent implements OnInit {
     // // console.log(date.toLocaleDateString('en-GB'))
     // console.log(date.toISOString())
   }
+  chunks(array, size) {
+    let results = [];
+    results = [];
+    while (array.length) {
+    results.push(array.splice(0, size));
+    }
+      return results;
+    }
 
+  ShowDetails(DoctorId)
+  {
+    console.log(DoctorId);
+    this._router.navigate(['ShowDoctorDetails',DoctorId]);
+  }
 }

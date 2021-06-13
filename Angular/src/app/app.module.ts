@@ -54,6 +54,8 @@ import { ClientOfferComponent } from './components/client-offer/client-offer.com
 import { OfferNavbarComponent } from './components/client-offer/offer-navbar/offer-navbar.component';
 import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
 import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component'
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component';
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -99,6 +101,7 @@ import { OfferDetailsComponent } from './components/client-offer/offer-details/o
       OfferNavbarComponent,
       HomeOfferComponent,
       OfferDetailsComponent,
+      ShowDoctorDetailsComponent,
     
   ],
   imports: [

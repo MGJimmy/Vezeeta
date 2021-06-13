@@ -11,13 +11,16 @@ import { SpecilatyService } from 'src/app/_services/specilaty.service';
 export class HomePageComponent implements OnInit {
 
   SpecailtyList:ISpecialty[];
+Sp_list:any;
+
   constructor(private _specilatyService:SpecilatyService,private _router:Router) { }
 
   ngOnInit(): void {
     this._specilatyService.getAllSpecialities().subscribe(data=>
       {
-        this.SpecailtyList=data;
         console.log(data);
+        this.SpecailtyList=this.chunks(data,4);
+        console.log(this.SpecailtyList);
       })
   }
 
@@ -26,5 +29,13 @@ export class HomePageComponent implements OnInit {
     console.log(specailtyId);
     this._router.navigate(['showDoctors',specailtyId]);
   }
+  chunks(array, size) {
+    let results = [];
+    results = [];
+    while (array.length) {
+    results.push(array.splice(0, size));
+    }
+      return results;
+    }
 
 }

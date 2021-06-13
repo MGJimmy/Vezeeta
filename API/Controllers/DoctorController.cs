@@ -1,6 +1,7 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
@@ -198,30 +199,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetAllWhere/{SpecailtyID}")]
-        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
-        {
-            List<GetDoctorDto> doctors = this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
-            foreach (var doctor in doctors)
-            {
-                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
-                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
-                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
 
-
-                doctor.services = _services;
-                doctor.subspecails = _subSpecails;
-                doctor.clinic = _clinic;
-                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
-                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
-                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
-                doctor.workingDays = workingDaysDTOs.ToList();
-            }
-
-
-            return Ok(doctors);
-
-        }
+        
 
         //[HttpPost("assignSpecialty")]
         //[Authorize(AuthenticationSchemes = "Bearer")]
@@ -259,5 +238,58 @@ namespace API.Controllers
         //        return BadRequest(new Response { Message = ex.Message });
         //    }
         //}
+
+        [HttpGet("GetAllWhere/{SpecailtyID}")]
+        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
+        {
+            List<GetDoctorDto> doctors=this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
+            foreach(var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic=_clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+
+                
+            }
+           
+
+            return Ok(doctors);
+        
+        }
+
+        [HttpGet("DoctorDetails/{Doctor_ID}")]
+        public IActionResult DoctorDetails(string Doctor_ID)
+        {
+            GetDoctorDto doctor = this._doctorAppService.GetDoctorDetails(Doctor_ID);
+            
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+                
+                IEnumerable<GetClinicImageDto> clinicImagesDto =_clinicImagesAppService.GetAllWhere(doctor.UserId);
+                doctor.Clinic_Images = clinicImagesDto.ToList();
+
+
+            return Ok(doctor);
+
+        }
     }
 }

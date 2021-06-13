@@ -17,5 +17,7 @@ namespace DAL.Models
         [ForeignKey("WorkingDay")]
         public int WorkingDayId { get; set; }
         public WorkingDay WorkingDay { get; set; }
+
+        public List<Reservation> reservations { get; set; }
     }
 }

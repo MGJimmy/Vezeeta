@@ -10,6 +10,17 @@ export class DataSharedService {
 
   IsDoctorSideBarChange=new BehaviorSubject(false);
 
-
+  convertToReservationContinuePage=new BehaviorSubject(ReservationContinueData);
+  GoToReservationPage=new BehaviorSubject(ReservationData);
   
 }
+const ReservationData={
+  dayShiftId:0,
+  doctorName:"",
+  date:""
+}
+const ReservationContinueData={
+  reserveId:0,
+  doctorName:""
+}
+

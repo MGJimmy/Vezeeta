@@ -28,6 +28,10 @@ namespace BL.AppServices
         {
             return Mapper.Map<CreateDayShiftDTO>(TheUnitOfWork.DayShiftRepo.getDay());
         }
+        public DayShift GetById(int id)
+        {
+            return TheUnitOfWork.DayShiftRepo.GetById(id);
+        }
         #endregion
     }
 }

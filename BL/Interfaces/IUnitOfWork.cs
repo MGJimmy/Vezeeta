@@ -33,6 +33,9 @@ namespace BL.Interfaces
         DoctorServiceRepository DoctorServiceRepo { get; }
         ClinicClinicServiceRepository ClinicClinicServiceRepo { get; }
         DoctorSubSpecializationRepository DoctorSubSpecializationRepo { get; }
+        ReservationRepository ReservationRepo { get; }
+        OfferRepository OfferRepo { get; }
+        SubOfferRepository SubOfferRepo { get; }
 
         Doctor_DoctorServiceRepository Doctor_DoctorServiceRepo { get; }
 

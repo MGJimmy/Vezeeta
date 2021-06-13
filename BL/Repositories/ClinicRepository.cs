@@ -17,7 +17,11 @@ namespace BL.Repositories
         }
         public Clinic GetByStringId(string doctorID)
         {
-            return GetFirstOrDefault(c=>c.DoctorId == doctorID);
+            return GetFirstOrDefault(c => c.DoctorId == doctorID);
+        }
+        public Clinic GetByIdWithArea(string doctorID)
+        {
+            return DbSet.Where(i => i.DoctorId == doctorID).Include(i => i.Area).FirstOrDefault();
         }
 
         //internal Clinic GetClinicWithClinicServices(string doctorId)

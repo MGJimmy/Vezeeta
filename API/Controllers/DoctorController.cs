@@ -81,21 +81,38 @@ namespace API.Controllers
                 return BadRequest(new Response { Message = ex.Message });
             }
         }
-        //[HttpGet("subSpecialty")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //public IActionResult GetSubSpecialtyOfCurrentDoctor()
-        //{
-        //    try
-        //    {
-        //        var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //        List<DoctorSubSpecialtyDTO> doctor = _doctorAppService.GetSubSpecialtyByDoctorId(doctorId);
-        //        return Ok(doctor);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new Response { Message = ex.Message });
-        //    }
-        //}
+
+        [HttpGet("GetWithClinicForReservetionCart/{name}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetWithClinicForReservetionCart(string name)
+        {
+            try
+            {
+                GetDoctorWithClinicForReservetionCartDTO doctor = _doctorAppService.GetWithClinicForReservetionCart(name);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
+        [HttpGet("doctorByName/{doctorName}")]
+        public IActionResult GetDoctorWithName(string doctorName)
+        {
+            try
+            {
+                var doctor = _doctorAppService.GetByName(doctorName);
+                return Ok(doctor);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new Response { Message = ex.Message });
+            }
+        }
+
+
+
         [HttpPost]
         public async Task<IActionResult> RegisterDoctor(CreateDoctorDTO registerDoctorDTO)
         {

@@ -1,0 +1,96 @@
+.row{
+    padding-top: 3%;
+    .offerDetails{
+        .img-container{
+            img{
+                border-radius: 1%;
+                width: 100%;
+                height: 23rem
+            }
+            .otherImag{
+                .active{
+                    border: 1px solid blue;
+                }
+                img{
+                    width: 30%;
+                    padding: 2px;
+                    height: 7rem;
+                }
+            }
+        }
+        .doctorInfo{
+            display: flex;
+            align-items: center;
+            .doctorImage{
+                width: 5rem;
+                border-radius: 50%;
+                height: 5rem;
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+            }
+            .doctorName{
+                font-size: 1.2rem;
+                font-weight: 400;
+                color:  rgb(47, 47, 47);
+            }
+        }
+        .description{
+            .title{
+                font-size: 1.4rem;
+                color: rgb(47, 47, 32);
+                font-weight: 600;
+                line-height: 31px;
+                margin-top: 3%;
+            }
+            .body{
+                color: rgb(116, 116, 112);
+                line-height: 23px;
+                white-space: pre-wrap;
+                padding: 1% 2%;
+                font-size: 1.1rem;
+            }
+        }
+    }
+    .reservation{
+        .title{
+            color: rgb(47, 47, 47);
+            padding-bottom: 1%;
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+        .nuOfSession{
+            color: rgb(151, 151, 151);
+            line-height: 18px;
+            font-size: .9rem;
+        }
+        .price{
+            .offerFees{
+                color: rgb(128, 129, 132);
+                font-size: 1.1rem;
+                line-height: 20px;
+                text-decoration: line-through;   
+            }
+            .offerDiscount{
+                color: rgb(0, 213, 99);
+                font-size: 1rem;
+                line-height: 20px;
+                margin: 0% 3%;
+            }
+            .offerPrice{
+                color: rgb(0, 112, 205);
+                font-size: 1.2rem;
+                line-height: 25px;
+                font-weight: bold;
+            }
+        }
+        .limitTime{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(151, 151, 151);
+            font-size: 1.2rem;
+            line-height: 18px;
+        }
+    }
+}

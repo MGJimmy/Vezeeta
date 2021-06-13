@@ -57,9 +57,32 @@ namespace DAL
 
             builder.Entity<DoctorSubSpecialization>()
                 .HasKey(ds => new { ds.DoctorId, ds.subSpecializeId });
+
+
+            builder.Entity<Offer>()
+                .HasMany(o => o.MakeOffers)
+                .WithOne(m => m.Offer)
+                .HasForeignKey(m => m.OfferId)
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<SubOffer>()
+                .HasMany(s => s.MakeOffers)
+                .WithOne(m => m.SubOffer)
+                .HasForeignKey(m => m.SubOfferId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
+
+            //builder.Entity<MakeOffer>()
+            //    .HasOne(m=>m)
+            //    .HasMany(s => s.MakeOffers)
+            //    .WithOne(m => m.SubOffer)
+            //    .HasForeignKey(m => m.SubOfferId).OnDelete(DeleteBehavior.NoAction);
+
+
+
         }
 
-     
+
         public DbSet<City> Cities { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Specialty> Specialties { get; set; }
@@ -71,6 +94,9 @@ namespace DAL
         public DbSet<DoctorSubSpecialization> DoctorSubSpecialization { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<SubOffer> SubOffers { get; set; }
+        public DbSet<MakeOffer> MakeOffers { get; set; }
+
+        public DbSet<MakeOfferImage> MakeOfferImages { get; set; }
 
     }
 }

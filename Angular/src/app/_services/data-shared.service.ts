@@ -12,6 +12,8 @@ export class DataSharedService {
 
   convertToReservationContinuePage=new BehaviorSubject(ReservationContinueData);
   GoToReservationPage=new BehaviorSubject(ReservationData);
+  GoToOfferDetailsPage=new BehaviorSubject(0);
+
   
 }
 const ReservationData={

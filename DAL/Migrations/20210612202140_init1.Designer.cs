@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    partial class VezeetaContextModelSnapshot : ModelSnapshot
+    [Migration("20210612202140_init1")]
+    partial class init1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "afccdacf-53ff-4370-ae14-a239f4ceb464",
+                            Id = "63334abb-994c-4d3e-a58e-b88f9c94e7b1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b4ab4288-1a05-4d7f-ae93-6c8aea883186",
+                            ConcurrencyStamp = "97c3da54-7c8f-45d2-88ca-8a0bd05ee863",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6278550d-5218-46be-b7e1-394bf71fe8fe",
+                            SecurityStamp = "76c5a478-ecf5-4cae-bdea-167aaf02d5e5",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -384,9 +386,6 @@ namespace DAL.Migrations
                     b.Property<double>("Discount")
                         .HasColumnType("float");
 
-                    b.Property<string>("DoctorId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<double>("Fees")
                         .HasColumnType("float");
 
@@ -409,8 +408,6 @@ namespace DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
 
                     b.HasIndex("OfferId");
 
@@ -880,10 +877,6 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.MakeOffer", b =>
                 {
-                    b.HasOne("DAL.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId");
-
                     b.HasOne("DAL.Models.Offer", "Offer")
                         .WithMany("MakeOffers")
                         .HasForeignKey("OfferId")
@@ -895,8 +888,6 @@ namespace DAL.Migrations
                         .HasForeignKey("SubOfferId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Doctor");
 
                     b.Navigation("Offer");
 

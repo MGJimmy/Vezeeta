@@ -21,6 +21,8 @@ using BL.DTOs.ReversationDto;
 using BL.DTOs.OfferDto;
 using BL.DTOs.SubOfferDto;
 using BL.DTOs.UserDto;
+using BL.DTOs.MakeOfferDTO;
+using BL.DTOs.MakeOfferImageDTO;
 
 namespace BL.Configurations
 {
@@ -171,7 +173,12 @@ namespace BL.Configurations
           .ReverseMap()
           .ForMember(m => m.Doctor, m => m.Ignore());
 
-            
+
+            CreateMap<MakeOffer, CreateMakeOfferDTO>().ReverseMap();
+            CreateMap<MakeOffer, GetMakeOfferDTO>().ReverseMap();
+            CreateMap<MakeOffer, GetMakeOfferWithDoctorInfoDTO>().ReverseMap();
+            CreateMap<MakeOfferImage, CreateMakeOfferImageDTO>().ReverseMap();
+            CreateMap<MakeOfferImage, GetMakeOfferImageDTO>().ReverseMap();
 
 
         }

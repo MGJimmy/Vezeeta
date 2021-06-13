@@ -119,6 +119,8 @@ namespace API
             services.AddScoped<ReservationAppService>();
             services.AddScoped<OfferAppService>();
             services.AddScoped<SubOfferAppService>();
+            services.AddScoped<MakeOfferAppService>();
+            services.AddScoped<MakeOfferImageAppService>();
 
 
 

@@ -26,6 +26,10 @@ import { OfferComponent } from './components/dashboard/offer/offer.component';
 import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component';
 
 const routes: Routes = [
   {
@@ -56,6 +60,14 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
+      {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
+    ]
+  },
+
+  {path:"ClientOffer",component:ClientOfferComponent
+    ,children:[
+      {path:"offers",component:HomeOfferComponent},
+      {path:"OfferDetails",component:OfferDetailsComponent},
     ]
   },
 

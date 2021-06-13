@@ -1,0 +1,49 @@
+
+<div class="row">
+    <div class="col-12 col-md-6 offerDetails">
+        <div class="img-container">
+            <img src="{{url}}/{{imageSelected}}" class="img-fluid">
+            <div class="otherImag p-2">                
+                <img *ngFor="let item of offerDetails.offerImages" src="{{url}}/{{item.image}}" class="img-fluid rounded m-1"(click)="changeImage(item.image)" [class.active]="imageSelected==item.image">
+            </div>
+        </div>
+        <div class="doctorInfo">
+            <span class="doctorImage d-inline-bloc" style='background-image: url({{url}}/{{offerDetails.doctor.image}})'>
+
+            </span>
+            <span class="doctorName p-1">Doctor {{offerDetails.doctor.userFullName}}</span>
+        </div>
+        <div class="description">
+            <span class="title d-block">Description</span>
+            <span class="body d-block m-0">
+                {{offerDetails.details}}
+            </span>
+        </div>
+        <div class="description">
+            <span class="title d-block">For your info</span>
+            <span class="body d-block m-0">
+                {{offerDetails.information}}
+            </span>
+        </div>
+
+
+
+    </div>
+    <div class="col-12 col-md-6 border-left reservation pt-3">
+        <span class="title d-block">{{offerDetails.title}}</span>
+        <span class="nuOfSession py-2">{{offerDetails.numberOfSession}} Session {{offerDetails.title}}</span>
+        <div class="price d-block py-1">
+            <span class="offerFees d-inline-block">{{offerDetails.fees}} EGP</span> 
+            <span class="offerDiscount d-inline-block"> Save {{offerDetails.discount}} EGP</span>
+            <span class="d-block offerPrice">{{offerDetails.fees-offerDetails.discount}} EGP</span>
+        </div>
+        <hr>
+        <div class="limitTime text-center">
+            <i class="fas fa-clock"></i>
+            <span class="pl-1">Limited Time</span>
+        </div>
+        <hr>
+    </div>
+    
+    
+</div>

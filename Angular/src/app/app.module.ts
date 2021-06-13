@@ -48,7 +48,12 @@ import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.co
 
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
-import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { OfferNavbarComponent } from './components/client-offer/offer-navbar/offer-navbar.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +94,11 @@ import { FilterDoctorsideBarComponent } from './components/show-doctors-page/fil
       HomePageComponent,
       ShowDoctorsPageComponent,
       FilterDoctorsideBarComponent,
+      DoctorMakeOfferComponent,
+      ClientOfferComponent,
+      OfferNavbarComponent,
+      HomeOfferComponent,
+      OfferDetailsComponent,
     
   ],
   imports: [

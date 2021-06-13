@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class ShowDoctorDetailsComponent implements OnInit {
   DoctorID: string;
   hasImage:boolean=false;
   hasdoctorServices:boolean=false;
-  constructor(private _doctorService:DoctorService,private datePipe: DatePipe,
+  constructor(private _doctorService:DoctorService,private datePipe: DatePipe,private _router:Router,
+    private _dataSharedService:DataSharedService,
     private activeRoute: ActivatedRoute) { 
       this.activeRoute.params.subscribe(params =>
         this.DoctorID = params['id']
@@ -87,7 +89,12 @@ export class ShowDoctorDetailsComponent implements OnInit {
     }
       return results;
     }
-
-
+    reserve(shiftId,doctorName,date){
+      date=new Date(date).toISOString();
+      this._router.navigate(["/Reversation"])
+      .then(()=>{
+        this._dataSharedService.GoToReservationPage.next({dayShiftId:shiftId,doctorName:doctorName,date:date })
+      })
+    }
     
 }

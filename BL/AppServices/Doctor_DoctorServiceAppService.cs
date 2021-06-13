@@ -46,7 +46,8 @@ namespace BL.AppServices
         public IEnumerable<DoctorServiceDto> GetDoctorServices(string doctorId)
         {
             //return Mapper.Map<IEnumerable<GetDoctor_DoctorServiceWithService>>(TheUnitOfWork.Doctor_DoctorServiceRepo.GetAllWherewithService(ds=>ds.doctorID==doctorId));
-            IEnumerable<GetDoctor_DoctorServiceWithService> result = Mapper.Map<IEnumerable<GetDoctor_DoctorServiceWithService>>(TheUnitOfWork.Doctor_DoctorServiceRepo.GetAllWherewithService(ds => ds.doctorID == doctorId));
+            var xx = TheUnitOfWork.Doctor_DoctorServiceRepo.GetAllWherewithService(ds => ds.doctorID == doctorId);
+            IEnumerable<GetDoctor_DoctorServiceWithService> result = Mapper.Map<IEnumerable<GetDoctor_DoctorServiceWithService>>(xx);
 
             List<DoctorService> ds = new List<DoctorService>();
             foreach (var item in result)

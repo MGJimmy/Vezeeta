@@ -69,7 +69,7 @@
 
                                             <div style="text-align: center;" class="appointment mt-3"
                                                 *ngIf="day.IsWork">
-                                                <div *ngFor="let shift of day._dayShift" class="mb-2 border">
+                                                <div *ngFor="let shift of day._dayShift" (click)="reserve(shift.id,doctor.user.userName,day.datee)" class="mb-2 border">
                                                     <small>from : {{shift.from}}</small>
                                                     <br>
                                                     <!-- {{shift.id}}  -->

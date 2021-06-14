@@ -26,5 +26,7 @@ namespace DAL.Models
         public List<SupSpecialization> supSpecializations { get; set; }
         public List<DoctorService> doctorServices { get; set; }
 
+        public Clinic Clinic { get; set;  }
+
     }
 }

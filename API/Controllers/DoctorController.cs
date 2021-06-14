@@ -25,7 +25,7 @@ namespace API.Controllers
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
         public DoctorController(
-            DoctorAppService doctorAppService, 
+            DoctorAppService doctorAppService,
             AccountAppService accountAppService,
             GeneralAppService generalAppService,
             IHttpContextAccessor httpContextAccessor)
@@ -33,7 +33,7 @@ namespace API.Controllers
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
-            _httpContextAccessor=httpContextAccessor;
+            _httpContextAccessor = httpContextAccessor;
 
         }
 
@@ -88,14 +88,14 @@ namespace API.Controllers
                 await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Doctor);
                 _doctorAppService.Create(registerUser.Id, registerDoctorDTO);
                 _generalAppService.CommitTransaction();
-                return Ok(new Response { Message="Doctor created successfully" });
+                return Ok(new Response { Message = "Doctor created successfully" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
                 return BadRequest(new Response { Message = ex.Message });
             }
-            
+
         }
 
         [HttpPost("assignSpecialty")]
@@ -133,6 +133,12 @@ namespace API.Controllers
                 _generalAppService.RollbackTransaction();
                 return BadRequest(new Response { Message = ex.Message });
             }
+        }
+
+        [HttpGet("search/{pageSize}/{pageNumber}")]
+        public IActionResult SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        {
+            return Ok(_doctorAppService.SearchForDoctor(pageSize, pageNumber, specialtyId, cityId, areaId, name));
         }
     }
 }

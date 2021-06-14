@@ -36,7 +36,8 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchComponent } from './components/search/search.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +67,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ManageDoctorServicesComponent,
 
     DocotorSpecialtyComponent,
+      SearchComponent,
     
   ],
   imports: [

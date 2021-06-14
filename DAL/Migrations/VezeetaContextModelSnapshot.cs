@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "07a9b0d4-a093-4466-87de-309b5e699609",
+                            Id = "936a1d83-eeee-4e43-8261-af2dd8fd16ff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a45f0c55-165b-4600-939e-f5a77803fda0",
+                            ConcurrencyStamp = "329cb41b-9aa0-45b4-8fb4-2b0915fd49e8",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "02293aca-64fe-4ad5-a94e-107d002a6986",
+                            SecurityStamp = "e26de622-6f0c-48b8-9a40-5c28c0cdd147",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -379,6 +379,36 @@ namespace DAL.Migrations
                     b.ToTable("WorkingDay");
                 });
 
+            modelBuilder.Entity("DoctorDoctorService", b =>
+                {
+                    b.Property<string>("DoctorsUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("doctorServicesID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorsUserId", "doctorServicesID");
+
+                    b.HasIndex("doctorServicesID");
+
+                    b.ToTable("DoctorDoctorService");
+                });
+
+            modelBuilder.Entity("DoctorSupSpecialization", b =>
+                {
+                    b.Property<string>("doctorsUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("supSpecializationsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("doctorsUserId", "supSpecializationsID");
+
+                    b.HasIndex("supSpecializationsID");
+
+                    b.ToTable("DoctorSupSpecialization");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -579,7 +609,7 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Models.Specialty", "specialty")
                         .WithMany("doctors")
                         .HasForeignKey("specialtyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("specialty");
@@ -616,6 +646,36 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
+                });
+
+            modelBuilder.Entity("DoctorDoctorService", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", null)
+                        .WithMany()
+                        .HasForeignKey("DoctorsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.DoctorService", null)
+                        .WithMany()
+                        .HasForeignKey("doctorServicesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorSupSpecialization", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", null)
+                        .WithMany()
+                        .HasForeignKey("doctorsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.SupSpecialization", null)
+                        .WithMany()
+                        .HasForeignKey("supSpecializationsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

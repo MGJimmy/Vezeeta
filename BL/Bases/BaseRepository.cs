@@ -36,6 +36,8 @@ namespace BL.Bases
             return DbSet;
         }
 
+   
+
         public virtual IEnumerable<T> GetAllSorted<TKey>(Expression<Func<T, TKey>> sortingExpression)
         {
             return DbSet.OrderBy<T, TKey>(sortingExpression);

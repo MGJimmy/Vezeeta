@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210603205029_init")]
+    [Migration("20210606222406_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "261e218b-7959-4690-963a-f5740ba605c6",
+                            Id = "936a1d83-eeee-4e43-8261-af2dd8fd16ff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4a1808ab-9dfc-4fab-b666-5955f87660ba",
+                            ConcurrencyStamp = "329cb41b-9aa0-45b4-8fb4-2b0915fd49e8",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2b3c705d-c07d-418d-8f60-528823458739",
+                            SecurityStamp = "e26de622-6f0c-48b8-9a40-5c28c0cdd147",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -263,7 +263,12 @@ namespace DAL.Migrations
                     b.Property<string>("doctorInfo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("specialtyId")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("specialtyId");
 
                     b.ToTable("Doctor");
                 });
@@ -291,6 +296,25 @@ namespace DAL.Migrations
                     b.HasKey("DoctorId");
 
                     b.ToTable("DoctorAttachment");
+                });
+
+            modelBuilder.Entity("DAL.Models.DoctorService", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DoctorService");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
@@ -355,6 +379,36 @@ namespace DAL.Migrations
                     b.HasIndex("ClinicId");
 
                     b.ToTable("WorkingDay");
+                });
+
+            modelBuilder.Entity("DoctorDoctorService", b =>
+                {
+                    b.Property<string>("DoctorsUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("doctorServicesID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DoctorsUserId", "doctorServicesID");
+
+                    b.HasIndex("doctorServicesID");
+
+                    b.ToTable("DoctorDoctorService");
+                });
+
+            modelBuilder.Entity("DoctorSupSpecialization", b =>
+                {
+                    b.Property<string>("doctorsUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("supSpecializationsID")
+                        .HasColumnType("int");
+
+                    b.HasKey("doctorsUserId", "supSpecializationsID");
+
+                    b.HasIndex("supSpecializationsID");
+
+                    b.ToTable("DoctorSupSpecialization");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -554,6 +608,14 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DAL.Models.Specialty", "specialty")
+                        .WithMany("doctors")
+                        .HasForeignKey("specialtyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("specialty");
+
                     b.Navigation("User");
                 });
 
@@ -586,6 +648,36 @@ namespace DAL.Migrations
                         .HasForeignKey("ClinicId");
 
                     b.Navigation("Clinic");
+                });
+
+            modelBuilder.Entity("DoctorDoctorService", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", null)
+                        .WithMany()
+                        .HasForeignKey("DoctorsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.DoctorService", null)
+                        .WithMany()
+                        .HasForeignKey("doctorServicesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorSupSpecialization", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", null)
+                        .WithMany()
+                        .HasForeignKey("doctorsUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.SupSpecialization", null)
+                        .WithMany()
+                        .HasForeignKey("supSpecializationsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -666,6 +758,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
                     b.Navigation("DoctorAttachment");
+                });
+
+            modelBuilder.Entity("DAL.Models.Specialty", b =>
+                {
+                    b.Navigation("doctors");
                 });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>

@@ -75,6 +75,20 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DoctorService",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ByAdmin = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorService", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Specialty",
                 columns: table => new
                 {
@@ -194,27 +208,6 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Doctor",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TitleDegree = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    doctorInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsAccepted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Doctor", x => x.UserId);
-                    table.ForeignKey(
-                        name: "FK_Doctor_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Area",
                 columns: table => new
                 {
@@ -236,6 +229,33 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Doctor",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TitleDegree = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    doctorInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsAccepted = table.Column<bool>(type: "bit", nullable: false),
+                    specialtyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Doctor", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Doctor_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Doctor_Specialty_specialtyId",
+                        column: x => x.specialtyId,
+                        principalTable: "Specialty",
+                        principalColumn: "ID");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "supSpecializations",
                 columns: table => new
                 {
@@ -253,27 +273,6 @@ namespace DAL.Migrations
                         column: x => x.specialtyId,
                         principalTable: "Specialty",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DoctorAttachment",
-                columns: table => new
-                {
-                    DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PersonalIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DoctorSyndicateIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OpenClinicPermissionImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isBinding = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorAttachment", x => x.DoctorId);
-                    table.ForeignKey(
-                        name: "FK_DoctorAttachment_Doctor_DoctorId",
-                        column: x => x.DoctorId,
-                        principalTable: "Doctor",
-                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -307,6 +306,75 @@ namespace DAL.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Doctor",
                         principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DoctorAttachment",
+                columns: table => new
+                {
+                    DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PersonalIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoctorSyndicateIdImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OpenClinicPermissionImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    isBinding = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorAttachment", x => x.DoctorId);
+                    table.ForeignKey(
+                        name: "FK_DoctorAttachment_Doctor_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctor",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DoctorDoctorService",
+                columns: table => new
+                {
+                    DoctorsUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    doctorServicesID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorDoctorService", x => new { x.DoctorsUserId, x.doctorServicesID });
+                    table.ForeignKey(
+                        name: "FK_DoctorDoctorService_Doctor_DoctorsUserId",
+                        column: x => x.DoctorsUserId,
+                        principalTable: "Doctor",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorDoctorService_DoctorService_doctorServicesID",
+                        column: x => x.doctorServicesID,
+                        principalTable: "DoctorService",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DoctorSupSpecialization",
+                columns: table => new
+                {
+                    doctorsUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    supSpecializationsID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorSupSpecialization", x => new { x.doctorsUserId, x.supSpecializationsID });
+                    table.ForeignKey(
+                        name: "FK_DoctorSupSpecialization_Doctor_doctorsUserId",
+                        column: x => x.doctorsUserId,
+                        principalTable: "Doctor",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DoctorSupSpecialization_supSpecializations_supSpecializationsID",
+                        column: x => x.supSpecializationsID,
+                        principalTable: "supSpecializations",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -374,7 +442,7 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "261e218b-7959-4690-963a-f5740ba605c6", 0, "4a1808ab-9dfc-4fab-b666-5955f87660ba", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "2b3c705d-c07d-418d-8f60-528823458739", false, "admin" });
+                values: new object[] { "936a1d83-eeee-4e43-8261-af2dd8fd16ff", 0, "329cb41b-9aa0-45b4-8fb4-2b0915fd49e8", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "e26de622-6f0c-48b8-9a40-5c28c0cdd147", false, "admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Area_CityID",
@@ -453,6 +521,21 @@ namespace DAL.Migrations
                 column: "WorkingDayId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctor_specialtyId",
+                table: "Doctor",
+                column: "specialtyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorDoctorService_doctorServicesID",
+                table: "DoctorDoctorService",
+                column: "doctorServicesID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DoctorSupSpecialization_supSpecializationsID",
+                table: "DoctorSupSpecialization",
+                column: "supSpecializationsID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Specialty_Name",
                 table: "Specialty",
                 column: "Name",
@@ -499,7 +582,10 @@ namespace DAL.Migrations
                 name: "DoctorAttachment");
 
             migrationBuilder.DropTable(
-                name: "supSpecializations");
+                name: "DoctorDoctorService");
+
+            migrationBuilder.DropTable(
+                name: "DoctorSupSpecialization");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -508,7 +594,10 @@ namespace DAL.Migrations
                 name: "WorkingDay");
 
             migrationBuilder.DropTable(
-                name: "Specialty");
+                name: "DoctorService");
+
+            migrationBuilder.DropTable(
+                name: "supSpecializations");
 
             migrationBuilder.DropTable(
                 name: "Clinic");
@@ -524,6 +613,9 @@ namespace DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Specialty");
         }
     }
 }

@@ -21,8 +21,8 @@ namespace BL.Configurations
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
-        { 
-          
+        {
+
             CreateMap<City, CityDTO>()
                 .ReverseMap();
             CreateMap<City, CreateCityDTO>()
@@ -51,7 +51,7 @@ namespace BL.Configurations
            .ReverseMap();
             CreateMap<SupSpecialization, SupSpecailization>()
               .ReverseMap();
-              //.ForMember(m => m.specialty, m => m.Ignore());
+            //.ForMember(m => m.specialty, m => m.Ignore());
 
             CreateMap<Clinicservice, ClinicServiceDto>()
                 .ReverseMap();
@@ -77,7 +77,7 @@ namespace BL.Configurations
                         name = p.Name,
                         byAdmin = p.ByAdmin
                     }).ToList());
-                   
+
 
             CreateMap<ApplicationUserIdentity, RegisterAccountDTO>()
             .ReverseMap()
@@ -129,6 +129,22 @@ namespace BL.Configurations
             CreateMap<ApplicationUserIdentity, LoginDto>().ReverseMap();
 
             CreateMap<DoctorService, DoctorServiceDto>().ReverseMap();
+
+            CreateMap<Doctor, GetDoctorDto>()
+                .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.User.FullName))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.Clinic.CityId))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.Clinic.AreaId))
+                .ForMember(dest => dest.Fees, opt => opt.MapFrom(src => src.Clinic.Fees))
+                .ForMember(dest => dest.WatingTime, opt => opt.MapFrom(src => src.Clinic.WatingTime))
+                .ForMember(dest=>dest.specialtyName , opt => opt.MapFrom(src => src.specialty.Name))
+                .ForMember(dest=>dest.CityName , opt=> opt.MapFrom(src=> src.Clinic.City.Name))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.Area.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Clinic.Street))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.ExaminationTime))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.Area.Name))
+                .ReverseMap();
+
+
 
 
 

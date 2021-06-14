@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace BL.AppServices
 {
-    public class DoctorAppService:BaseAppService
+    public class DoctorAppService : BaseAppService
     {
-        public DoctorAppService(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork,mapper)
+        public DoctorAppService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
         public Doctor GetById(string id)
@@ -28,7 +28,7 @@ namespace BL.AppServices
             List<DoctorSubSpecialtyDTO> doctorSubSpecialty = Mapper.Map<List<DoctorSubSpecialtyDTO>>(doctor);
             return doctorSubSpecialty;
         }
-            public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
+        public Doctor Create(string userId, CreateDoctorDTO createDoctorDTO)
         {
             Doctor doctor = Mapper.Map<Doctor>(createDoctorDTO);
             doctor.UserId = userId;
@@ -57,13 +57,23 @@ namespace BL.AppServices
         public void InsertSubSpecialtyToDoctor(string doctorId, List<SupSpecailization> subSpeiatyDto)
         {
             List<SupSpecialization> subSpecializations = Mapper.Map<List<SupSpecialization>>(subSpeiatyDto);
-            TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId,subSpecializations);
+            TheUnitOfWork.DoctorRepo.InsertSubSpecialtyToDoctor(doctorId, subSpecializations);
             TheUnitOfWork.SaveChanges();
         }
         public void EmptySubSpecialtyInDoctor(string doctorId)
         {
             TheUnitOfWork.DoctorRepo.EmptySubSpecialtyInDoctor(doctorId);
             TheUnitOfWork.SaveChanges();
+        }
+
+        public List<GetDoctorDto> SearchForDoctor(int pageSize , int pageNumber ,int? specialtyId, int? cityId, int? areaId, string name)
+        {
+
+            var result = TheUnitOfWork.DoctorRepo.GetAllDoctors(pageSize , pageNumber , specialtyId , cityId , areaId , name);
+
+            return Mapper.Map<List<GetDoctorDto>>(result);
+
+
         }
     }
 }

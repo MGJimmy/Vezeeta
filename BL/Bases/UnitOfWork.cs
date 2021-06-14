@@ -197,8 +197,104 @@ namespace BL.Bases
                 return doctorServiceRepository;
             }
         }
+        private ClinicClinicServiceRepository clinicClinicServiceRepo;
+        public ClinicClinicServiceRepository ClinicClinicServiceRepo
+        {
+            get
+            {
+                if (clinicClinicServiceRepo == null)
+                    clinicClinicServiceRepo = new ClinicClinicServiceRepository(Context);
+                return clinicClinicServiceRepo;
+            }
+        }
+
+        private DoctorSubSpecializationRepository doctorSubSpecializationRepository;
+        public DoctorSubSpecializationRepository DoctorSubSpecializationRepo
+        {
+            get
+            {
+                if (doctorSubSpecializationRepository == null)
+                    doctorSubSpecializationRepository = new DoctorSubSpecializationRepository(Context);
+                return doctorSubSpecializationRepository;
+            }
+        }
+
+        private ReservationRepository reservationRepository;
+        public ReservationRepository ReservationRepo
+        {
+            get
+            {
+                if (reservationRepository == null)
+                    reservationRepository = new ReservationRepository(Context);
+                return reservationRepository;
+            }
+        }
+
+        private OfferRepository offerRepository;
+        public OfferRepository OfferRepo
+        {
+            get
+            {
+                if (offerRepository == null)
+                    offerRepository = new OfferRepository(Context);
+                return offerRepository;
+            }
+        }
+        private SubOfferRepository subOfferRepository;
+        public SubOfferRepository SubOfferRepo
+        {
+            get
+            {
+                if (subOfferRepository == null)
+                    subOfferRepository = new SubOfferRepository(Context);
+                return subOfferRepository;
+            }
+        }
 
 
+
+
+        private Doctor_DoctorServiceRepository doctor_DoctorServiceRepo;
+        public Doctor_DoctorServiceRepository Doctor_DoctorServiceRepo
+        {
+            get
+            {
+                if (doctor_DoctorServiceRepo == null)
+                    doctor_DoctorServiceRepo = new Doctor_DoctorServiceRepository(Context);
+                return doctor_DoctorServiceRepo;
+            }
+        }
+        private MakeOfferRepository makeOfferRepo;
+        public MakeOfferRepository MakeOfferRepo
+        {
+            get
+            {
+                if (makeOfferRepo == null)
+                    makeOfferRepo = new MakeOfferRepository(Context);
+                return makeOfferRepo;
+            }
+        }
+        private MakeOfferImageRepository makeOfferImageRepo;
+        public MakeOfferImageRepository MakeOfferImageRepo
+        {
+            get
+            {
+                if (makeOfferImageRepo == null)
+                    makeOfferImageRepo = new MakeOfferImageRepository(Context);
+                return makeOfferImageRepo;
+            }
+        }
+
+        private ReserveOfferRepository reserveOfferRepo;
+        public ReserveOfferRepository ReserveOfferRepo
+        {
+            get
+            {
+                if (reserveOfferRepo == null)
+                    reserveOfferRepo = new ReserveOfferRepository(Context);
+                return reserveOfferRepo;
+            }
+        }
 
         public void Dispose()
         {

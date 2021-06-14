@@ -73,7 +73,7 @@ export class ManageDoctorServicesComponent implements OnInit {
       id:0 ,
       name : this.formFields.name.value,
       byAdmin:true
-     
+
     };
     this._DoctorServicesService.addNewDoctorService(newDoctorService)
         .pipe(first())

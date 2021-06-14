@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-12 col-md-6 offerDetails">
+        <div class="img-container">
+            <img src="{{url}}/{{imageSelected}}" class="img-fluid">
+            <div class="otherImag p-2">
+                <img *ngFor="let item of offerDetails.offerImages" src="{{url}}/{{item.image}}"
+                    class="img-fluid rounded m-1" (click)="changeImage(item.image)"
+                    [class.active]="imageSelected==item.image">
+            </div>
+        </div>
+
+        <div class="doctorInfo">
+            <span class="doctorImage d-inline-bloc">
+                <img src="{{url}}/{{offerDetails.doctor.image}}" class="img-fluid">
+            </span>
+            <span class="doctorName p-1">Doctor {{offerDetails.doctor.userFullName}}</span>
+        </div>
+
+        <div class="description">
+            <span class="title d-block">Description</span>
+            <span class="body d-block m-0">
+                {{offerDetails.details}}
+            </span>
+        </div>
+        <div class="description">
+            <span class="title d-block">For your info</span>
+            <span class="body d-block m-0">
+                {{offerDetails.information}}
+            </span>
+        </div>
+
+
+
+    </div>
+    <div class="col-12 col-md-6 border-left reservation pt-3">
+        <span class="title d-block">{{offerDetails.title}}</span>
+        <span class="nuOfSession py-2">{{offerDetails.numberOfSession}} Session {{offerDetails.title}}</span>
+        <div class="price d-block py-1">
+            <span class="offerFees d-inline-block">{{offerDetails.fees}} EGP</span>
+            <span class="offerDiscount d-inline-block"> Save {{offerDetails.discount}} EGP</span>
+            <span class="d-block offerPrice">{{offerDetails.fees-offerDetails.discount}} EGP</span>
+        </div>
+        <hr>
+        <div class="limitTime text-center">
+            <i class="fas fa-clock"></i>
+            <span class="pl-1">Limited Time</span>
+        </div>
+        <hr>
+        <div *ngIf="showReserveComponent==false" id="carouselExampleControls" class="carousel slide" data-ride="carousel"
+            style="display: flex;justify-content: center;" data-interval="false">
+            <div class="carousel-inner col-12" style="justify-content: center;">
+
+                <div class="carousel-item p-2" style="justify-content: center;"
+                    *ngFor="let days of workingDays;let i=index" [class.active]="i==0">
+
+                    <div class="d-flex col-12 px-5" style="justify-content: center;">
+
+                        <div class="col-4 appointmentsDiv" *ngFor="let day of days">
+                            <button class="btn btn-primary w-100">{{ day.datee |
+                                date:'MMMM d'}}</button>
+
+                            <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
+                                <div *ngFor="let shift of day._dayShift"
+                                    (click)="reserve(shift.id,day.datee)" class="mb-2 border">
+                                    <small>from : {{shift.from}}</small>
+                                    <br>
+                                    <!-- {{shift.id}}  -->
+                                    <small>to : {{shift.to}}</small>
+                                </div>
+
+                            </div>
+                            <div style="text-align: center;" class="appointment mt-3" *ngIf="!day.IsWork">
+                                <p>no available appointment</p>
+                            </div>
+                            <button class="btn btn-danger w-100" [disabled]="!day.IsWork">BOOK</button>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <!-- style="left: -7% !important;" -->
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <!-- style="right: -7% !important;" -->
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <hr>
+
+        <app-reserve-offer *ngIf="showReserveComponent==true" (showReserveComponent)="showReserveComponent=$event" [doctorId]="offerDetails.doctor.userId" [offerId]="offerDetails.offerId"></app-reserve-offer>
+
+        <hr>
+        <div class="text-center limitTime ">
+            Reservation required, first-come, first-served
+        </div>
+        <hr>
+    </div>
+
+
+</div>

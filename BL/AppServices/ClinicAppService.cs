@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BL.Bases;
+using BL.DTOs;
 using BL.DTOs.ClinicDto;
 using BL.Interfaces;
 using DAL.Models;
@@ -52,6 +53,18 @@ namespace BL.AppServices
             result = TheUnitOfWork.SaveChanges() > new int();
             return result;
         }
+        //public void AddClinicServicesToClinic(string doctorId, IEnumerable<ClinicServiceDto> clinicServiceDtos)
+        //{
+        //    var clinic = TheUnitOfWork.ClinicRepo.GetByStringId(doctorId);
+        //    var clinicServices = Mapper.Map<IEnumerable<Clinicservice>>(clinicServiceDtos);
+        //    foreach (var clinicService in clinicServices)
+        //    {
+        //        var dbclinicService = TheUnitOfWork.ClincServicesRepo.GetById(clinicService.ID);
+        //        clinic.ClinicServices.Add(dbclinicService);
+        //    }
+        //    TheUnitOfWork.SaveChanges();
+
+        //}
 
     }
 }

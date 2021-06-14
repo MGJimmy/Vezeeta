@@ -75,7 +75,8 @@ export class RegisterDoctorComponent implements OnInit {
           this._router.navigate(["login"]);
         },
         error => {
-          this.error = error;
+          console.log(error);
+          this.error = error.body;
           this.loading = false;
         });
   }
@@ -83,7 +84,11 @@ export class RegisterDoctorComponent implements OnInit {
     this.response = event;
   }
   public createImgPath = () => {
-    return `${environment.apiUrl}/${this.response.dbPath}`;
+    if(this.response.dbPath !='')
+    {
+      return `${environment.apiUrl}/${this.response.dbPath}`;
+    }
+    else{return '';}
   }
 }
 

@@ -13,9 +13,26 @@ import { DoctorDashboardAttachmentComponent } from './components/doctor-dashboar
 import { DoctorDashboardComponent } from './components/doctor-dashboard/doctor-dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterDoctorComponent } from './components/register-doctor/register-doctor.component';
+import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
+import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
+import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
+import { ShowReservationToDoctorComponent } from './components/client/show-reservation-to-doctor/show-reservation-to-doctor.component';
+import { OfferComponent } from './components/dashboard/offer/offer.component';
+import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component';
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
+import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
+import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component';
 
 const routes: Routes = [
   {
@@ -30,6 +47,8 @@ const routes: Routes = [
       {path:'clinicServices' , component:ClinicServicesComponent},
       {path: 'doctorAttachments', component: DoctorAttachmentsComponent},
       {path: 'doctorServices', component: ManageDoctorServicesComponent},
+      {path:"offer",component:OfferComponent},
+      {path:"subOffer",component:SubOfferComponent},
     
     ]
   },
@@ -38,12 +57,37 @@ const routes: Routes = [
     children:[
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'clinc',component:DoctorClincComponent},
+      {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'workingDays',component:ClinicWorkingDaysComponent},
+      {path:'doctorServices',component:DoctorServicesComponent,canActivate:[AuthGuard]},
+      {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
+      {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
+      {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
     ]
   },
+
+  {path:"ClientOffer",component:ClientOfferComponent
+    ,children:[
+      {path:"offers",component:HomeOfferComponent},
+      {path:"OfferDetails",component:OfferDetailsComponent},
+      {path:"UserOfferAppointments",component:ShowOfferReserveToPatientComponent},
+      {path:"DoctorOfferAppointments",component:ShowOfferReserveToDoctorComponent},
+    ]
+  },
+
+  {path:"Reversation",component:CreatReservationComponent},
+  {path:"ReversationContinue",component:CreatReservationContinueComponent},
+  {path:"UserAppointments",component:ShowReservationToPatientComponent},
+  {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
+  
   {path:"registerDoctor", component:RegisterDoctorComponent},
-  {path:"login", component:LoginComponent}
+  {path:"registerUser", component:UserRegisterComponent},
+  {path:"login", component:LoginComponent},
+  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
+  {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+  {path:"home", component:HomePageComponent},
+  {path:"**", component:HomePageComponent},
 ];
 
 @NgModule({

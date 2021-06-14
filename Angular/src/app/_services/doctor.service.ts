@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { IDoctorDetails } from '../_models/_interfaces/IDoctorDetails';
+import { IDoctorWithClinic } from '../_models/_interfaces/IDoctorWithClinic';
+import { IDoctor } from '../_models/_interfaces/IDoctorPresentaion';
 import { IDoctorSearch } from '../_models/_interfaces/IDoctorSearch';
 import { IDoctorWithSubSpecialty } from '../_models/_interfaces/IDoctorWithSubSpecialty';
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
@@ -17,32 +20,33 @@ export class DoctorService {
   constructor(private _http: HttpClient) { }
   url = `${environment.apiUrl}/api/Doctor`;
 
-  getCurrentDoctor(): Observable<IRegisterDoctor> {
+  getCurrentDoctor():Observable<IRegisterDoctor>{
 
     return this._http.get<IRegisterDoctor>(this.url).pipe(catchError(
       (err) => {
         return throwError(err.message || "Internal Server error contact site adminstarator");
       }))
   }
-  getCurrentDoctorWithSubSpecialty(): Observable<ISubSpecialty[]> {
+  getCurrentDoctorWithSubSpecialty():Observable<ISubSpecialty[]>{
 
-    return this._http.get<ISubSpecialty[]>(this.url + "/subSpecialty").pipe(catchError(
-      (err) => {
-        return throwError(err.message || "Internal Server error contact site adminstarator");
+  getDoctorWithClinicDetails(doctorName:string):Observable<IDoctorWithClinic>{
+    return this._http.get<IDoctorWithClinic>(this.url+"/GetWithClinicForReservetionCart/"+doctorName).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }))
+  }
+ 
+  getDoctorByName(doctorName:string):Observable<IDoctorDetails>{
+    return this._http.get<IDoctorDetails>(this.url+"/doctorByName/"+doctorName).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
       }))
   }
 
-  assignSpecialtyToDoctor(specialty: ISpecialty): Observable<ISpecialty> {
-    return this._http.post<any>(this.url + "/assignSpecialty", specialty).pipe(catchError(
-      (err) => {
-        return throwError(err.message || "Internal Server error contact site adminstarator");
-      }))
-  }
-
-  assignSuubSpecialtyToDoctor(subSpecialty: ISubSpecialty[]): Observable<ISubSpecialty[]> {
-    return this._http.post<any>(this.url + "/assignSubSpecialty", subSpecialty).pipe(catchError(
-      (err) => {
-        return throwError(err.message || "Internal Server error contact site adminstarator");
+  assignSpecialtyToDoctor(specialty:ISpecialty):Observable<ISpecialty>{
+    return this._http.post<any>(this.url+"/assignSpecialty",specialty).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
       }))
   }
 
@@ -78,6 +82,57 @@ export class DoctorService {
     )
 
   }
+
+
+
+
+  //doctor_DoctorServices
+  addservice(services)
+  {
+   return this._http.post<any>(`${environment.apiUrl}/api/Doctor/addServices`, services)
+   .pipe(catchError((err) => {
+       console.log(err);
+       return throwError(err.message || "An Error Occur")
+     })
+   )}
+   GetMyservices()
+   {
+    return this._http.get<any>(`${environment.apiUrl}/api/Doctor/Myservices`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+Updateservices(services)
+   {
+    return this._http.put<any>(`${environment.apiUrl}/api/Doctor/UpdateDoctorServices`,services)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+    /// show doctors
+
+  ShowSpecailtyDoctors(SpecailtyId)
+   {
+    return this._http.get<IDoctor[]>(`${environment.apiUrl}/api/Doctor/GetAllWhere/${SpecailtyId}`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
+  ShowDoctorDetails(DoctorId)
+   {
+    return this._http.get<IDoctor>(`${environment.apiUrl}/api/Doctor/DoctorDetails/${DoctorId}`)
+    .pipe(catchError((err) => {
+        console.log(err);
+        return throwError(err.message || "An Error Occur")
+      })
+    )}
+
 
 
 }

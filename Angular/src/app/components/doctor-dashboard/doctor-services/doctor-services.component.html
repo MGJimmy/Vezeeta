@@ -1,0 +1,144 @@
+<div class="attachment p-0 m-0">
+    <div class="header-info text-center p-2">
+        Doctor Services
+    </div>
+
+    <!-- <div class="d-flex" style="justify-content: center;">
+
+
+         <form class="p-5 border col-12">
+            <div class="d-flex">
+                <div class="col-5 border" style="overflow-y:auto;height: 300px;">
+                    Service ByAdmin
+                    <div class="form-check" *ngFor="let item of NewServiceList">
+                    <input type="checkbox" class="form-check-input"  (change)="changeStatus(item,$event)" [checked]="item.checked">
+                    <label class="form-check-label" for="exampleCheck1">{{item.name}}</label>
+                  </div>
+                   
+                </div>
+
+                <div class="col-5 ml-5 border" style="overflow-y:auto;height: 300px;">
+                    <span>Service By others doctor</span>
+                    <div class="form-check" *ngFor="let item of ServicesList2">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1"
+                            (change)="changeStatus(service,$event)">
+                        <label class="form-check-label" for="exampleCheck1">{{item.Name}}</label>
+                    </div>
+                </div>
+              
+
+            </div>
+            <div *ngIf="!hasServices" class="mt-5">
+                <p style="background-color: burlywood;"> You have not any service please the your services</p>
+            </div>
+            <div *ngIf="hasServices" class="mt-5">
+                <div class="col-5 border" style="overflow-y:auto;height: 300px;">
+                    My Services
+                    <div class="form-check" *ngFor="let item of SelectedServiceIdList">
+                         <input type="checkbox" class="form-check-input" id="exampleCheck1" (change)="changeStatus(item,$event)"> -->
+                        <!-- <label class="form-check-label" for="exampleCheck1">{{item.name}}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 d-flex justify-content-end">
+               
+                <button class="btn btn-primary mb-2 dBAddNewBtn" data-toggle="modal" data-target="#addAndUpdateModel">
+                    New
+                </button>
+            </div> -->
+
+
+            <!-- <div class="mt-5">
+                <button class="btn btn-primary mr-3 col-3" *ngIf="!hasServices" (click)="onAddSubmit()">
+                    Save
+                </button>
+                <button class="btn btn-primary col-3" *ngIf="hasServices" (click)="onEditSubmit()">
+                    Save Edit
+                </button>
+            </div>
+        </form>  
+        
+    </div> -->
+
+    <div class="p-2">
+        <div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <label >Choose Services</label>
+                    
+                    <ng-select 
+                        [items]="ServicesList" 
+                        bindLabel="name"
+                        placeholder="Select Services you offer" 
+                        appendTo="body"
+                        multiple="true" 
+                        [(ngModel)]="SelectedServiceIdList">
+                    </ng-select>
+                   
+                </div>
+                <div class="col-12 col-md-6">
+                    <label >Add new Service</label>
+                    
+                    <div class="row m-0 p-0 ">
+                        <div class="col-10 px-1">
+                            <input type="text" class="form-control" [(ngModel)]="insertServiceValue" #insert>
+                        </div>
+                        <div class="col-2 px-0">
+                            <button class="btn btn-primary" (click)="add(insert.value)">add</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNewServices(i)" *ngFor="let ser of addNewServicesList;let i = index">{{ser.name}} <i class="fas fa-times-circle"></i></button>
+                        <button class="btn btn-primary m-1 sss" (click)="removefromNotAcceptedServices(i)" *ngFor="let ser of NotAcceptByAdminServiceSelected;let i = index">{{ser.name}} <i class="fas fa-times-circle"></i></button>
+                    </div>
+                    <span class="text-info" *ngIf="addNewServicesList.length>0">* after enter this waiting to accept by admin</span>
+                    
+                </div>
+                
+            </div>
+            <hr>
+            <div class="text-right">
+                <button class="btn btn-primary px-3" (click)="onAddSubmit()" *ngIf="!hasServices">Save</button>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary col-3" *ngIf="hasServices" (click)="onEditSubmit()">
+                    Save Edit
+                </button>
+            </div>
+           
+        </div>
+    </div>
+
+
+
+</div>
+<!-- <div class="modal fade" id="addAndUpdateModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add New Service</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="DoctorServiceForm">
+                <div class="modal-body">
+                    <div class="form-group my-3">
+                        <input formControlName="name" type="text" class="form-control" placeholder="Name" name="name">
+                        <div *ngIf="formFields.name.invalid && formFields.name.touched">
+                            <small class="text-danger" *ngIf="formFields.name.errors?.required"> name Is Required</small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        #addOrUpdateModelCloseBtn>Close</button>
+                    <button type="submit" class="btn btn-primary" (click)="AddNewService()">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> -->

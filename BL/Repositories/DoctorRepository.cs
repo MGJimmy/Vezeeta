@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,11 +20,23 @@ namespace BL.Repositories
             Doctor doctor = DbSet.FirstOrDefault(i => i.UserId == id);
             return doctor;
         }
-        public Doctor GetSubSpecialtyByDoctorId(string id)
+        public Doctor GetByName(string name)
         {
-            Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i => i.supSpecializations).FirstOrDefault();
+            Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i=>i.supSpecializations).FirstOrDefault();
             return doctor;
         }
+
+        public Doctor GetWithClinicDetails(string name)
+        {
+            Doctor doctor = DbSet.Where(i => i.User.UserName == name).Include(i =>i.User).FirstOrDefault();
+            return doctor;
+        }
+
+        //public Doctor GetSubSpecialtyByDoctorId(string id)
+        //{
+        //    Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i=>i.supSpecializations).FirstOrDefault();
+        //    return doctor;
+        //}
         public void activateDoctor(string doctorID)
         {
             Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
@@ -36,6 +47,10 @@ namespace BL.Repositories
             Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
             doctor.IsAccepted = false;
         }
+        //public Doctor GetByStringId(string id)
+        //{
+        //    return DbSet.Include(i => i.doctorServices).FirstOrDefault(d=>d.UserId==id);
+        //}
 
 
         public void InsertSpecialtyToDoctor(string doctorId, Specialty specialty)
@@ -51,8 +66,7 @@ namespace BL.Repositories
         {
             var doctor = DbSet.Where(d => d.UserId == doctorId).Include(d => d.supSpecializations).FirstOrDefault();
             //var doctor = DbSet.Find(doctorId);
-            if (doctor != null && subSpecialties != null)
-            {
+           if (doctor != null && subSpecialties != null) {
                 doctor.supSpecializations = subSpecialties;
                 //foreach (var item in subSpecialties)
                 //{
@@ -62,10 +76,10 @@ namespace BL.Repositories
                 // DbSet.Update(doctor);
             }
         }
-
+        
         public void EmptySubSpecialtyInDoctor(string doctorId)
         {
-            var doctor = DbSet.Where(x => x.UserId == doctorId).Include(x => x.supSpecializations).FirstOrDefault();
+            var doctor = DbSet.Where(x=>x.UserId==doctorId).Include(x=>x.supSpecializations).FirstOrDefault();
             if (doctor != null)
             {
                 //for(var i=doctor.supSpecializations.Count-1;i>= 0; i--)
@@ -79,52 +93,20 @@ namespace BL.Repositories
                 //    Context.Entry(i).State = EntityState.Detached;
                 //    });
 
-                doctor.supSpecializations = null;
-                //Context.Entry<List<SupSpecialization>>(doctor.supSpecializations).State = EntityState.Detached;
-
-                //DbSet.Update(doctor);
+            if (filter != null)
+            {
+                query = query.Where(filter).Include(d=>d.User).Include(d=>d.DoctorSubSpecialization).Include(d=> d.doctor_doctorServices).Include(d => d.specialty);
             }
+            query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
 
+            return query;
         }
 
-        public IEnumerable<Doctor> GetAllDoctors(int pageSize, int pagNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        public Doctor GetDoctorDetailswithID(string id)
         {
-            pageSize = (pageSize > 10 || pageSize < 0) ? 10 : pageSize;
-            pagNumber = (pagNumber < 0) ? 1 : pagNumber;
-
-
-            
-            var result = DbSet.Include(d => d.User)
-                .Include(d => d.Clinic)
-                .ThenInclude(d => d.City)
-                .Include(d => d.Clinic)
-                .ThenInclude(d => d.Area)
-                .Include(d => d.specialty)
-                .Include(d => d.supSpecializations).AsQueryable();
-
-            if (specialtyId != null)
-            {
-                result = result.Where(d => d.specialtyId == specialtyId);
-            }
-
-            if (cityId != null)
-            {
-                result = result.Where(d => d.Clinic.CityId == cityId);
-            }
-
-            if (areaId != null)
-            {
-                result = result.Where(d => d.Clinic.AreaId == areaId);
-            }
-
-            if (name != null)
-            {
-                result = result.Where(d => d.User.FullName.Contains(name));
-            }
-
-
-            return result.Skip((pagNumber - 1) * pageSize).Take(pageSize);
-
+            Doctor doctor = DbSet.Include(d => d.User).Include(d => d.DoctorSubSpecialization).Include(d => d.doctor_doctorServices).Include(d => d.specialty).FirstOrDefault(i => i.UserId == id);
+            return doctor;
         }
     }
 }

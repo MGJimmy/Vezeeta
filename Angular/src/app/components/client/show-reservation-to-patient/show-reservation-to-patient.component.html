@@ -1,0 +1,29 @@
+<div class="container py-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th width="17%">Doctor Name</th>
+                <th width="22%" >Where</th>
+                <th width="20%" >Reservation Date</th>
+                <th width="20%" >State </th>
+                <th width="21%" >Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of allReservation;let i = index">
+                <td>{{item.doctorName}}</td>
+                <td>{{item.clinicStreeet}} {{item.clinicArea}}</td>
+                <td>{{item.date.slice(0,10)}}
+                    <br>
+                    {{item.dayShiftFrom}} - {{item.dayShiftTo}}
+                </td>
+                <td *ngIf="item.state==true">Confirmed</td>
+                <td *ngIf="item.state==false">Reservation Cancelled</td>
+                <td>
+                    <button class="btn text-danger btn-cancel p-0" (click)="cancel(i)" *ngIf="item.state==true"><i class="far fa-times-circle"></i>Cancel</button>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

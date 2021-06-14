@@ -1,0 +1,129 @@
+
+    <h2 class="text-center display-4 font-weight-bold my-5 pageTitle">Offers</h2>
+
+
+    <div class="d-flex justify-content-between mb-2" style="align-items: center;">
+        <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#AddOrUpdateModal"
+            (click)="openAddModal()">
+            New
+        </button>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 p-1 " *ngFor="let item of allmakeOfferRelatedToDoctor">
+                <div class="card">
+                    <img src="{{url}}/{{item.offerImages[0].image}}" class="card-img-top img-fluid" alt="...">
+                    <div class="card-body p-3 pt-2">
+                        <div class="allimageContainer">
+                            <div class="d-inline-block allimage m-1 border" *ngFor="let image of item.offerImages">
+                                <img src="{{url}}/{{image.image}}" class=" img-fluid">
+                            </div>
+                        </div>
+                        <span class="card-title offerTitle sp d-block">{{item.title}}</span>
+                        <span class="card-text d-block sp offerSession d-block">
+                            {{item.numberOfSession}} Session for {{item.title}}
+                        </span>
+                        <span class="card-text d-block ">
+                            <span class="offerFees d-inline-block">{{item.fees}} EGP</span> 
+                            <span class="offerDiscount d-inline-block"> Save {{item.discount}} EGP</span>
+                            <span class="d-block offerPrice">{{item.fees-item.discount}} EGP</span>
+                        </span>
+                        
+                    </div>  
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#AddOrUpdateModal" (click)="openUpdateModal(item.id)">
+                        Update
+                    </button>
+                    
+                    <div class="bg-success text-light text-center state" *ngIf="item.state"> running </div>
+                    <div class="bg-danger text-light text-center state" *ngIf="!item.state"> stopped </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+<!-- modal -->
+<div class="modal fade" id="AddOrUpdateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{modelTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <form [formGroup]="makeOfferForm">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" formControlName="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">Number Of Session:</label>
+                        <input type="text" class="form-control" formControlName="numberOfSession">
+                    </div>
+                    <div class="row p-0">
+                        <div class="form-group col-6">
+                            <label for="offer-name" class="col-form-label">Fees:</label>
+                            <input type="text" class="form-control" formControlName="fees">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="offer-name" class="col-form-label">Discount:</label>
+                            <input type="text" class="form-control" formControlName="discount" placeholder="the price will be discount from total fees">
+                        </div>
+                        <span class="text-info text-center mx-4">after discount is {{fees.value-discount.value}} EGP</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">Details:</label>
+                        <textarea class="form-control" formControlName="details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">For your info:</label>
+                        <textarea class="form-control" formControlName="information"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">Offer:</label>
+                        <select class="form-control" formControlName="offerId" (change)="chooseOffer($event.target.value)" >
+                            
+                            <option *ngFor="let item of allOffer" value="{{item.id}}">
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="offer-name" class="col-form-label">SubOffer:</label>
+                        <select class="form-control" formControlName="subOfferId">
+                            <option hidden disabled selected value> -- select an option -- </option>
+                            <option *ngFor="let item of allSubOffer" [ngValue]="item.id">
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div *ngIf="modelActionType=='Update'">
+                        <label for="offer-name" class="col-form-label">State:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="inlineRadio1" formControlName="state" value='true'>
+                            <label class="form-check-label" for="inlineRadio1">run</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="inlineRadio2" formControlName="state" value="false">
+                            <label class="form-check-label" for="inlineRadio2">Stop</label>
+                        </div>
+                    </div>
+
+                    <app-upload-multiple (onUploadFinished)="uploadClinicImages($event)"></app-upload-multiple>
+
+                               
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" #modalCloseBtn>Close</button>
+                    <button type="button" class="btn btn-primary" (click)="addOrUpdate()" [disabled]="makeOfferForm.invalid">
+                        {{modelActionType}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

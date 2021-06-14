@@ -29,13 +29,35 @@ import { UploadAndShowComponent } from './components/_reusableComponents/upload-
 import { DoctorClincComponent } from './components/doctor-dashboard/doctor-clinc/doctor-clinc.component';
 import { UploadMultipleComponent } from './components/_reusableComponents/upload-multiple/upload-multiple.component';
 import { ClinicWorkingDaysComponent } from './components/doctor-dashboard/clinic-working-days/clinic-working-days.component';
+import { DoctorServicesComponent } from './components/doctor-dashboard/doctor-services/doctor-services.component';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor-specialty/docotor-specialty.component';
 
 // import {} from 'angular-ng-autocomplete';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
+import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
+import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
+import { ShowReservationToDoctorComponent } from './components/client/show-reservation-to-doctor/show-reservation-to-doctor.component';
+import { OfferComponent } from './components/dashboard/offer/offer.component';
+import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
+
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { OfferNavbarComponent } from './components/client-offer/offer-navbar/offer-navbar.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component'
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
+import { ReserveOfferComponent } from './components/client-offer/reserve-offer/reserve-offer.component';
+import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
+import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './components/search/search.component'
 @NgModule({
@@ -64,9 +86,29 @@ import { SearchComponent } from './components/search/search.component'
     DoctorClincComponent,
     UploadMultipleComponent,
     ClinicWorkingDaysComponent,
+    DoctorServicesComponent,
     ManageDoctorServicesComponent,
+    UserRegisterComponent,
 
     DocotorSpecialtyComponent,
+      CreatReservationComponent,
+      CreatReservationContinueComponent,
+      ShowReservationToPatientComponent,
+      ShowReservationToDoctorComponent,
+      OfferComponent,
+      SubOfferComponent,
+      HomePageComponent,
+      ShowDoctorsPageComponent,
+      FilterDoctorsideBarComponent,
+      DoctorMakeOfferComponent,
+      ClientOfferComponent,
+      OfferNavbarComponent,
+      HomeOfferComponent,
+      OfferDetailsComponent,
+      ShowDoctorDetailsComponent,
+      ReserveOfferComponent,
+      ShowOfferReserveToPatientComponent,
+      ShowOfferReserveToDoctorComponent,
       SearchComponent,
     
   ],

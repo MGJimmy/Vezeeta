@@ -12,9 +12,13 @@ namespace DAL.Models
         public int Id { get; set; }
         public TimeSpan From { get; set; } 
         public TimeSpan To { get; set; }
+        public int MaxNumOfReservation { get; set; }
 
         [ForeignKey("WorkingDay")]
         public int WorkingDayId { get; set; }
         public WorkingDay WorkingDay { get; set; }
+
+        public List<Reservation> reservations { get; set; }
+        public List<ReserveOffer> reserveOffer { get; set; }
     }
 }

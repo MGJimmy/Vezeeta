@@ -60,6 +60,11 @@ namespace BL.AppServices
         {
             return await TheUnitOfWork.AccountRepo.GetUserRoles(user);
         }
+        public async Task<ApplicationUserIdentity> GetUserById(string userId)
+        {
+            return await TheUnitOfWork.AccountRepo.FindById(userId);
+        }
+
         public async Task<dynamic> CreateToken(ApplicationUserIdentity user)
         {
          

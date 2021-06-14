@@ -1,0 +1,128 @@
+
+<div class="container">
+    <div class="row">
+        <div class=" col-12 col-md-6 p-0">
+            <div class="reservationDetails">
+                <div class="img">
+                    <span>Your appointment has been successfully booked</span>
+                </div>
+                <div class="p-4">
+                    <div class="details">
+                        <span class="icon-details">
+                            <i class="far fa-envelope"></i>
+                            <span class="icon-details-line"></span>
+                        </span>
+                        <span class="ml-2">Dr. {{clinicDetails.userFullName}} informed us of your reservation</span>
+                    </div>
+                    <div class="details">
+                        <span class="icon-details">
+                            <i class="fas fa-money-bill-wave-alt" style="transform: rotate(45deg);margin: 10px 0px;"></i>
+                            <span class="icon-details-line" style="bottom: -5px;"></span>
+                        </span>
+                        <span class="ml-2">Reservation Price: {{clinicDetails.clinicFees}} pounds </span>
+                    </div>
+                    <div class="details">
+                        <span class="icon-details">
+                            <i class="fas fa-phone"></i>
+                            <span class="icon-details-line" style="bottom: -5px;"></span>
+                        </span>
+                        <span class="ml-2">Clinic phone number: {{clinicDetails.clinicPhone}} </span>
+                    </div>
+                    <div class="details">
+                        <span class="icon-details">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="icon-details-line" style="bottom: -5px;"></span>
+                        </span>
+                        <span class="ml-2">Booking details</span>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="bookingDetails">
+                            <h5>Patient Name</h5>
+                            <div>{{reserve.userName}}</div>
+                        </div>
+                        <hr>
+                        <div class="bookingDetails">
+                            <h5>Booking Date</h5>
+                            <div>
+                                {{dayName}}, from {{dayShift.from}} to {{dayShift.to}} 
+                                <br>Pre-booking and first-come-first-served entry
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="bookingDetails">
+                            <h5>doctor's name</h5>
+                            <div>Dr. {{clinicDetails.userFullName}}</div>
+                        </div>
+                        <hr>
+                        <div class="bookingDetails">
+                            <h5>Waiting time</h5>
+                            <div>{{clinicDetails.watingTime}} minutes</div>
+                        </div>
+                        <hr>
+                        <div class="bookingDetails">
+                            <h5>Clinic address</h5>
+                            <div>{{clinicDetails.areaName}}</div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <a class="btn btn-primary" routerLink="/UserAppointments">My Appointments</a>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="moreData p-0 m-0">           
+                <div class="p-2">
+                    <form [formGroup]="reserveContinue">
+                        <p class="title">Additional information for the doctor <span> (optional)</span></p>
+                        <p>You can send information about your health condition to Dr. Ali Ismail Al-Tahan</p>
+                        <div class="row my-4">
+                            <div class="col-12 col-md-6">
+                                <label >Age </label>
+                                <div class="input-group input-group-sm ">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-gift"></i></span>
+                                    </div>
+                                    <input type="text" formControlName="age" class="form-control" placeholder="Age">
+
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label >Gender </label>
+                                <div class="input-group input-group-sm gender" >
+                                    <div class="form-check">
+                                        <input class="form-check-input" formControlName="gender" type="radio" id="male" name="gender" value="male">
+                                        <label class="form-check-label" for="male">Male</label><br>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" formControlName="gender" type="radio" id="female" name="gender" value="female">
+                                        <label class="form-check-label" for="female">Female</label><br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="my-4">
+                            <label >Symptoms </label>
+                            <div class="input-group input-group-sm ">
+                                <input type="text" class="form-control" formControlName="symptom" placeholder="Example: cough, back pain, etc">
+                            </div>
+                        </div>
+
+                        
+                        <div class="submit mt-4">
+                            <button class="btn btn-reserve" [disabled]="reserveContinue.invalid" (click)="submit()">Send to Doctor</button>
+                        </div>
+                        
+                    </form>
+                </div> 
+
+            </div>
+        </div>
+    </div>
+</div>

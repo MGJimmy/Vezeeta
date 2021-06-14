@@ -1,0 +1,62 @@
+.sp{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.card{
+    position: relative;
+    .card-img-top{
+        height: 30vh;
+    }
+    .card-body{
+        .allimageContainer{
+            white-space: nowrap;
+            overflow: auto;
+            height: 7rem;
+            .allimage{
+                width: 5rem;
+                img{
+                    height: 5rem;
+                    width: 5rem;
+                }
+            }
+        }
+        .offerTitle{
+            color: rgb(0, 112, 205);
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 23px;
+        }
+        .offerSession{
+            font-size: 1rem;
+            color: rgb(185, 185, 185);
+            line-height: 18px;
+            padding: 1% 0px;
+        }
+        .offerFees{
+            color: rgb(128, 129, 132);
+            font-size: 1.1rem;
+            line-height: 20px;
+            text-decoration: line-through;   
+        }
+        .offerDiscount{
+            color: rgb(0, 213, 99);
+            font-size: 1rem;
+            line-height: 20px;
+            margin: 0% 3%;
+        }
+        .offerPrice{
+            color: rgb(0, 112, 205);
+            font-size: 1.2rem;
+            line-height: 25px;
+            font-weight: bold;
+        }
+    }
+    .state{
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        padding: 2%;
+    }
+}

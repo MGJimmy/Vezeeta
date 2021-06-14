@@ -13,12 +13,17 @@ export class DataSharedService {
   convertToReservationContinuePage=new BehaviorSubject(ReservationContinueData);
   GoToReservationPage=new BehaviorSubject(ReservationData);
   GoToOfferDetailsPage=new BehaviorSubject(0);
+  GoToReserveOfferComponent=new BehaviorSubject(ReserveOfferData)
 
   
 }
 const ReservationData={
   dayShiftId:0,
   doctorName:"",
+  date:""
+}
+const ReserveOfferData={
+  dayShiftId:0,
   date:""
 }
 const ReservationContinueData={

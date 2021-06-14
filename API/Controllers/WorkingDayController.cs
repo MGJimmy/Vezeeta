@@ -15,7 +15,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer",Roles = UserRoles.Doctor)]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class WorkingDayController : ControllerBase
     {
         WorkingDayAppService _workingDayAppService;
@@ -31,6 +31,7 @@ namespace API.Controllers
             _dayShiftAppService = dayShiftAppService;
         }
         [HttpPost]
+        [Authorize(Roles = UserRoles.Doctor)]
         public IActionResult Insert(ICollection<CreateWorkingDayDTO> createWorkingDayDTOs)
         {
             try
@@ -64,6 +65,21 @@ namespace API.Controllers
             string doctorId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctorId);
             return Ok(workingDaysDTOs);
+        }
+
+        [HttpGet("byDoctorId/{doctorId}")] 
+        public IActionResult GetWorkingDayWithDayShiftForSpecificDoctor(string doctorId)
+        {
+            try
+            {
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctorId);
+                return Ok(workingDaysDTOs);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

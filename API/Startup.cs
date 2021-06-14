@@ -121,6 +121,7 @@ namespace API
             services.AddScoped<SubOfferAppService>();
             services.AddScoped<MakeOfferAppService>();
             services.AddScoped<MakeOfferImageAppService>();
+            services.AddScoped<ReserveOfferAppService>();
 
 
 

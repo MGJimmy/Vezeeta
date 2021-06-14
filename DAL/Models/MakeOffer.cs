@@ -35,5 +35,7 @@ namespace DAL.Models
         public SubOffer SubOffer { get; set; }
         public Doctor Doctor { get; set; }
         public List<MakeOfferImage> OfferImages { get; set; }
+        public List<ReserveOffer> ReserveOffer { get; set; }
+
     }
 }

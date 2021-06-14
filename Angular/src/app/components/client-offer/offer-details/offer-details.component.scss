@@ -23,11 +23,13 @@
             align-items: center;
             .doctorImage{
                 width: 5rem;
-                border-radius: 50%;
                 height: 5rem;
-                background-repeat: no-repeat;
-                background-position: center center;
-                background-size: cover;
+                // background-repeat: no-repeat;
+                // background-position: center center;
+                // background-size: cover;
+                img{
+                    border-radius: 50%;
+                }
             }
             .doctorName{
                 font-size: 1.2rem;
@@ -93,4 +95,36 @@
             line-height: 18px;
         }
     }
+}
+
+
+/***********************/
+
+
+.appointment p
+{
+    color: blue;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  background-color:lightseagreen;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0;
+}
+
+
+.appointmentsDiv
+{
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+ text-align: center;
+ border:1px solid rgba(233, 223, 223, 0.87);
+// height: 200px !important;
+ border-radius: 5px 5px; 
+ padding: 0px !important;
+ margin-left: 2%;
 }

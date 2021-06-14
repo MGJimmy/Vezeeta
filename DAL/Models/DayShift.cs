@@ -19,5 +19,6 @@ namespace DAL.Models
         public WorkingDay WorkingDay { get; set; }
 
         public List<Reservation> reservations { get; set; }
+        public List<ReserveOffer> reserveOffer { get; set; }
     }
 }

@@ -40,6 +40,7 @@ namespace BL.Interfaces
         Doctor_DoctorServiceRepository Doctor_DoctorServiceRepo { get; }
         MakeOfferRepository MakeOfferRepo { get; }
         MakeOfferImageRepository MakeOfferImageRepo { get; }
+        ReserveOfferRepository ReserveOfferRepo { get; }
 
     }
 }

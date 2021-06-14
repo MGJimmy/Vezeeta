@@ -23,6 +23,7 @@ using BL.DTOs.SubOfferDto;
 using BL.DTOs.UserDto;
 using BL.DTOs.MakeOfferDTO;
 using BL.DTOs.MakeOfferImageDTO;
+using BL.DTOs.ReserveOfferDTO;
 
 namespace BL.Configurations
 {
@@ -179,6 +180,8 @@ namespace BL.Configurations
             CreateMap<MakeOffer, GetMakeOfferWithDoctorInfoDTO>().ReverseMap();
             CreateMap<MakeOfferImage, CreateMakeOfferImageDTO>().ReverseMap();
             CreateMap<MakeOfferImage, GetMakeOfferImageDTO>().ReverseMap();
+            CreateMap<ReserveOffer, GetAllReserveOfferToDoctorDTO>().ReverseMap();
+            CreateMap<ReserveOffer, CreateReserveOfferDTO>().ReverseMap();
 
 
         }

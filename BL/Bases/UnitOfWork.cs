@@ -285,6 +285,17 @@ namespace BL.Bases
             }
         }
 
+        private ReserveOfferRepository reserveOfferRepo;
+        public ReserveOfferRepository ReserveOfferRepo
+        {
+            get
+            {
+                if (reserveOfferRepo == null)
+                    reserveOfferRepo = new ReserveOfferRepository(Context);
+                return reserveOfferRepo;
+            }
+        }
+
         public void Dispose()
         {
             Context.Dispose();

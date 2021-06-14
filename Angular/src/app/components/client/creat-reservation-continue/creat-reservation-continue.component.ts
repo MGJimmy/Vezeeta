@@ -21,8 +21,11 @@ export class CreatReservationContinueComponent implements OnInit {
     private _reserveService:ReservationService) {
       _sharedDataServices.convertToReservationContinuePage.subscribe(data=>{
         if(data.reserveId!=0&&data.doctorName!=""){
+          console.log(data)
           _reserveService.GetToShowInContinuePage(data.reserveId).subscribe(data=>{
+            this.dayName= new Date(data.date).toDateString();
             this._dayShiftServices.GetById(data.dayShiftId).subscribe(data=>{
+              console.log(data)
               this.dayShift=data;
               data.from =this.tConvert(data.from);
               data.to=this.tConvert(data.to);
@@ -39,6 +42,7 @@ export class CreatReservationContinueComponent implements OnInit {
   reserve:IReservation;
   clinicDetails:IDoctorWithClinic;
   dayShift:IDayShift;
+  dayName:string;
   ngOnInit(): void {
   }
 

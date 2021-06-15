@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e472bcb5-5340-48e1-bdae-0395c95f18b1",
+                            Id = "0134f38f-71be-4929-8a7e-e34f76240147",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "86c70bb5-c740-4915-90ba-455e51ec008d",
+                            ConcurrencyStamp = "d9f28e97-cc06-4d19-9a23-0b614b8e1db2",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "505ad884-7717-484a-bcc5-c0e816cae388",
+                            SecurityStamp = "4ec8153a-2517-434c-a07a-38146d5f2b29",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -681,8 +681,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
+                        .WithOne("clinic")
+                        .HasForeignKey("DAL.Models.Clinic", "DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -952,6 +952,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
+                    b.Navigation("clinic");
+
                     b.Navigation("doctor_doctorServices");
 
                     b.Navigation("DoctorAttachment");

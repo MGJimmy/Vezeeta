@@ -98,6 +98,13 @@ Updateservices(services)
       })
     )}
 
-
+    ShowSpecailtyDoctorswithFilter(doctorfilter)
+    {
+     return this._http.post<IDoctor[]>(`${environment.apiUrl}/api/Doctor/FilterDoctors`,doctorfilter)
+     .pipe(catchError((err) => {
+         console.log(err);
+         return throwError(err.message || "An Error Occur")
+       })
+     )}
 
 }

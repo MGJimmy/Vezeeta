@@ -291,5 +291,76 @@ namespace API.Controllers
             return Ok(doctor);
 
         }
+
+        [HttpPost("FilterDoctors")]//{specailtyid}/{titles}
+        public IActionResult FilterDoctors(FilterDoctorDto filterdoctorDto)//int specailtyid,List<string> titles
+        {
+
+            List<GetDoctorDto> doctors = this._doctorAppService.filterDoctors(filterdoctorDto);
+            foreach (var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+
+
+            }
+
+            if (filterdoctorDto.fee.Count > 0)
+            {
+                foreach (var doctor in doctors.ToList())
+                {
+                    bool del = true;
+                   foreach (var fee in filterdoctorDto.fee)
+                    {
+                        if (fee.MiniMoney <= doctor.clinic.Fees && doctor.clinic.Fees < fee.MaxMoney)
+                        {
+                            del = false;
+                            break;
+                        }
+                    }
+                   if(del)
+                    doctors.Remove(doctor);
+                }
+                
+            }
+
+            if (filterdoctorDto.subspecails.Count > 0)
+            {
+                foreach (var doctor in doctors.ToList())
+                {
+                    bool del = true;
+                    foreach (var sub in filterdoctorDto.subspecails)
+                    {
+                        foreach (var item in doctor.subspecails)
+                        {
+                            if (item.Name == sub)
+                            {
+                                del = false;
+                                break;
+                            }
+                        }
+                        if (del==false)
+                            break;
+                    }
+                    if (del)
+                        doctors.Remove(doctor);
+                }
+
+            }
+
+
+            return Ok(doctors);
+
+        }
     }
 }

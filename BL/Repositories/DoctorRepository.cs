@@ -70,7 +70,7 @@ namespace BL.Repositories
 
             if (filter != null)
             {
-                query = query.Where(filter).Include(d=>d.User).Include(d=>d.DoctorSubSpecialization).Include(d=> d.doctor_doctorServices).Include(d => d.specialty);
+                query = query.Where(filter).Include(d=>d.User).Include(d=>d.DoctorSubSpecialization).Include(d=> d.doctor_doctorServices).Include(d => d.specialty).Include(d=>d.clinic);
             }
             query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));

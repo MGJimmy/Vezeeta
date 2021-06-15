@@ -21,6 +21,7 @@ export class RegisterDoctorComponent implements OnInit {
   error = '';
   allSpecialty:ISpecialty[];
   public response = {dbPath: ''};
+  TitlesDegree=["professor","teacher","consultative","specialist"];
   constructor
     (private formBuilder: FormBuilder,
       private _route: ActivatedRoute,

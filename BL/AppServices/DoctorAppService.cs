@@ -79,5 +79,33 @@ namespace BL.AppServices
             return doctor;
         }
 
+        public List<GetDoctorDto> filterDoctors(FilterDoctorDto filterdoctorDto)
+        {
+            if (filterdoctorDto.title.Count > 0)
+            {
+                List<GetDoctorDto> doctors = Mapper.Map<List<GetDoctorDto>>(TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d => d.specialtyId == filterdoctorDto.specailtyid && d.IsAccepted == true && filterdoctorDto.title.Contains(d.TitleDegree))).ToList();//10 3 
+
+
+                return doctors;
+            }
+            //title fee subspecail
+            else
+            {
+                List<GetDoctorDto> doctors = Mapper.Map<List<GetDoctorDto>>(TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d => d.specialtyId == filterdoctorDto.specailtyid && d.IsAccepted == true)).ToList();
+                return doctors;
+            }
+
+            //List<GetDoctorDto> doctors = Mapper.Map<List<GetDoctorDto>>
+            //    (TheUnitOfWork.DoctorRepo.Get_All_Doctors_Where(d => d.specialtyId == filterdoctorDto.specailtyid && d.IsAccepted == true && 
+
+            //     (filterdoctorDto.title.Count>0 ? filterdoctorDto.title.Contains(d.TitleDegree) : filterdoctorDto.title.Count() ) &&
+            //     filterdoctorDto.fee.Count > 0 ? filterdoctorDto.fee.Where(fd=>d.clinic.Fees >= fd.MiniMoney && d.clinic.Fees < fd.MaxMoney):null)).ToList();//10 3 
+
+            //return doctors;
+
+        }
+
     }
+
+    // //filterdoctorDto.subspecails.Count > 0 ? filterdoctorDto.subspecails.Contains(d.DoctorSubSpecialization.) &&
 }

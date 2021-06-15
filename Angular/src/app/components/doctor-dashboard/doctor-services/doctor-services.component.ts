@@ -46,7 +46,7 @@ export class DoctorServicesComponent implements OnInit {
 
     this._DoctorService.GetMyservices().subscribe(data => {
       if (data.length !== 0) {
-        this.SelectedServiceIdList = data.filter(i => i.byAdmin == true);;
+        this.SelectedServiceIdList = data.filter(i => i.byAdmin == true);
         this.NotAcceptByAdminServiceSelected = data.filter(i => i.byAdmin == false);
         this.hasServices = true;
       }

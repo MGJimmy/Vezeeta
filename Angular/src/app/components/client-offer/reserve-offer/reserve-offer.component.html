@@ -1,0 +1,30 @@
+<form [formGroup]="reservationData">
+    <div class="input-group input-group-sm ">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-user-tie"></i></span>
+        </div>
+        <input formControlName="UserName" type="text" class="form-control" placeholder="Patient's full name">
+
+    </div>
+
+    <div class="input-group input-group-sm ">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-phone"></i></span>
+        </div>
+        <input formControlName="Phone" type="text" class="form-control" placeholder="mobile number">
+
+    </div>
+
+    <div class="input-group input-group-sm ">
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        </div>
+        <input formControlName="Email" type="text" class="form-control" placeholder="Email (optional)">
+
+    </div>
+    <div class="submit mt-4">
+        <button class="btn btn-reserve" [disabled]="reservationData.invalid" (click)="submit()">Reserve</button>
+        <button class="btn btn-cancel" (click)="cancel()">cancel</button>
+    </div>
+    
+</form>

@@ -49,7 +49,15 @@ import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.co
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component';
-import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component'
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { OfferNavbarComponent } from './components/client-offer/offer-navbar/offer-navbar.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component'
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
+import { ReserveOfferComponent } from './components/client-offer/reserve-offer/reserve-offer.component';
+import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
+import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +98,15 @@ import { ShowDoctorDetailsComponent } from './components/client/show-doctor-deta
       HomePageComponent,
       ShowDoctorsPageComponent,
       FilterDoctorsideBarComponent,
+      DoctorMakeOfferComponent,
+      ClientOfferComponent,
+      OfferNavbarComponent,
+      HomeOfferComponent,
+      OfferDetailsComponent,
       ShowDoctorDetailsComponent,
+      ReserveOfferComponent,
+      ShowOfferReserveToPatientComponent,
+      ShowOfferReserveToDoctorComponent,
     
   ],
   imports: [

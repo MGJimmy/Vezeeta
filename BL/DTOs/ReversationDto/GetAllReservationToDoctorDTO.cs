@@ -19,6 +19,10 @@ namespace BL.DTOs.ReversationDto
 
         public int? Age { get; set; }
         public Gender? gender { get; set; } 
-        public string Symptoms { get; set; } 
+        public string Symptoms { get; set; }
+
+        public TimeSpan DayShiftFrom { get; set; }
+        public TimeSpan DayShiftTo { get; set; }
+        public int dayShiftId { get; set; }
     }
 }

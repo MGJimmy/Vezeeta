@@ -264,6 +264,37 @@ namespace BL.Bases
                 return doctor_DoctorServiceRepo;
             }
         }
+        private MakeOfferRepository makeOfferRepo;
+        public MakeOfferRepository MakeOfferRepo
+        {
+            get
+            {
+                if (makeOfferRepo == null)
+                    makeOfferRepo = new MakeOfferRepository(Context);
+                return makeOfferRepo;
+            }
+        }
+        private MakeOfferImageRepository makeOfferImageRepo;
+        public MakeOfferImageRepository MakeOfferImageRepo
+        {
+            get
+            {
+                if (makeOfferImageRepo == null)
+                    makeOfferImageRepo = new MakeOfferImageRepository(Context);
+                return makeOfferImageRepo;
+            }
+        }
+
+        private ReserveOfferRepository reserveOfferRepo;
+        public ReserveOfferRepository ReserveOfferRepo
+        {
+            get
+            {
+                if (reserveOfferRepo == null)
+                    reserveOfferRepo = new ReserveOfferRepository(Context);
+                return reserveOfferRepo;
+            }
+        }
 
         public void Dispose()
         {

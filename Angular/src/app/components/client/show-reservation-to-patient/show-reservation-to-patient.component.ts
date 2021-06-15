@@ -9,7 +9,7 @@ import { ReservationService } from 'src/app/_services/reservation.service';
 })
 export class ShowReservationToPatientComponent implements OnInit {
 
-  constructor(private _reserveService:ReservationService,) { }
+  constructor(private _reserveService:ReservationService) { }
 
   allReservation:IReservationShowToPatient[];
 

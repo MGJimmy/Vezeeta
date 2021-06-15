@@ -4,5 +4,8 @@ export interface IReservationShowToPatient{
     clinicArea:string,
     clinicStreeet:string,
     date:string,
-    state:boolean
+    state:boolean,
+    
+    dayShiftFrom?:string,
+    dayShiftTo?:string
 }

@@ -13,7 +13,10 @@
             <tr *ngFor="let item of allReservation;let i = index">
                 <td>{{item.doctorName}}</td>
                 <td>{{item.clinicStreeet}} {{item.clinicArea}}</td>
-                <td>{{item.date.slice(0,10)}}</td>
+                <td>{{item.date.slice(0,10)}}
+                    <br>
+                    {{item.dayShiftFrom}} - {{item.dayShiftTo}}
+                </td>
                 <td *ngIf="item.state==true">Confirmed</td>
                 <td *ngIf="item.state==false">Reservation Cancelled</td>
                 <td>

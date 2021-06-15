@@ -9,4 +9,7 @@ export interface IReservationShowToDoctor{
     age?:number,
     gender?:string, 
     Symptoms?:string, 
+    
+    dayShiftFrom?:string,
+    dayShiftTo?:string
 }

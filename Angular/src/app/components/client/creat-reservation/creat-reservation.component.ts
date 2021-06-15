@@ -32,14 +32,17 @@ export class CreatReservationComponent implements OnInit {
           this.doctorName=data.doctorName;
           this.dayShiftId=data.dayShiftId;
           this.dateOfReserve=data.date;
+          this.dayName = new Date(this.dateOfReserve).toDateString();
+        
           this.load();
         }
       })
     }
 
-  doctorName:string="bahy";
-  dayShiftId:number=1;
+  doctorName:string;
+  dayShiftId:number;
   dateOfReserve;
+  dayName:string;
   
   doctorDetails:IDoctorDetails;
   dayShift:IDayShift;
@@ -99,7 +102,7 @@ export class CreatReservationComponent implements OnInit {
       email:this.reservationData.get("Email").value,
       dayShiftId:this.dayShiftId,
       doctorId:this.doctorDetails.userId,
-      date:"2021-06-09T18:07:13",
+      date:this.dateOfReserve,
 
     }
     this._reserveService.createReservation(newReserve).subscribe((data)=>{

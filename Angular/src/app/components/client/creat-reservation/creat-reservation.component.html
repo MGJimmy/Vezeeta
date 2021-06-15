@@ -6,7 +6,7 @@
                     <div class=" doctorImage "> 
                         <img src="{{doctorDetails.image}}" class="img-fluid">
                     </div>
-                    <div class="p-4 doctorInfo">
+                    <div class="p-3 doctorInfo w-100">
                         <span class="d-block mb-4">
                             <span class="doctorText">{{doctorDetails.titleDegree}}</span><span class="doctorName">{{doctorDetails.userFullName}}</span>
                         </span>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="reserveTime p-3">
                     <h5>
-                        Tomorrow June 09 - from {{dayShift.from}} to {{dayShift.to}} ,
+                        {{dayName}}- from {{dayShift.from}} to {{dayShift.to}} ,
                         <span>
                             Pre-booking and first-come-first-served entry
                         </span>

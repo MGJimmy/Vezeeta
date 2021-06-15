@@ -33,6 +33,7 @@ namespace BL.AppServices
             reservation.ForEach(reserve =>
             {
                 string doctorId = reserve.doctorId;
+                var dayShift = TheUnitOfWork.DayShiftRepo.GetById(reserve.dayShiftId);
                 ApplicationUserIdentity user = TheUnitOfWork.AccountRepo.GetAccountById(doctorId);
                 Clinic clinic = TheUnitOfWork.ClinicRepo.GetByIdWithArea(doctorId);
 
@@ -43,6 +44,8 @@ namespace BL.AppServices
                 insertDto.ClinicStreeet = clinic.Street;
                 insertDto.ClinicArea = clinic.Area.Name;
                 insertDto.State = reserve.State;
+                insertDto.DayShiftFrom = dayShift.From;
+                insertDto.DayShiftTo = dayShift.To;
 
                 dto.Add(insertDto);
 
@@ -54,6 +57,13 @@ namespace BL.AppServices
         public List<GetAllReservationToDoctorDTO> GetAllReservationToDoctor(string userId)
         {
             List<GetAllReservationToDoctorDTO> dto=Mapper.Map<List<GetAllReservationToDoctorDTO>>(TheUnitOfWork.ReservationRepo.GetWhere(i => i.doctorId == userId).OrderBy(i=>i.Date).ThenBy(i=>i.UserName)).ToList();
+            dto.ForEach(element =>
+            {
+                var dayShift = TheUnitOfWork.DayShiftRepo.GetById(element.dayShiftId);
+                element.DayShiftFrom = dayShift.From;
+                element.DayShiftTo = dayShift.To;
+            });
+
             return dto;
         }
 

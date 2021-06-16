@@ -315,7 +315,7 @@ namespace API.Controllers
 
             }
 
-            if (filterdoctorDto.fee.Count > 0)
+           /* if (filterdoctorDto.fee.Count > 0)
             {
                 foreach (var doctor in doctors.ToList())
                 {
@@ -333,7 +333,7 @@ namespace API.Controllers
                 }
                 
             }
-
+           
             if (filterdoctorDto.subspecails.Count > 0)
             {
                 foreach (var doctor in doctors.ToList())
@@ -356,7 +356,7 @@ namespace API.Controllers
                         doctors.Remove(doctor);
                 }
 
-            }
+            }*/
 
 
             return Ok(doctors);

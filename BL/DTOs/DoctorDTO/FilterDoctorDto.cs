@@ -19,5 +19,12 @@ namespace BL.DTOs.DoctorDTO
     {
         public int MiniMoney { get; set; }
         public int MaxMoney { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var fee = (feelimit)obj;
+            return fee.MiniMoney > this.MiniMoney && fee.MaxMoney < this.MaxMoney;
+        }
+
     } 
 }

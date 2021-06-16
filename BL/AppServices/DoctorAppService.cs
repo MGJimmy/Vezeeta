@@ -79,12 +79,12 @@ namespace BL.AppServices
             return doctor;
         }
 
-        public List<GetDoctorDto> SearchForDoctor(int pageSize , int pageNumber ,int? specialtyId, int? cityId, int? areaId, string name)
+        public List<DoctorSearchDto> SearchForDoctor(int pageSize , int pageNumber ,int? specialtyId, int? cityId, int? areaId, string name)
         {
 
             var result = TheUnitOfWork.DoctorRepo.GetAllDoctors(pageSize , pageNumber , specialtyId , cityId , areaId , name);
 
-            return Mapper.Map<List<GetDoctorDto>>(result);
+            return Mapper.Map<List<DoctorSearchDto>>(result);
 
 
         }

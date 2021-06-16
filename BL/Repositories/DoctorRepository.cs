@@ -96,8 +96,8 @@ namespace BL.Repositories
                 .ThenInclude(d => d.City)
                 .Include(d => d.Clinic)
                 .ThenInclude(d => d.Area)
-                .Include(d => d.specialty)
-                .Include(d => d.DoctorSubSpecialization).AsQueryable();
+                .Include(d => d.specialty).AsQueryable();
+                //.Include(d => d.DoctorSubSpecialization).AsQueryable();
 
             if (specialtyId != null)
             {

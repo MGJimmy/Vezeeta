@@ -183,6 +183,21 @@ namespace BL.Configurations
             CreateMap<ReserveOffer, GetAllReserveOfferToDoctorDTO>().ReverseMap();
             CreateMap<ReserveOffer, CreateReserveOfferDTO>().ReverseMap();
 
+            CreateMap<Doctor, DoctorSearchDto>()
+                .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.User.FullName))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.Clinic.CityId))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.Clinic.AreaId))
+                .ForMember(dest => dest.Fees, opt => opt.MapFrom(src => src.Clinic.Fees))
+                .ForMember(dest => dest.WatingTime, opt => opt.MapFrom(src => src.Clinic.WatingTime))
+                .ForMember(dest => dest.specialtyName, opt => opt.MapFrom(src => src.specialty.Name))
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.Clinic.City.Name))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.Area.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.Clinic.Street))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.ExaminationTime))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Clinic.Area.Name))
+                .ReverseMap()
+                .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
+            
 
         }
     }

@@ -292,11 +292,11 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("search/{pageSize}/{pageNumber}")]
-        public IActionResult SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
-        {
-            return Ok(_doctorAppService.SearchForDoctor(pageSize, pageNumber, specialtyId, cityId, areaId, name));
-        }
+        //[HttpGet("search/{pageSize}/{pageNumber}")]
+        //public IActionResult SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        //{
+        //    return Ok(_doctorAppService.SearchForDoctor(pageSize, pageNumber, specialtyId, cityId, areaId, name));
+        //}
 
         [HttpPost("FilterDoctors")]//{specailtyid}/{titles}
         public IActionResult FilterDoctors(FilterDoctorDto filterdoctorDto)//int specailtyid,List<string> titles

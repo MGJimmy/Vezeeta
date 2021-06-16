@@ -33,6 +33,7 @@ import { OfferDetailsComponent } from './components/client-offer/offer-details/o
 import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
 import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
 import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component';
+import { ClientComponent } from './components/client/client.component';
 
 const routes: Routes = [
   {
@@ -76,18 +77,34 @@ const routes: Routes = [
     ]
   },
 
-  {path:"Reversation",component:CreatReservationComponent},
-  {path:"ReversationContinue",component:CreatReservationContinueComponent},
-  {path:"UserAppointments",component:ShowReservationToPatientComponent},
-  {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
+  {path:"", component:ClientComponent , children:[
+      {path:"",component:HomePageComponent},
+      {path:"Reversation",component:CreatReservationComponent},
+      {path:"ReversationContinue",component:CreatReservationContinueComponent},
+      {path:"UserAppointments",component:ShowReservationToPatientComponent},
+      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
+      
+      {path:"registerDoctor", component:RegisterDoctorComponent},
+      {path:"registerUser", component:UserRegisterComponent},
+      {path:"login", component:LoginComponent},
+      {path:"showDoctors", component:ShowDoctorsPageComponent},
+      {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+      // {path:"home", component:ClientComponent},
+      // {path:"**", component:ClientComponent},
+  ]}
+
+  // {path:"Reversation",component:CreatReservationComponent},
+  // {path:"ReversationContinue",component:CreatReservationContinueComponent},
+  // {path:"UserAppointments",component:ShowReservationToPatientComponent},
+  // {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
   
-  {path:"registerDoctor", component:RegisterDoctorComponent},
-  {path:"registerUser", component:UserRegisterComponent},
-  {path:"login", component:LoginComponent},
-  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
-  {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
-  {path:"home", component:HomePageComponent},
-  {path:"**", component:HomePageComponent},
+  // {path:"registerDoctor", component:RegisterDoctorComponent},
+  // {path:"registerUser", component:UserRegisterComponent},
+  // {path:"login", component:LoginComponent},
+  // {path:"showDoctors", component:ShowDoctorsPageComponent},
+  // {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+  // {path:"home", component:ClientComponent},
+  // {path:"**", component:ClientComponent},
 ];
 
 @NgModule({

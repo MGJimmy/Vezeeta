@@ -108,37 +108,37 @@ Updateservices(services)
        })
      )}
 
-     search(pageSize: number, pageNumber: number, specialtyId: number, cityId: number, areaId: number, name: string): Observable<IDoctorSearch[]> {
+    // search(pageSize: number, pageNumber: number, specialtyId: number, cityId: number, areaId: number, name: string): Observable<IDoctorSearch[]> {
 
-      let _url = `${this.url}/search/${pageSize}/${pageNumber}`
+    //   let _url = `${this.url}/search/${pageSize}/${pageNumber}`
   
-      let params = new HttpParams();
+    //   let params = new HttpParams();
   
-      if (specialtyId != null) {
-        params = params.set('specialtyId', specialtyId.toString());
-      }
-      if (cityId != null) {
-        params = params.set('cityId', cityId.toString());
-      }
-      if (areaId != null) {
-        params = params.set('areaId', areaId.toString());
-      }
-      if (name != null) {
-        params = params.set('name', name);
-      }
+    //   if (specialtyId != null) {
+    //     params = params.set('specialtyId', specialtyId.toString());
+    //   }
+    //   if (cityId != null) {
+    //     params = params.set('cityId', cityId.toString());
+    //   }
+    //   if (areaId != null) {
+    //     params = params.set('areaId', areaId.toString());
+    //   }
+    //   if (name != null) {
+    //     params = params.set('name', name);
+    //   }
   
-      //this.url+'/search?specialtyId='+specId +'&cityId='+ciId+'&areaId='+arId+'&name='+name 
+    //   //this.url+'/search?specialtyId='+specId +'&cityId='+ciId+'&areaId='+arId+'&name='+name 
   
-      return this._http.get<IDoctorSearch[]>(_url, { params }).pipe(
-        catchError(
-          (err) => {
+    //   return this._http.get<IDoctorSearch[]>(_url, { params }).pipe(
+    //     catchError(
+    //       (err) => {
            
-            return throwError(err.message || "Internal Server error contact site adminstarator");
+    //         return throwError(err.message || "Internal Server error contact site adminstarator");
             
-          }
-        )
-      )
+    //       }
+    //     )
+    //   )
   
-    }
+    // }
 
 }

@@ -1,4 +1,4 @@
-<p class="d-flex"
+<!-- <p class="d-flex"
 style="background-color: blue;justify-content: center;height: 50px;color: white;border-radius:25px 25px 0 0;align-items: center;margin-bottom: 0px !important;">
 Specify your search
 </p>
@@ -267,6 +267,281 @@ Specify your search
         </div>
     </div>
 
+
+
+
+
+</div>
+
+</div> -->
+
+
+<p class="d-flex"
+style="background-color: blue;justify-content: center;height: 50px;color: white;border-radius:25px 25px 0 0;align-items: center;margin-bottom: 0px !important;">
+Specify your search
+</p>
+<div>
+<div class="accordion" id="accordionExample">
+    <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingOne" data-toggle="collapse"
+            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>
+                    Title
+                </h3>
+            </div>
+            <i class="fas fa-angle-up fa-2x" id="Angleicon1"></i>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center" *ngFor="let title of titlesDegrees">
+                        <input type="checkbox" id="{{title}}" value="{{title}}" (change)="titlecheck($event)">
+                        <label for="{{title}}" class="ml-2">{{title}}
+                        </label>
+                    </div>
+
+                    <!-- <div class="d-flex align-items-center">
+                        <input type="checkbox" id="teacher" value="teacher" (change)="titlecheck($event)">
+                        <label for="teacher" class="ml-2"> teacher
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="consultative" value="consultative" (change)="titlecheck($event)">
+                        <label for="consultative" class="ml-2">consultative
+                        </label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="specialist" value="specialist" (change)="titlecheck($event)">
+                        <label for="specialist" class="ml-2">specialist</label>
+                    </div> -->
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingSix" data-toggle="collapse"
+            data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>
+                    Check Price
+                </h3>
+            </div>
+
+            <i class="fas fa-angle-up fa-2x" id="Angleicon3"></i>
+        </div>
+        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" value="1" id="money1" (change)="moneycheck($event)">
+                        <label for="money1" class="ml-2">Less than 50 EGP</label>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" value="2" id="money2" (change)="moneycheck($event)">
+                        <label for="money2" class="ml-2">from 50 to 100 EGP</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" value="3" id="money3" (change)="moneycheck($event)">
+                        <label for="money3" class="ml-2">from 100 to 200 EGP</label>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" value="4" id="money4" (change)="moneycheck($event)">
+                        <label for="money4" class="ml-2">from 200 to 300 EGP</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" value="5" id="money5" (change)="moneycheck($event)">
+                        <label for="money5" class="ml-2">more than 300 EGP</label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="card" style="border-bottom: 1px solid;" *ngIf="SpecailtyId!=null">
+        <div class="card-header d-flex justify-content-around" id="headingTwo" data-toggle="collapse"
+            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-stethoscope"></i>
+                <h3>
+                    Subspecialty
+                </h3>
+            </div>
+            <i class="fas fa-angle-up fa-2x" id="Angleicon2"></i>
+        </div>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center" *ngFor="let specailty of allSubSpecialty">
+                    <input type="checkbox" id="{{specailty.name}}" value="{{specailty.id}}" (change)="subSpecailtycheck($event)">
+                    <label for="{{specailty.name}}" class="ml-2">{{specailty.name}}</label>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <!-- <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingThree" data-toggle="collapse"
+            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-venus-mars"></i>
+                <h3>
+                    النوع
+                </h3>
+            </div>
+            <i class="fas fa-angle-up fa-2x" id="Angleicon3"></i>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+            data-parent="#accordionExample">
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex align-items-center">
+                    <input type="checkbox" id="female">
+                    <label for="female" class="ml-2">Female</label>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <input type="checkbox" id="male">
+                    <label for="male" class="ml-2">Male</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingFour" data-toggle="collapse"
+            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+
+            <div class="col-10 d-flex justify-content-between">
+                <i class="far fa-calendar-alt"></i>
+                <h3>
+                    الوقت التاح
+                </h3>
+            </div>
+
+            <i class="fas fa-angle-up fa-2x" id="Angleicon3"></i>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
+            data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Today">
+                        <label for="Today" class="ml-2">Today</label>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Tomorrow">
+                        <label for="Tomorrow" class="ml-2">Tomorrow</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Anyday">
+                        <label for="Anyday" class="ml-2">Any Day</label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingFive" data-toggle="collapse"
+            data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-tags"></i>
+                <h3>
+                    كود الخصم
+                </h3>
+            </div>
+
+            <i class="fas fa-angle-up fa-2x" id="Angleicon3"></i>
+        </div>
+        <div id="collapseFive" class="collapse" aria-labelledby="headingFive"
+            data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Today">
+                        <label for="Today" class="ml-2">Today</label>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Tomorrow">
+                        <label for="Tomorrow" class="ml-2">Tomorrow</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Anyday">
+                        <label for="Anyday" class="ml-2">Any Day</label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> -->
+
+
+   
+
+    <!-- <div class="card" style="border-bottom: 1px solid;">
+        <div class="card-header d-flex justify-content-around" id="headingEight" data-toggle="collapse"
+            data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+
+            <div class="col-10 d-flex justify-content-between">
+                <i class="fas fa-stethoscope"></i>
+                <h3>
+                    المنشاة
+                </h3>
+            </div>
+
+            <i class="fas fa-angle-up fa-2x" id="Angleicon3"></i>
+        </div>
+        <div id="collapseEight" class="collapse" aria-labelledby="headingEight"
+            data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Today">
+                        <label for="Today" class="ml-2">Today</label>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Tomorrow">
+                        <label for="Tomorrow" class="ml-2">Tomorrow</label>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <input type="checkbox" id="Anyday">
+                        <label for="Anyday" class="ml-2">Any Day</label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+-->
 
 
 

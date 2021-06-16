@@ -1,0 +1,109 @@
+<div class="p-3">
+    {{specialtyName}} {{NumberOfDoctors}} doctors
+</div>
+<div class="row" *ngFor="let doctor of DoctorsList;let x=index">
+    <div class="card mb-3 col-11">
+        <div class="row g-0">
+            <div class="col-md-3 p-3">
+                <div class="text-center">
+                    <img [src]="createImgPath(doctor.image)" alt="image 1" class="img-fluid DoctorImage">
+
+                </div>
+                <div class="mt-5 d-flex col-12 justify-content-center">
+                    <button
+                        style="background-color: burlywood;border-radius:15px 15px 15px 15px;width: 130px;height: 30px;">اعلان</button>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-4  border-primary" (click)="ShowDetails(doctor.userId)" style="cursor: pointer;">
+                <div class="card-body col-12">
+                    <h4 class="card-title text-primary">Doctor : {{doctor.user.fullName}}</h4>
+                    <div class="card-text">
+                        <i class="fas fa-stethoscope p-2"></i>Doctor in {{doctor.specialty.name}} subspecailize
+                        in
+                        <span *ngFor="let sub of doctor.subspecails" style="color: cadetblue;">{{sub.name}},
+                        </span>
+                    </div>
+                    <div class="card-text">
+                        <i
+                            class="fas fa-map-marker-alt p-2"></i>{{doctor.clinicCityName}}-{{doctor.clinicAreaName}}-{{doctor.clinic.street}}
+                    </div>
+                    <div class="card-text">
+                        <i class="fas fa-money-bill-wave p-2"></i> Check Price {{doctor.clinic.fees}} EGP
+                    </div>
+
+                    <div class="card-text">
+                        <i class="far fa-clock p-2"></i> Waiting time {{doctor.clinic.watingTime}}
+                    </div>
+
+                    <p class="card-text">
+                        <i class="fas fa-phone p-2"></i><span style="color: cornflowerblue;">
+                            +{{doctor.user.phoneNumber}}</span> (As ordinary price
+                        for minute)
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="col-md-5 p-3">
+                <div id="carouselExampleControls{{x}}" class="carousel slide" data-ride="carousel"
+                    style="display: flex;justify-content: center;" data-interval="false">
+                    <div class="carousel-inner col-12" style="justify-content: center;">
+
+                        <div class="carousel-item p-2" style="justify-content: center;"
+                            *ngFor="let days of doctor.presentDaysWork;let i=index" [class.active]="i==0">
+
+                            <div class="d-flex col-12 px-5" style="justify-content: center;">
+
+                                <div class="col-4 appointmentsDiv" *ngFor="let day of days">
+                                    <button class="btn btn-primary w-100">{{ day.datee |
+                                        date:'MMMM d'}}</button>
+
+                                    <div style="text-align: center;" class="appointment mt-3"
+                                        *ngIf="day.IsWork">
+                                        <div *ngFor="let shift of day._dayShift"
+                                            (click)="reserve(shift.id,doctor.user.userName,day.datee)"
+                                            class="mb-2 border">
+                                            <small>from : {{shift.from}}</small>
+                                            <br>
+                                            <!-- {{shift.id}}  -->
+                                            <small>to : {{shift.to}}</small>
+                                        </div>
+
+                                    </div>
+                                    <div style="text-align: center;" class="appointment mt-3"
+                                        *ngIf="!day.IsWork">
+                                        <p>no available appointment</p>
+                                    </div>
+                                    <button class="btn btn-danger w-100" [disabled]="!day.IsWork">احجز</button>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <a class="carousel-control-prev" href="#carouselExampleControls{{x}}" role="button"
+                        data-slide="prev">
+                        <!-- style="left: -7% !important;" -->
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls{{x}}" role="button"
+                        data-slide="next">
+                        <!-- style="right: -7% !important;" -->
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

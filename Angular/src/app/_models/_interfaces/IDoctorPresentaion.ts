@@ -100,9 +100,12 @@ export interface _DayShiftsforDoctor
 export interface _IdoctorFilter
 {
     specailtyid?:number,
+    cityId?:number,
+    areaId?:number,
+    name:string,
     title?:string[],
     fee?:feelimit[],
-    subspecails?:string[]
+    subspecails?:number[]
 
 }
  export interface feelimit{

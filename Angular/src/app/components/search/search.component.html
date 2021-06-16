@@ -19,7 +19,7 @@
           <ng-select [items]="SpecilatyBuffer" [virtualScroll]="true" [loading]="loadingSpecilaty" bindLabel="name"
             bindValue="id" placeholder="&#xe05c;&nbsp;&nbsp;&nbsp; Select Specilaty " appendTo="body"
             (scroll)="onScrollForSpecilaty($event)" (scrollToEnd)="onScrollToEndForSpecilaty()"
-            [(ngModel)]="specilatyId" class="custom-two emp">
+            [(ngModel)]="specilatyId" class="custom-two emp"(change)="changeSpecialty($event)">
             <ng-template ng-header-tmp>
               <small class="form-text text-muted">Loaded {{SpecilatyBuffer.length}} of {{specilaties.length}}</small>
             </ng-template>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210614123928_init3")]
-    partial class init3
+    [Migration("20210616134826_omInit")]
+    partial class omInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b4efe154-78e6-47d3-9301-417214588196",
+                            Id = "d8ece99f-9fe0-4dba-8bdb-3e49863e8b4b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "21bc0356-f0cc-470e-856f-12f3bdef6a95",
+                            ConcurrencyStamp = "c9c5d26e-9b41-4a20-927e-adfc78e791a2",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "31c6d41b-4191-4ab2-a806-80d327afbf57",
+                            SecurityStamp = "5bf2b0d7-e0e5-4043-bd5f-c05962e86d47",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -801,8 +801,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
+                        .WithOne("clinic")
+                        .HasForeignKey("DAL.Models.Clinic", "DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1143,6 +1143,8 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
+                    b.Navigation("clinic");
+
                     b.Navigation("doctor_doctorServices");
 
                     b.Navigation("DoctorAttachment");

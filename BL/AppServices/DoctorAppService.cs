@@ -105,17 +105,20 @@ namespace BL.AppServices
 
         }
 
-    }
-
-    // //filterdoctorDto.subspecails.Count > 0 ? filterdoctorDto.subspecails.Contains(d.DoctorSubSpecialization.) &&
-        public List<DoctorSearchDto> SearchForDoctor(int pageSize , int pageNumber ,int? specialtyId, int? cityId, int? areaId, string name)
+        public List<DoctorSearchDto> SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
         {
 
-            var result = TheUnitOfWork.DoctorRepo.GetAllDoctors(pageSize , pageNumber , specialtyId , cityId , areaId , name);
+            var result = TheUnitOfWork.DoctorRepo.GetAllDoctors(pageSize, pageNumber, specialtyId, cityId, areaId, name);
 
             return Mapper.Map<List<DoctorSearchDto>>(result);
 
 
         }
+
+ 
+
+
     }
+
+    // //filterdoctorDto.subspecails.Count > 0 ? filterdoctorDto.subspecails.Contains(d.DoctorSubSpecialization.) &&
 }

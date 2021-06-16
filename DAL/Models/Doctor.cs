@@ -32,7 +32,7 @@ namespace DAL.Models
         public List<ReserveOffer> ReserveOffer { get; set; }
 
 
-        public Clinic Clinic { get; set;  }
+      
 
     }
 }

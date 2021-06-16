@@ -92,9 +92,9 @@ namespace BL.Repositories
 
 
             var result = DbSet.Include(d => d.User)
-                .Include(d => d.Clinic)
+                .Include(d => d.clinic)
                 .ThenInclude(d => d.City)
-                .Include(d => d.Clinic)
+                .Include(d => d.clinic)
                 .ThenInclude(d => d.Area)
                 .Include(d => d.specialty).AsQueryable();
                 //.Include(d => d.DoctorSubSpecialization).AsQueryable();
@@ -106,12 +106,12 @@ namespace BL.Repositories
 
             if (cityId != null)
             {
-                result = result.Where(d => d.Clinic.CityId == cityId);
+                result = result.Where(d => d.clinic.CityId == cityId);
             }
 
             if (areaId != null)
             {
-                result = result.Where(d => d.Clinic.AreaId == areaId);
+                result = result.Where(d => d.clinic.AreaId == areaId);
             }
 
             if (name != null)

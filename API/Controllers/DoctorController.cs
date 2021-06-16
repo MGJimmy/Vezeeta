@@ -131,14 +131,14 @@ namespace API.Controllers
                 await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Doctor);
                 _doctorAppService.Create(registerUser.Id, registerDoctorDTO);
                 _generalAppService.CommitTransaction();
-                return Ok(new Response { Message="Doctor created successfully" });
+                return Ok(new Response { Message = "Doctor created successfully" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
                 return BadRequest(new Response { Message = ex.Message });
             }
-            
+
         }
 
         
@@ -290,6 +290,12 @@ namespace API.Controllers
 
             return Ok(doctor);
 
+        }
+
+        [HttpGet("search/{pageSize}/{pageNumber}")]
+        public IActionResult SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        {
+            return Ok(_doctorAppService.SearchForDoctor(pageSize, pageNumber, specialtyId, cityId, areaId, name));
         }
 
         [HttpPost("FilterDoctors")]//{specailtyid}/{titles}

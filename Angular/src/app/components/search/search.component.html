@@ -1,0 +1,92 @@
+<div class="container mt-3">
+  <div class="card search-card">
+    <div class="card-body card-margin">
+      <div class="card-title text-center">
+        <!-- <i class="far fa-calendar-plus " style="font-size: 1.5rem ; color: rgb(0, 112, 205); "></i> -->
+
+        <i class="far fa-calendar-plus icon-style"></i>
+
+        <div class="text-left d-inline-block">
+          <h4 class="p-0 m-0 font-weight-bold title-color">Book a doctor</h4>
+          <p style="margin-top:-5px;" class="p-0 title-color">Examination or procedure</p>
+        </div>
+      </div>
+      <hr>
+
+      <div class="row row-margin">
+        <div class="col-sm-3 p-0 m-0">
+          <!-- select spesilty -->
+          <ng-select [items]="SpecilatyBuffer" [virtualScroll]="true" [loading]="loadingSpecilaty" bindLabel="name"
+            bindValue="id" placeholder="&#xe05c;&nbsp;&nbsp;&nbsp; Select Specilaty " appendTo="body"
+            (scroll)="onScrollForSpecilaty($event)" (scrollToEnd)="onScrollToEndForSpecilaty()"
+            [(ngModel)]="specilatyId" class="custom-two emp">
+            <ng-template ng-header-tmp>
+              <small class="form-text text-muted">Loaded {{SpecilatyBuffer.length}} of {{specilaties.length}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+              {{item.name}}
+            </ng-template>
+          </ng-select>
+          <!-- {{specilatyId|json}} -->
+
+        </div>
+
+
+
+        <div class="col-sm-3 p-0 m-0">
+          <!-- select city -->
+          <ng-select [items]="citesBuffer" [virtualScroll]="true" [loading]="loadingCity" bindLabel="name"
+            bindValue="id" placeholder="&#xf689;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select City" appendTo="body"
+            (scroll)="onScrollForCity($event)" (scrollToEnd)="onScrollToEndForCity()" [(ngModel)]="cityId"
+            class="custom emp">
+            <ng-template ng-header-tmp>
+              <small class="form-text text-muted">Loaded {{citesBuffer.length}} of {{cites.length}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+              {{item.name}}
+            </ng-template>
+          </ng-select>
+          <!-- {{cityId|json}} -->
+        </div>
+
+
+        <div class="col-sm-3 p-0 m-0">
+          <!-- select area -->
+
+
+          <ng-select [items]="areasBuffer" [virtualScroll]="true" [loading]="loadingArea" bindLabel="name"
+            bindValue="id" placeholder="&#xf689;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select area" appendTo="body"
+            (scroll)="onScrollForArea($event)" (scrollToEnd)="onScrollToEndForArea()" [(ngModel)]="areaId"
+            class="custom emp">
+            <ng-template ng-header-tmp>
+              <small class="form-text text-muted">Loaded {{areasBuffer.length}} of {{areas.length}}</small>
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+              {{item.name}}
+            </ng-template>
+          </ng-select>
+          <!-- {{areaId|json}} -->
+        </div>
+
+
+        <div class="col-sm-2 p-0 m-0 form-group">
+          <!-- Enter Name -->
+          <!-- <input class="inp" style="width: 100%; border-radius: .3rem; padding: 6px; border-color: rgb(189, 187, 187);" placeholder="Enter Name" [(ngModel)] = "doctorName" > -->
+          <input type="text" class="form-control custom-three emp-btn"
+            placeholder=" &#xf5a1;&nbsp;&nbsp;&nbsp; Enter Name" style="font-size:.9rem;" [(ngModel)]="doctorName">
+          <!-- {{doctorName}} -->
+        </div>
+
+        <div class="col-sm-1 p-0 m-0 ">
+          <!-- &#160; -->
+          <button type="button" class="btn custom-four-btn emp-btn btn-text " (click)="search()">&#xf002;</button>
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

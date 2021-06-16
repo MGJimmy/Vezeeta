@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BL.Repositories
 {
-    public class DoctorRepository:BaseRepository<Doctor>
+    public class DoctorRepository : BaseRepository<Doctor>
     {
-        public DoctorRepository(DbContext db):base(db)
+        public DoctorRepository(DbContext db) : base(db)
         {
         }
         public Doctor GetById(string id)
@@ -28,7 +28,7 @@ namespace BL.Repositories
 
         public Doctor GetWithClinicDetails(string name)
         {
-            Doctor doctor = DbSet.Where(i => i.User.UserName == name).Include(i =>i.User).FirstOrDefault();
+            Doctor doctor = DbSet.Where(i => i.User.UserName == name).Include(i => i.User).FirstOrDefault();
             return doctor;
         }
 
@@ -82,6 +82,46 @@ namespace BL.Repositories
         {
             Doctor doctor = DbSet.Include(d => d.User).Include(d => d.DoctorSubSpecialization).Include(d => d.doctor_doctorServices).Include(d => d.specialty).FirstOrDefault(i => i.UserId == id);
             return doctor;
+        }
+
+        public IEnumerable<Doctor> GetAllDoctors(int pageSize, int pagNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        {
+            pageSize = (pageSize > 10 || pageSize < 0) ? 10 : pageSize;
+            pagNumber = (pagNumber < 0) ? 1 : pagNumber;
+
+
+
+            var result = DbSet.Include(d => d.User)
+                .Include(d => d.clinic)
+                .ThenInclude(d => d.City)
+                .Include(d => d.clinic)
+                .ThenInclude(d => d.Area)
+                .Include(d => d.specialty).AsQueryable();
+                //.Include(d => d.DoctorSubSpecialization).AsQueryable();
+
+            if (specialtyId != null)
+            {
+                result = result.Where(d => d.specialtyId == specialtyId);
+            }
+
+            if (cityId != null)
+            {
+                result = result.Where(d => d.clinic.CityId == cityId);
+            }
+
+            if (areaId != null)
+            {
+                result = result.Where(d => d.clinic.AreaId == areaId);
+            }
+
+            if (name != null)
+            {
+                result = result.Where(d => d.User.FullName.Contains(name));
+            }
+
+
+            return result.Skip((pagNumber - 1) * pageSize).Take(pageSize);
+
         }
 
     }

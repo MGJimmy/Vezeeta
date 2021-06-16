@@ -32,5 +32,7 @@ namespace DAL.Models
         public List<ReserveOffer> ReserveOffer { get; set; }
 
 
+      
+
     }
 }

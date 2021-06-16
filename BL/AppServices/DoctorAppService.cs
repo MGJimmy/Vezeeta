@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace BL.AppServices
 {
-    public class DoctorAppService:BaseAppService
+    public class DoctorAppService : BaseAppService
     {
-        public DoctorAppService(IUnitOfWork unitOfWork, IMapper mapper):base(unitOfWork,mapper)
+        public DoctorAppService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
         }
         public Doctor GetById(string id)
@@ -121,6 +121,19 @@ namespace BL.AppServices
 
             return Mapper.Map<List<GetDoctorDto>>(doct);
         }
+
+        public List<DoctorSearchDto> SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        {
+
+            var result = TheUnitOfWork.DoctorRepo.GetAllDoctors(pageSize, pageNumber, specialtyId, cityId, areaId, name);
+
+            return Mapper.Map<List<DoctorSearchDto>>(result);
+
+
+        }
+
+ 
+
 
     }
 }

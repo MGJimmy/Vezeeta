@@ -30,8 +30,8 @@ namespace BL.Configurations
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
-        { 
-          
+        {
+
             CreateMap<City, CityDTO>()
                 .ReverseMap();
             CreateMap<City, CreateCityDTO>()
@@ -60,7 +60,7 @@ namespace BL.Configurations
            .ReverseMap();
             CreateMap<SupSpecialization, SupSpecailization>()
               .ReverseMap();
-              //.ForMember(m => m.specialty, m => m.Ignore());
+            //.ForMember(m => m.specialty, m => m.Ignore());
 
             CreateMap<Clinicservice, ClinicServiceDto>()
                 .ReverseMap();
@@ -183,6 +183,21 @@ namespace BL.Configurations
             CreateMap<ReserveOffer, GetAllReserveOfferToDoctorDTO>().ReverseMap();
             CreateMap<ReserveOffer, CreateReserveOfferDTO>().ReverseMap();
 
+            CreateMap<Doctor, DoctorSearchDto>()
+                .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.User.FullName))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.clinic.CityId))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.clinic.AreaId))
+                .ForMember(dest => dest.Fees, opt => opt.MapFrom(src => src.clinic.Fees))
+                .ForMember(dest => dest.WatingTime, opt => opt.MapFrom(src => src.clinic.WatingTime))
+                .ForMember(dest => dest.specialtyName, opt => opt.MapFrom(src => src.specialty.Name))
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.clinic.City.Name))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.clinic.Street))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.ExaminationTime))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
+                .ReverseMap()
+                .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
+            
 
         }
     }

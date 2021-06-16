@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { IDoctorWithSubSpecialty } from '../_models/_interfaces/IDoctorWithSubSp
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
 import { ISubSpecialty } from '../_models/_interfaces/ISubSpeciality';
+import { IDoctorSearch } from '../_models/_interfaces/IDoctorSearch';
 
 @Injectable({
   providedIn: 'root'
@@ -106,5 +107,38 @@ Updateservices(services)
          return throwError(err.message || "An Error Occur")
        })
      )}
+
+     search(pageSize: number, pageNumber: number, specialtyId: number, cityId: number, areaId: number, name: string): Observable<IDoctorSearch[]> {
+
+      let _url = `${this.url}/search/${pageSize}/${pageNumber}`
+  
+      let params = new HttpParams();
+  
+      if (specialtyId != null) {
+        params = params.set('specialtyId', specialtyId.toString());
+      }
+      if (cityId != null) {
+        params = params.set('cityId', cityId.toString());
+      }
+      if (areaId != null) {
+        params = params.set('areaId', areaId.toString());
+      }
+      if (name != null) {
+        params = params.set('name', name);
+      }
+  
+      //this.url+'/search?specialtyId='+specId +'&cityId='+ciId+'&areaId='+arId+'&name='+name 
+  
+      return this._http.get<IDoctorSearch[]>(_url, { params }).pipe(
+        catchError(
+          (err) => {
+           
+            return throwError(err.message || "Internal Server error contact site adminstarator");
+            
+          }
+        )
+      )
+  
+    }
 
 }

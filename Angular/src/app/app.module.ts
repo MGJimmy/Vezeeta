@@ -38,7 +38,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
 import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
@@ -58,6 +58,8 @@ import { ShowDoctorDetailsComponent } from './components/client/show-doctor-deta
 import { ReserveOfferComponent } from './components/client-offer/reserve-offer/reserve-offer.component';
 import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
 import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchComponent } from './components/search/search.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,6 +109,7 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
       ReserveOfferComponent,
       ShowOfferReserveToPatientComponent,
       ShowOfferReserveToDoctorComponent,
+      SearchComponent,
     
   ],
   imports: [

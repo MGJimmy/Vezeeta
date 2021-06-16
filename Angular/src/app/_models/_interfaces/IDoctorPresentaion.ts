@@ -97,6 +97,20 @@ export interface _DayShiftsforDoctor
 
 
 
+export interface _IdoctorFilter
+{
+    specailtyid?:number,
+    title?:string[],
+    fee?:feelimit[],
+    subspecails?:string[]
+
+}
+ export interface feelimit{
+    MiniMoney:number;
+    MaxMoney:number;
+} 
+
+
 
 
   

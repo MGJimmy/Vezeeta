@@ -45,7 +45,7 @@ export class ReserveOfferComponent implements OnInit {
       dayShiftId:this.dayShiftId,
       doctorId:this.doctorId,
       email:this.Email.value,
-      offerId:this.offerId,
+      makeOfferId:this.offerId,
       phone:this.Phone.value,
       state:true,
       userName:this.UserName.value

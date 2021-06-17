@@ -29,7 +29,7 @@ namespace DAL.Models
         public string Email { get; set; }
         public bool State { get; set; }
         [ForeignKey("MakeOffer")]
-        public int OfferId { get; set; }
+        public int MakeOfferId { get; set; }
 
 
         public DayShift dayShift { get; set; }

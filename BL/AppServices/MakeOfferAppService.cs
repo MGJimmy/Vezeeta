@@ -18,9 +18,22 @@ namespace BL.AppServices
         }
         public List<GetMakeOfferWithDoctorInfoDTO> GetAll()
         {
-            var x = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetAll());
+            var x = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetAll().Where(i => i.State == true).OrderByDescending(i => i.Id));
             return x;
         }
+        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToOfferId(int id)
+        {
+            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWhere(i => i.State == true && i.OfferId == id).OrderByDescending(i => i.Id));
+            return dto;
+        }
+
+        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToSubOfferId(int id)
+        {
+            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWhere(i => i.State == true && i.SubOfferId == id).OrderByDescending(i => i.Id));
+            return dto;
+        }
+
+        // public List<GetMakeOfferDTO>
         public List<GetMakeOfferDTO> GetAllByDoctorId(string id)
         {
             return Mapper.Map<List<GetMakeOfferDTO>>(TheUnitOfWork.MakeOfferRepo.GetAllByDoctorId(id));

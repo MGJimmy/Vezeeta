@@ -8,5 +8,5 @@ export interface IReserveOffer{
     date:string,
     state:boolean,
     doctorId:string,
-    offerId:number,
+    makeOfferId:number,
 }

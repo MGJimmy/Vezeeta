@@ -17,6 +17,6 @@ namespace BL.DTOs.ReserveOfferDTO
         public DateTime Date { get; set; }
         public bool State { get; set; }
         public string DoctorId { get; set; }
-        public int OfferId { get; set; }
+        public int MakeOfferId { get; set; }
     }
 }

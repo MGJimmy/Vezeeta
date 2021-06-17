@@ -30,11 +30,12 @@ export class FilterDoctorDataComponent implements OnInit {
     private _doctorService: DoctorService, private datePipe: DatePipe,
     private _subSpecialityService: SubSpecialityService) {
         _dataSharedService.sendAllDocterAfterFilterToShow.subscribe(data=>{
-          if(data!=null){
+          if(data.length!=0){
             this.LoadData(data);
             this.IsContainDoctor=true;
           }
           else{
+            this.DoctorsList=null
             this.IsContainDoctor=false;
           }
         })
@@ -80,11 +81,6 @@ export class FilterDoctorDataComponent implements OnInit {
 
       workingDays.push(newDayWork);
     }
-
-
-
-    console.log(workingDays);
-
     return workingDays;
   }
 

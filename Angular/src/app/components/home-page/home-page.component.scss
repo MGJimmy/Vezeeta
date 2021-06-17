@@ -31,3 +31,41 @@
       height: 11em;
     }
   }
+.offerSection{
+  background-color: white;
+  .offerSlider{ 
+    .offerSectionTitle{
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: rgb(102, 102, 102);
+    }
+    .offerCart{
+      background-color: white;
+      color: rgb(102, 102, 102);
+      img{
+        height: 10rem;
+        width: 100%;  
+      }
+      h4{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 1rem;
+        margin: 0px;
+      }
+    }   
+  }
+}
+
+.carousel-control-prev,.carousel-control-next{
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid rgb(217, 217, 218);
+  .fas{
+    color: rgb(102, 102, 102);;
+  }
+}

@@ -97,7 +97,7 @@
 
         <hr>
 
-        <app-reserve-offer *ngIf="showReserveComponent==true" (showReserveComponent)="showReserveComponent=$event" [doctorId]="offerDetails.doctor.userId" [offerId]="offerDetails.offerId"></app-reserve-offer>
+        <app-reserve-offer *ngIf="showReserveComponent==true" (showReserveComponent)="showReserveComponent=$event" [doctorId]="offerDetails.doctor.userId" [offerId]="offerDetails.id"></app-reserve-offer>
 
         <hr>
         <div class="text-center limitTime ">

@@ -70,7 +70,7 @@ namespace BL.Repositories
 
             if (filter != null)
             {
-                query = query.Where(filter).Include(d=>d.User).Include(d=>d.DoctorSubSpecialization).Include(d=> d.doctor_doctorServices).Include(d => d.specialty).Include(d=>d.clinic);
+                query = query.Where(filter).Include(d => d.User).Include(d => d.DoctorSubSpecialization).Include(d => d.doctor_doctorServices).Include(d => d.specialty).Include(d => d.clinic);
             }
             query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
@@ -84,6 +84,27 @@ namespace BL.Repositories
             return doctor;
         }
 
+        public IEnumerable<Doctor> GetAllDoctorForSearch()
+        {
+            //pageSize = (pageSize > 10 || pageSize < 0) ? 10 : pageSize;
+            //pagNumber = (pagNumber < 0) ? 1 : pagNumber;
+
+
+
+            var result = DbSet.Where(d=>d.IsAccepted == true).Include(d => d.User)
+                .Include(d => d.clinic)
+                .ThenInclude(d => d.City)
+                .Include(d => d.clinic)
+                .ThenInclude(d => d.Area)
+                .Include(d => d.specialty)
+                .Include(d=>d.DoctorSubSpecialization).AsQueryable();
+            //.Include(d => d.DoctorSubSpecialization).AsQueryable();
+
+            return result;
+
+            
+
+        }
         public IEnumerable<Doctor> GetAllDoctors(int pageSize, int pagNumber, int? specialtyId, int? cityId, int? areaId, string name)
         {
             pageSize = (pageSize > 10 || pageSize < 0) ? 10 : pageSize;
@@ -97,7 +118,7 @@ namespace BL.Repositories
                 .Include(d => d.clinic)
                 .ThenInclude(d => d.Area)
                 .Include(d => d.specialty).AsQueryable();
-                //.Include(d => d.DoctorSubSpecialization).AsQueryable();
+            //.Include(d => d.DoctorSubSpecialization).AsQueryable();
 
             if (specialtyId != null)
             {
@@ -123,6 +144,7 @@ namespace BL.Repositories
             return result.Skip((pagNumber - 1) * pageSize).Take(pageSize);
 
         }
+
 
     }
 }

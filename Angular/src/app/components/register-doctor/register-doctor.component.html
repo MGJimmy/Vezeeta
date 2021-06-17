@@ -123,7 +123,7 @@
           <div class="inputWrapper float-right">
             <select class="form-control" formControlName="specialtyId">
               <option value="" disabled selected hidden>Choose specialty</option>
-              <option *ngFor="let specialty of allSpecialty" value="{{specialty.id}}">{{specialty.name}}</option>
+              <option *ngFor="let specialty of allSpecialty" [ngValue]="specialty.id">{{specialty.name}}</option>
             </select>
 
             <div *ngIf="formFields.specialtyId?.invalid && formFields.specialtyId?.touched">

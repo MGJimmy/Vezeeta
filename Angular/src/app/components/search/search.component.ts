@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { _IdoctorFilter } from 'src/app/_models/_interfaces/IDoctorPresentaion';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
 import { AreaService } from 'src/app/_services/area.service';
 import { CityService } from 'src/app/_services/city.service';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 import { SpecilatyService } from 'src/app/_services/specilaty.service';
 
@@ -17,23 +20,32 @@ export class SearchComponent implements OnInit {
   //SpecilatyService
   specilaties = [];
   SpecilatyBuffer = []; 
-  specilatyId: number;
   loadingSpecilaty = false;
   //CityService
   cites = [];
   citesBuffer = [];
-  cityId: number;
   loadingCity = false;
   
   //areaService`
   areas = [];
   areasBuffer = [];
-  areaId: number;
   loadingArea = false;
 
+  //2 ways binding
+  specilatyId: number;
+  cityId: number;
+  areaId: number;
   doctorName : string = null;
 
-  
+  doctorFilter:_IdoctorFilter={
+    specailtyid:1,
+    title: [],
+    fee: [],
+    subspecails:[],
+    name:"",
+    areaId:null,
+    cityId:null
+  };
 
   bufferSize = 50;
   numberOfItemsFromEndBeforeFetchingMore = 10;
@@ -41,7 +53,28 @@ export class SearchComponent implements OnInit {
 
 
   constructor(private specilatyService: SpecilatyService, private ciryService: CityService, private areaService: AreaService
-    , private doctorService : DoctorService) { }
+    , private doctorService : DoctorService,private _dataSharedService:DataSharedService,private _router:Router) {
+
+      _dataSharedService.sendDataToSearchComponent.subscribe(data=>{
+        if(data.title.length!=0||
+          data.fee.length!=0||data.subspecails.length!=0){
+            this.doctorFilter.title=data.title;
+            this.doctorFilter.subspecails=data.subspecails;
+            this.doctorFilter.fee=data.fee;
+            console.log(data);
+            this.search();
+        }
+      })
+
+      _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data=>{
+        if(data!=0){
+          this.specilatyId=data;
+          this.changeSpecialty(0)
+          this.search();
+        }
+      })
+
+    }
 
   ngOnInit(): void {
     
@@ -75,6 +108,32 @@ export class SearchComponent implements OnInit {
   }
 
 
+  
+  search(){
+    this.doctorFilter.cityId=this.cityId;
+    this.doctorFilter.areaId=this.areaId;
+    this.doctorFilter.specailtyid=this.specilatyId;
+    this.doctorFilter.name=this.doctorName;
+
+    console.error(this.doctorFilter)
+    
+    this.doctorService.ShowSpecailtyDoctorswithFilter(this.doctorFilter).subscribe(data=>{
+      this._dataSharedService.sendAllDocterAfterFilterToShow.next(data);
+      this._router.navigate(["showDoctors"])
+      console.log(data)
+    })
+
+  }
+
+
+  changeSpecialty(event){
+    this._dataSharedService.sendSpecialtyIdToSideBarComponent.next(this.specilatyId);
+    console.error(event)
+  }
+
+
+
+  
 
   onScrollToEndForSpecilaty() {
     this.fetchMoreForSpecilaty();
@@ -87,8 +146,6 @@ export class SearchComponent implements OnInit {
   onScrollToEndForArea() {
     this.fetchMoreForArea();
   }
-
-
 
   onScrollForSpecilaty({ end }) {
     if (this.loadingSpecilaty || this.specilaties.length <= this.SpecilatyBuffer.length) {
@@ -119,9 +176,6 @@ export class SearchComponent implements OnInit {
     }
   }
 
-
-
-
   private fetchMoreForSpecilaty() {
     const len = this.SpecilatyBuffer.length;
     const more = this.specilaties.slice(len, this.bufferSize + len);
@@ -150,18 +204,6 @@ export class SearchComponent implements OnInit {
     this.areasBuffer = this.areasBuffer.concat(more);
 
   }
-
-  search(){
-    this.doctorService.search( 2 , 1 ,this.specilatyId , this.cityId , this.areaId , this.doctorName ).subscribe(
-      (data) =>{
-        
-         console.log( data);
-
-      }
-    )
-    
-  }
-
 
 
 }

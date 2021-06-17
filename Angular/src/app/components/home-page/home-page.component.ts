@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { SpecilatyService } from 'src/app/_services/specilaty.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class HomePageComponent implements OnInit {
   SpecailtyList:ISpecialty[];
 Sp_list:any;
 
-  constructor(private _specilatyService:SpecilatyService,private _router:Router) { }
+  constructor(private _specilatyService:SpecilatyService,private _router:Router
+    ,private _dataSharedService:DataSharedService) { }
 
   ngOnInit(): void {
     this._specilatyService.getAllSpecialities().subscribe(data=>
@@ -26,8 +28,9 @@ Sp_list:any;
 
   ShowDoctors(specailtyId)
   {
-    console.log(specailtyId);
-    this._router.navigate(['showDoctors',specailtyId]);
+    // console.log(specailtyId);
+    // this._router.navigate(['showDoctors',specailtyId]);
+    this._dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.next(specailtyId);
   }
   chunks(array, size) {
     let results = [];

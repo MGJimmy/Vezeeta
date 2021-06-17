@@ -69,17 +69,19 @@ export class RegisterDoctorComponent implements OnInit {
       doctorInfo: this.formFields.doctorInfo.value,
       specialtyId:this.formFields.specialtyId.value
     }
-    this._authService.register(newDoctor)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this._router.navigate(["login"]);
-        },
-        error => {
-          console.log(error);
-          this.error = error.body;
-          this.loading = false;
-        });
+console.error(newDoctor)
+    
+    // this._authService.register(newDoctor)
+    //   .pipe(first())
+    //   .subscribe(
+    //     data => {
+    //       this._router.navigate(["login"]);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.error = error.body;
+    //       this.loading = false;
+    //     });
   }
   public uploadFinished = (event) => { 
     this.response = event;

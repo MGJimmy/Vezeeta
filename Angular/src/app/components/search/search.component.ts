@@ -56,14 +56,15 @@ export class SearchComponent implements OnInit {
     , private doctorService : DoctorService,private _dataSharedService:DataSharedService,private _router:Router) {
 
       _dataSharedService.sendDataToSearchComponent.subscribe(data=>{
-        if(data.title.length!=0||
-          data.fee.length!=0||data.subspecails.length!=0){
+        // if(data.title.length!=0||
+        //   data.fee.length!=0||data.subspecails.length!=0){
             this.doctorFilter.title=data.title;
             this.doctorFilter.subspecails=data.subspecails;
             this.doctorFilter.fee=data.fee;
-            console.log(data);
-            this.search();
-        }
+           
+            
+      //  }
+        this.search();
       })
 
       _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data=>{
@@ -115,12 +116,10 @@ export class SearchComponent implements OnInit {
     this.doctorFilter.specailtyid=this.specilatyId;
     this.doctorFilter.name=this.doctorName;
 
-    console.error(this.doctorFilter)
     
     this.doctorService.ShowSpecailtyDoctorswithFilter(this.doctorFilter).subscribe(data=>{
       this._dataSharedService.sendAllDocterAfterFilterToShow.next(data);
       this._router.navigate(["showDoctors"])
-      console.log(data)
     })
 
   }
@@ -128,7 +127,6 @@ export class SearchComponent implements OnInit {
 
   changeSpecialty(event){
     this._dataSharedService.sendSpecialtyIdToSideBarComponent.next(this.specilatyId);
-    console.error(event)
   }
 
 

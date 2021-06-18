@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { User } from '../_models/_classes/user';
 import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { IRegisterUser } from '../_models/_interfaces/IRegisterUser';
 import { IUserForReservation } from '../_models/_interfaces/IUserForReservation';
+import { IUser } from '../_models/_interfaces/IUser';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -136,5 +137,14 @@ export class AuthenticationService {
     }  
     */
 
+    url=environment.apiUrl+"/api/Account/ChangePassword";
+    CheckPassword(user){
+        console.log(user);
+        return this.http.post<IUser>(this.url,user).pipe(catchError(err=>
+          {
+              console.log(err);
+              return throwError(err.message||"an error occur")})
+        );
+      }
     
 }

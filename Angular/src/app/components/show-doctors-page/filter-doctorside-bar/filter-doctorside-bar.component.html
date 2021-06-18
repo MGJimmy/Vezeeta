@@ -304,21 +304,6 @@ Specify your search
                         </label>
                     </div>
 
-                    <!-- <div class="d-flex align-items-center">
-                        <input type="checkbox" id="teacher" value="teacher" (change)="titlecheck($event)">
-                        <label for="teacher" class="ml-2"> teacher
-                        </label>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <input type="checkbox" id="consultative" value="consultative" (change)="titlecheck($event)">
-                        <label for="consultative" class="ml-2">consultative
-                        </label>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <input type="checkbox" id="specialist" value="specialist" (change)="titlecheck($event)">
-                        <label for="specialist" class="ml-2">specialist</label>
-                    </div> -->
-
                 </div>
 
             </div>
@@ -383,19 +368,20 @@ Specify your search
             </div>
             <i class="fas fa-angle-up fa-2x" id="Angleicon2"></i>
         </div>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-        <div class="card-body">
-            <div class="card-body d-flex flex-column">
-                <div class="d-flex align-items-center" *ngFor="let specailty of allSubSpecialty">
-                    <input type="checkbox" id="{{specailty.name}}" value="{{specailty.id}}" (change)="subSpecailtycheck($event)">
-                    <label for="{{specailty.name}}" class="ml-2">{{specailty.name}}</label>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex align-items-center" *ngFor="let specailty of allSubSpecialty">
+                        <input type="checkbox" id="{{specailty.name}}" value="{{specailty.id}}" (change)="subSpecailtycheck($event)">
+                        <label for="{{specailty.name}}" class="ml-2">{{specailty.name}}</label>
+                    </div>
+    
                 </div>
-
+    
             </div>
-
         </div>
     </div>
+   
 
 
 

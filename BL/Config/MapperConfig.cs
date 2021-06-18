@@ -197,7 +197,7 @@ namespace BL.Configurations
                 .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
                 .ReverseMap()
                 .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
-            
+
 
         }
     }

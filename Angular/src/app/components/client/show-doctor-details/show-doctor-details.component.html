@@ -15,7 +15,7 @@
                             {{doctor.titleDegree}}
                         </h3>
                         <div class="card-text">
-                            Doctor in <span class="text-primary">{{doctor.specialty.name}}</span>subspecailize
+                            Doctor in <span class="text-primary"> {{ doctor.specialty.name}}</span> subspecailize
                             in
                             <span *ngFor="let sub of doctor.subspecails" class="text-primary">{{sub.name}},
                             </span>

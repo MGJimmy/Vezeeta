@@ -30,11 +30,12 @@ export class FilterDoctorDataComponent implements OnInit {
     private _doctorService: DoctorService, private datePipe: DatePipe,
     private _subSpecialityService: SubSpecialityService) {
         _dataSharedService.sendAllDocterAfterFilterToShow.subscribe(data=>{
-          if(data!=null){
+          if(data.length!=0){
             this.LoadData(data);
             this.IsContainDoctor=true;
           }
           else{
+            this.DoctorsList=null;
             this.IsContainDoctor=false;
           }
         })
@@ -45,7 +46,7 @@ export class FilterDoctorDataComponent implements OnInit {
 
   LoadData(data){
         this.DoctorsList = data;
-        this.specialtyName = data[0].specialty.name;
+       // this.specialtyName = data[0].specialty.name;
         this.NumberOfDoctors = data.length;
         this.DoctorsList.forEach(element => {
           element.presentDaysWork = this.chunks(this.loadDays(element.workingDays), 3);
@@ -81,10 +82,6 @@ export class FilterDoctorDataComponent implements OnInit {
       workingDays.push(newDayWork);
     }
 
-
-
-    console.log(workingDays);
-
     return workingDays;
   }
 
@@ -105,9 +102,6 @@ export class FilterDoctorDataComponent implements OnInit {
 
     // date=date.
 
-    // console.log(shiftId)
-    // console.log(doctorName)
-    console.log(date)
     // // console.log(date.toLocaleDateString('en-GB'))
     // console.log(date.toISOString())
   }
@@ -121,7 +115,6 @@ export class FilterDoctorDataComponent implements OnInit {
   }
 
   ShowDetails(DoctorId) {
-    console.log(DoctorId);
     this._router.navigate(['ShowDoctorDetails', DoctorId]);
   }
 

@@ -1,10 +1,12 @@
 ﻿using API.helpers;
+using AutoMapper;
 using BL.AppServices;
 using BL.DTOs;
 using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.UserDto;
 using BL.DTOs.WorkingDayDTO;
 using BL.StaticClasses;
 using DAL;
@@ -131,7 +133,7 @@ namespace API.Controllers
                 await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Doctor);
                 _doctorAppService.Create(registerUser.Id, registerDoctorDTO);
                 _generalAppService.CommitTransaction();
-                return Ok(new Response { Message = "Doctor created successfully" });
+                 return Ok(new Response { Message = "Doctor created successfully" });
             }
             catch (Exception ex)
             {

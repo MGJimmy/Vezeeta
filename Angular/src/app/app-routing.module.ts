@@ -34,6 +34,7 @@ import { ShowDoctorDetailsComponent } from './components/client/show-doctor-deta
 import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
 import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component';
 import { ClientComponent } from './components/client/client.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -91,8 +92,8 @@ const routes: Routes = [
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
       // {path:"home", component:ClientComponent},
       // {path:"**", component:ClientComponent},
-  ]}
-
+  ]},
+   {path:"ResetPassword",component:ResetPasswordComponent}
   // {path:"Reversation",component:CreatReservationComponent},
   // {path:"ReversationContinue",component:CreatReservationContinueComponent},
   // {path:"UserAppointments",component:ShowReservationToPatientComponent},

@@ -60,7 +60,8 @@ import { ShowOfferReserveToPatientComponent } from './components/client-offer/sh
 import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './components/search/search.component';
-import { FilterDoctorDataComponent } from './components/show-doctors-page/filter-doctor-data/filter-doctor-data.component'
+import { FilterDoctorDataComponent } from './components/show-doctors-page/filter-doctor-data/filter-doctor-data.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +113,7 @@ import { FilterDoctorDataComponent } from './components/show-doctors-page/filter
       ShowOfferReserveToDoctorComponent,
       SearchComponent,
       FilterDoctorDataComponent,
+      UserUpdateComponent,
     
   ],
   imports: [

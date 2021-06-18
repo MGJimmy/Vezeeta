@@ -16,6 +16,10 @@ namespace BL.Repositories
 
         }
 
+        public IEnumerable<Offer> GetAllWithSubOffer()
+        {
+            return DbSet.Include(i => i.SubOffers);
+        }
 
 
 

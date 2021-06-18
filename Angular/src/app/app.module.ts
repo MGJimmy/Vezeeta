@@ -61,6 +61,11 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchComponent } from './components/search/search.component';
 import { FilterDoctorDataComponent } from './components/show-doctors-page/filter-doctor-data/filter-doctor-data.component';
+import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
+import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
+import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
+import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
+import { FilterDoctorDataComponent } from './components/show-doctors-page/filter-doctor-data/filter-doctor-data.component';
 import { UserUpdateComponent } from './components/user-update/user-update.component'
 @NgModule({
   declarations: [
@@ -113,6 +118,10 @@ import { UserUpdateComponent } from './components/user-update/user-update.compon
       ShowOfferReserveToDoctorComponent,
       SearchComponent,
       FilterDoctorDataComponent,
+      OfferCategoryComponent,
+      SubofferCategoryComponent,
+      NewestOfferComponent,
+      CarsoulOfferComponent,
       UserUpdateComponent,
     
   ],

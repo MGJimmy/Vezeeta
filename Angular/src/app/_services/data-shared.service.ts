@@ -21,7 +21,7 @@ export class DataSharedService {
   sendSpecialtyIdFromHomePageToSearchComponent=new BehaviorSubject(0);
   
 }
-const allDoctorFiltered:IDoctor[]=null;
+const allDoctorFiltered:IDoctor[]=[];
 const doctorFilter:_IdoctorFilter = {
   specailtyid:null,
   cityId:null,

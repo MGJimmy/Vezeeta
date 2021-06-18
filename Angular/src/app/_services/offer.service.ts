@@ -4,6 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IOffer } from '../_models/_interfaces/IOffer';
+import { IOfferWithMakeOfferCount } from '../_models/_interfaces/IOfferWithMakeOfferCount';
+import { IOfferWithSubOffer } from '../_models/_interfaces/IOfferWithSubOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,16 @@ export class OfferService {
     }));
   }
 
+  getAllWithMakeOfferCount():Observable<IOfferWithMakeOfferCount[]> {
+    return this._http.get<IOfferWithMakeOfferCount[]>(`${this.url}/WithMakeOfferCount`).pipe(catchError((err)=>    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
+  getAllWithSubOffer():Observable<IOfferWithSubOffer[]> {
+    return this._http.get<IOfferWithSubOffer[]>(`${this.url}/withSubOffer`).pipe(catchError((err)=>    {
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }));
+  }
   getById(id:number):Observable<IOffer>{
     return this._http.get<IOffer>(this.url+"/"+id).pipe(catchError((err)=>    {
       return throwError(err.message ||"Internal Server error contact site adminstarator");

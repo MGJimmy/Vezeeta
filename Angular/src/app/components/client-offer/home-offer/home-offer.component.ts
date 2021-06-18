@@ -12,24 +12,14 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeOfferComponent implements OnInit {
 
-  constructor(private _makeOfferService:MakeOfferService,private _router:Router,
-    private _dataSharedService:DataSharedService) { }
+  constructor() { }
 
-  allOffer:IMakeOfferWithDoctorInfo[];
-  url=environment.apiUrl;
-  math=Math;
 
   ngOnInit(): void {
-    this._makeOfferService.GetAll().subscribe(data=>{
-      this.allOffer=data;
-      console.log(this.allOffer);
-      
-    })
+    
   }
 
-  Book(id){
-    this._router.navigate(['ClientOffer/OfferDetails']).then(()=>this._dataSharedService.GoToOfferDetailsPage.next(id))
-  }
+  
 
 
 }

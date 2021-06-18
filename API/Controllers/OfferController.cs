@@ -34,6 +34,32 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("withSubOffer")]
+        public IActionResult GetAllWithSubOffer()
+        {
+            try
+            {
+                return Ok(_offerAppService.GetAllWithSubOffer());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("WithMakeOfferCount")]
+        public IActionResult GetAllWithMakeOfferCount()
+        {
+            try
+            {
+                return Ok(_offerAppService.GetAllWithCountOfMakeOfferRelated());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

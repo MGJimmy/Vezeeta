@@ -40,6 +40,32 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("RelatedToOfferCategory/{id}")]
+        public IActionResult GetAllRelatedToOfferId(int id)
+        {
+            try
+            {
+                return Ok(_makeOfferAppService.GetAllRelatedToOfferId(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("RelatedToSubOfferCategory/{id}")]
+        public IActionResult GetAllRelatedToSubOfferId(int id)
+        {
+            try
+            {
+                return Ok(_makeOfferAppService.GetAllRelatedToSubOfferId(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet("relatedToDoctor")]
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetAllByDoctor()

@@ -20,6 +20,16 @@ export class MakeOfferService {
       return throwError(err.message||"an error occur");
     }));
   }
+  GetAllRelatedToOfferId(id:number):Observable<IMakeOfferWithDoctorInfo[]>{
+    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToOfferCategory/${id}`).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }));
+  }
+  GetAllRelatedToSubOfferId(subOfferId:number):Observable<IMakeOfferWithDoctorInfo[]>{
+    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToOfferCategory/${subOfferId}`).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }));
+  }
   GetAllRelatedToDoctor():Observable<IMakeOffer[]>{
     return this._http.get<IMakeOffer[]>(`${this.url}/relatedToDoctor`).pipe(catchError(err=>{
       return throwError(err.message||"an error occur");

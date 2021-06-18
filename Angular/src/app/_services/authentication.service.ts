@@ -10,6 +10,7 @@ import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { IRegisterUser } from '../_models/_interfaces/IRegisterUser';
 import { IUserForReservation } from '../_models/_interfaces/IUserForReservation';
 import { IUser } from '../_models/_interfaces/IUser';
+import { IUpdateUser } from '../_models/_interfaces/IUpdateUser';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -26,21 +27,21 @@ export class AuthenticationService {
     public get userValue(): User {
         return this.userSubject.value;
     }
-    registerUser(registerUser:IRegisterUser ){
-        return this.http.post<IRegisterUser>(`${environment.apiUrl}/api/Account/Register`,registerUser)
-        .pipe(catchError((err)=>{
-            return throwError(err.message ||"Internal Server error contact site adminstarator");
+    registerUser(registerUser: IRegisterUser) {
+        return this.http.post<IRegisterUser>(`${environment.apiUrl}/api/Account/Register`, registerUser)
+            .pipe(catchError((err) => {
+                return throwError(err.message || "Internal Server error contact site adminstarator");
             }
-        ));
+            ));
     }
-    register(registerDoctor:IRegisterDoctor ){
-        return this.http.post<IRegisterDoctor>(`${environment.apiUrl}/api/doctor`,registerDoctor)
-        .pipe(catchError((err)=>{
-            return throwError(err ||"Internal Server error contact site adminstarator");
+    register(registerDoctor: IRegisterDoctor) {
+        return this.http.post<IRegisterDoctor>(`${environment.apiUrl}/api/doctor`, registerDoctor)
+            .pipe(catchError((err) => {
+                return throwError(err || "Internal Server error contact site adminstarator");
             }
-        ));
+            ));
     }
-    
+
 
     login(username: string, PasswordHash: string) {
         return this.http.post<any>(`${environment.apiUrl}/Login`, { username, PasswordHash })
@@ -49,13 +50,13 @@ export class AuthenticationService {
             }));
     }
 
-   
+
     private setSession(authResult) {
         //const expiresAt = moment().add(authResult.expiresIn,'second');
         const expiresAt = authResult.expiration;
         localStorage.setItem('token', authResult.token);
         localStorage.setItem("expires_at", JSON.stringify(expiresAt));//.valueOf()) );
-    }  
+    }
 
     logout() {
         // remove user from local storage to log user out
@@ -63,9 +64,9 @@ export class AuthenticationService {
         localStorage.removeItem("expires_at");
         this.router.navigate(['/login']);
     }
-    
+
     public isLoggedIn() {
-        if(localStorage.getItem('token')){
+        if (localStorage.getItem('token')) {
             let token = localStorage.getItem('token');
 
             let jwtData = token.split('.')[1]
@@ -80,7 +81,7 @@ export class AuthenticationService {
 
             if (expirationDateInMills >= todayDateInMills)
                 return true;
-            
+
         }
         return false;
     }
@@ -88,8 +89,8 @@ export class AuthenticationService {
     isLoggedOut() {
         return !this.isLoggedIn();
     }
-    getRole():string {
-        if(localStorage.getItem('token')){
+    getRole(): string {
+        if (localStorage.getItem('token')) {
             let token = localStorage.getItem('token');
 
             let jwtData = token.split('.')[1]
@@ -100,9 +101,9 @@ export class AuthenticationService {
             return decodedJwtData.role;
         }
         return "No Role";
-      }
-    getUserId(){
-        if(localStorage.getItem('token')){
+    }
+    getUserId() {
+        if (localStorage.getItem('token')) {
             let token = localStorage.getItem('token');
 
             let jwtData = token.split('.')[1]
@@ -110,16 +111,35 @@ export class AuthenticationService {
             let decodedJwtJsonData = window.atob(jwtData)
 
             let decodedJwtData = JSON.parse(decodedJwtJsonData)
-            let userID=decodedJwtData['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+            let userID = decodedJwtData['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
             return userID;
         }
         return null;
     }
 
-    getCurrentUser():Observable<IUserForReservation>{
-        return this.http.get<IUserForReservation>(`${environment.apiUrl}/api/Account`).pipe(catchError(error=>{
-            return throwError(error||"an error occur");
+    getCurrentUser(): Observable<IUserForReservation> {
+        return this.http.get<IUserForReservation>(`${environment.apiUrl}/api/Account`).pipe(catchError(error => {
+            return throwError(error || "an error occur");
         }))
+    }
+
+    getCurrentUserForUpdate(): Observable<IUpdateUser> {
+        return this.http.get<IUpdateUser>(`${environment.apiUrl}/api/Account/getForUpdate`).pipe(catchError(error => {
+            return throwError(error || "an error occur");
+        }))
+    }
+
+    updateUser(model: IUpdateUser): Observable<IUpdateUser> {
+        if (localStorage.getItem('token')) {
+            let token = localStorage.getItem('token');
+            const headers = { 'Authorization': `Bearer ${token}` };
+            return this.http.post<IUpdateUser>(`${environment.apiUrl}/api/Account/updateUser`, model, { headers }).pipe(catchError(error => {
+                return throwError(error || "an error occur");
+            }))
+
+        }
+        return null;
+
     }
     /*          
     public isLoggedIn() {

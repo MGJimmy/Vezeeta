@@ -34,6 +34,8 @@ import { ShowDoctorDetailsComponent } from './components/client/show-doctor-deta
 import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
 import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component';
 import { ClientComponent } from './components/client/client.component';
+import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
+import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
@@ -72,6 +74,8 @@ const routes: Routes = [
   {path:"ClientOffer",component:ClientOfferComponent
     ,children:[
       {path:"offers",component:HomeOfferComponent},
+      {path:"offers/:id",component:OfferCategoryComponent},
+      {path:"subOffers/:id",component:SubofferCategoryComponent},
       {path:"OfferDetails",component:OfferDetailsComponent},
       {path:"UserOfferAppointments",component:ShowOfferReserveToPatientComponent},
       {path:"DoctorOfferAppointments",component:ShowOfferReserveToDoctorComponent},
@@ -85,13 +89,16 @@ const routes: Routes = [
       {path:"UserAppointments",component:ShowReservationToPatientComponent},
       {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
       
-      {path:"registerDoctor", component:RegisterDoctorComponent},
-      {path:"registerUser", component:UserRegisterComponent},
-      {path:"login", component:LoginComponent},
       {path:"showDoctors", component:ShowDoctorsPageComponent},
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
       // {path:"home", component:ClientComponent},
       // {path:"**", component:ClientComponent},
+  ]},
+
+  {path:"registerDoctor", component:RegisterDoctorComponent},
+  {path:"registerUser", component:UserRegisterComponent},
+  {path:"login", component:LoginComponent},
+
   ]},
    {path:"ResetPassword",component:ResetPasswordComponent}
   // {path:"Reversation",component:CreatReservationComponent},

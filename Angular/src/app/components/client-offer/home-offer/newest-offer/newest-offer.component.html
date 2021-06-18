@@ -1,0 +1,35 @@
+<div class="pageTitle pt-4">The Newest</div>
+
+<div class="row">
+    <div class="col-12 col-md-4 p-1 " *ngFor="let item of allOffer">
+        <div class="card" (click)="Book(item.id)">
+            <div class="img-cart">
+                <img src="{{url}}/{{item.offerImages[0].image}}" class="card-img-top img-fluid" alt="...">
+                <div class="overlay"></div>
+                <div class="text-light text-center doctorInfo">
+                    <img src="{{url}}/{{item.doctor.image}}" class="img-fluid">
+                    <span class="doctorInfoName px-1">Doctor {{item.doctor.userFullName}}</span>
+                </div>
+            </div>
+            <div class="card-body p-3 pt-2">
+                <span class="card-title offerTitle sp d-block mb-0">{{item.title}}</span>
+                <span class="card-text d-block sp offerSession d-block py-2">
+                    {{item.numberOfSession}} Session for {{item.title}}
+                </span>
+                <span class="card-text d-block ">
+                    <span class="offerFees d-inline-block">{{item.fees}} EGP</span> 
+                    <span class="offerDiscount d-inline-block"> Save {{item.discount}} EGP</span>
+                    <span class="d-block offerPrice">{{item.fees-item.discount}} EGP</span>
+                </span>
+                <div class="bookDiv text-right">
+                    <button class="btn btn-book "  (click)="Book(item.id)">Book</button>
+                </div>
+            </div>
+            
+            
+            <div class="bg-danger text-light text-center state"> {{math.round((item.discount/item.fees)*100)}} % OFF </div>
+            
+            
+        </div>
+    </div>
+</div>

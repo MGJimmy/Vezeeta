@@ -23,6 +23,35 @@ namespace BL.AppServices
             var dto = Mapper.Map<IEnumerable<OfferDTO>>(TheUnitOfWork.OfferRepo.GetAll());
             return dto;
         }
+
+        public IEnumerable<OfferWithSubOfferDTO> GetAllWithSubOffer()
+        {
+            var dto = Mapper.Map<IEnumerable<OfferWithSubOfferDTO>>(TheUnitOfWork.OfferRepo.GetAllWithSubOffer());
+            return dto;
+        }
+
+        public IEnumerable<OfferWithMakeOfferCountDTO> GetAllWithCountOfMakeOfferRelated()
+        {
+            var offers = TheUnitOfWork.OfferRepo.GetAll().ToList();
+
+            var offerDto = new List<OfferWithMakeOfferCountDTO>();
+
+
+            offers.ForEach(element =>
+            {
+                var count = TheUnitOfWork.MakeOfferRepo.GetWhere(i => i.State == true && i.OfferId == element.Id).Count;
+                var dto = new OfferWithMakeOfferCountDTO
+                {
+                    Id = element.Id,
+                    Name = element.Name,
+                    Image = element.Image,
+                    MakeOfferCount = count
+                };
+                offerDto.Add(dto);
+            });
+            return offerDto;
+        }
+
         public OfferDTO GetById(int id)
         {
             var dto = Mapper.Map<OfferDTO>(TheUnitOfWork.OfferRepo.GetById(id));

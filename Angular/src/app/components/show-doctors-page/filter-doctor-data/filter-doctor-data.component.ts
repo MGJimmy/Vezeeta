@@ -35,7 +35,7 @@ export class FilterDoctorDataComponent implements OnInit {
             this.IsContainDoctor=true;
           }
           else{
-            this.DoctorsList=null;
+            this.DoctorsList=null
             this.IsContainDoctor=false;
           }
         })
@@ -81,6 +81,14 @@ export class FilterDoctorDataComponent implements OnInit {
 
       workingDays.push(newDayWork);
     }
+
+
+
+    console.log(workingDays);
+
+
+
+    console.log(workingDays);
 
     return workingDays;
   }

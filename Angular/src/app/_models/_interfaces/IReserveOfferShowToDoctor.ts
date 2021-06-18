@@ -1,7 +1,7 @@
 export interface IReserveOfferShowToDoctor{
     reservetionId:number,
     makeOfferTitle:string,
-    offerId:number,
+    makeOfferId:number,
     userId:string,
     state:boolean,
     userName:string,

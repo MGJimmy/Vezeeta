@@ -182,6 +182,8 @@ namespace BL.Configurations
             CreateMap<MakeOfferImage, GetMakeOfferImageDTO>().ReverseMap();
             CreateMap<ReserveOffer, GetAllReserveOfferToDoctorDTO>().ReverseMap();
             CreateMap<ReserveOffer, CreateReserveOfferDTO>().ReverseMap();
+            CreateMap<Offer, OfferWithSubOfferDTO>().ReverseMap();
+            CreateMap<SubOffer, SubOffer2Dto>().ReverseMap();
 
             CreateMap<Doctor, DoctorSearchDto>()
                 .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.User.FullName))

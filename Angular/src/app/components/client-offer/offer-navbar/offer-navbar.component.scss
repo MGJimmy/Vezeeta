@@ -1,4 +1,92 @@
+
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; // remove the gap so it doesn't close
  }
+
+.collapse {
+	position: unset;
+    .dropdown {
+        position: unset;
+        font-size: 1rem;
+        font-weight: 600;
+        font-family: sans-serif;
+        .dropdown-menu{
+            width:100%;
+            .sidebar{
+                background-color: #F7F7F7;
+                height: 100%;
+                .active{
+                    background-color: white !important;
+                    color: rgb(52, 52, 52);
+                }
+            }
+        }
+    }
+}
+
+ 
+.dropListOfColumn{
+    display: inline-flex;
+    max-height: 20rem;
+    width: 100%;    
+    color: rgb(135, 136, 139);
+    ul{
+        display: flex;
+        flex-flow: column wrap;
+        width: 100%;
+        padding: 0%;
+        li{
+            color: rgb(52, 52, 52);
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            display: block;
+            float: left;
+            padding-right: 10px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+    }
+}
+.allOffer{
+    color: rgb(56, 102, 223) !important;
+    background-color: hsl(259, 53%, 94%);
+    font-size: 1rem;
+    span{
+        vertical-align: middle;
+        display: inline-flex;
+    }
+}
+.subCategory{
+    background-image:  url("https://d1ohqf92fg2anw.cloudfront.net/vezeeta-account/assets/backgroundLowOpacity.png");
+    .image{
+        img{
+            width: 10rem;
+            height: 10rem;
+        }
+    }
+    .dropListOfColumn{
+        display: inline-flex;
+        max-height: 10rem;
+        width: 100%;    
+        color: rgb(135, 136, 139);
+        ul{
+            display: flex;
+            flex-flow: column wrap;
+            width: 100%;
+            padding: 0%;
+            li{
+                color: rgb(49, 47, 47);
+                cursor: pointer;
+                text-align: left;
+                font-size: 14px;
+                display: block;
+                float: left;
+                padding-right: 10px;
+                border-radius: 5px;
+                margin: 5px;
+            }
+        }
+    }
+}

@@ -106,3 +106,40 @@ hr {
 }
 
 // style= "background-color: rgb(189, 187, 187);"
+
+
+.carousel-image{
+  height: 43rem;
+}
+.carousel-caption {
+  position: absolute;
+  right: unset; 
+  top: 10%;
+  left: 15%;
+  text-align: left;
+  color: rgb(111, 112, 114);
+  font-family: sans-serif;
+  z-index: 0;
+  h1{
+    font-weight: 600;
+    line-height: 10%;    
+  }
+  h2{
+    font-weight: 100;
+    span{
+      color: red;
+    }
+  }
+}
+.searchCart{
+  position: absolute;
+  top: 44%;
+  left: 10%;
+  right: 10%;
+}
+@media (max-width:500px) {
+  .carousel-image{
+    height: 30rem;
+  }
+  
+}

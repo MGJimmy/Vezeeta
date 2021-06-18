@@ -10,7 +10,7 @@ namespace BL.DTOs.ReserveOfferDTO
     {
         public int reservetionId { get; set; }
         public string MakeOfferTitle { get; set; }
-        public int OfferId { get; set; }
+        public int MakeOfferId { get; set; }
         public string UserId { get; set; }
         public bool State { get; set; }
         public string UserName { get; set; }

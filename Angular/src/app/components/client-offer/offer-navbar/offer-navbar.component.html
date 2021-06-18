@@ -1,43 +1,102 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light p-1">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-            
-            <li class="nav-item dropdown">
-                <a class="nav-link" id="navbarDropdownMenuLink" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    ALL OFFERS
-                    <span > ❯ </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <div class="row">
-                        <div class="col-2">
-                            <a class="dropdown-item" href="#">Action</a>         
-                        </div>
-                        <div class="col-10">
-                            
-                            <a class="dropdown-item" href="#">Action</a>
-                        </div>
-                    </div>
+<section class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light p-0 container">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-    </div>
-</nav>
+
+
+            <ul class="navbar-nav">
+                
+                <li class="nav-item dropdown px-2">
+                    <a class="nav-link allOffer" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        ALL OFFERS
+                        <span> <i class="fas fa-chevron-down"></i> </span>
+                    </a>
+                    <div class="dropdown-menu p-0" aria-labelledby="navbarDropdownMenuLink">
+                        <div class="row">
+                            <div class="col-3 ">
+                                <div class="sidebar">
+                                    <div class="nav flex-column nav-pills  " id="v-pills-tab" role="tablist"
+                                        aria-orientation="vertical">
+                                        <a class="nav-link" id="v-pills-tab-{{i}}" data-toggle="pill" href="#v-pills-{{i}}"
+                                            role="tab" aria-controls="v-pills-{{i}}" aria-selected="true" [class.active]="i==0"
+                                            *ngFor="let offer of allOffer;let i=index"
+                                            >
+                                            {{offer.name}}
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="tab-content" id="v-pills-tabContent">
+                
+                                    <div class="tab-pane fade " id="v-pills-{{i}}" role="tabpanel"
+                                        aria-labelledby="v-pills-tab-{{i}}" *ngFor="let offer of allOffer;let i=index"
+                                        [class.active]="i==0" [class.show]="i==0">
+                                        <div class="d-flex justify-content-between p-2">
+                                            <span>{{offer.name}}</span>
+                
+                                            <a [routerLink]="['offers', offer.id]">Show All {{offer.name}}</a>
+                                        </div>
+                                        <hr class="m-1">
+                                        <div class=" dropListOfColumn">
+                                            <ul class="">
+                                                <li *ngFor="let subOffer of offer.subOffers">
+                                                    <a class="dropdown-item" [routerLink]="[ 'subOffers', subOffer.id ]">{{subOffer.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                
+                                </div>
+                            </div>
+                        </div>
+                
+                
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown px-2" *ngFor="let offer of allOffer.slice(0,5);let i=index">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{offer.name}}
+                    </a>
+                    <div class="dropdown-menu p-0 m-0" aria-labelledby="navbarDropdownMenuLink2">
+                        <div class="row subCategory p-2 m-0">
+                            <div class="col-3 image text-center">
+                                <img src="{{url}}/{{offer.image}}" class="img-fluid border rounded-lg" alt="">
+                            </div>
+                            <div class="col-9">
+                                <div class="tab-content">
+                
+                                    <div>
+                                        
+                                        <div class=" dropListOfColumn">
+                                            <ul class="">
+                                                <li *ngFor="let subOffer of offer.subOffers">
+                                                    <a class="dropdown-item" [routerLink]="[ 'subOffers', subOffer.id ]">{{subOffer.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                
+                
+                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                                        aria-labelledby="v-pills-profile-tab">..2.</div>
+                
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</section>

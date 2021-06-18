@@ -31,7 +31,7 @@ namespace BL.AppServices
                 string doctorId = reserve.doctorId;
                 ApplicationUserIdentity user = TheUnitOfWork.AccountRepo.GetAccountById(doctorId);
                 Clinic clinic = TheUnitOfWork.ClinicRepo.GetByIdWithArea(doctorId);
-                var makeOffer = TheUnitOfWork.MakeOfferRepo.GetById(reserve.OfferId);
+                var makeOffer = TheUnitOfWork.MakeOfferRepo.GetById(reserve.MakeOfferId);
 
 
                 GetAllReserveOfferToPatientDTO insertDto = new GetAllReserveOfferToPatientDTO();
@@ -47,6 +47,7 @@ namespace BL.AppServices
 
                 dto.Add(insertDto);
 
+
             });
 
             return dto;
@@ -54,11 +55,11 @@ namespace BL.AppServices
 
         public List<GetAllReserveOfferToDoctorDTO> GetAllReservationToDoctor(string userId)
         {
-            List<GetAllReserveOfferToDoctorDTO> dto = Mapper.Map<List<GetAllReserveOfferToDoctorDTO>>(TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.doctorId == userId).OrderBy(i => i.Date).ThenBy(i => i.OfferId)).ToList();
+            List<GetAllReserveOfferToDoctorDTO> dto = Mapper.Map<List<GetAllReserveOfferToDoctorDTO>>(TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.doctorId == userId).OrderBy(i => i.Date).ThenBy(i => i.MakeOfferId)).ToList();
             dto.ForEach(element =>
                 {
                     var dayShift = TheUnitOfWork.DayShiftRepo.GetById(element.dayShiftId);
-                    element.MakeOfferTitle = TheUnitOfWork.MakeOfferRepo.GetById(element.OfferId).Title;
+                    element.MakeOfferTitle = TheUnitOfWork.MakeOfferRepo.GetById(element.MakeOfferId).Title;
                     element.DayShiftFrom = dayShift.From;
                     element.DayShiftTo = dayShift.To;
                 }

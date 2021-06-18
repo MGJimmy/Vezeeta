@@ -98,9 +98,7 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-
-  ]},
-   {path:"ResetPassword",component:ResetPasswordComponent}
+  {path:"ResetPassword",component:ResetPasswordComponent}
   // {path:"Reversation",component:CreatReservationComponent},
   // {path:"ReversationContinue",component:CreatReservationContinueComponent},
   // {path:"UserAppointments",component:ShowReservationToPatientComponent},

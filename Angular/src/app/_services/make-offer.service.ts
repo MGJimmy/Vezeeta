@@ -20,13 +20,13 @@ export class MakeOfferService {
       return throwError(err.message||"an error occur");
     }));
   }
-  GetAllRelatedToOfferId(id:number):Observable<IMakeOfferWithDoctorInfo[]>{
-    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToOfferCategory/${id}`).pipe(catchError(err=>{
+  GetAllRelatedToOfferId(id:number,pageSize,pageNumber):Observable<IMakeOfferWithDoctorInfo[]>{
+    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToOfferCategory/${id}/${pageSize}/${pageNumber}`).pipe(catchError(err=>{
       return throwError(err.message||"an error occur");
     }));
   }
-  GetAllRelatedToSubOfferId(subOfferId:number):Observable<IMakeOfferWithDoctorInfo[]>{
-    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToOfferCategory/${subOfferId}`).pipe(catchError(err=>{
+  GetAllRelatedToSubOfferId(subOfferId:number,pageSize,pageNumber):Observable<IMakeOfferWithDoctorInfo[]>{
+    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/RelatedToSubOfferCategory/${subOfferId}/${pageSize}/${pageNumber}`).pipe(catchError(err=>{
       return throwError(err.message||"an error occur");
     }));
   }
@@ -49,6 +49,17 @@ export class MakeOfferService {
   }
   UpdateMakeOffer(makeOffer:IMakeOffer):Observable<any>{
     return this._http.put<any>(this.url,makeOffer).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }));
+  }
+
+  GetCountOfMakeOfferRelatedToOffer(offerId:number):Observable<number>{
+    return this._http.get<number>(`${this.url}/CountOfMakeOfferRelatedToOffer/${offerId}`).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }));
+  }
+  GetCountOfMakeOfferRelatedToSubOffer(subOfferId:number):Observable<number>{
+    return this._http.get<number>(`${this.url}/CountOfMakeOfferRelatedToSubOffer/${subOfferId}`).pipe(catchError(err=>{
       return throwError(err.message||"an error occur");
     }));
   }

@@ -103,17 +103,29 @@
 
 .appointment p
 {
-    color: blue;
+    color: #007bff;
 }
-.carousel-control-prev,
-.carousel-control-next {
-  background-color:lightseagreen;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0;
-}
+.carousel-control-prev,.carousel-control-next{
+    background-color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid rgb(217, 217, 218);
+    .fas{
+      color: rgb(102, 102, 102);;
+    }
+  }
+  .clickReserve{
+    color: #007bff;
+    cursor: pointer;
+    margin: 3%;
+  }
+  .clickReserve:hover{
+    color: white;
+    background-color: #007bff;
+  }
 
 
 .appointmentsDiv

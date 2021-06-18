@@ -59,9 +59,9 @@
                             <button class="btn btn-primary w-100">{{ day.datee |
                                 date:'MMMM d'}}</button>
 
-                            <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
+                            <div style="text-align: center;" class="appointment mt-3 " *ngIf="day.IsWork">
                                 <div *ngFor="let shift of day._dayShift"
-                                    (click)="reserve(shift.id,day.datee)" class="mb-2 border">
+                                    (click)="reserve(shift.id,day.datee)" class="mb-2 border clickReserve rounded">
                                     <small>from : {{shift.from}}</small>
                                     <br>
                                     <!-- {{shift.id}}  -->
@@ -85,12 +85,12 @@
 
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                 <!-- style="left: -7% !important;" -->
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <i class="fas fa-chevron-left"></i>
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
                 <!-- style="right: -7% !important;" -->
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <i class="fas fa-chevron-right"></i>
                 <span class="sr-only">Next</span>
             </a>
         </div>

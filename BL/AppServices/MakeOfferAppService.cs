@@ -6,6 +6,7 @@ using DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,19 +22,19 @@ namespace BL.AppServices
             var x = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetAll().Where(i => i.State == true).OrderByDescending(i => i.Id));
             return x;
         }
-        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToOfferId(int id)
+        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToOfferId(int id,int pageSize,int pageNumber)
         {
-            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWhere(i => i.State == true && i.OfferId == id).OrderByDescending(i => i.Id));
+            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWherePaging(i => i.State == true && i.OfferId == id, pageSize, pageNumber));
             return dto;
         }
 
-        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToSubOfferId(int id)
+        public List<GetMakeOfferWithDoctorInfoDTO> GetAllRelatedToSubOfferId(int id, int pageSize, int pageNumber)
         {
-            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWhere(i => i.State == true && i.SubOfferId == id).OrderByDescending(i => i.Id));
+            
+            var dto = Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.GetWherePaging(i => i.State == true && i.SubOfferId == id,pageSize,pageNumber));
             return dto;
         }
 
-        // public List<GetMakeOfferDTO>
         public List<GetMakeOfferDTO> GetAllByDoctorId(string id)
         {
             return Mapper.Map<List<GetMakeOfferDTO>>(TheUnitOfWork.MakeOfferRepo.GetAllByDoctorId(id));
@@ -59,6 +60,12 @@ namespace BL.AppServices
             TheUnitOfWork.MakeOfferRepo.Update(makeOffer);
             TheUnitOfWork.SaveChanges();
             return offerDTO;
+        }
+
+
+        public int CountOfMakeOfferRelatedTo(Expression<Func<MakeOffer, bool>> filter = null)
+        {
+            return TheUnitOfWork.MakeOfferRepo.CountOfMakeOfferRelatedTo(filter);
         }
     }
 }

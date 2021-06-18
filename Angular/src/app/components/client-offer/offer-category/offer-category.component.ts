@@ -17,21 +17,27 @@ export class OfferCategoryComponent implements OnInit {
   OfferCategory:IOffer;
   url=environment.apiUrl;
   math=Math;
+  offerId:number
+
+  currentPage:number=1;
+  pageSize:number=15;
+  countOfDoctorOffer:number;
+  numberOfPage:number;
 
   constructor(private _makeOfferService:MakeOfferService,private _offerService:OfferService
     ,private _router:Router,private _activatedRoute:ActivatedRoute
     ,private _dataSharedService:DataSharedService) {
 
       _activatedRoute.paramMap.subscribe((params:ParamMap)=>{
-        let offerId=parseInt(params.get('id'));
-        this._offerService.getById(offerId).subscribe(data=>{
+        this.offerId =parseInt(params.get('id'));
+        this._offerService.getById(this.offerId).subscribe(data=>{
           this.OfferCategory=data;
         })
-        this._makeOfferService.GetAllRelatedToOfferId(offerId).subscribe(data=>{
-          this.allOffer=data;      
-          console.log(this.allOffer);
-          
-        })
+
+        this.GetNumberOfPage();
+        this.LoadDataByPageing(this.currentPage);
+
+        
       })
     }
 
@@ -40,6 +46,27 @@ export class OfferCategoryComponent implements OnInit {
   ngOnInit(): void {
     
   }
+  GetNumberOfPage(){
+    this._makeOfferService.GetCountOfMakeOfferRelatedToOffer(this.offerId).subscribe(data=>{
+      this.countOfDoctorOffer=data,
+      this.numberOfPage=Math.ceil(this.countOfDoctorOffer / this.pageSize)
+    });
+  }
+
+  LoadDataByPageing(currentPage:number){
+    this._makeOfferService.GetAllRelatedToOfferId(this.offerId,this.pageSize,currentPage).subscribe(data=>{
+      this.allOffer=data;  
+      this.currentPage=currentPage;        
+    })
+  }
+
+  counter(i:number){
+    return new Array(i);
+  }
+  pageChange(pageNumber){
+    this.LoadDataByPageing(pageNumber);
+  }
+
 
 
   Book(id){

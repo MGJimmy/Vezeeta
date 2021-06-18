@@ -24,9 +24,12 @@ export class ClientHeaderComponent implements OnInit {
     this.loadData()
   }
   loadData(){
-    this._authenticationService.getCurrentUser().subscribe(data=>{
-      this.currentUser=data
-    })
+    if(this.isLoggedIn()){
+      this._authenticationService.getCurrentUser().subscribe(data=>{
+        this.currentUser=data
+      })
+    }
+   
   }
   Logout(){
     this._authenticationService.logout();

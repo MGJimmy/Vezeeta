@@ -36,6 +36,7 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
 import { ClientComponent } from './components/client/client.component';
 import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
 import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -97,7 +98,7 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-
+  {path:"ResetPassword",component:ResetPasswordComponent}
   // {path:"Reversation",component:CreatReservationComponent},
   // {path:"ReversationContinue",component:CreatReservationContinueComponent},
   // {path:"UserAppointments",component:ShowReservationToPatientComponent},

@@ -42,7 +42,7 @@ export class FilterDoctorsideBarComponent implements OnInit {
           }else{
             this._subSpecialityService.getAllSubSpecialityBySpecialtyId(this.SpecailtyId, true).subscribe(data => {
               this.allSubSpecialty= data;
-              console.log(this.allSubSpecialty);
+              
             })
           }
           
@@ -71,7 +71,6 @@ export class FilterDoctorsideBarComponent implements OnInit {
     // }, err => {
     //   console.log("Error");
     // })
-    console.log(this.doctorfilter);
     
     this._dataSharedService.sendDataToSearchComponent.next(this.doctorfilter);
 
@@ -89,7 +88,6 @@ export class FilterDoctorsideBarComponent implements OnInit {
     this.LoadData();
   }
   moneycheck(event) {
-    //console.log(event.target.value);
     if (event.target.value == 1) {
       let feeLimt:feelimit={
         MiniMoney:0,
@@ -159,8 +157,6 @@ export class FilterDoctorsideBarComponent implements OnInit {
         this.Removefee(feeLimt.MiniMoney,feeLimt.MaxMoney);
       }
     }
-
-    console.log(this.doctorfilter);
     this.LoadData();
 
   }

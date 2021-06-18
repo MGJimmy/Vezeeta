@@ -46,7 +46,7 @@ export class FilterDoctorDataComponent implements OnInit {
 
   LoadData(data){
         this.DoctorsList = data;
-        this.specialtyName = data[0].specialty.name;
+       // this.specialtyName = data[0].specialty.name;
         this.NumberOfDoctors = data.length;
         this.DoctorsList.forEach(element => {
           element.presentDaysWork = this.chunks(this.loadDays(element.workingDays), 3);
@@ -81,6 +81,15 @@ export class FilterDoctorDataComponent implements OnInit {
 
       workingDays.push(newDayWork);
     }
+
+
+
+    console.log(workingDays);
+
+
+
+    console.log(workingDays);
+
     return workingDays;
   }
 
@@ -101,9 +110,6 @@ export class FilterDoctorDataComponent implements OnInit {
 
     // date=date.
 
-    // console.log(shiftId)
-    // console.log(doctorName)
-    console.log(date)
     // // console.log(date.toLocaleDateString('en-GB'))
     // console.log(date.toISOString())
   }
@@ -117,7 +123,6 @@ export class FilterDoctorDataComponent implements OnInit {
   }
 
   ShowDetails(DoctorId) {
-    console.log(DoctorId);
     this._router.navigate(['ShowDoctorDetails', DoctorId]);
   }
 

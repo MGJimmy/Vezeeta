@@ -17,10 +17,10 @@ using System.Threading.Tasks;
 
 namespace BL.AppServices
 {
-    public class AccountAppService:BaseAppService
+    public class AccountAppService : BaseAppService
     {
         IConfiguration _configuration;
-        public AccountAppService(IUnitOfWork unitOfWork, IConfiguration configuration, IMapper mapper):base(unitOfWork,mapper)
+        public AccountAppService(IUnitOfWork unitOfWork, IConfiguration configuration, IMapper mapper) : base(unitOfWork, mapper)
         {
             this._configuration = configuration;
         }
@@ -52,7 +52,7 @@ namespace BL.AppServices
         {
             ApplicationUserIdentity user = await TheUnitOfWork.AccountRepo.Find(name, password);
 
-            if (user != null )
+            if (user != null)
                 return user;
             return null;
         }
@@ -67,10 +67,10 @@ namespace BL.AppServices
 
         public async Task<dynamic> CreateToken(ApplicationUserIdentity user)
         {
-         
+
             var userRoles = await GetUserRoles(user);
             string role = "No Role";
-            if(userRoles.FirstOrDefault() != null)
+            if (userRoles.FirstOrDefault() != null)
             {
                 role = userRoles.FirstOrDefault();
             }
@@ -104,6 +104,55 @@ namespace BL.AppServices
                 expiration = token.ValidTo
             };
 
+
+        }
+
+        public async Task<UpdateUserDto> GetUserByIdForUpdate(string userId)
+        {
+            var userDto = new UpdateUserDto();
+            var user = await TheUnitOfWork.AccountRepo.FindById(userId);
+            userDto.FullName = user.FullName;
+            userDto.Email = user.Email;
+            userDto.PhoneNumber = user.PhoneNumber;
+            userDto.isDoctor = user.IsDoctor;
+
+            if (user.IsDoctor)
+            {
+                var doctor = TheUnitOfWork.DoctorRepo.GetById(userId);
+                userDto.TitleDgree = doctor.TitleDegree;
+                userDto.DoctorInfo = doctor.doctorInfo;
+                userDto.SpecialtyId = doctor.specialtyId;
+            }
+
+            return userDto;
+
+        }
+
+        public async Task<UpdateUserDto> UpdateAccount(string userid, UpdateUserDto model)
+        {
+            var user = await TheUnitOfWork.AccountRepo.FindById(userid);
+            if (user != null)
+            {
+                if (user.IsDoctor)
+                {
+                    var doctor = TheUnitOfWork.DoctorRepo.GetById(userid);
+
+                    doctor.doctorInfo = model.DoctorInfo;
+                    doctor.TitleDegree = model.TitleDgree;
+                    doctor.specialtyId = model.SpecialtyId ?? doctor.specialtyId;
+                    var result = TheUnitOfWork.SaveChanges();
+                    if (result < new int())
+                        return null;
+                }
+
+
+                user.FullName = model.FullName;
+                user.Email = model.Email;
+                user.PhoneNumber = model.PhoneNumber;
+                await TheUnitOfWork.AccountRepo.UpdateAccount(user);
+                return model;
+            }
+            return null;
 
         }
 

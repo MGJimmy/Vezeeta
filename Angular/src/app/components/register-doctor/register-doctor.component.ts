@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 import { IRegisterDoctor } from 'src/app/_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { SpecilatyService } from 'src/app/_services/specilaty.service';
 import { environment } from 'src/environments/environment';
 
@@ -22,11 +23,13 @@ export class RegisterDoctorComponent implements OnInit {
   allSpecialty:ISpecialty[];
   public response = {dbPath: ''};
   TitlesDegree=["professor","teacher","consultative","specialist"];
+  returnUrl: any;
   constructor
     (private formBuilder: FormBuilder,
       private _route: ActivatedRoute,
       private _router: Router,
-      private _authService: AuthenticationService,private _specialtyService:SpecilatyService
+      private _authService: AuthenticationService,private _specialtyService:SpecilatyService,
+      private _sharedDataService:DataSharedService
     ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class RegisterDoctorComponent implements OnInit {
       titleDegree: ['', Validators.required],
       specialtyId:['',Validators.required]
     });
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get formFields() { return this.registerDoctorForm.controls; }
@@ -71,17 +75,29 @@ export class RegisterDoctorComponent implements OnInit {
     }
 console.error(newDoctor)
     
-    // this._authService.register(newDoctor)
-    //   .pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       this._router.navigate(["login"]);
-    //     },
-    //     error => {
-    //       console.log(error);
-    //       this.error = error.body;
-    //       this.loading = false;
-    //     });
+     this._authService.register(newDoctor)
+      .pipe(first())
+      .subscribe(
+        data => {
+      //this._router.navigate(["login"]);
+      this._authService.login(this.formFields.username.value, this.formFields.password.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+              this._sharedDataService.IsUserLogIn.next(true)
+                this._router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.error = error;
+                this.loading = false;
+                console.log(error);
+            });
+        },
+        error => {
+          console.log(error);
+          this.error = error.body;
+          this.loading = false;
+        });
   }
   public uploadFinished = (event) => { 
     this.response = event;

@@ -65,6 +65,8 @@ import { OfferCategoryComponent } from './components/client-offer/offer-category
 import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
 import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
+import { UserUpdateComponent } from './components/user-update/user-update.component'
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,6 +122,8 @@ import { CarsoulOfferComponent } from './components/client-offer/home-offer/cars
       SubofferCategoryComponent,
       NewestOfferComponent,
       CarsoulOfferComponent,
+      UserUpdateComponent,
+      ResetPasswordComponent,
     
   ],
   imports: [

@@ -21,7 +21,7 @@
         <a class="nav-item nav-link border-right" href="#">Contact us</a>
         <a class="nav-item nav-link border-right" href="#">عربي</a>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{currentUser.fullName}}
           </a>
@@ -30,8 +30,9 @@
             <a class="dropdown-item" routerLink="DoctorAppointments" href="#">Doctor Appointments</a>
             <a class="dropdown-item" routerLink="ClientOffer/UserOfferAppointments" href="#">My Offer Appointments</a>
             <a class="dropdown-item" routerLink="ClientOffer/DoctorOfferAppointments" href="#">Doctor Offer Appointments</a>
-            <div class="dropdown-divider"></div>
             
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" routerLink="ResetPassword">Reset Password</a>
             <a class="dropdown-item" (click)="Logout()" *ngIf="isLoggedIn()">Logout</a>
           </div>
         </li>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210617064919_init3")]
-    partial class init3
+    [Migration("20210619093455__init")]
+    partial class _init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3cbbb833-f476-4a3d-9ee7-80efd7eb9fd8",
+                            Id = "d1a3af71-41b8-47d9-a84a-aa84b67eb978",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df32fb4c-302e-4cd0-afeb-85b3ce9123a8",
+                            ConcurrencyStamp = "8bc0cdb0-6098-44cc-ab41-80db64825e9d",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d57ea574-bac5-45a2-bb72-566a5e1761e0",
+                            SecurityStamp = "83b1fba7-0f6c-4909-804e-1a50ca6ecaaf",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -459,6 +459,37 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("DAL.Models.Reservation", b =>
@@ -963,6 +994,33 @@ namespace DAL.Migrations
                     b.Navigation("MakeOffer");
                 });
 
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("Rates")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Reservation", "Reservation")
+                        .WithOne("Rate")
+                        .HasForeignKey("DAL.Models.Rating", "ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("Rates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Models.Reservation", b =>
                 {
                     b.HasOne("DAL.Models.DayShift", "dayShift")
@@ -1103,6 +1161,8 @@ namespace DAL.Migrations
                 {
                     b.Navigation("Doctor");
 
+                    b.Navigation("Rates");
+
                     b.Navigation("reservations");
 
                     b.Navigation("ReserveOffer");
@@ -1153,6 +1213,8 @@ namespace DAL.Migrations
 
                     b.Navigation("DoctorSubSpecialization");
 
+                    b.Navigation("Rates");
+
                     b.Navigation("Reservations");
 
                     b.Navigation("ReserveOffer");
@@ -1175,6 +1237,11 @@ namespace DAL.Migrations
                     b.Navigation("MakeOffers");
 
                     b.Navigation("SubOffers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reservation", b =>
+                {
+                    b.Navigation("Rate");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>

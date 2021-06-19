@@ -7,6 +7,7 @@
                 <th width="20%" >Reservation Date</th>
                 <th width="20%" >State </th>
                 <th width="21%" >Details</th>
+                <th width="21%" >Rate</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,10 @@
                 <td *ngIf="item.state==false">Reservation Cancelled</td>
                 <td>
                     <button class="btn text-danger btn-cancel p-0" (click)="cancel(i)" *ngIf="item.state==true"><i class="far fa-times-circle"></i>Cancel</button>
+                    
+                </td>
+                <td>
+                    <button class="btn btn-primary text-danger p-0" routerLink="/RateDoctor/{{item.reservetionId}}">Rate</button>
                     
                 </td>
             </tr>

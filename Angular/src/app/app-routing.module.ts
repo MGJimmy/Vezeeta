@@ -36,7 +36,10 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
 import { ClientComponent } from './components/client/client.component';
 import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
 import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 
 const routes: Routes = [
   {
@@ -91,6 +94,7 @@ const routes: Routes = [
       
       {path:"showDoctors", component:ShowDoctorsPageComponent},
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+     
       // {path:"home", component:ClientComponent},
       // {path:"**", component:ClientComponent},
   ]},
@@ -98,7 +102,17 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-  {path:"ResetPassword",component:ResetPasswordComponent}
+  
+
+
+  {path:'MyInformation',component:UserInformationComponent,
+
+    children:[
+      {path:"UserUpdate",component:UserUpdateComponent},
+      {path:"ResetPassword",component:ResetPasswordComponent},     
+    ]
+  },
+  {path:"RateDoctor/:ReservationId", component:ClientRateComponent},
   // {path:"Reversation",component:CreatReservationComponent},
   // {path:"ReversationContinue",component:CreatReservationContinueComponent},
   // {path:"UserAppointments",component:ShowReservationToPatientComponent},

@@ -24,6 +24,7 @@ using BL.DTOs.UserDto;
 using BL.DTOs.MakeOfferDTO;
 using BL.DTOs.MakeOfferImageDTO;
 using BL.DTOs.ReserveOfferDTO;
+using BL.DTOs.RatingDtos;
 
 namespace BL.Configurations
 {
@@ -199,6 +200,19 @@ namespace BL.Configurations
                 .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
                 .ReverseMap()
                 .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
+
+            CreateMap<Rating, GetRatingDto>()
+            .ReverseMap()
+            .ForMember(m => m.Doctor, m => m.Ignore())
+             .ForMember(m => m.Reservation, m => m.Ignore())
+             .ForMember(m => m.User, m => m.Ignore());
+
+            CreateMap<Rating, CreateRatingDto>()
+           .ReverseMap()
+           .ForMember(m => m.Doctor, m => m.Ignore())
+            .ForMember(m => m.Reservation, m => m.Ignore())
+            .ForMember(m => m.User, m => m.Ignore());
+
 
 
         }

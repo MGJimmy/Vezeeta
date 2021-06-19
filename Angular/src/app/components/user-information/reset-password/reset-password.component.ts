@@ -14,8 +14,6 @@ import { DataSharedService } from 'src/app/_services/data-shared.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  
-
   constructor(private fb:FormBuilder,private _authService:AuthenticationService,
     private _router:Router,
     private sharedDataService:DataSharedService) { }

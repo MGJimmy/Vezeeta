@@ -66,7 +66,11 @@ import { SubofferCategoryComponent } from './components/client-offer/suboffer-ca
 import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
 import { UserUpdateComponent } from './components/user-update/user-update.component'
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserInfoSideBarComponent } from './components/user-information/user-info-side-bar/user-info-side-bar.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
+import { BarRatingModule } from 'ngx-bar-rating';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,6 +128,9 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
       CarsoulOfferComponent,
       UserUpdateComponent,
       ResetPasswordComponent,
+      UserInformationComponent,
+      UserInfoSideBarComponent,
+      ClientRateComponent,
     
   ],
   imports: [
@@ -135,6 +142,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     BrowserAnimationsModule,
     AutocompleteLibModule,
     NgSelectModule,
+    BarRatingModule,
     // BrowserAnimationsModule,
     // CarouselModul,
     // NgxSpinnerModule,

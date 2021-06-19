@@ -73,9 +73,9 @@ export class RegisterDoctorComponent implements OnInit {
       doctorInfo: this.formFields.doctorInfo.value,
       specialtyId:this.formFields.specialtyId.value
     }
-console.error(newDoctor)
+    console.error(newDoctor)
     
-     this._authService.register(newDoctor)
+    this._authService.register(newDoctor)
       .pipe(first())
       .subscribe(
         data => {
@@ -84,8 +84,8 @@ console.error(newDoctor)
         .pipe(first())
         .subscribe(
             data => {
-              this._sharedDataService.IsUserLogIn.next(true)
-                this._router.navigate([this.returnUrl]);
+                this._router.navigate([this.returnUrl]);                
+                this._sharedDataService.currentLoginUserChange.next(true)
             },
             error => {
                 this.error = error;
@@ -98,7 +98,7 @@ console.error(newDoctor)
           this.error = error.body;
           this.loading = false;
         });
-  }
+    }
   public uploadFinished = (event) => { 
     this.response = event;
   }

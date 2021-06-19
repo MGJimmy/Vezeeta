@@ -34,6 +34,13 @@ export class AuthenticationService {
             }
             ));
     }
+    registerAdmin(registerUser: IRegisterUser) {
+        return this.http.post<IRegisterUser>(`${environment.apiUrl}/api/Account/RegisterForAdmin`, registerUser)
+            .pipe(catchError((err) => {
+                return throwError(err.message || "Internal Server error contact site adminstarator");
+            }
+            ));
+    }
     register(registerDoctor: IRegisterDoctor) {
         return this.http.post<IRegisterDoctor>(`${environment.apiUrl}/api/doctor`, registerDoctor)
             .pipe(catchError((err) => {
@@ -166,5 +173,13 @@ export class AuthenticationService {
               return throwError(err.message||"an error occur")})
         );
       }
+
+    forgetPassword(email:string):Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/api/Account/ForgetPassword/${email}`,null).pipe(catchError(err=>
+            {
+                console.log(err);
+                return throwError(err.message||"an error occur")})
+          );
+    }
     
 }

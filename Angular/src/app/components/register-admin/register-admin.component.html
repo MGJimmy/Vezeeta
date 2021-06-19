@@ -1,8 +1,8 @@
 <div class="col-md-6 offset-md-3 mt-5">
     <div class="card">
-      <h4 class="card-header">Registration</h4>
+      <h4 class="card-header">Admin Registration</h4>
       <div class="card-body px-4">
-        <form [formGroup]="registerDoctorForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="registerAdminForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
             <label for="fullName">Full Name</label>
             <div class="inputWrapper float-right">
@@ -83,6 +83,7 @@
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Register
             </button>
+            <span  class="spinner-border spinner-border-sm mr-1"></span>
           </div>
           <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         </form>

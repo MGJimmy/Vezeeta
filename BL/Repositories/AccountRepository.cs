@@ -1,8 +1,12 @@
 ﻿using BL.Bases;
+using BL.DTOs.AccountDTO;
+using BL.Interfaces;
 using DAL;
 using DAL.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +19,16 @@ namespace BL.Repositories
     {
         private UserManager<ApplicationUserIdentity> _userManager;
         private RoleManager<IdentityRole> _roleManager;
+
+        private IMailService _mailService;
+
         public AccountRepository(DbContext db, 
-            UserManager<ApplicationUserIdentity> userManager,
+            UserManager<ApplicationUserIdentity> userManager, IMailService mailService,
             RoleManager<IdentityRole> roleManager):base(db)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _mailService = mailService;
         }
         public async Task<IdentityResult> Register(ApplicationUserIdentity registerUser)
         {
@@ -85,6 +93,45 @@ namespace BL.Repositories
         {
             IdentityResult result = await _userManager.UpdateAsync(user);
             return true;
+        }
+
+
+        public async Task<bool> forgetPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return false;
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+
+            string url = $"http://localhost:4200/resetPassword?email={email}&token={validToken}";
+            //var txt = "please confirm password";
+            //var link = "<a href=\"" + url + "\">Confirm Password</a>";
+            //var title = "password Confirm";
+
+            await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
+                    $"<p>To reset your password <a href='{url}'>Click here</a></p>");
+            return true;
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDTO model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return false;
+
+            
+            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.Password);
+
+            if (result.Succeeded)
+                return true;
+
+            return false;
         }
     }
 }

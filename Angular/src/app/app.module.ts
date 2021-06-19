@@ -67,6 +67,8 @@ import { NewestOfferComponent } from './components/client-offer/home-offer/newes
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
 import { UserUpdateComponent } from './components/user-update/user-update.component'
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,6 +126,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
       CarsoulOfferComponent,
       UserUpdateComponent,
       ResetPasswordComponent,
+      RegisterAdminComponent,
+      ForgetPasswordComponent,
     
   ],
   imports: [

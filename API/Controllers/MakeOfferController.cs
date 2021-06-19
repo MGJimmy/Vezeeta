@@ -40,12 +40,24 @@ namespace API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet("RelatedToOfferCategory/{id}")]
-        public IActionResult GetAllRelatedToOfferId(int id)
+        [HttpGet("RelatedToOfferCategory/{id}/{pageSize}/{pageNumber}")]
+        public IActionResult GetAllRelatedToOfferId(int id, int pageSize, int pageNumber)
         {
             try
             {
-                return Ok(_makeOfferAppService.GetAllRelatedToOfferId(id));
+                return Ok(_makeOfferAppService.GetAllRelatedToOfferId(id, pageSize, pageNumber));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("CountOfMakeOfferRelatedToOffer/{id}")]
+        public IActionResult GetCountOfMakeOfferRelatedToOffer(int id)
+        {
+            try
+            {
+                return Ok(_makeOfferAppService.CountOfMakeOfferRelatedTo(i => i.OfferId == id));
             }
             catch (Exception ex)
             {
@@ -53,12 +65,25 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("RelatedToSubOfferCategory/{id}")]
-        public IActionResult GetAllRelatedToSubOfferId(int id)
+
+        [HttpGet("RelatedToSubOfferCategory/{id}/{pageSize}/{pageNumber}")]
+        public IActionResult GetAllRelatedToSubOfferId(int id, int pageSize, int pageNumber)
         {
             try
             {
-                return Ok(_makeOfferAppService.GetAllRelatedToSubOfferId(id));
+                return Ok(_makeOfferAppService.GetAllRelatedToSubOfferId(id, pageSize, pageNumber));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpGet("CountOfMakeOfferRelatedToSubOffer/{id}")]
+        public IActionResult GetCountOfMakeOfferRelatedToSubOffer(int id)
+        {
+            try
+            {
+                return Ok(_makeOfferAppService.CountOfMakeOfferRelatedTo(i=>i.SubOfferId==id));
             }
             catch (Exception ex)
             {

@@ -27,18 +27,26 @@ namespace BL.Repositories
         {
             return DbSet.Where(i=>i.DoctorId==id).Include(i => i.SubOffer).Include(i => i.OfferImages).ToList();
         }
-        public override ICollection<MakeOffer> GetWhere(Expression<Func<MakeOffer, bool>> filter = null, string includeProperties = "")
+        public ICollection<MakeOffer> GetWherePaging(Expression<Func<MakeOffer, bool>> filter , int pageSize, int pageNumber, string includeProperties = "")
         {
+            pageSize = (pageSize <= 0) ? 10 : pageSize;
+            pageNumber = (pageNumber < 1) ? 0 : pageNumber - 1;
+
             IQueryable<MakeOffer> query = DbSet;
 
             if (filter != null)
             {
-                query = query.Where(filter).Include(i=>i.OfferImages);
+                query = query.OrderByDescending(i => i.Id).Where(filter).Skip(pageNumber * pageSize).Take(pageSize).Include(i=>i.OfferImages);
             }
             query = includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
                 .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
 
             return query.ToList();
+        }
+
+        public int CountOfMakeOfferRelatedTo(Expression<Func<MakeOffer, bool>> filter=null)
+        {
+            return DbSet.Where(filter).Count();
         }
 
 

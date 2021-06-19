@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IUserForReservation } from 'src/app/_models/_interfaces/IUserForReservation';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 
 @Component({
   selector: 'app-client-header',
@@ -9,7 +10,14 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 })
 export class ClientHeaderComponent implements OnInit {
 
-  constructor(private _authenticationService:AuthenticationService) { }
+  constructor(private _authenticationService:AuthenticationService,private _dataSharedService:DataSharedService) 
+  {
+    _dataSharedService.currentLoginUserChange.subscribe(data=>{
+      if(data==true){
+        this.loadData();
+      }
+    })
+  }
   currentUser
   
   ngOnInit(): void {
@@ -24,7 +32,7 @@ export class ClientHeaderComponent implements OnInit {
    
   }
   Logout(){
-     this._authenticationService.logout();
+    this._authenticationService.logout();
   }
   isLoggedIn(){
     return this._authenticationService.isLoggedIn();

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
-      private router: Router,
+      private router: Router,private _dataSharedService:DataSharedService,
       private authenticationService: AuthenticationService
   ) { 
       
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data => {
                 this.router.navigate([this.returnUrl]);
+                this._dataSharedService.currentLoginUserChange.next(true)
             },
             error => {
                 this.error = error;

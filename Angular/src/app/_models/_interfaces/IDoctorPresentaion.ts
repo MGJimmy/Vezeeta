@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { IClinicImage } from "./IClinicImage";
 
 export interface IDoctor {
     userId: string,
@@ -16,6 +17,7 @@ export interface IDoctor {
     clinicCityName: string,
     clinicAreaName: string,
     presentDaysWork?:IdoctorDayWork[],
+    clinic_Images?: IClinicImage[]
     
 
 }
@@ -93,6 +95,23 @@ export interface _DayShiftsforDoctor
     workingDays:_WorkingDay[],
 }
 
+
+
+export interface _IdoctorFilter
+{
+    specailtyid?:number,
+    cityId?:number,
+    areaId?:number,
+    name:string,
+    title?:string[],
+    fee?:feelimit[],
+    subspecails?:number[]
+
+}
+ export interface feelimit{
+    MiniMoney:number;
+    MaxMoney:number;
+} 
 
 
 

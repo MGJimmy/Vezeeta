@@ -40,6 +40,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
 import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
@@ -49,9 +50,29 @@ import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.co
 
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
-import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { RouterModule } from '@angular/router';
+import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { OfferNavbarComponent } from './components/client-offer/offer-navbar/offer-navbar.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component'
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
+import { ReserveOfferComponent } from './components/client-offer/reserve-offer/reserve-offer.component';
+import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
+import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchComponent } from './components/search/search.component';
+import { FilterDoctorDataComponent } from './components/show-doctors-page/filter-doctor-data/filter-doctor-data.component';
+import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
+import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
+import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
+import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
+import { UserUpdateComponent } from './components/user-update/user-update.component'
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserInfoSideBarComponent } from './components/user-information/user-info-side-bar/user-info-side-bar.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
+import { BarRatingModule } from 'ngx-bar-rating';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,16 +104,35 @@ import { RouterModule } from '@angular/router';
     UserRegisterComponent,
 
     DocotorSpecialtyComponent,
-    CreatReservationComponent,
-    CreatReservationContinueComponent,
-    ShowReservationToPatientComponent,
-    ShowReservationToDoctorComponent,
-    OfferComponent,
-    SubOfferComponent,
-    HomePageComponent,
-    ShowDoctorsPageComponent,
-    FilterDoctorsideBarComponent,
-    ChooseClinicServiceComponent
+      CreatReservationComponent,
+      CreatReservationContinueComponent,
+      ShowReservationToPatientComponent,
+      ShowReservationToDoctorComponent,
+      OfferComponent,
+      SubOfferComponent,
+      HomePageComponent,
+      ShowDoctorsPageComponent,
+      FilterDoctorsideBarComponent,
+      DoctorMakeOfferComponent,
+      ClientOfferComponent,
+      OfferNavbarComponent,
+      HomeOfferComponent,
+      OfferDetailsComponent,
+      ShowDoctorDetailsComponent,
+      ReserveOfferComponent,
+      ShowOfferReserveToPatientComponent,
+      ShowOfferReserveToDoctorComponent,
+      SearchComponent,
+      FilterDoctorDataComponent,
+      OfferCategoryComponent,
+      SubofferCategoryComponent,
+      NewestOfferComponent,
+      CarsoulOfferComponent,
+      UserUpdateComponent,
+      ResetPasswordComponent,
+      UserInformationComponent,
+      UserInfoSideBarComponent,
+      ClientRateComponent,
     
   ],
   imports: [
@@ -104,9 +144,9 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     AutocompleteLibModule,
     NgSelectModule,
-    BrowserAnimationsModule,
-    CarouselModule,
-    RouterModule,
+    BarRatingModule,
+    // BrowserAnimationsModule,
+    // CarouselModul,
     // NgxSpinnerModule,
     // BrowserAnimationsModule,
     // NgbModule

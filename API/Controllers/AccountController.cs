@@ -6,6 +6,7 @@ using BL.StaticClasses;
 using DAL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,14 @@ namespace API.Controllers
         AccountAppService _accountAppService;
         GeneralAppService _generalAppService;
         IHttpContextAccessor _httpContextAccessor;
-        public AccountController(AccountAppService accountAppService, GeneralAppService generalAppService, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<ApplicationUserIdentity> _userManager;
+        public AccountController(AccountAppService accountAppService, GeneralAppService generalAppService, IHttpContextAccessor httpContextAccessor,
+            UserManager<ApplicationUserIdentity> userManager)
         {
             _accountAppService = accountAppService;
             _generalAppService = generalAppService;
             _httpContextAccessor = httpContextAccessor;
+            this._userManager = userManager;
         }
 
         [HttpGet]
@@ -37,6 +41,15 @@ namespace API.Controllers
         {
             var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             ApplicationUserIdentity user = await _accountAppService.GetUserById(userId);
+            return Ok(user);
+        }
+
+        [HttpGet("getForUpdate")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> GetCurrentUserForUpdate()
+        {
+            var userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = await _accountAppService.GetUserByIdForUpdate(userId);
             return Ok(user);
         }
 
@@ -56,9 +69,10 @@ namespace API.Controllers
                 registerAccountDTO.IsDoctor = false;
                 ApplicationUserIdentity registerUser = await _accountAppService.Register(registerAccountDTO);
                 await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Patient);
-              
+
                 _generalAppService.CommitTransaction();
-                return Ok(new Response { Message = "Account created successfully" });
+                //return Ok(new Response { Message = "Account created successfully" });
+                return Ok(registerUser);
             }
             catch (Exception ex)
             {
@@ -79,6 +93,60 @@ namespace API.Controllers
                 return Ok(token);
             }
             return Unauthorized();
+        }
+
+
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ApplicationUserIdentity user = await _userManager.FindByIdAsync(userId);
+            var result =await _userManager.ChangePasswordAsync(user, model.oldPassword, model.newPassword);
+            _generalAppService.CommitTransaction();
+
+            if (!result.Succeeded)
+            {
+                return Ok("Password cant change");
+            }
+            return Ok(result);
+        }
+
+        [HttpPost("updateUser")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> UpdateAccount(UpdateUserDto model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                var userid = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                var result = await _accountAppService.UpdateAccount(userid, model);
+
+                if (result != null)
+                {
+                    _generalAppService.CommitTransaction();
+                    return Ok(model);
+                }
+
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = " Failed to update" });
+            }
+            catch (Exception e)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(new Response { Message = e.Message });
+            }
         }
     }
 }

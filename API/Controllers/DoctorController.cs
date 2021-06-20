@@ -1,9 +1,12 @@
 ﻿using API.helpers;
+using AutoMapper;
 using BL.AppServices;
 using BL.DTOs;
+using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.UserDto;
 using BL.DTOs.WorkingDayDTO;
 using BL.StaticClasses;
 using DAL;
@@ -130,14 +133,14 @@ namespace API.Controllers
                 await _accountAppService.AssignToRole(registerUser.Id, UserRoles.Doctor);
                 _doctorAppService.Create(registerUser.Id, registerDoctorDTO);
                 _generalAppService.CommitTransaction();
-                return Ok(new Response { Message="Doctor created successfully" });
+                 return Ok(new Response { Message = "Doctor created successfully" });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _generalAppService.RollbackTransaction();
                 return BadRequest(new Response { Message = ex.Message });
             }
-            
+
         }
 
         
@@ -198,30 +201,8 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetAllWhere/{SpecailtyID}")]
-        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
-        {
-            List<GetDoctorDto> doctors = this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
-            foreach (var doctor in doctors)
-            {
-                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
-                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
-                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
 
-
-                doctor.services = _services;
-                doctor.subspecails = _subSpecails;
-                doctor.clinic = _clinic;
-                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
-                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
-                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
-                doctor.workingDays = workingDaysDTOs.ToList();
-            }
-
-
-            return Ok(doctors);
-
-        }
+        
 
         //[HttpPost("assignSpecialty")]
         //[Authorize(AuthenticationSchemes = "Bearer")]
@@ -259,5 +240,135 @@ namespace API.Controllers
         //        return BadRequest(new Response { Message = ex.Message });
         //    }
         //}
+
+        [HttpGet("GetAllWhere/{SpecailtyID}")]
+        public IActionResult GetAllDoctorsInSpecailty(int SpecailtyID)
+        {
+            List<GetDoctorDto> doctors=this._doctorAppService.GetAllDoctorWhere(SpecailtyID);
+            foreach(var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic=_clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+
+                
+            }
+           
+
+            return Ok(doctors);
+        
+        }
+
+        [HttpGet("DoctorDetails/{Doctor_ID}")]
+        public IActionResult DoctorDetails(string Doctor_ID)
+        {
+            GetDoctorDto doctor = this._doctorAppService.GetDoctorDetails(Doctor_ID);
+            
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+                
+                IEnumerable<GetClinicImageDto> clinicImagesDto =_clinicImagesAppService.GetAllWhere(doctor.UserId);
+                doctor.Clinic_Images = clinicImagesDto.ToList();
+
+
+            return Ok(doctor);
+
+        }
+
+        //[HttpGet("search/{pageSize}/{pageNumber}")]
+        //public IActionResult SearchForDoctor(int pageSize, int pageNumber, int? specialtyId, int? cityId, int? areaId, string name)
+        //{
+        //    return Ok(_doctorAppService.SearchForDoctor(pageSize, pageNumber, specialtyId, cityId, areaId, name));
+        //}
+
+        [HttpPost("FilterDoctors")]//{specailtyid}/{titles}
+        public IActionResult FilterDoctors(FilterDoctorDto filterdoctorDto)//int specailtyid,List<string> titles
+        {
+
+            List<GetDoctorDto> doctors = this._doctorAppService.filterDoctors(filterdoctorDto);
+            foreach (var doctor in doctors)
+            {
+                var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
+                var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
+                var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
+
+
+                doctor.services = _services;
+                doctor.subspecails = _subSpecails;
+                doctor.clinic = _clinic;
+                doctor.clinicAreaName = _areaAppService.GetById(_clinic.AreaId).Name;
+                doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
+                IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
+                doctor.workingDays = workingDaysDTOs.ToList();
+
+
+            }
+
+           /* if (filterdoctorDto.fee.Count > 0)
+            {
+                foreach (var doctor in doctors.ToList())
+                {
+                    bool del = true;
+                   foreach (var fee in filterdoctorDto.fee)
+                    {
+                        if (fee.MiniMoney <= doctor.clinic.Fees && doctor.clinic.Fees < fee.MaxMoney)
+                        {
+                            del = false;
+                            break;
+                        }
+                    }
+                   if(del)
+                    doctors.Remove(doctor);
+                }
+                
+            }
+           
+            if (filterdoctorDto.subspecails.Count > 0)
+            {
+                foreach (var doctor in doctors.ToList())
+                {
+                    bool del = true;
+                    foreach (var sub in filterdoctorDto.subspecails)
+                    {
+                        foreach (var item in doctor.subspecails)
+                        {
+                            if (item.Name == sub)
+                            {
+                                del = false;
+                                break;
+                            }
+                        }
+                        if (del==false)
+                            break;
+                    }
+                    if (del)
+                        doctors.Remove(doctor);
+                }
+
+            }*/
+
+
+            return Ok(doctors);
+
+        }
     }
 }

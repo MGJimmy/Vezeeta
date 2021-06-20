@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~ngx-bar-rating/themes/br-default-theme' ;
 
 body{
     font-family: SourceSansPro !important;
@@ -48,6 +49,13 @@ body{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.AddRateClass .br-default .br-unit {
+    margin-right: 7px !important;
+    font-size: 48px !important;
+    height: 30px !important;
+    width: 49px !important;
+  }
 .dashboardImgWrapper{
     max-width: 12.5rem;
     margin: 0 auto;

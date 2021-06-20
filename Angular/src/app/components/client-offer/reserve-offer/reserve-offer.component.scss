@@ -1,0 +1,40 @@
+form{
+    color: rgb(128, 129, 132);
+    padding: 5% 10%;
+    .input-group{
+        border-bottom: 2px solid rgb(204, 204, 204);
+        padding: 0px 3px;
+        margin-bottom: 10%;
+        .input-group-prepend{
+            .input-group-text{
+                border:none;
+                border-radius: 0rem;
+                background-color: white;
+                i{
+                    color:rgb(128, 129, 132)
+                }
+            }
+        }
+        .form-control{
+            border: none !important;
+        }
+    }
+    .submit{
+        display: grid;
+        grid-template-columns: 60% calc(40% - 20px);
+        gap: 4%;
+        .btn-reserve{
+            font-size: 16px;
+            color: rgb(255, 255, 255);
+            background-color: rgb(239, 15, 15);
+            border-radius: 5px;
+            padding: 7px 15px;
+        }
+        .btn-cancel{
+            color: rgb(111, 112, 114);
+            border: 1px solid rgb(159, 162, 164);
+            border-radius: 5px;
+        }
+    }
+    
+}

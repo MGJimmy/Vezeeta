@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { IRegisterUser } from 'src/app/_models/_interfaces/IRegisterUser';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,11 +19,13 @@ export class UserRegisterComponent implements OnInit {
   submitted = false;
   error = '';
   public response = {dbPath: ''};
+  returnUrl: any;
   constructor
     (private formBuilder: FormBuilder,
       private _route: ActivatedRoute,
       private _router: Router,
-      private _authService: AuthenticationService
+      private _authService: AuthenticationService,
+      private _sharedDataService:DataSharedService
     ) { }
 
   ngOnInit(): void {
@@ -35,6 +38,7 @@ export class UserRegisterComponent implements OnInit {
       phoneNumber: ['', Validators.required],
      
     });
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get formFields() { return this.registerDoctorForm.controls; }
@@ -62,7 +66,19 @@ export class UserRegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._router.navigate(["login"]);
+          //this._router.navigate(["login"]);
+          this._authService.login(this.formFields.username.value, this.formFields.password.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+              this._sharedDataService.IsUserLogIn.next(true)
+                this._router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.error = error;
+                this.loading = false;
+                console.log(error);
+            });
         },
         error => {
           this.error = error;

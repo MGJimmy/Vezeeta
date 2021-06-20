@@ -1,0 +1,10 @@
+<div class="nav flex-column nav-pills siderbar mb-3">
+    <div class="nav-link nav-link-top" data-toggle="pill" [class.active]="urlRouteName=='UserUpdate'" routerLink="UserUpdate">
+        <i class="fas fa-info-circle pr-3" ></i>
+        <a>My Page</a>
+    </div>
+    <div data-toggle="pill" class="nav-link nav-link-bootom" routerLink="ResetPassword" [class.active]="urlRouteName=='ResetPassword'">
+        <i class="fas fa-users pr-3" ></i>
+        <a >Change Password</a>
+    </div>
+</div>

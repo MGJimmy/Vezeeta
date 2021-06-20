@@ -9,6 +9,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
+        
+        <a class="nav-item nav-link mr-5" routerLink="ClientOffer/offers">Offers</a>
+          
         <a class="nav-item nav-link mr-5" routerLink="dashboard" *ngIf="isLoggedIn()">Dashboard</a>
         <a class="nav-item nav-link signUp border" routerLink="registerUser" *ngIf="!isLoggedIn()">Sign up</a>
         <a class="nav-item nav-link border-right" routerLink="login" *ngIf="!isLoggedIn()">Login</a>
@@ -16,7 +19,24 @@
         <a class="nav-item nav-link border-right" routerLink="registerDoctor" *ngIf="!isLoggedIn()">Vezeeta for doctors</a>
         <a class="nav-item nav-link border-right" routerLink="doctorDashboard/doctorSpecialty" *ngIf="isLoggedIn()">doctors Dashboard</a>
         <a class="nav-item nav-link border-right" href="#">Contact us</a>
-        <a class="nav-item nav-link" href="#">عربي</a>
+        <a class="nav-item nav-link border-right" href="#">عربي</a>
+
+        <li class="nav-item dropdown" *ngIf="isLoggedIn()">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{currentUser.fullName}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="MyInformation/UserUpdate">My Information</a>
+            <a class="dropdown-item" routerLink="UserAppointments" href="#">My Appointments</a>
+            <a class="dropdown-item" routerLink="DoctorAppointments" href="#">Doctor Appointments</a>
+            <a class="dropdown-item" routerLink="ClientOffer/UserOfferAppointments" href="#">My Offer Appointments</a>
+            <a class="dropdown-item" routerLink="ClientOffer/DoctorOfferAppointments" href="#">Doctor Offer Appointments</a>
+            
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="Logout()" *ngIf="isLoggedIn()">Logout</a>
+          </div>
+        </li>
+        
       </div>
     </div>
   </div>

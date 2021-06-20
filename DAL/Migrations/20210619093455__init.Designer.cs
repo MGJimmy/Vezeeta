@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210612132812_jimmy333")]
-    partial class jimmy333
+    [Migration("20210619093455__init")]
+    partial class _init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "28b193db-fa93-44ba-9d2c-166375f89587",
+                            Id = "d1a3af71-41b8-47d9-a84a-aa84b67eb978",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "74c9e8f0-54b3-4602-b40b-01e2a66a6376",
+                            ConcurrencyStamp = "8bc0cdb0-6098-44cc-ab41-80db64825e9d",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8a8ca207-2077-48d0-af63-cfcef9decf4a",
+                            SecurityStamp = "83b1fba7-0f6c-4909-804e-1a50ca6ecaaf",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -373,7 +373,55 @@ namespace DAL.Migrations
                     b.ToTable("Doctor_DoctorServices");
                 });
 
-            modelBuilder.Entity("DAL.Models.Offer", b =>
+            modelBuilder.Entity("DAL.Models.MakeOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Fees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Information")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumberOfSession")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OfferId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("SubOfferId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("OfferId");
+
+                    b.HasIndex("SubOfferId");
+
+                    b.ToTable("MakeOffers");
+                });
+
+            modelBuilder.Entity("DAL.Models.MakeOfferImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -383,12 +431,65 @@ namespace DAL.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MakeOfferId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MakeOfferId");
+
+                    b.ToTable("MakeOfferImages");
+                });
+
+            modelBuilder.Entity("DAL.Models.Offer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("DAL.Models.Reservation", b =>
@@ -442,15 +543,59 @@ namespace DAL.Migrations
                     b.ToTable("Reservation");
                 });
 
+            modelBuilder.Entity("DAL.Models.ReserveOffer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MakeOfferId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("dayShiftId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("doctorId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MakeOfferId");
+
+                    b.HasIndex("dayShiftId");
+
+                    b.HasIndex("doctorId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("ReserveOffer");
+                });
+
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -472,6 +617,7 @@ namespace DAL.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OfferId")
@@ -686,8 +832,8 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("DAL.Models.Doctor", "Doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorId")
+                        .WithOne("clinic")
+                        .HasForeignKey("DAL.Models.Clinic", "DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -812,6 +958,69 @@ namespace DAL.Migrations
                     b.Navigation("service");
                 });
 
+            modelBuilder.Entity("DAL.Models.MakeOffer", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("DAL.Models.Offer", "Offer")
+                        .WithMany("MakeOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.SubOffer", "SubOffer")
+                        .WithMany("MakeOffers")
+                        .HasForeignKey("SubOfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Offer");
+
+                    b.Navigation("SubOffer");
+                });
+
+            modelBuilder.Entity("DAL.Models.MakeOfferImage", b =>
+                {
+                    b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
+                        .WithMany("OfferImages")
+                        .HasForeignKey("MakeOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MakeOffer");
+                });
+
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("Rates")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Reservation", "Reservation")
+                        .WithOne("Rate")
+                        .HasForeignKey("DAL.Models.Rating", "ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("Rates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Models.Reservation", b =>
                 {
                     b.HasOne("DAL.Models.DayShift", "dayShift")
@@ -831,6 +1040,37 @@ namespace DAL.Migrations
                     b.Navigation("dayShift");
 
                     b.Navigation("Doctor");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DAL.Models.ReserveOffer", b =>
+                {
+                    b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("MakeOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.DayShift", "dayShift")
+                        .WithMany("reserveOffer")
+                        .HasForeignKey("dayShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("doctorId");
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("userId");
+
+                    b.Navigation("dayShift");
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("MakeOffer");
 
                     b.Navigation("User");
                 });
@@ -921,7 +1161,11 @@ namespace DAL.Migrations
                 {
                     b.Navigation("Doctor");
 
+                    b.Navigation("Rates");
+
                     b.Navigation("reservations");
+
+                    b.Navigation("ReserveOffer");
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
@@ -953,10 +1197,14 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.DayShift", b =>
                 {
                     b.Navigation("reservations");
+
+                    b.Navigation("reserveOffer");
                 });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
                 {
+                    b.Navigation("clinic");
+
                     b.Navigation("doctor_doctorServices");
 
                     b.Navigation("DoctorAttachment");
@@ -965,7 +1213,11 @@ namespace DAL.Migrations
 
                     b.Navigation("DoctorSubSpecialization");
 
+                    b.Navigation("Rates");
+
                     b.Navigation("Reservations");
+
+                    b.Navigation("ReserveOffer");
                 });
 
             modelBuilder.Entity("DAL.Models.DoctorService", b =>
@@ -973,14 +1225,33 @@ namespace DAL.Migrations
                     b.Navigation("doctor_doctorServices");
                 });
 
+            modelBuilder.Entity("DAL.Models.MakeOffer", b =>
+                {
+                    b.Navigation("OfferImages");
+
+                    b.Navigation("ReserveOffer");
+                });
+
             modelBuilder.Entity("DAL.Models.Offer", b =>
                 {
+                    b.Navigation("MakeOffers");
+
                     b.Navigation("SubOffers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reservation", b =>
+                {
+                    b.Navigation("Rate");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
                 {
                     b.Navigation("doctors");
+                });
+
+            modelBuilder.Entity("DAL.Models.SubOffer", b =>
+                {
+                    b.Navigation("MakeOffers");
                 });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>

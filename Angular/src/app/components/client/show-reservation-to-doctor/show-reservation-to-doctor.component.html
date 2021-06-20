@@ -16,7 +16,11 @@
             <tr *ngFor="let item of allreservation;let i = index">
                 <td>{{item.userName}}</td>
                 <td>{{item.phone}}</td>
-                <td>{{item.date.slice(0,10)}}</td>
+                <td>{{item.date.slice(0,10)}}
+                    <br>
+                    {{item.dayShiftFrom}} - {{item.dayShiftTo}}
+                </td>
+
                 <td>{{item.email}}</td>
                 <td>{{item.state}}</td>
                 <td>{{item.age}}</td>

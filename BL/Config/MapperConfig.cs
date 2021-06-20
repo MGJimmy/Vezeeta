@@ -21,14 +21,18 @@ using BL.DTOs.ReversationDto;
 using BL.DTOs.OfferDto;
 using BL.DTOs.SubOfferDto;
 using BL.DTOs.UserDto;
+using BL.DTOs.MakeOfferDTO;
+using BL.DTOs.MakeOfferImageDTO;
+using BL.DTOs.ReserveOfferDTO;
+using BL.DTOs.RatingDtos;
 
 namespace BL.Configurations
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
-        { 
-          
+        {
+
             CreateMap<City, CityDTO>()
                 .ReverseMap();
             CreateMap<City, CreateCityDTO>()
@@ -57,7 +61,7 @@ namespace BL.Configurations
            .ReverseMap();
             CreateMap<SupSpecialization, SupSpecailization>()
               .ReverseMap();
-              //.ForMember(m => m.specialty, m => m.Ignore());
+            //.ForMember(m => m.specialty, m => m.Ignore());
 
             CreateMap<Clinicservice, ClinicServiceDto>()
                 .ReverseMap();
@@ -171,7 +175,44 @@ namespace BL.Configurations
           .ReverseMap()
           .ForMember(m => m.Doctor, m => m.Ignore());
 
-            
+
+            CreateMap<MakeOffer, CreateMakeOfferDTO>().ReverseMap();
+            CreateMap<MakeOffer, GetMakeOfferDTO>().ReverseMap();
+            CreateMap<MakeOffer, GetMakeOfferWithDoctorInfoDTO>().ReverseMap();
+            CreateMap<MakeOfferImage, CreateMakeOfferImageDTO>().ReverseMap();
+            CreateMap<MakeOfferImage, GetMakeOfferImageDTO>().ReverseMap();
+            CreateMap<ReserveOffer, GetAllReserveOfferToDoctorDTO>().ReverseMap();
+            CreateMap<ReserveOffer, CreateReserveOfferDTO>().ReverseMap();
+            CreateMap<Offer, OfferWithSubOfferDTO>().ReverseMap();
+            CreateMap<SubOffer, SubOffer2Dto>().ReverseMap();
+
+            CreateMap<Doctor, DoctorSearchDto>()
+                .ForMember(dest => dest.DoctorName, opt => opt.MapFrom(src => src.User.FullName))
+                .ForMember(dest => dest.CityId, opt => opt.MapFrom(src => src.clinic.CityId))
+                .ForMember(dest => dest.AreaId, opt => opt.MapFrom(src => src.clinic.AreaId))
+                .ForMember(dest => dest.Fees, opt => opt.MapFrom(src => src.clinic.Fees))
+                .ForMember(dest => dest.WatingTime, opt => opt.MapFrom(src => src.clinic.WatingTime))
+                .ForMember(dest => dest.specialtyName, opt => opt.MapFrom(src => src.specialty.Name))
+                .ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.clinic.City.Name))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
+                .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src.clinic.Street))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.ExaminationTime))
+                .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.clinic.Area.Name))
+                .ReverseMap()
+                .ForMember(m => m.DoctorSubSpecialization, m => m.Ignore());
+
+            CreateMap<Rating, GetRatingDto>()
+            .ReverseMap()
+            .ForMember(m => m.Doctor, m => m.Ignore())
+             .ForMember(m => m.Reservation, m => m.Ignore())
+             .ForMember(m => m.User, m => m.Ignore());
+
+            CreateMap<Rating, CreateRatingDto>()
+           .ReverseMap()
+           .ForMember(m => m.Doctor, m => m.Ignore())
+            .ForMember(m => m.Reservation, m => m.Ignore())
+            .ForMember(m => m.User, m => m.Ignore());
+
 
 
         }

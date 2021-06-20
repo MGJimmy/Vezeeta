@@ -11,14 +11,30 @@
   {
       color: blue;
   }
-//   .appointment p:hover
-//   {
-//       cursor: pointer;
-//       background-color: rgb(67, 67, 216);
-//       color: white !important;
-//   }
+  .carousel-control-prev,
+  .carousel-control-next {
+    background-color:lightseagreen;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
   
 .fas,.far
 {
     color: blue;
+}
+
+.appointmentsDiv
+{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   text-align: center;
+   border:1px solid rgba(233, 223, 223, 0.87);
+ // height: 200px !important;
+   border-radius: 5px 5px; 
+   padding: 0px !important;
+   margin-left: 2%;
 }

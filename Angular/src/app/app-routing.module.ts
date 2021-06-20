@@ -27,6 +27,20 @@ import { OfferComponent } from './components/dashboard/offer/offer.component';
 import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
+import { DoctorMakeOfferComponent } from './components/doctor-dashboard/doctor-make-offer/doctor-make-offer.component';
+import { ClientOfferComponent } from './components/client-offer/client-offer.component';
+import { HomeOfferComponent } from './components/client-offer/home-offer/home-offer.component';
+import { OfferDetailsComponent } from './components/client-offer/offer-details/offer-details.component';
+import { ShowDoctorDetailsComponent } from './components/client/show-doctor-details/show-doctor-details.component';
+import { ShowOfferReserveToPatientComponent } from './components/client-offer/show-offer-reserve-to-patient/show-offer-reserve-to-patient.component';
+import { ShowOfferReserveToDoctorComponent } from './components/client-offer/show-offer-reserve-to-doctor/show-offer-reserve-to-doctor.component';
+import { ClientComponent } from './components/client/client.component';
+import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
+import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 
 const routes: Routes = [
   {
@@ -58,20 +72,61 @@ const routes: Routes = [
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
       {path:'clinicServices',component:ChooseClinicServiceComponent},
+      {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
     ]
   },
 
-  {path:"Reversation",component:CreatReservationComponent},
-  {path:"ReversationContinue",component:CreatReservationContinueComponent},
-  {path:"UserAppointments",component:ShowReservationToPatientComponent},
-  {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
-  
+  {path:"ClientOffer",component:ClientOfferComponent
+    ,children:[
+      {path:"offers",component:HomeOfferComponent},
+      {path:"offers/:id",component:OfferCategoryComponent},
+      {path:"subOffers/:id",component:SubofferCategoryComponent},
+      {path:"OfferDetails",component:OfferDetailsComponent},
+      {path:"UserOfferAppointments",component:ShowOfferReserveToPatientComponent},
+      {path:"DoctorOfferAppointments",component:ShowOfferReserveToDoctorComponent},
+    ]
+  },
+
+  {path:"", component:ClientComponent , children:[
+      {path:"",component:HomePageComponent},
+      {path:"Reversation",component:CreatReservationComponent},
+      {path:"ReversationContinue",component:CreatReservationContinueComponent},
+      {path:"UserAppointments",component:ShowReservationToPatientComponent},
+      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
+      
+      {path:"showDoctors", component:ShowDoctorsPageComponent},
+      {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+     
+      // {path:"home", component:ClientComponent},
+      // {path:"**", component:ClientComponent},
+  ]},
+
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-  {path:"showDoctors/:id", component:ShowDoctorsPageComponent},
-  {path:"home", component:HomePageComponent},
-  {path:"**", component:HomePageComponent},
+  
+
+
+  {path:'MyInformation',component:UserInformationComponent,
+
+    children:[
+      {path:"UserUpdate",component:UserUpdateComponent},
+      {path:"ResetPassword",component:ResetPasswordComponent},     
+    ]
+  },
+  {path:"RateDoctor/:ReservationId", component:ClientRateComponent},
+  // {path:"Reversation",component:CreatReservationComponent},
+  // {path:"ReversationContinue",component:CreatReservationContinueComponent},
+  // {path:"UserAppointments",component:ShowReservationToPatientComponent},
+  // {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
+  
+  // {path:"registerDoctor", component:RegisterDoctorComponent},
+  // {path:"registerUser", component:UserRegisterComponent},
+  // {path:"login", component:LoginComponent},
+  // {path:"showDoctors", component:ShowDoctorsPageComponent},
+  // {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+  // {path:"home", component:ClientComponent},
+  // {path:"**", component:ClientComponent},
 ];
 
 @NgModule({

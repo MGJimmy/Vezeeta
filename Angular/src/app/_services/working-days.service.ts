@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { _WorkingDay } from '../_models/_interfaces/IDoctorPresentaion';
 import { IWorkingDay } from '../_models/_interfaces/IWorkingDay';
 
 @Injectable({
@@ -26,5 +27,12 @@ export class WorkingDaysService {
       return throwError(err.message ||"Internal Server error contact site adminstarator");
     }
     ));
+  }
+
+  getWorkingDayWithDayShiftForSpecificDoctor(doctorId:string):Observable<_WorkingDay[]>{
+    let url = `${environment.apiUrl}/api/WorkingDay/byDoctorId/${doctorId}`;
+    return this._http.get<_WorkingDay[]>(url).pipe(catchError((err)=>{
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+    }    ));
   }
 }

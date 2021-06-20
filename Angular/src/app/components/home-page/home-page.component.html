@@ -1,9 +1,24 @@
+ <!-- <owl-carousel-o [options]="customOptions"> -->
+  <ng-template carouselSlide  *ngFor="let specailty of SpecailtyList">
+    <div>
+      <div class="card mr-3">
+        <img class="card-img-top" src="/assets/images/1.jpg" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">{{specailty.name}}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+<!-- </owl-carousel-o> -->
+<!-- <div>Some tags before</div>
+<owl-carousel-o [options]="customOptions">
+  <ng-template carouselSlide>Slide 1</ng-template>  
+  <ng-template carouselSlide>Slide 2</ng-template>  
+  <ng-template carouselSlide>Slide 3</ng-template>  
+</owl-carousel-o>
+<div>Some tags after</div> -->
 
- <div id="carouselExampleControls" class="carousel slide mt-5" data-ride="carousel" 
-  style="display: flex;justify-content: center;">
-  <div class="carousel-inner col-12" style="justify-content: center;">
-
-    <div class="carousel-item"  style="justify-content: center;" *ngFor="let specailty of SpecailtyList" (click)="ShowDoctors(specailty.id)" [class.active]="specailty.id==1">
+    <!-- <div class="carousel-item"  style="justify-content: center;" *ngFor="let specailty of SpecailtyList" (click)="ShowDoctors(specailty.id)" [class.active]="specailty.id==1">
       <div class="d-flex justify-content-center">
         <div class="card mr-3" style="width: 18rem;">
           <img class="card-img-top" src="/assets/images/1.jpg" alt="Card image cap" style="height: 300px;">
@@ -11,20 +26,4 @@
             <p class="card-text">{{specailty.name}}</p>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"
-    style="left: -1% !important;">
-    <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: gray;"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: gray;"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
+      </div> -->

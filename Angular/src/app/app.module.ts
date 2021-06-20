@@ -38,7 +38,6 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
@@ -51,6 +50,8 @@ import { SubOfferComponent } from './components/dashboard/sub-offer/sub-offer.co
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ShowDoctorsPageComponent } from './components/show-doctors-page/show-doctors-page.component';
 import { FilterDoctorsideBarComponent } from './components/show-doctors-page/filter-doctorside-bar/filter-doctorside-bar.component'
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,16 @@ import { FilterDoctorsideBarComponent } from './components/show-doctors-page/fil
     UserRegisterComponent,
 
     DocotorSpecialtyComponent,
-      ChooseClinicServiceComponent,
+    CreatReservationComponent,
+    CreatReservationContinueComponent,
+    ShowReservationToPatientComponent,
+    ShowReservationToDoctorComponent,
+    OfferComponent,
+    SubOfferComponent,
+    HomePageComponent,
+    ShowDoctorsPageComponent,
+    FilterDoctorsideBarComponent,
+    ChooseClinicServiceComponent
     
   ],
   imports: [
@@ -94,8 +104,9 @@ import { FilterDoctorsideBarComponent } from './components/show-doctors-page/fil
     BrowserAnimationsModule,
     AutocompleteLibModule,
     NgSelectModule,
-    // BrowserAnimationsModule,
-    // CarouselModul,
+    BrowserAnimationsModule,
+    CarouselModule,
+    RouterModule,
     // NgxSpinnerModule,
     // BrowserAnimationsModule,
     // NgbModule

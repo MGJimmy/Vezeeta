@@ -23,6 +23,8 @@
     "@angular/router": "~11.2.8",
     "@ng-select/ng-select": "^6.1.0",
     "angular-ng-autocomplete": "^2.0.5",
+    "animate.css": "^4.1.1",
+    "ngx-owl-carousel-o": "^5.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

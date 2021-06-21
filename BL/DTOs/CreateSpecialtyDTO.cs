@@ -13,5 +13,6 @@ namespace BL.DTOs
         [Required, MinLength(3, ErrorMessage = "name should be at least 3 characters")]
 
         public string Name { get; set; }
+        public string Image { get; set; }
     }
 }

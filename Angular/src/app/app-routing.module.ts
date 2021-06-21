@@ -18,6 +18,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component';
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
 import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
@@ -70,6 +71,7 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
+      {path:'clinicServices',component:ChooseClinicServiceComponent},
       {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
     ]
   },

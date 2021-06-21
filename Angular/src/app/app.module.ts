@@ -38,6 +38,8 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';

@@ -154,7 +154,7 @@ namespace API.Controllers
         }
 
         [HttpPost("insertList")]
-        public async Task<IActionResult> InsertList(List<DoctorServiceDto> _doctorServiceDto)
+        public  IActionResult InsertList(List<DoctorServiceDto> _doctorServiceDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

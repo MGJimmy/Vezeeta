@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f0eaf087-b8e8-49ff-b53d-d706cf8361c3",
+                            Id = "ba4bdfd6-abc9-4a75-9df4-a854f0789465",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8bfe5e65-ead7-4e4b-9db3-14150f45ed2c",
+                            ConcurrencyStamp = "242d4899-6e52-41e5-8952-9ccfc1c53868",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "da43e0ec-7d3d-4ac1-918f-24396c5a580e",
+                            SecurityStamp = "bd924ff6-7fec-4da7-9f6f-c41fcff66622",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -270,11 +270,20 @@ namespace DAL.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CountOfRating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
+
+                    b.Property<double>("SumOfRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("TitleDegree")
                         .HasColumnType("nvarchar(max)");
@@ -594,6 +603,9 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

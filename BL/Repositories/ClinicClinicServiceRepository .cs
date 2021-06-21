@@ -14,5 +14,10 @@ namespace BL.Repositories
         public ClinicClinicServiceRepository(DbContext dbcontext) : base(dbcontext)
         {
         }
+
+        internal IEnumerable<Clinicservice> GetClinicServices(string clinicId)
+        {
+            return DbSet.Where(c => c.ClinicId == clinicId).Include(c => c.ClinicService).Select(c=>c.ClinicService).ToList();
+        }
     }
 }

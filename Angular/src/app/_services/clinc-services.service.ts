@@ -20,6 +20,13 @@ export class ClincServicesService {
        return throwError(err.message ||"Internal Server error contact site adminstarator");
        }))
   }
+  getAllAcceptedClinicServices():Observable<IClinicServices[]> {
+    return this._http.get<IClinicServices[]>(`${this.url}/getAccepted`).pipe(
+    catchError(
+       (err)=> { 
+       return throwError(err.message ||"Internal Server error contact site adminstarator");
+       }))
+  }
 
   
   getClinicServicesById(id:number):Observable<IClinicServices>{
@@ -37,6 +44,13 @@ export class ClincServicesService {
               return throwError(err.message ||"Internal Server error contact site adminstarator");
                 }
               ));
+  }
+  addListOfClinicServices(addNewClinicServices: IClinicServices[]) {
+    return this._http.post<IClinicServices>(`${this.url}/addList`, addNewClinicServices)
+    .pipe(catchError((err)=>{
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+        }
+      ));
   }
   updateClinicService(id:number, clinicService:IClinicServices):Observable<IClinicServices>{
     let _url = `${this.url}/${id}`;

@@ -38,6 +38,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
 
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
@@ -73,6 +74,7 @@ import { UserInfoSideBarComponent } from './components/user-information/user-inf
 import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
 import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
 @NgModule({
   declarations: [
@@ -136,6 +138,8 @@ import { ResetForgetPasswordComponent } from './components/reset-forget-password
       UserInformationComponent,
       UserInfoSideBarComponent,
       ClientRateComponent,
+      SuggestionDoctorsComponent,
+      ChooseClinicServiceComponent,
       ResetForgetPasswordComponent,
     
   ],

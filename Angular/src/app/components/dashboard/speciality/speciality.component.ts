@@ -28,7 +28,7 @@ export class SpecialityComponent implements OnInit {
   pageSize:number = 8;
   currentPageNumber:number = 1;
   numberOfPages:number; 
-  public response: {dbPath: ''};
+  public response = {dbPath: ''};
 
   // convenience getter for easy access to form fields
   get formFields() { return this.specialityForm.controls; }
@@ -70,6 +70,7 @@ export class SpecialityComponent implements OnInit {
     {
       id:0 ,
       name : this.formFields.name.value,
+      image: this.response.dbPath
      
     };
     this._specialityService.addNewSpecialty(newSpecialty)
@@ -99,7 +100,10 @@ export class SpecialityComponent implements OnInit {
 
     this.loading = true;
     this._specialityToUpdate.name = this.formFields.name.value;
-  
+    if(this.response.dbPath != ''){ // if the user doesn't change the image 
+    this._specialityToUpdate.image = this.response.dbPath;
+  }
+  console.log(this._specialityToUpdate)
   
     this._specialityService.updateSpecialty(this._specialityToUpdate.id, this._specialityToUpdate)
         // .pipe(first())
@@ -186,5 +190,4 @@ export class SpecialityComponent implements OnInit {
   public createImgPath = (serverPath: string) => {
     return `${environment.apiUrl}/${serverPath}`;
   }
-
 }

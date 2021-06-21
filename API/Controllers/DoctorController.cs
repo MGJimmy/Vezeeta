@@ -6,6 +6,7 @@ using BL.DTOs.ClinicImagesDto;
 using BL.DTOs.Doctor_DoctorServiceDto;
 using BL.DTOs.DoctorDTO;
 using BL.DTOs.DoctorServiceDtos;
+using BL.DTOs.ReversationDto;
 using BL.DTOs.UserDto;
 using BL.DTOs.WorkingDayDTO;
 using BL.StaticClasses;
@@ -39,6 +40,8 @@ namespace API.Controllers
         private CityAppService _cityAppService;
         WorkingDayAppService _workingDayAppService;
         DayShiftAppService _dayShiftAppService;
+        RatingAppService _ratingAppService;
+        ReservationAppService _reservationAppService;
         public DoctorController(
              DoctorAppService doctorAppService, 
              AccountAppService accountAppService,
@@ -51,7 +54,9 @@ namespace API.Controllers
              AreaAppService areaAppService,
              CityAppService cityAppService,
              WorkingDayAppService workingDayAppService,
-             DayShiftAppService dayShiftAppService)
+             DayShiftAppService dayShiftAppService,
+             RatingAppService ratingAppService,
+             ReservationAppService reservationAppService)
         {
             _doctorAppService = doctorAppService;
             _accountAppService = accountAppService;
@@ -65,6 +70,8 @@ namespace API.Controllers
             _cityAppService = cityAppService;
             _workingDayAppService = workingDayAppService;
             _dayShiftAppService = dayShiftAppService;
+            _ratingAppService = ratingAppService;
+            _reservationAppService = reservationAppService;
 
         }
 
@@ -251,6 +258,8 @@ namespace API.Controllers
                 var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
                 var _clinic=_clinicAppService.GetByStringId(doctor.UserId);
 
+                double doctorAverageRate = _ratingAppService.getPublicRateForDoctor(doctor.UserId);
+
 
                 doctor.services = _services;
                 doctor.subspecails = _subSpecails;
@@ -259,8 +268,10 @@ namespace API.Controllers
                 doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
                 IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
                 doctor.workingDays = workingDaysDTOs.ToList();
+                doctor.averageRate = doctorAverageRate;
 
-                
+
+
             }
            
 
@@ -310,7 +321,7 @@ namespace API.Controllers
                 var _services = _doctor_DoctorServiceAppService.GetDoctorServices(doctor.UserId);
                 var _subSpecails = _doctorSubSpecialization.GetSubSpecialtyByDoctorId(doctor.UserId);
                 var _clinic = _clinicAppService.GetByStringId(doctor.UserId);
-
+                double doctorAverageRate = _ratingAppService.getPublicRateForDoctor(doctor.UserId);
 
                 doctor.services = _services;
                 doctor.subspecails = _subSpecails;
@@ -319,6 +330,7 @@ namespace API.Controllers
                 doctor.clinicCityName = _cityAppService.Get(_clinic.CityId).Name;
                 IEnumerable<GetWorkingDayDTO> workingDaysDTOs = _workingDayAppService.GetWorkingDaysForDoctor(doctor.UserId);
                 doctor.workingDays = workingDaysDTOs.ToList();
+                doctor.averageRate = doctorAverageRate;
 
 
             }
@@ -370,5 +382,23 @@ namespace API.Controllers
             return Ok(doctors);
 
         }
+
+
+
+
+        [HttpGet("GetSuggestionDoctors")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public IActionResult GetSuggestionDoctors()
+        {
+            var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            List<string> DoctorsIds=_reservationAppService.GetLast3doctorIdsReservedbyPatientforSuggestion(UserId);
+
+            if (DoctorsIds == null)
+               return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
+
+            return Ok(_doctorAppService.GetSuggestiondoctorsRelatedToSpecailties(DoctorsIds));
+        }
+
     }
 }

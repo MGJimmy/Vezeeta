@@ -39,6 +39,12 @@ namespace BL.AppServices
             clinicServiceDto.ID = clinicservice.ID;
             return clinicServiceDto;
         }
+
+        public IEnumerable<ClinicServiceDto> GetServicesAcceptedByAdmin()
+        {
+            return Mapper.Map<IEnumerable<ClinicServiceDto>>(TheUnitOfWork.ClincServicesRepo.GetServicesAcceptedByAdmin());
+        }
+
         public bool Update(ClinicServiceDto clinicServiceDto)
         {
             if (clinicServiceDto == null)
@@ -77,6 +83,14 @@ namespace BL.AppServices
         public bool CheckClinicServicesExistsByName(string clinicserviceName)
         {
             return TheUnitOfWork.ClincServicesRepo.CheckExixtByName(clinicserviceName);
+        }
+
+        public List<ClinicServiceDto> InsertList(List<ClinicServiceDto> clinicServiceDtos)
+        {
+            List<Clinicservice> clinicservices = Mapper.Map<List<Clinicservice>>(clinicServiceDtos);
+            TheUnitOfWork.ClincServicesRepo.InsertList(clinicservices);
+            TheUnitOfWork.SaveChanges();
+            return Mapper.Map<List<ClinicServiceDto>>(clinicservices);
         }
     }
 }

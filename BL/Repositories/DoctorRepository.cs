@@ -146,5 +146,18 @@ namespace BL.Repositories
         }
 
 
+        public List<Doctor> suggestiondoctorswithspecailtyid(int specialtyid, int countofreturneddoctors)
+        {
+           return DbSet.Where(d => d.specialtyId == specialtyid).OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d=>d.User).Include(d=>d.specialty).
+                Include(d=>d.clinic.City).ToList();
+        }
+
+        public List<Doctor> suggestiondoctorsTopRated(int countofreturneddoctors)
+        {
+            return DbSet.OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d => d.User).Include(d => d.specialty).
+                 Include(d => d.clinic.City).ToList();
+        }
+
+
     }
 }

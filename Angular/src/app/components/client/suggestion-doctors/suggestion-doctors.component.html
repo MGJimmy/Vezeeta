@@ -1,0 +1,66 @@
+
+<div class="offerSection p-3">
+    <div class="container offerSlider pt-4">
+      <div class="d-flex justify-content-between">
+        <span class="offerSectionTitle">Recommended Doctors</span>
+        <!-- <a routerLink="ClientOffer/offers">All Offer</a> -->
+      </div>
+      <div id="multi-item-example" class="carousel slide carousel-multi-item mt-2" data-ride="carousel">
+  
+        <div class="controls-top">
+          <a class="carousel-control-prev" href="#multi-item-example" data-slide="prev"><i
+              class="fas fa-chevron-left"></i></a>
+          <a class="carousel-control-next" href="#multi-item-example" data-slide="next">
+            <i class="fas fa-chevron-right"></i>
+          </a>
+        </div>
+
+        <div class="carousel-inner" role="listbox">
+
+            <div class="carousel-item px-4" *ngFor="let dotorlist of SuggestDoctors;let i=index"
+              [class.active]="i==0">
+    
+              <div class="col-md-3 " style="float:left;cursor: pointer;" *ngFor="let doctor of dotorlist" (click)="ShowDetails(doctor.userId)">
+                <div class="mb-2 offerCart">
+                  <img class="img-fluid rounded-lg" [src]="createImgPath(doctor.image)" alt="Card image cap">
+    
+                  <div class="p-2">
+                    <bar-rating  [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
+                    <h4 class="">Doctor : {{doctor.userFullName}}</h4>
+                    <div class="card-text d-flex">
+                        <i class="fas fa-stethoscope p-2"></i>
+                        <div class="pt-1">
+                            {{doctor.specialtyName}}
+                        </div>
+
+                    </div>
+
+                    <div class="card-text d-flex">
+                        <!-- <i class="fas fa-stethoscope p-2"></i> -->
+                        <i class="fas fa-user-md p-2"></i>
+                        <div class="pt-1">
+                            {{doctor.titleDegree}}
+                        </div>
+
+                    </div>
+                  <div class="card-text d-flex  mt-2">
+                        <div>
+                            <i class="fas fa-map-marker-alt p-2"></i>
+                        </div>
+
+                        <div class="pt-1">
+                            {{doctor.clinicCityName}}
+                        </div>
+                    </div>
+                </div>
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+  
+        
+      </div>
+    </div>
+  </div>

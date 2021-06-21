@@ -36,7 +36,7 @@ export class RateServiceService {
 
     // return this.http.get<any>(this.url+"/"+{doctorId}).pipe(catchError((error)=>{
     //    return throwError(error.message||"an error ocur")}))
-    return this.http.get<IRates[]>(`${environment.apiUrl}/api/Rating/${doctorId}/${Commentnumber}`)
+    return this.http.get<IRates>(`${environment.apiUrl}/api/Rating/${doctorId}/${Commentnumber}`)
     .pipe(catchError((err) => {
         console.log(err);
         return throwError(err.message || "An Error Occur")

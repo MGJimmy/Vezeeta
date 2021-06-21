@@ -38,11 +38,12 @@ export class ClientHeaderComponent implements OnInit {
   isLoggedIn(){
     return this._authenticationService.isLoggedIn();
   }
-
+  
   isUserAdmin():boolean{
     let role = this._authenticationService.getRole();
     return (role == UserRoles.Admin) ? true : false
   }
+
 
 
 }

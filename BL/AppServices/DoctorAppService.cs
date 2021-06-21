@@ -130,7 +130,45 @@ namespace BL.AppServices
         //}
 
  
+        public List<SuggestionDoctorDto> GetSuggestiondoctorsRelatedToSpecailties(List<string> doctorsIds)
+        {
+            List<int> SpecailtiesIds = new List<int>();
+            foreach (var Doc_id in doctorsIds)
+            {
+                SpecailtiesIds.Add(TheUnitOfWork.DoctorRepo.GetById(Doc_id).specialtyId);
+            }
+
+            SpecailtiesIds= SpecailtiesIds.Distinct().ToList();
+
+            List<Doctor> AllSuggestionDoctors = new List<Doctor>();
+            if (SpecailtiesIds.Count == 3)
+            {
+               
+                foreach (var item in SpecailtiesIds)
+                {
+                    AllSuggestionDoctors.AddRange(TheUnitOfWork.DoctorRepo.suggestiondoctorswithspecailtyid(item, 4));
+                }
+            }
+            else if (SpecailtiesIds.Count == 2)
+            {
+                foreach (var item in SpecailtiesIds)
+                {
+                    AllSuggestionDoctors.AddRange(TheUnitOfWork.DoctorRepo.suggestiondoctorswithspecailtyid(item, 6));
+                }
+            }
+            else if (SpecailtiesIds.Count == 1)
+            {
+                    AllSuggestionDoctors.AddRange(TheUnitOfWork.DoctorRepo.suggestiondoctorswithspecailtyid(SpecailtiesIds[0], 12));
+            }
+
+            return Mapper.Map<List<SuggestionDoctorDto>>(AllSuggestionDoctors);
 
 
+        }
+
+        public List<SuggestionDoctorDto> GetSuggestiondoctorsTopRated()
+        {
+            return Mapper.Map<List<SuggestionDoctorDto>> (TheUnitOfWork.DoctorRepo.suggestiondoctorsTopRated(12));
+        }
     }
 }

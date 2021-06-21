@@ -84,7 +84,7 @@ console.error(newDoctor)
         .pipe(first())
         .subscribe(
             data => {
-              this._sharedDataService.IsUserLogIn.next(true)
+              //  
                 this._router.navigate([this.returnUrl]);
             },
             error => {

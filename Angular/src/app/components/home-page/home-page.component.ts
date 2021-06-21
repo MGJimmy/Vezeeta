@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { IOfferWithMakeOfferCount } from 'src/app/_models/_interfaces/IOfferWithMakeOfferCount';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
 import { DataSharedService } from 'src/app/_services/data-shared.service';

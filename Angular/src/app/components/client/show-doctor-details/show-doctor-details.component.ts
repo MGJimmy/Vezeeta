@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
+import { IRate } from 'src/app/_models/_interfaces/IRate';
 import { IRates } from 'src/app/_models/_interfaces/IRatesWithAverageRate';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
@@ -52,12 +53,18 @@ commentNumber:number=1;
       this.loadComment();
       
   }
+  hasRate:boolean=false;
   loadComment()
   {
     this._rateServiceService.GetRateing(this.DoctorID,this.commentNumber).subscribe(data=>
       {
+        
         this.doctorRates=data;
          console.log(this.doctorRates);
+         if(data['averageRate']>0){
+          this.hasRate=true;
+         }
+        
       });
   }
 

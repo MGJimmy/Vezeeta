@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserRoles } from 'src/app/_models/_enums/UserRoles';
 import { IUserForReservation } from 'src/app/_models/_interfaces/IUserForReservation';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
@@ -36,6 +37,11 @@ export class ClientHeaderComponent implements OnInit {
   }
   isLoggedIn(){
     return this._authenticationService.isLoggedIn();
+  }
+  
+  isUserAdmin():boolean{
+    let role = this._authenticationService.getRole();
+    return (role == UserRoles.Admin) ? true : false
   }
 
 

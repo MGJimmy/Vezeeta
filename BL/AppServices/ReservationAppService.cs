@@ -112,5 +112,19 @@ namespace BL.AppServices
             var numberOfReserve = TheUnitOfWork.ReservationRepo.GetWhere(i => i.dayShiftId == dayShiftId && i.Date == date).Count();
             return numberOfReserve;
         }
+
+        public List<string> GetLast3doctorIdsReservedbyPatientforSuggestion(string userId)
+        {
+     
+
+            List<string> doctorsIdList = TheUnitOfWork.ReservationRepo.Getlast3doctorsIDfromReservationforSuggestion(i => i.userId == userId).ToList();
+            
+            if (doctorsIdList == null)
+            {
+                return null;
+            }
+
+            return doctorsIdList;
+        }
     }
 }

@@ -213,6 +213,11 @@ namespace BL.Configurations
             .ForMember(m => m.Reservation, m => m.Ignore())
             .ForMember(m => m.User, m => m.Ignore());
 
+            CreateMap<Doctor, SuggestionDoctorDto>()
+            .ReverseMap();
+
+            
+
 
 
         }

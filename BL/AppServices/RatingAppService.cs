@@ -22,15 +22,7 @@ namespace BL.AppServices
         {
             var rates = TheUnitOfWork.RatingRepo.GetWhereWithPaging(commentNumber, d => d.DoctorId == DoctorId);
 
-            var Allrates = TheUnitOfWork.RatingRepo.GetWhere(d => d.DoctorId == DoctorId);
-
-            int sumRate =0; 
-            foreach (var rate in Allrates)
-            {
-                sumRate += rate.Rate;
-            }
-
-            double AverageRate = sumRate / (double)(Allrates.Count);
+            double AverageRate = getPublicRateForDoctor(DoctorId);
 
             GetRatingWithAverageRateDto Avr = new GetRatingWithAverageRateDto
             {
@@ -48,6 +40,14 @@ namespace BL.AppServices
                 throw new ArgumentNullException();
 
             var doctorId=TheUnitOfWork.ReservationRepo.GetById(rateDto.ReservationId).doctorId;
+
+            var doctor=TheUnitOfWork.DoctorRepo.GetById(doctorId);
+            doctor.CountOfRating++;
+            doctor.SumOfRating += rateDto.Rate;
+            doctor.AverageRate = doctor.SumOfRating / doctor.CountOfRating;
+
+            TheUnitOfWork.DoctorRepo.Update(doctor);
+
             rateDto.DoctorId = doctorId;
             Rating Rate = Mapper.Map<Rating>(rateDto);
        
@@ -55,6 +55,12 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
         
             return rateDto;
+        }
+
+        public double getPublicRateForDoctor(string DoctorId)
+        {
+            var doctor = TheUnitOfWork.DoctorRepo.GetById(DoctorId);
+            return doctor.AverageRate;
         }
     }
 }

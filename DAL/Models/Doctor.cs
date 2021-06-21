@@ -32,6 +32,9 @@ namespace DAL.Models
         public List<ReserveOffer> ReserveOffer { get; set; }
         public List<Rating> Rates { get; set; }
 
+        public double SumOfRating { get; set; } = 0;
+        public double CountOfRating { get; set; } = 0;
+        public double AverageRate { get; set; } = 0;
 
 
 

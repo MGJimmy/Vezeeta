@@ -31,6 +31,7 @@ export class FilterDoctorDataComponent implements OnInit {
     private _subSpecialityService: SubSpecialityService) {
         _dataSharedService.sendAllDocterAfterFilterToShow.subscribe(data=>{
           if(data.length!=0){
+            console.log(data);
             this.LoadData(data);
             this.IsContainDoctor=true;
           }

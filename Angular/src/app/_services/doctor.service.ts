@@ -11,6 +11,7 @@ import { IRegisterDoctor } from '../_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
 import { ISubSpecialty } from '../_models/_interfaces/ISubSpeciality';
 import { IDoctorSearch } from '../_models/_interfaces/IDoctorSearch';
+import { ISuggestDoctor } from '../_models/_interfaces/ISuggestDoctor';
 
 @Injectable({
   providedIn: 'root'
@@ -141,4 +142,12 @@ Updateservices(services)
   
     // }
 
+    ShowSuggestionDoctors()
+    {
+     return this._http.get<ISuggestDoctor[]>(`${environment.apiUrl}/api/Doctor/GetSuggestionDoctors`)
+     .pipe(catchError((err) => {
+         console.log(err);
+         return throwError(err.message || "An Error Occur")
+       })
+     )}
 }

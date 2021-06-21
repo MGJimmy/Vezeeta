@@ -42,5 +42,16 @@ namespace BL.Repositories
 
             return query.ToList();
         }
+
+        public  ICollection<int> GetRateOnly(Expression<Func<Rating, bool>> filter = null, string includeProperties = "")
+        {
+            List<int> rates=new List<int>();
+
+            if (filter != null)
+            {
+                rates = DbSet.Where(filter).Select(r=>r.Rate).ToList();
+            }
+            return rates.ToList();
+        }
     }
 }

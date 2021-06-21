@@ -71,6 +71,7 @@ import { UserInfoSideBarComponent } from './components/user-information/user-inf
 import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 import { BarRatingModule } from 'ngx-bar-rating';
+import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,6 +132,7 @@ import { BarRatingModule } from 'ngx-bar-rating';
       UserInformationComponent,
       UserInfoSideBarComponent,
       ClientRateComponent,
+      SuggestionDoctorsComponent,
     
   ],
   imports: [

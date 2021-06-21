@@ -35,7 +35,7 @@ namespace BL.DTOs.DoctorDTO
         public override bool Equals(object obj)
         {
             var fee = (feelimit)obj;
-            return fee.MiniMoney > this.MiniMoney && fee.MaxMoney < this.MaxMoney;
+            return fee.MiniMoney >= this.MiniMoney && fee.MaxMoney < this.MaxMoney;
         }
 
     } 

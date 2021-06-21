@@ -10,4 +10,11 @@ export interface getRate{
     userFullName:string,
     rate:number,
     date:string,
+    doctorId:string,
+    reservationId:number,
+    userId:string
+
 }
+
+
+

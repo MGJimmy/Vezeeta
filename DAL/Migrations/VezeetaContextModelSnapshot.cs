@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d1a3af71-41b8-47d9-a84a-aa84b67eb978",
+                            Id = "d016ea44-8551-4a7c-b09d-df720b3f35cf",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8bc0cdb0-6098-44cc-ab41-80db64825e9d",
+                            ConcurrencyStamp = "6ba6fe66-8d8d-48b4-8e06-07953217df6a",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "83b1fba7-0f6c-4909-804e-1a50ca6ecaaf",
+                            SecurityStamp = "b78ce4ad-0ac7-43f2-9c7e-c9b939985339",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -270,11 +270,20 @@ namespace DAL.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CountOfRating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAccepted")
                         .HasColumnType("bit");
+
+                    b.Property<double>("SumOfRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("TitleDegree")
                         .HasColumnType("nvarchar(max)");

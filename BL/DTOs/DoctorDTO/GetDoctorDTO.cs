@@ -38,6 +38,8 @@ namespace BL.DTOs.DoctorDTO
         public string clinicAreaName { get; set; }
         public List<GetWorkingDayDTO> workingDays { get; set; }
         public List<GetClinicImageDto> Clinic_Images { get; set; }
+
+        public double averageRate { get; set; }
         
 
     }

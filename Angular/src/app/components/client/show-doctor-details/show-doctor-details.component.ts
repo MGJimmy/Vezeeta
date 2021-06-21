@@ -2,8 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
+import { IRate } from 'src/app/_models/_interfaces/IRate';
+import { IRates } from 'src/app/_models/_interfaces/IRatesWithAverageRate';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
+import { RateServiceService } from 'src/app/_services/rate-service.service';
 
 @Component({
   selector: 'app-show-doctor-details',
@@ -19,11 +22,15 @@ export class ShowDoctorDetailsComponent implements OnInit {
   hasdoctorServices:boolean=false;
   constructor(private _doctorService:DoctorService,private datePipe: DatePipe,private _router:Router,
     private _dataSharedService:DataSharedService,
-    private activeRoute: ActivatedRoute) { 
+    private activeRoute: ActivatedRoute,
+    private _rateServiceService:RateServiceService) { 
       this.activeRoute.params.subscribe(params =>
         this.DoctorID = params['id']
       );
     }
+
+doctorRates:any;
+commentNumber:number=1;
 
   ngOnInit(): void {
     this._doctorService.ShowDoctorDetails(this.DoctorID).subscribe(data=>
@@ -43,6 +50,22 @@ export class ShowDoctorDetailsComponent implements OnInit {
         this.doctor.presentDaysWork = this.chunks(this.loadDays(this.doctor.workingDays),3);
 
       })
+      this.loadComment();
+      
+  }
+  hasRate:boolean=false;
+  loadComment()
+  {
+    this._rateServiceService.GetRateing(this.DoctorID,this.commentNumber).subscribe(data=>
+      {
+        
+        this.doctorRates=data;
+         console.log(this.doctorRates);
+         if(data['averageRate']>0){
+          this.hasRate=true;
+         }
+        
+      });
   }
 
   loadDays(dayForWorkinMonth: _WorkingDay[]) {
@@ -97,4 +120,12 @@ export class ShowDoctorDetailsComponent implements OnInit {
       })
     }
     
+
+    ShowMoreComment()
+    {
+      this.commentNumber+=1;
+      console.log(this.commentNumber);
+      this.loadComment();
+     
+    }
 }

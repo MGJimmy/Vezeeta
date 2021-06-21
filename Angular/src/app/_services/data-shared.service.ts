@@ -21,6 +21,7 @@ export class DataSharedService {
   sendSpecialtyIdFromHomePageToSearchComponent=new BehaviorSubject(0);
 
   currentLoginUserChange=new BehaviorSubject(false);
+  IsUserLogIn=new BehaviorSubject(false);
   
 }
 const allDoctorFiltered:IDoctor[]=[];

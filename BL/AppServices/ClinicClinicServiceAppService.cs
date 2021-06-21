@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BL.Bases;
 using BL.DTOs;
+using BL.DTOs.ClinicClinicServiceDTO;
 using BL.DTOs.ClinicDto;
 using BL.Interfaces;
 using DAL.Models;
@@ -63,5 +64,10 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
         }
 
+        public IEnumerable<ClinicServiceDto> GetClinicServices(string doctorId)
+        {
+            IEnumerable<Clinicservice> clinicClinicServices = TheUnitOfWork.ClinicClinicServiceRepo.GetClinicServices(doctorId);
+            return Mapper.Map<IEnumerable<ClinicServiceDto>>(clinicClinicServices);
+        }
     }
 }

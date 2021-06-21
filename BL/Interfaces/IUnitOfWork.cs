@@ -41,6 +41,7 @@ namespace BL.Interfaces
         MakeOfferRepository MakeOfferRepo { get; }
         MakeOfferImageRepository MakeOfferImageRepo { get; }
         ReserveOfferRepository ReserveOfferRepo { get; }
+        RatingRepository RatingRepo { get; }
 
     }
 }

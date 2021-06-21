@@ -17,7 +17,8 @@ export interface IDoctor {
     clinicCityName: string,
     clinicAreaName: string,
     presentDaysWork?:IdoctorDayWork[],
-    clinic_Images?: IClinicImage[]
+    clinic_Images?: IClinicImage[],
+    averageRate:number,
     
 
 }

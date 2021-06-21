@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ConfirmPasswordValidator } from 'src/app/Validators/ConfirmPassword';
 import { IRegisterDoctor } from 'src/app/_models/_interfaces/IRegisterDoctor';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -39,14 +40,14 @@ export class RegisterDoctorComponent implements OnInit {
     this.registerDoctorForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', Validators.required],
+      PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       doctorInfo: ['', Validators.required],
       titleDegree: ['', Validators.required],
       specialtyId:['',Validators.required]
-    });
+    },{validator:[ConfirmPasswordValidator]}as any);
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 

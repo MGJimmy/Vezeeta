@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { ConfirmPasswordValidator } from 'src/app/Validators/ConfirmPassword';
 import { IRegisterUser } from 'src/app/_models/_interfaces/IRegisterUser';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
@@ -31,13 +32,13 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerDoctorForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ['',Validators.required],
+      PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
       phoneNumber: ['', Validators.required],
      
-    });
+    },{validator:[ConfirmPasswordValidator]}as any);
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 

@@ -70,6 +70,7 @@ export class ClinicServicesComponent implements OnInit {
     {
       id:0 ,
       name : this.formFields.name.value,
+      byAdmin:true
      
     };
     this._cliincServicesServie.addNewClinicService(newCliicService)

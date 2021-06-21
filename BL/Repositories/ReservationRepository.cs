@@ -21,6 +21,17 @@ namespace BL.Repositories
         //    return DbSet.Where(filter).Include(i=>i.dayShift.WorkingDay).ToList();
         //}
 
+        public  ICollection<string> Getlast3doctorsIDfromReservationforSuggestion(Expression<Func<Reservation, bool>> filter = null, string includeProperties = "")
+        {
+            //IQueryable<Reservation> query = DbSet;
+
+            if (filter != null)
+            {
+                return DbSet.Where(filter).OrderByDescending(r=>r.Date).Select(r => r.doctorId).Distinct().Take(3).ToList();
+            }
+            
+            return null;
+        }
 
     }
 }

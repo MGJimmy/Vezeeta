@@ -18,6 +18,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import { AuthGuard } from './_helpers/auth.guard';
 import { ManageDoctorServicesComponent } from './components/dashboard/manage-doctor-services/manage-doctor-services.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component';
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
 import { ShowReservationToPatientComponent } from './components/client/show-reservation-to-patient/show-reservation-to-patient.component';
@@ -36,7 +37,10 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
 import { ClientComponent } from './components/client/client.component';
 import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
 import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 
 const routes: Routes = [
   {
@@ -67,6 +71,7 @@ const routes: Routes = [
       {path:'clinc',component:DoctorClincComponent, canActivate:[AuthGuard]},
       {path:'workingDays',component:ClinicWorkingDaysComponent, canActivate:[AuthGuard]},
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
+      {path:'clinicServices',component:ChooseClinicServiceComponent},
       {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
     ]
   },
@@ -91,6 +96,7 @@ const routes: Routes = [
       
       {path:"showDoctors", component:ShowDoctorsPageComponent},
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
+     
       // {path:"home", component:ClientComponent},
       // {path:"**", component:ClientComponent},
   ]},
@@ -98,7 +104,17 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
-  {path:"ResetPassword",component:ResetPasswordComponent}
+  
+
+
+  {path:'MyInformation',component:UserInformationComponent,
+
+    children:[
+      {path:"UserUpdate",component:UserUpdateComponent},
+      {path:"ResetPassword",component:ResetPasswordComponent},     
+    ]
+  },
+  {path:"RateDoctor/:ReservationId", component:ClientRateComponent},
   // {path:"Reversation",component:CreatReservationComponent},
   // {path:"ReversationContinue",component:CreatReservationContinueComponent},
   // {path:"UserAppointments",component:ShowReservationToPatientComponent},

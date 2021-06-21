@@ -1,0 +1,54 @@
+<div class="attachment p-0 m-0">
+  <div class="header-info text-center p-2">
+      Choose Clinic Services
+  </div>
+
+
+  <div class="p-2">
+      <div  class="container">
+          <div class="row ">
+              <div class="col-12 col-md-6">
+                  <label >Choose Clinic Services</label>
+                  
+                  <ng-select 
+                      [items]="allClinicServicesAccepted" 
+                      bindLabel="name"
+                      placeholder="Select Clinic Service" 
+                      appendTo="body"
+                      multiple="true" 
+                      [(ngModel)]="ClinicServicesSelected">
+                  </ng-select>
+                  
+              </div>
+              <div class="col-12 col-md-6">
+                  <label >Add new Clinic Service</label>
+                  
+                  <div class="row m-0 p-0 ">
+                      <div class="col-10 px-1">
+                          <input type="text" class="form-control" [(ngModel)]="insertClinicServiceInputValue" #insert>
+                      </div>
+                      <div class="col-2 px-0">
+                          <button class="btn btn-primary" (click)="add(insert.value)">add</button>
+                      </div>
+                  </div>
+                  <div>
+                      <button class="btn btn-primary m-1 sss" (click)="removefromNewSubSpecial(sup.id)" *ngFor="let sup of NotAcceptByAdminClinicServicesSelected">{{sup.name}} <i class="fas fa-times-circle"></i></button>
+                      <button class="btn btn-primary m-1 sss" (click)="removefromNewSubSpecial(sup.id)" *ngFor="let sup of addNewClinicServices">{{sup.name}} <i class="fas fa-times-circle"></i></button>
+                  </div>
+                  <!-- <span class="text-warning" *ngIf="addNewSubSpecialty.length>0 || NotAcceptByAdminSubSpecialtySelected.length>0">* after enter this waiting to accept by admin</span> -->
+                  
+              </div>
+              
+          </div>
+          <hr>
+          <div class="text-right">
+              <button  class="btn btn-primary px-3" [disabled]="ClinicServicesSelected.length==0" (click)="addServicesToClinic()">Save </button>
+              <!--<button *ngIf="state=='update'" class="btn btn-primary px-3" [disabled]="SubSpecialtySelected.length==0" (click)="saveDataToDoctor()">Update </button> -->
+          </div>
+      </div>
+  </div>
+
+
+
+
+</div>

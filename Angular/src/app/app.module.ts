@@ -38,6 +38,7 @@ import { DocotorSpecialtyComponent } from './components/doctor-dashboard/docotor
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { ChooseClinicServiceComponent } from './components/doctor-dashboard/choose-clinic-service/choose-clinic-service.component'
 
 import { CreatReservationComponent } from './components/client/creat-reservation/creat-reservation.component';
 import { CreatReservationContinueComponent } from './components/client/creat-reservation-continue/creat-reservation-continue.component';
@@ -66,7 +67,12 @@ import { SubofferCategoryComponent } from './components/client-offer/suboffer-ca
 import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
 import { UserUpdateComponent } from './components/user-update/user-update.component'
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserInfoSideBarComponent } from './components/user-information/user-info-side-bar/user-info-side-bar.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,6 +130,11 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
       CarsoulOfferComponent,
       UserUpdateComponent,
       ResetPasswordComponent,
+      UserInformationComponent,
+      UserInfoSideBarComponent,
+      ClientRateComponent,
+      SuggestionDoctorsComponent,
+      ChooseClinicServiceComponent,
     
   ],
   imports: [
@@ -135,6 +146,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     BrowserAnimationsModule,
     AutocompleteLibModule,
     NgSelectModule,
+    BarRatingModule,
     // BrowserAnimationsModule,
     // CarouselModul,
     // NgxSpinnerModule,

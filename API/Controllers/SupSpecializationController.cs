@@ -129,7 +129,7 @@ namespace API.Controllers
         }
 
         [HttpPost("insertList")]
-        public async Task<IActionResult> InsertList(List<SupSpecailization> supSpecailizations)
+        public IActionResult InsertList(List<SupSpecailization> supSpecailizations)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

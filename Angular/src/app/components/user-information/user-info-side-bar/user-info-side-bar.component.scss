@@ -1,0 +1,28 @@
+.siderbar{
+    background-color: white;
+    border-radius: 1rem;
+    a{
+         color: #999999;
+        border-radius: 0rem;
+       
+    }
+    .nav-link:hover{
+        background-color: #EEEEEE ;
+        cursor: pointer;
+    }
+    .nav-link-top{
+        border-radius: 1rem 1rem 0rem 0rem !important;
+    }
+    .nav-link-bootom{
+        border-radius: 0rem 0rem 1rem 1rem !important;
+        border-bottom: none;
+    }
+    .active{
+        border-radius: initial;
+        background-color: #0070CD !important;
+        color: white !important;
+        a{
+            color: white !important;
+        }
+    }
+}

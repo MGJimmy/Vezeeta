@@ -70,6 +70,11 @@ namespace DAL
                 .HasForeignKey(m => m.SubOfferId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Doctor>()
+                .HasMany(d => d.Rates)
+                .WithOne(r => r.Doctor)
+                .HasForeignKey(r => r.DoctorId)
+                .OnDelete(DeleteBehavior.NoAction);
 
 
             //builder.Entity<MakeOffer>()
@@ -97,6 +102,7 @@ namespace DAL
         public DbSet<MakeOffer> MakeOffers { get; set; }
 
         public DbSet<MakeOfferImage> MakeOfferImages { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
     }
 }

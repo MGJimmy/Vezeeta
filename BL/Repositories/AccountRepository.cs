@@ -106,11 +106,8 @@ namespace BL.Repositories
             var encodedToken = Encoding.UTF8.GetBytes(token);
             var validToken = WebEncoders.Base64UrlEncode(encodedToken);
 
-            string url = $"http://localhost:4200/resetPassword?email={email}&token={validToken}";
-            //var txt = "please confirm password";
-            //var link = "<a href=\"" + url + "\">Confirm Password</a>";
-            //var title = "password Confirm";
-
+            string url = $"http://localhost:4200/resetForgetPasswod?email={email}&token={validToken}";
+            
             await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
                     $"<p>To reset your password <a href='{url}'>Click here</a></p>");
             return true;

@@ -298,6 +298,17 @@ namespace BL.Bases
             }
         }
 
+        private RatingRepository ratingRepo;
+        public RatingRepository RatingRepo
+        {
+            get
+            {
+                if (ratingRepo == null)
+                    ratingRepo = new RatingRepository(Context);
+                return ratingRepo;
+            }
+        }
+        
         public void Dispose()
         {
             Context.Dispose();

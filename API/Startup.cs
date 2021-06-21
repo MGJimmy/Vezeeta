@@ -85,25 +85,12 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
-            /*************************************************/
-
-            //services.AddIdentity<ApplicationUserIdentity, IdentityRole>(options =>
-            //{
-            //    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
-            //}).AddDefaultTokenProviders();
-
-            //services.AddIdentity<ApplicationUserIdentity, IdentityRole>()
-            //// services.AddDefaultIdentity<IdentityUser>()
-            //.AddEntityFrameworkStores<DAL.VezeetaContext>()
-            //.AddDefaultTokenProviders();
+            
             services.AddIdentityCore<ApplicationUserIdentity>().AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<VezeetaContext>()
             .AddDefaultTokenProviders();
 
 
-
-
-            /**************************************************/
             // DI
             services.AddDbContext<VezeetaContext>(option =>
             {
@@ -130,6 +117,8 @@ namespace API
             services.AddScoped<DayShiftAppService>();
             services.AddScoped<DoctorServiceAppService>();
             services.AddScoped<Doctor_DoctorServiceAppService>();
+
+
             
             services.AddScoped<DoctorSubSpecializationAppService>();
             services.AddScoped<RoleAppService>();
@@ -140,7 +129,8 @@ namespace API
             services.AddScoped<MakeOfferAppService>();
             services.AddScoped<MakeOfferImageAppService>();
             services.AddScoped<ReserveOfferAppService>();
-
+            services.AddScoped<RatingAppService>();
+            
 
 
             services.AddTransient<IMailService, SendGridMailService>();

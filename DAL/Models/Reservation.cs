@@ -37,6 +37,7 @@ namespace DAL.Models
         public DayShift dayShift { get; set; }
         public ApplicationUserIdentity User { get; set; }
         public Doctor Doctor { get; set; }
+        public Rating Rate { get; set; }
 
 
 

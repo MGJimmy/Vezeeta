@@ -11,6 +11,7 @@ import { IRegisterUser } from '../_models/_interfaces/IRegisterUser';
 import { IUserForReservation } from '../_models/_interfaces/IUserForReservation';
 import { IUser } from '../_models/_interfaces/IUser';
 import { IUpdateUser } from '../_models/_interfaces/IUpdateUser';
+import { IResetForgetPassword } from '../_models/_interfaces/IResetForgetPassword';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -101,11 +102,11 @@ export class AuthenticationService {
             let token = localStorage.getItem('token');
 
             let jwtData = token.split('.')[1]
-
             let decodedJwtJsonData = window.atob(jwtData)
 
             let decodedJwtData = JSON.parse(decodedJwtJsonData)
-            return decodedJwtData.role;
+
+            return decodedJwtData['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
         }
         return "No Role";
     }
@@ -176,6 +177,14 @@ export class AuthenticationService {
 
     forgetPassword(email:string):Observable<any>{
         return this.http.post<any>(`${environment.apiUrl}/api/Account/ForgetPassword/${email}`,null).pipe(catchError(err=>
+            {
+                console.log(err);
+                return throwError(err.message||"an error occur")})
+          );
+    }
+
+    resetForgetPassword(resetPassword:IResetForgetPassword):Observable<any>{
+        return this.http.post<any>(`${environment.apiUrl}/api/Account/ResetPassword`,resetPassword).pipe(catchError(err=>
             {
                 console.log(err);
                 return throwError(err.message||"an error occur")})

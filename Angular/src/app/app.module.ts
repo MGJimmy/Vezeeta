@@ -66,9 +66,14 @@ import { SubofferCategoryComponent } from './components/client-offer/suboffer-ca
 import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
 import { UserUpdateComponent } from './components/user-update/user-update.component'
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
 import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
+import { UserInformationComponent } from './components/user-information/user-information.component';
+import { UserInfoSideBarComponent } from './components/user-information/user-info-side-bar/user-info-side-bar.component';
+import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
+import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -128,6 +133,10 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
       ResetPasswordComponent,
       RegisterAdminComponent,
       ForgetPasswordComponent,
+      UserInformationComponent,
+      UserInfoSideBarComponent,
+      ClientRateComponent,
+      ResetForgetPasswordComponent,
     
   ],
   imports: [
@@ -139,6 +148,7 @@ import { ForgetPasswordComponent } from './components/forget-password/forget-pas
     BrowserAnimationsModule,
     AutocompleteLibModule,
     NgSelectModule,
+    BarRatingModule,
     // BrowserAnimationsModule,
     // CarouselModul,
     // NgxSpinnerModule,

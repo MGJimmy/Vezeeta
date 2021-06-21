@@ -197,7 +197,7 @@ namespace API.Controllers
 
 
         [HttpPost("ResetPassword")]
-        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordDTO model)
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDTO model)
         {
             if (ModelState.IsValid)
             {

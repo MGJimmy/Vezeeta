@@ -20,1180 +20,1247 @@ namespace DAL.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("DAL.ApplicationUserIdentity", b =>
-            {
-                b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("AccessFailedCount")
-                    .HasColumnType("int");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
 
-                b.Property<string>("ConcurrencyStamp")
-                    .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Email")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<bool>("EmailConfirmed")
-                    .HasColumnType("bit");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                b.Property<string>("FullName")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("IsDoctor")
-                    .HasColumnType("bit");
+                    b.Property<bool>("IsDoctor")
+                        .HasColumnType("bit");
 
-                b.Property<bool>("LockoutEnabled")
-                    .HasColumnType("bit");
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
 
-                b.Property<DateTimeOffset?>("LockoutEnd")
-                    .HasColumnType("datetimeoffset");
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
 
-                b.Property<string>("NormalizedEmail")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("NormalizedUserName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("PasswordHash")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("PhoneNumber")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("PhoneNumberConfirmed")
-                    .HasColumnType("bit");
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
 
-                b.Property<string>("SecurityStamp")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("TwoFactorEnabled")
-                    .HasColumnType("bit");
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
-                b.Property<string>("UserName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("NormalizedEmail")
-                    .HasDatabaseName("EmailIndex");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
 
-                b.HasIndex("NormalizedUserName")
-                    .IsUnique()
-                    .HasDatabaseName("UserNameIndex")
-                    .HasFilter("[NormalizedUserName] IS NOT NULL");
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers");
 
-                b.HasData(
-                    new
-                    {
-                        Id = "3cbbb833-f476-4a3d-9ee7-80efd7eb9fd8",
-                        AccessFailedCount = 0,
-                        ConcurrencyStamp = "df32fb4c-302e-4cd0-afeb-85b3ce9123a8",
-                        Email = "example.gmail.com",
-                        EmailConfirmed = false,
-                        IsDoctor = false,
-                        LockoutEnabled = false,
-                        PasswordHash = "123456",
-                        PhoneNumberConfirmed = false,
-                        SecurityStamp = "d57ea574-bac5-45a2-bb72-566a5e1761e0",
-                        TwoFactorEnabled = false,
-                        UserName = "admin"
-                    });
-            });
+                    b.HasData(
+                        new
+                        {
+                            Id = "f0eaf087-b8e8-49ff-b53d-d706cf8361c3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8bfe5e65-ead7-4e4b-9db3-14150f45ed2c",
+                            Email = "example.gmail.com",
+                            EmailConfirmed = false,
+                            IsDoctor = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "123456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "da43e0ec-7d3d-4ac1-918f-24396c5a580e",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
+                });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<bool>("ByAdmin")
-                    .HasColumnType("bit");
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
 
-                b.Property<int>("CityID")
-                    .HasColumnType("int");
+                    b.Property<int>("CityID")
+                        .HasColumnType("int");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.HasIndex("CityID");
+                    b.HasIndex("CityID");
 
-                b.HasIndex("Name")
-                    .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                b.ToTable("Area");
-            });
+                    b.ToTable("Area");
+                });
 
             modelBuilder.Entity("DAL.Models.City", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.HasIndex("Name")
-                    .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                b.ToTable("City");
-            });
+                    b.ToTable("City");
+                });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>
-            {
-                b.Property<string>("DoctorId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("AreaId")
-                    .HasColumnType("int");
+                    b.Property<int>("AreaId")
+                        .HasColumnType("int");
 
-                b.Property<int>("CityId")
-                    .HasColumnType("int");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
-                b.Property<int>("ExaminationTime")
-                    .HasColumnType("int");
+                    b.Property<int>("ExaminationTime")
+                        .HasColumnType("int");
 
-                b.Property<int>("Fees")
-                    .HasColumnType("int");
+                    b.Property<int>("Fees")
+                        .HasColumnType("int");
 
-                b.Property<string>("Street")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("WatingTime")
-                    .HasColumnType("int");
+                    b.Property<int>("WatingTime")
+                        .HasColumnType("int");
 
-                b.HasKey("DoctorId");
+                    b.HasKey("DoctorId");
 
-                b.HasIndex("AreaId");
+                    b.HasIndex("AreaId");
 
-                b.HasIndex("CityId");
+                    b.HasIndex("CityId");
 
-                b.ToTable("Clinic");
-            });
+                    b.ToTable("Clinic");
+                });
 
             modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
-            {
-                b.Property<string>("ClinicId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("ClinicServiceId")
-                    .HasColumnType("int");
+                    b.Property<int>("ClinicServiceId")
+                        .HasColumnType("int");
 
-                b.HasKey("ClinicId", "ClinicServiceId");
+                    b.HasKey("ClinicId", "ClinicServiceId");
 
-                b.HasIndex("ClinicServiceId");
+                    b.HasIndex("ClinicServiceId");
 
-                b.ToTable("ClinicClinicService");
-            });
+                    b.ToTable("ClinicClinicService");
+                });
 
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("ClinicId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Image")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("ClinicId");
+                    b.HasIndex("ClinicId");
 
-                b.ToTable("ClinicImage");
-            });
+                    b.ToTable("ClinicImage");
+                });
 
             modelBuilder.Entity("DAL.Models.Clinicservice", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<bool>("ByAdmin")
-                    .HasColumnType("bit");
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.ToTable("Clinicservices");
-            });
+                    b.ToTable("Clinicservices");
+                });
 
             modelBuilder.Entity("DAL.Models.DayShift", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<TimeSpan>("From")
-                    .HasColumnType("time");
+                    b.Property<TimeSpan>("From")
+                        .HasColumnType("time");
 
-                b.Property<int>("MaxNumOfReservation")
-                    .HasColumnType("int");
+                    b.Property<int>("MaxNumOfReservation")
+                        .HasColumnType("int");
 
-                b.Property<TimeSpan>("To")
-                    .HasColumnType("time");
+                    b.Property<TimeSpan>("To")
+                        .HasColumnType("time");
 
-                b.Property<int>("WorkingDayId")
-                    .HasColumnType("int");
+                    b.Property<int>("WorkingDayId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("WorkingDayId");
+                    b.HasIndex("WorkingDayId");
 
-                b.ToTable("DayShift");
-            });
+                    b.ToTable("DayShift");
+                });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
-            {
-                b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Image")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("IsAccepted")
-                    .HasColumnType("bit");
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
 
-                b.Property<string>("TitleDegree")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("TitleDegree")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("doctorInfo")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("doctorInfo")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("specialtyId")
-                    .HasColumnType("int");
+                    b.Property<int>("specialtyId")
+                        .HasColumnType("int");
 
-                b.HasKey("UserId");
+                    b.HasKey("UserId");
 
-                b.HasIndex("specialtyId");
+                    b.HasIndex("specialtyId");
 
-                b.ToTable("Doctor");
-            });
+                    b.ToTable("Doctor");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorAttachment", b =>
-            {
-                b.Property<string>("DoctorId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("DoctorSyndicateIdImage")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("DoctorSyndicateIdImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("OpenClinicPermissionImage")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("OpenClinicPermissionImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("PersonalIdImage")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("PersonalIdImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("isBinding")
-                    .HasColumnType("bit");
+                    b.Property<bool>("isBinding")
+                        .HasColumnType("bit");
 
-                b.HasKey("DoctorId");
+                    b.HasKey("DoctorId");
 
-                b.ToTable("DoctorAttachment");
-            });
+                    b.ToTable("DoctorAttachment");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorService", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<bool>("ByAdmin")
-                    .HasColumnType("bit");
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
 
-                b.Property<string>("DoctorUserId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("DoctorUserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.HasIndex("DoctorUserId");
+                    b.HasIndex("DoctorUserId");
 
-                b.ToTable("DoctorService");
-            });
+                    b.ToTable("DoctorService");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorSubSpecialization", b =>
-            {
-                b.Property<string>("DoctorId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("subSpecializeId")
-                    .HasColumnType("int");
+                    b.Property<int>("subSpecializeId")
+                        .HasColumnType("int");
 
-                b.HasKey("DoctorId", "subSpecializeId");
+                    b.HasKey("DoctorId", "subSpecializeId");
 
-                b.HasIndex("subSpecializeId");
+                    b.HasIndex("subSpecializeId");
 
-                b.ToTable("DoctorSubSpecialization");
-            });
+                    b.ToTable("DoctorSubSpecialization");
+                });
 
             modelBuilder.Entity("DAL.Models.Doctor_DoctorService", b =>
-            {
-                b.Property<string>("doctorID")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("doctorID")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("serviceID")
-                    .HasColumnType("int");
+                    b.Property<int>("serviceID")
+                        .HasColumnType("int");
 
-                b.HasKey("doctorID", "serviceID");
+                    b.HasKey("doctorID", "serviceID");
 
-                b.HasIndex("serviceID");
+                    b.HasIndex("serviceID");
 
-                b.ToTable("Doctor_DoctorServices");
-            });
+                    b.ToTable("Doctor_DoctorServices");
+                });
 
             modelBuilder.Entity("DAL.Models.MakeOffer", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Details")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<double>("Discount")
-                    .HasColumnType("float");
+                    b.Property<double>("Discount")
+                        .HasColumnType("float");
 
-                b.Property<string>("DoctorId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("DoctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<double>("Fees")
-                    .HasColumnType("float");
+                    b.Property<double>("Fees")
+                        .HasColumnType("float");
 
-                b.Property<string>("Information")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Information")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("NumberOfSession")
-                    .HasColumnType("int");
+                    b.Property<int>("NumberOfSession")
+                        .HasColumnType("int");
 
-                b.Property<int>("OfferId")
-                    .HasColumnType("int");
+                    b.Property<int>("OfferId")
+                        .HasColumnType("int");
 
-                b.Property<bool>("State")
-                    .HasColumnType("bit");
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
-                b.Property<int>("SubOfferId")
-                    .HasColumnType("int");
+                    b.Property<int>("SubOfferId")
+                        .HasColumnType("int");
 
-                b.Property<string>("Title")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("DoctorId");
+                    b.HasIndex("DoctorId");
 
-                b.HasIndex("OfferId");
+                    b.HasIndex("OfferId");
 
-                b.HasIndex("SubOfferId");
+                    b.HasIndex("SubOfferId");
 
-                b.ToTable("MakeOffers");
-            });
+                    b.ToTable("MakeOffers");
+                });
 
             modelBuilder.Entity("DAL.Models.MakeOfferImage", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Image")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("MakeOfferId")
-                    .HasColumnType("int");
+                    b.Property<int>("MakeOfferId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("MakeOfferId");
+                    b.HasIndex("MakeOfferId");
 
-                b.ToTable("MakeOfferImages");
-            });
+                    b.ToTable("MakeOfferImages");
+                });
 
             modelBuilder.Entity("DAL.Models.Offer", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Image")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.ToTable("Offers");
-            });
+                    b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReservationId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
+                });
 
             modelBuilder.Entity("DAL.Models.Reservation", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<int?>("Age")
-                    .HasColumnType("int");
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
 
-                b.Property<DateTime>("Date")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Email")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Phone")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("State")
-                    .HasColumnType("bit");
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
-                b.Property<string>("Symptoms")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Symptoms")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("UserName")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("dayShiftId")
-                    .HasColumnType("int");
+                    b.Property<int>("dayShiftId")
+                        .HasColumnType("int");
 
-                b.Property<string>("doctorId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("doctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int?>("gender")
-                    .HasColumnType("int");
+                    b.Property<int?>("gender")
+                        .HasColumnType("int");
 
-                b.Property<string>("userId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("dayShiftId");
+                    b.HasIndex("dayShiftId");
 
-                b.HasIndex("doctorId");
+                    b.HasIndex("doctorId");
 
-                b.HasIndex("userId");
+                    b.HasIndex("userId");
 
-                b.ToTable("Reservation");
-            });
+                    b.ToTable("Reservation");
+                });
 
             modelBuilder.Entity("DAL.Models.ReserveOffer", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<DateTime>("Date")
-                    .HasColumnType("datetime2");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
-                b.Property<string>("Email")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("MakeOfferId")
-                    .HasColumnType("int");
+                    b.Property<int>("MakeOfferId")
+                        .HasColumnType("int");
 
-                b.Property<string>("Phone")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<bool>("State")
-                    .HasColumnType("bit");
+                    b.Property<bool>("State")
+                        .HasColumnType("bit");
 
-                b.Property<string>("UserName")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("dayShiftId")
-                    .HasColumnType("int");
+                    b.Property<int>("dayShiftId")
+                        .HasColumnType("int");
 
-                b.Property<string>("doctorId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("doctorId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("userId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("userId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("MakeOfferId");
+                    b.HasIndex("MakeOfferId");
 
-                b.HasIndex("dayShiftId");
+                    b.HasIndex("dayShiftId");
 
-                b.HasIndex("doctorId");
+                    b.HasIndex("doctorId");
 
-                b.HasIndex("userId");
+                    b.HasIndex("userId");
 
-                b.ToTable("ReserveOffer");
-            });
+                    b.ToTable("ReserveOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.HasIndex("Name")
-                    .IsUnique();
+                    b.HasIndex("Name")
+                        .IsUnique();
 
-                b.ToTable("Specialty");
-            });
+                    b.ToTable("Specialty");
+                });
 
             modelBuilder.Entity("DAL.Models.SubOffer", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("OfferId")
-                    .HasColumnType("int");
+                    b.Property<int>("OfferId")
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("OfferId");
+                    b.HasIndex("OfferId");
 
-                b.ToTable("SubOffers");
-            });
+                    b.ToTable("SubOffers");
+                });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
-            {
-                b.Property<int>("ID")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<bool>("ByAdmin")
-                    .HasColumnType("bit");
+                    b.Property<bool>("ByAdmin")
+                        .HasColumnType("bit");
 
-                b.Property<string>("Name")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<int>("specialtyId")
-                    .HasColumnType("int");
+                    b.Property<int>("specialtyId")
+                        .HasColumnType("int");
 
-                b.HasKey("ID");
+                    b.HasKey("ID");
 
-                b.HasIndex("specialtyId");
+                    b.HasIndex("specialtyId");
 
-                b.ToTable("supSpecializations");
-            });
+                    b.ToTable("supSpecializations");
+                });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("ClinicId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ClinicId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<int>("Day")
-                    .HasMaxLength(6)
-                    .HasColumnType("int");
+                    b.Property<int>("Day")
+                        .HasMaxLength(6)
+                        .HasColumnType("int");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("ClinicId");
+                    b.HasIndex("ClinicId");
 
-                b.ToTable("WorkingDay");
-            });
+                    b.ToTable("WorkingDay");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-            {
-                b.Property<string>("Id")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("ConcurrencyStamp")
-                    .IsConcurrencyToken()
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("Name")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.Property<string>("NormalizedName")
-                    .HasMaxLength(256)
-                    .HasColumnType("nvarchar(256)");
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("NormalizedName")
-                    .IsUnique()
-                    .HasDatabaseName("RoleNameIndex")
-                    .HasFilter("[NormalizedName] IS NOT NULL");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
-                b.ToTable("AspNetRoles");
-            });
+                    b.ToTable("AspNetRoles");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("RoleId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("RoleId");
+                    b.HasIndex("RoleId");
 
-                b.ToTable("AspNetRoleClaims");
-            });
+                    b.ToTable("AspNetRoleClaims");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int")
-                    .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                b.Property<string>("ClaimType")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("ClaimValue")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("UserId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("Id");
+                    b.HasKey("Id");
 
-                b.HasIndex("UserId");
+                    b.HasIndex("UserId");
 
-                b.ToTable("AspNetUserClaims");
-            });
+                    b.ToTable("AspNetUserClaims");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-            {
-                b.Property<string>("LoginProvider")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("ProviderKey")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("ProviderDisplayName")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("UserId")
-                    .IsRequired()
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("LoginProvider", "ProviderKey");
+                    b.HasKey("LoginProvider", "ProviderKey");
 
-                b.HasIndex("UserId");
+                    b.HasIndex("UserId");
 
-                b.ToTable("AspNetUserLogins");
-            });
+                    b.ToTable("AspNetUserLogins");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-            {
-                b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("RoleId")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.HasKey("UserId", "RoleId");
+                    b.HasKey("UserId", "RoleId");
 
-                b.HasIndex("RoleId");
+                    b.HasIndex("RoleId");
 
-                b.ToTable("AspNetUserRoles");
-            });
+                    b.ToTable("AspNetUserRoles");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-            {
-                b.Property<string>("UserId")
-                    .HasColumnType("nvarchar(450)");
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("LoginProvider")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Name")
-                    .HasColumnType("nvarchar(450)");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
 
-                b.Property<string>("Value")
-                    .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
 
-                b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
-                b.ToTable("AspNetUserTokens");
-            });
+                    b.ToTable("AspNetUserTokens");
+                });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
-            {
-                b.HasOne("DAL.Models.City", "City")
-                    .WithMany("Areas")
-                    .HasForeignKey("CityID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.City", "City")
+                        .WithMany("Areas")
+                        .HasForeignKey("CityID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("City");
-            });
+                    b.Navigation("City");
+                });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>
-            {
-                b.HasOne("DAL.Models.Area", "Area")
-                    .WithMany("clinics")
-                    .HasForeignKey("AreaId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Area", "Area")
+                        .WithMany("clinics")
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.City", "City")
-                    .WithMany("Clinics")
-                    .HasForeignKey("CityId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.City", "City")
+                        .WithMany("Clinics")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.Doctor", "Doctor")
-                    .WithOne("clinic")
-                    .HasForeignKey("DAL.Models.Clinic", "DoctorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithOne("clinic")
+                        .HasForeignKey("DAL.Models.Clinic", "DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Area");
+                    b.Navigation("Area");
 
-                b.Navigation("City");
+                    b.Navigation("City");
 
-                b.Navigation("Doctor");
-            });
+                    b.Navigation("Doctor");
+                });
 
             modelBuilder.Entity("DAL.Models.ClinicClinicService", b =>
-            {
-                b.HasOne("DAL.Models.Clinic", "Clinic")
-                    .WithMany("ClinicClinicServices")
-                    .HasForeignKey("ClinicId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.Clinicservice", "ClinicService")
-                    .WithMany("ClinicClinicServices")
-                    .HasForeignKey("ClinicServiceId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.Clinicservice", "ClinicService")
+                        .WithMany("ClinicClinicServices")
+                        .HasForeignKey("ClinicServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Clinic");
+                    b.Navigation("Clinic");
 
-                b.Navigation("ClinicService");
-            });
+                    b.Navigation("ClinicService");
+                });
 
             modelBuilder.Entity("DAL.Models.ClinicImage", b =>
-            {
-                b.HasOne("DAL.Models.Clinic", "Clinic")
-                    .WithMany("ClinicImages")
-                    .HasForeignKey("ClinicId");
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("ClinicImages")
+                        .HasForeignKey("ClinicId");
 
-                b.Navigation("Clinic");
-            });
+                    b.Navigation("Clinic");
+                });
 
             modelBuilder.Entity("DAL.Models.DayShift", b =>
-            {
-                b.HasOne("DAL.Models.WorkingDay", "WorkingDay")
-                    .WithMany("DayShifts")
-                    .HasForeignKey("WorkingDayId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.WorkingDay", "WorkingDay")
+                        .WithMany("DayShifts")
+                        .HasForeignKey("WorkingDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("WorkingDay");
-            });
+                    b.Navigation("WorkingDay");
+                });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
-            {
-                b.HasOne("DAL.ApplicationUserIdentity", "User")
-                    .WithOne("Doctor")
-                    .HasForeignKey("DAL.Models.Doctor", "UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithOne("Doctor")
+                        .HasForeignKey("DAL.Models.Doctor", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.Specialty", "specialty")
-                    .WithMany("doctors")
-                    .HasForeignKey("specialtyId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.Specialty", "specialty")
+                        .WithMany("doctors")
+                        .HasForeignKey("specialtyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("specialty");
+                    b.Navigation("specialty");
 
-                b.Navigation("User");
-            });
+                    b.Navigation("User");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorAttachment", b =>
-            {
-                b.HasOne("DAL.Models.Doctor", "Doctor")
-                    .WithOne("DoctorAttachment")
-                    .HasForeignKey("DAL.Models.DoctorAttachment", "DoctorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithOne("DoctorAttachment")
+                        .HasForeignKey("DAL.Models.DoctorAttachment", "DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Doctor");
-            });
+                    b.Navigation("Doctor");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorService", b =>
-            {
-                b.HasOne("DAL.Models.Doctor", null)
-                    .WithMany("doctorServices")
-                    .HasForeignKey("DoctorUserId");
-            });
+                {
+                    b.HasOne("DAL.Models.Doctor", null)
+                        .WithMany("doctorServices")
+                        .HasForeignKey("DoctorUserId");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorSubSpecialization", b =>
-            {
-                b.HasOne("DAL.Models.Doctor", "doctor")
-                    .WithMany("DoctorSubSpecialization")
-                    .HasForeignKey("DoctorId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Doctor", "doctor")
+                        .WithMany("DoctorSubSpecialization")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.SupSpecialization", "supSpecialization")
-                    .WithMany("DoctorSubSpecialization")
-                    .HasForeignKey("subSpecializeId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.SupSpecialization", "supSpecialization")
+                        .WithMany("DoctorSubSpecialization")
+                        .HasForeignKey("subSpecializeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("doctor");
+                    b.Navigation("doctor");
 
-                b.Navigation("supSpecialization");
-            });
+                    b.Navigation("supSpecialization");
+                });
 
             modelBuilder.Entity("DAL.Models.Doctor_DoctorService", b =>
-            {
-                b.HasOne("DAL.Models.Doctor", "doctor")
-                    .WithMany("doctor_doctorServices")
-                    .HasForeignKey("doctorID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Doctor", "doctor")
+                        .WithMany("doctor_doctorServices")
+                        .HasForeignKey("doctorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.DoctorService", "service")
-                    .WithMany("doctor_doctorServices")
-                    .HasForeignKey("serviceID")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.DoctorService", "service")
+                        .WithMany("doctor_doctorServices")
+                        .HasForeignKey("serviceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("doctor");
+                    b.Navigation("doctor");
 
-                b.Navigation("service");
-            });
+                    b.Navigation("service");
+                });
 
             modelBuilder.Entity("DAL.Models.MakeOffer", b =>
-            {
-                b.HasOne("DAL.Models.Doctor", "Doctor")
-                    .WithMany()
-                    .HasForeignKey("DoctorId");
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId");
 
-                b.HasOne("DAL.Models.Offer", "Offer")
-                    .WithMany("MakeOffers")
-                    .HasForeignKey("OfferId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.Offer", "Offer")
+                        .WithMany("MakeOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.SubOffer", "SubOffer")
-                    .WithMany("MakeOffers")
-                    .HasForeignKey("SubOfferId")
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.SubOffer", "SubOffer")
+                        .WithMany("MakeOffers")
+                        .HasForeignKey("SubOfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
-                b.Navigation("Doctor");
+                    b.Navigation("Doctor");
 
-                b.Navigation("Offer");
+                    b.Navigation("Offer");
 
-                b.Navigation("SubOffer");
-            });
+                    b.Navigation("SubOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.MakeOfferImage", b =>
-            {
-                b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
-                    .WithMany("OfferImages")
-                    .HasForeignKey("MakeOfferId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
+                        .WithMany("OfferImages")
+                        .HasForeignKey("MakeOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("MakeOffer");
-            });
+                    b.Navigation("MakeOffer");
+                });
+
+            modelBuilder.Entity("DAL.Models.Rating", b =>
+                {
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("Rates")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Reservation", "Reservation")
+                        .WithOne("Rate")
+                        .HasForeignKey("DAL.Models.Rating", "ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("Rates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Reservation");
+
+                    b.Navigation("User");
+                });
 
             modelBuilder.Entity("DAL.Models.Reservation", b =>
-            {
-                b.HasOne("DAL.Models.DayShift", "dayShift")
-                    .WithMany("reservations")
-                    .HasForeignKey("dayShiftId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.DayShift", "dayShift")
+                        .WithMany("reservations")
+                        .HasForeignKey("dayShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.Doctor", "Doctor")
-                    .WithMany("Reservations")
-                    .HasForeignKey("doctorId");
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("Reservations")
+                        .HasForeignKey("doctorId");
 
-                b.HasOne("DAL.ApplicationUserIdentity", "User")
-                    .WithMany("reservations")
-                    .HasForeignKey("userId");
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("reservations")
+                        .HasForeignKey("userId");
 
-                b.Navigation("dayShift");
+                    b.Navigation("dayShift");
 
-                b.Navigation("Doctor");
+                    b.Navigation("Doctor");
 
-                b.Navigation("User");
-            });
+                    b.Navigation("User");
+                });
 
             modelBuilder.Entity("DAL.Models.ReserveOffer", b =>
-            {
-                b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
-                    .WithMany("ReserveOffer")
-                    .HasForeignKey("MakeOfferId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("MakeOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.DayShift", "dayShift")
-                    .WithMany("reserveOffer")
-                    .HasForeignKey("dayShiftId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    b.HasOne("DAL.Models.DayShift", "dayShift")
+                        .WithMany("reserveOffer")
+                        .HasForeignKey("dayShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.Models.Doctor", "Doctor")
-                    .WithMany("ReserveOffer")
-                    .HasForeignKey("doctorId");
+                    b.HasOne("DAL.Models.Doctor", "Doctor")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("doctorId");
 
-                b.HasOne("DAL.ApplicationUserIdentity", "User")
-                    .WithMany("ReserveOffer")
-                    .HasForeignKey("userId");
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("ReserveOffer")
+                        .HasForeignKey("userId");
 
-                b.Navigation("dayShift");
+                    b.Navigation("dayShift");
 
-                b.Navigation("Doctor");
+                    b.Navigation("Doctor");
 
-                b.Navigation("MakeOffer");
+                    b.Navigation("MakeOffer");
 
-                b.Navigation("User");
-            });
+                    b.Navigation("User");
+                });
 
             modelBuilder.Entity("DAL.Models.SubOffer", b =>
-            {
-                b.HasOne("DAL.Models.Offer", "Offer")
-                    .WithMany("SubOffers")
-                    .HasForeignKey("OfferId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Offer", "Offer")
+                        .WithMany("SubOffers")
+                        .HasForeignKey("OfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("Offer");
-            });
+                    b.Navigation("Offer");
+                });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
-            {
-                b.HasOne("DAL.Models.Specialty", "specialty")
-                    .WithMany()
-                    .HasForeignKey("specialtyId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("DAL.Models.Specialty", "specialty")
+                        .WithMany()
+                        .HasForeignKey("specialtyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.Navigation("specialty");
-            });
+                    b.Navigation("specialty");
+                });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>
-            {
-                b.HasOne("DAL.Models.Clinic", "Clinic")
-                    .WithMany("WorkingDays")
-                    .HasForeignKey("ClinicId");
+                {
+                    b.HasOne("DAL.Models.Clinic", "Clinic")
+                        .WithMany("WorkingDays")
+                        .HasForeignKey("ClinicId");
 
-                b.Navigation("Clinic");
-            });
+                    b.Navigation("Clinic");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                    .WithMany()
-                    .HasForeignKey("RoleId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-            {
-                b.HasOne("DAL.ApplicationUserIdentity", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                {
+                    b.HasOne("DAL.ApplicationUserIdentity", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-            {
-                b.HasOne("DAL.ApplicationUserIdentity", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                {
+                    b.HasOne("DAL.ApplicationUserIdentity", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-            {
-                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                    .WithMany()
-                    .HasForeignKey("RoleId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                b.HasOne("DAL.ApplicationUserIdentity", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                    b.HasOne("DAL.ApplicationUserIdentity", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-            {
-                b.HasOne("DAL.ApplicationUserIdentity", null)
-                    .WithMany()
-                    .HasForeignKey("UserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
+                {
+                    b.HasOne("DAL.ApplicationUserIdentity", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("DAL.ApplicationUserIdentity", b =>
-            {
-                b.Navigation("Doctor");
+                {
+                    b.Navigation("Doctor");
 
-                b.Navigation("reservations");
+                    b.Navigation("Rates");
 
-                b.Navigation("ReserveOffer");
-            });
+                    b.Navigation("reservations");
+
+                    b.Navigation("ReserveOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.Area", b =>
-            {
-                b.Navigation("clinics");
-            });
+                {
+                    b.Navigation("clinics");
+                });
 
             modelBuilder.Entity("DAL.Models.City", b =>
-            {
-                b.Navigation("Areas");
+                {
+                    b.Navigation("Areas");
 
-                b.Navigation("Clinics");
-            });
+                    b.Navigation("Clinics");
+                });
 
             modelBuilder.Entity("DAL.Models.Clinic", b =>
-            {
-                b.Navigation("ClinicClinicServices");
+                {
+                    b.Navigation("ClinicClinicServices");
 
-                b.Navigation("ClinicImages");
+                    b.Navigation("ClinicImages");
 
-                b.Navigation("WorkingDays");
-            });
+                    b.Navigation("WorkingDays");
+                });
 
             modelBuilder.Entity("DAL.Models.Clinicservice", b =>
-            {
-                b.Navigation("ClinicClinicServices");
-            });
+                {
+                    b.Navigation("ClinicClinicServices");
+                });
 
             modelBuilder.Entity("DAL.Models.DayShift", b =>
-            {
-                b.Navigation("reservations");
+                {
+                    b.Navigation("reservations");
 
-                b.Navigation("reserveOffer");
-            });
+                    b.Navigation("reserveOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.Doctor", b =>
-            {
-                b.Navigation("clinic");
+                {
+                    b.Navigation("clinic");
 
-                b.Navigation("doctor_doctorServices");
+                    b.Navigation("doctor_doctorServices");
 
-                b.Navigation("DoctorAttachment");
+                    b.Navigation("DoctorAttachment");
 
-                b.Navigation("doctorServices");
+                    b.Navigation("doctorServices");
 
-                b.Navigation("DoctorSubSpecialization");
+                    b.Navigation("DoctorSubSpecialization");
 
-                b.Navigation("Reservations");
+                    b.Navigation("Rates");
 
-                b.Navigation("ReserveOffer");
-            });
+                    b.Navigation("Reservations");
+
+                    b.Navigation("ReserveOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.DoctorService", b =>
-            {
-                b.Navigation("doctor_doctorServices");
-            });
+                {
+                    b.Navigation("doctor_doctorServices");
+                });
 
             modelBuilder.Entity("DAL.Models.MakeOffer", b =>
-            {
-                b.Navigation("OfferImages");
+                {
+                    b.Navigation("OfferImages");
 
-                b.Navigation("ReserveOffer");
-            });
+                    b.Navigation("ReserveOffer");
+                });
 
             modelBuilder.Entity("DAL.Models.Offer", b =>
-            {
-                b.Navigation("MakeOffers");
+                {
+                    b.Navigation("MakeOffers");
 
-                b.Navigation("SubOffers");
-            });
+                    b.Navigation("SubOffers");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reservation", b =>
+                {
+                    b.Navigation("Rate");
+                });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>
-            {
-                b.Navigation("doctors");
-            });
+                {
+                    b.Navigation("doctors");
+                });
 
             modelBuilder.Entity("DAL.Models.SubOffer", b =>
-            {
-                b.Navigation("MakeOffers");
-            });
+                {
+                    b.Navigation("MakeOffers");
+                });
 
             modelBuilder.Entity("DAL.Models.SupSpecialization", b =>
-            {
-                b.Navigation("DoctorSubSpecialization");
-            });
+                {
+                    b.Navigation("DoctorSubSpecialization");
+                });
 
             modelBuilder.Entity("DAL.Models.WorkingDay", b =>
-            {
-                b.Navigation("DayShifts");
-            });
+                {
+                    b.Navigation("DayShifts");
+                });
 #pragma warning restore 612, 618
         }
     }

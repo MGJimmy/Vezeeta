@@ -51,7 +51,6 @@ namespace BL.AppServices
         {
             Doctor doctor = Mapper.Map<Doctor>(createDoctorDTO);
             doctor.UserId = userId;
-            doctor.specialtyId = 1;
             doctor.IsAccepted = false;
             var createdDoctor = TheUnitOfWork.DoctorRepo.Insert(doctor);
             TheUnitOfWork.SaveChanges();

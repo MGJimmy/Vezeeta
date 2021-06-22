@@ -9,7 +9,13 @@ namespace DAL.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "1d448bc1-7c4f-49dc-a20e-fd05973f3b66");
+                keyValue: "f0eaf087-b8e8-49ff-b53d-d706cf8361c3");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Image",
+                table: "Specialty",
+                type: "nvarchar(max)",
+                nullable: true);
 
             migrationBuilder.AddColumn<double>(
                 name: "AverageRate",
@@ -18,10 +24,24 @@ namespace DAL.Migrations
                 nullable: false,
                 defaultValue: 0.0);
 
+            migrationBuilder.AddColumn<double>(
+                name: "CountOfRating",
+                table: "Doctor",
+                type: "float",
+                nullable: false,
+                defaultValue: 0.0);
+
+            migrationBuilder.AddColumn<double>(
+                name: "SumOfRating",
+                table: "Doctor",
+                type: "float",
+                nullable: false,
+                defaultValue: 0.0);
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "d016ea44-8551-4a7c-b09d-df720b3f35cf", 0, "6ba6fe66-8d8d-48b4-8e06-07953217df6a", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "b78ce4ad-0ac7-43f2-9c7e-c9b939985339", false, "admin" });
+                values: new object[] { "ba4bdfd6-abc9-4a75-9df4-a854f0789465", 0, "242d4899-6e52-41e5-8952-9ccfc1c53868", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "bd924ff6-7fec-4da7-9f6f-c41fcff66622", false, "admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -29,16 +49,28 @@ namespace DAL.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "d016ea44-8551-4a7c-b09d-df720b3f35cf");
+                keyValue: "ba4bdfd6-abc9-4a75-9df4-a854f0789465");
+
+            migrationBuilder.DropColumn(
+                name: "Image",
+                table: "Specialty");
 
             migrationBuilder.DropColumn(
                 name: "AverageRate",
                 table: "Doctor");
 
+            migrationBuilder.DropColumn(
+                name: "CountOfRating",
+                table: "Doctor");
+
+            migrationBuilder.DropColumn(
+                name: "SumOfRating",
+                table: "Doctor");
+
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "IsDoctor", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "1d448bc1-7c4f-49dc-a20e-fd05973f3b66", 0, "7eec846c-6a4a-4957-b020-282cd5702606", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "336ccf5f-da67-4a18-92c2-8c92257a1261", false, "admin" });
+                values: new object[] { "f0eaf087-b8e8-49ff-b53d-d706cf8361c3", 0, "8bfe5e65-ead7-4e4b-9db3-14150f45ed2c", "example.gmail.com", false, null, false, false, null, null, null, "123456", null, false, "da43e0ec-7d3d-4ac1-918f-24396c5a580e", false, "admin" });
         }
     }
 }

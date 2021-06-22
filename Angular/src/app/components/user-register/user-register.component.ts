@@ -72,8 +72,8 @@ export class UserRegisterComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-              // this._sharedDataService.IsUserLogIn.next(true)
-                this._router.navigate([this.returnUrl]);
+              this._router.navigate([this.returnUrl]);
+              this._sharedDataService.currentLoginUserChange.next(true)
             },
             error => {
                 this.error = error;

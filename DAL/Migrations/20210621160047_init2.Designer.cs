@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210620161033_init")]
-    partial class init
+    [Migration("20210621160047_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1d448bc1-7c4f-49dc-a20e-fd05973f3b66",
+                            Id = "ba4bdfd6-abc9-4a75-9df4-a854f0789465",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7eec846c-6a4a-4957-b020-282cd5702606",
+                            ConcurrencyStamp = "242d4899-6e52-41e5-8952-9ccfc1c53868",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "336ccf5f-da67-4a18-92c2-8c92257a1261",
+                            SecurityStamp = "bd924ff6-7fec-4da7-9f6f-c41fcff66622",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -271,6 +271,9 @@ namespace DAL.Migrations
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("float");
 
                     b.Property<double>("CountOfRating")
                         .HasColumnType("float");
@@ -602,6 +605,9 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

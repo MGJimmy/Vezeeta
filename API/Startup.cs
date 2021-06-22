@@ -85,6 +85,11 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+            
+            services.AddIdentityCore<ApplicationUserIdentity>().AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<VezeetaContext>()
+            .AddDefaultTokenProviders();
+
 
             // DI
             services.AddDbContext<VezeetaContext>(option =>
@@ -128,6 +133,8 @@ namespace API
             
 
 
+            services.AddTransient<IMailService, SendGridMailService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,7 +150,7 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
+            
             app.UseRouting();
 
             app.UseAuthentication();

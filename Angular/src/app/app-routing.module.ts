@@ -37,16 +37,17 @@ import { ShowOfferReserveToDoctorComponent } from './components/client-offer/sho
 import { ClientComponent } from './components/client/client.component';
 import { OfferCategoryComponent } from './components/client-offer/offer-category/offer-category.component';
 import { SubofferCategoryComponent } from './components/client-offer/suboffer-category/suboffer-category.component';
+import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserInformationComponent } from './components/user-information/user-information.component';
 import { UserUpdateComponent } from './components/user-update/user-update.component';
 import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
+import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
 
 const routes: Routes = [
   {
-    path:'dashboard',
-    component:DashboardComponent,
- 
+    path:'dashboard',component:DashboardComponent,
     children:[
       {path: 'cities', component: CityComponent},
       {path: 'specialists', component: SpecialityComponent},
@@ -87,13 +88,13 @@ const routes: Routes = [
     ]
   },
 
-  {path:"", component:ClientComponent , children:[
+  {path:"", component:ClientComponent ,
+    children:[
       {path:"",component:HomePageComponent},
       {path:"Reversation",component:CreatReservationComponent},
       {path:"ReversationContinue",component:CreatReservationContinueComponent},
       {path:"UserAppointments",component:ShowReservationToPatientComponent},
-      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
-      
+      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},      
       {path:"showDoctors", component:ShowDoctorsPageComponent},
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
      
@@ -104,6 +105,11 @@ const routes: Routes = [
   {path:"registerDoctor", component:RegisterDoctorComponent},
   {path:"registerUser", component:UserRegisterComponent},
   {path:"login", component:LoginComponent},
+  {path:"forgetPassword",component:ForgetPasswordComponent},
+  {path:"resetForgetPasswod",component:ResetForgetPasswordComponent},
+  {path:"ResetPassword",component:ResetPasswordComponent},
+
+  {path:"registeAdmin",component:RegisterAdminComponent},
   
 
 

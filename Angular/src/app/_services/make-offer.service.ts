@@ -41,6 +41,12 @@ export class MakeOfferService {
       return throwError(err.message||"an error occur");
     }));
   }
+  
+  GetSuggestionTop12Rated():Observable<IMakeOfferWithDoctorInfo[]>{
+    return this._http.get<IMakeOfferWithDoctorInfo[]>(`${this.url}/GetSuggestionDoctorOffers`).pipe(catchError(err=>{
+      return throwError(err.message||"an error occur");
+    }));
+  }
 
   createMakeOffer(makeOffer:IMakeOffer):Observable<IMakeOffer>{
     return this._http.post<IMakeOffer>(this.url,makeOffer).pipe(catchError(err=>{

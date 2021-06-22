@@ -15,6 +15,7 @@ namespace BL.DTOs.ReserveOfferDTO
         public string ClinicStreeet { get; set; }
         public DateTime Date { get; set; }
         public bool State { get; set; }
+        public bool IsRated { get; set; }
 
         public TimeSpan DayShiftFrom { get; set; }
         public TimeSpan DayShiftTo { get; set; }

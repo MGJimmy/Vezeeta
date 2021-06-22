@@ -8,6 +8,7 @@
                 <th width="15%" >Reservation Time</th>
                 <th width="15%" >State </th>
                 <th width="20%" >Details</th>
+                <th>Rate</th>
             </tr>
         </thead>
         <tbody>
@@ -20,8 +21,12 @@
                 <td *ngIf="item.state==false">Reservation Cancelled</td>
                 <td>
                     <button class="btn text-danger btn-cancel p-0" (click)="cancel(i)" *ngIf="item.state==true"><i class="far fa-times-circle"></i>Cancel</button>
-                    
                 </td>
+                
+                <td>
+                    <button class="btn btn-primary text-light" *ngIf="item.date < dateNow && item.state==true && item.isRated==false" routerLink="/ClientOffer/OfferRate/{{item.reserveOfferId}}">Rate</button>
+                    <span class="text-primary" *ngIf="item.isRated==true">Rated</span>
+                </td> 
             </tr>
         </tbody>
     </table>

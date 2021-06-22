@@ -43,7 +43,17 @@ export class ClientHeaderComponent implements OnInit {
     let role = this._authenticationService.getRole();
     return (role == UserRoles.Admin) ? true : false
   }
+  isUserDoctor():boolean{
+    let role = this._authenticationService.getRole();
+    return (role == UserRoles.Doctor) ? true : false
+  }
+  isUserPatient():boolean{
+    let role = this._authenticationService.getRole();
+    return (role == UserRoles.User) ? true : false
+  }
 
-
+  changeSearchSpecialtyId(){
+    this._dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.next(0);
+  }
 
 }

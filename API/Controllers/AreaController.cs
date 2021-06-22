@@ -1,11 +1,14 @@
 ﻿using BL.AppServices;
 using BL.DTOs;
 using BL.DTOs.AreaDTO;
+using BL.StaticClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -73,6 +76,7 @@ namespace API.Controllers
 
         // POST api/<AreaController>
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Post(CreateAreaDTO areaDTO)
         {
             if (ModelState.IsValid == false)
@@ -90,7 +94,8 @@ namespace API.Controllers
             try
             {
                 CreateAreaDTO newAreaDTO;
-                if (User.IsInRole("Admin"))
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+                if (userRole == UserRoles.Admin)
                 {
                     newAreaDTO = _areaAppServices.Insert(areaDTO, true);
                 }

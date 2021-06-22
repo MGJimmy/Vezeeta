@@ -72,7 +72,7 @@ export class HomePageComponent implements OnInit {
   ShowDoctors(specailtyId)
   {
     // console.log(specailtyId);
-    // this._router.navigate(['showDoctors',specailtyId]);
+    //this._router.navigate(['showDoctors',specailtyId]);
     this._dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.next(specailtyId);
   }
   chunks(array, size) {
@@ -87,4 +87,5 @@ export class HomePageComponent implements OnInit {
   goToOfferCategory(offerId){
     this._router.navigate(['ClientOffer/offers',offerId])
   }
+
 }

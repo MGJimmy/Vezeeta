@@ -308,7 +308,18 @@ namespace BL.Bases
                 return ratingRepo;
             }
         }
-        
+
+        private OfferRatingRepository offerRatingRepo;
+        public OfferRatingRepository OfferRatingRepo
+        {
+            get
+            {
+                if (offerRatingRepo == null)
+                    offerRatingRepo = new OfferRatingRepository(Context);
+                return offerRatingRepo;
+            }
+        }
+
         public void Dispose()
         {
             Context.Dispose();

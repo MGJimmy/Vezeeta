@@ -130,7 +130,8 @@ namespace API
             services.AddScoped<MakeOfferImageAppService>();
             services.AddScoped<ReserveOfferAppService>();
             services.AddScoped<RatingAppService>();
-            
+            services.AddScoped<OfferRatingAppService>();
+
 
 
             services.AddTransient<IMailService, SendGridMailService>();

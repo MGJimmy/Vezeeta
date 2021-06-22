@@ -15,7 +15,6 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = "Bearer")]
     public class WorkingDayController : ControllerBase
     {
         WorkingDayAppService _workingDayAppService;
@@ -31,6 +30,7 @@ namespace API.Controllers
             _dayShiftAppService = dayShiftAppService;
         }
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [Authorize(Roles = UserRoles.Doctor)]
         public IActionResult Insert(ICollection<CreateWorkingDayDTO> createWorkingDayDTOs)
         {

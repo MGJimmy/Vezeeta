@@ -18,6 +18,7 @@ namespace BL.DTOs
         public string OpenClinicPermissionImage { get; set; }
 
         public bool isBinding { get; set; }
+        public bool Rejected { get; set; }
         public bool DoctorIsAccepted { get; set; }
     }
 }

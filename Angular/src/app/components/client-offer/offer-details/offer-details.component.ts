@@ -4,6 +4,7 @@ import { Days, IdoctorDayWork, _WorkingDay } from 'src/app/_models/_interfaces/I
 import { IMakeOfferWithDoctorInfo } from 'src/app/_models/_interfaces/IMakeOfferWithDoctorInfo';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { MakeOfferService } from 'src/app/_services/make-offer.service';
+import { OfferRatingService } from 'src/app/_services/offer-rating.service';
 import { WorkingDaysService } from 'src/app/_services/working-days.service';
 import { environment } from 'src/environments/environment';
 
@@ -15,13 +16,16 @@ import { environment } from 'src/environments/environment';
 })
 export class OfferDetailsComponent implements OnInit {
 
+  doctorOfferId:number;
+  commentNumber:number=5;
+
   constructor(private _makeOfferService:MakeOfferService,private _dataSharedService:DataSharedService
-    ,private _workingDayServices:WorkingDaysService,private datePipe: DatePipe) 
+    ,private _workingDayServices:WorkingDaysService,private datePipe: DatePipe,
+    private _rateOfferService:OfferRatingService) 
   { 
-    _dataSharedService.GoToOfferDetailsPage.subscribe(data=>{
-      console.error(data);      
+    _dataSharedService.GoToOfferDetailsPage.subscribe(data=>{   
       if(data!=0){
-        this.loadData(data)
+        this.doctorOfferId=data;
       }
     })    
   }
@@ -33,17 +37,22 @@ export class OfferDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.loadData();
+    this.loadComment();
   }
 
-  loadData(id){
-    this._makeOfferService.GetById(id).subscribe(data=>{
+  loadData(){
+    console.log(this.doctorOfferId);
+    
+    this._makeOfferService.GetById(this.doctorOfferId).subscribe(data=>{
       this.offerDetails=data;
       console.log(data);
       
       this.imageSelected=data.offerImages[0].image;
       this._workingDayServices.getWorkingDayWithDayShiftForSpecificDoctor(data.doctorId).subscribe(dat=>{
-        this.workingDays = this.chunks(this.loadDays(dat),3);
         console.log(dat);
+        this.workingDays = this.chunks(this.loadDays(dat),3);
+        
 
       })      
     })
@@ -86,6 +95,26 @@ export class OfferDetailsComponent implements OnInit {
     this.imageSelected=image
   }
 
+  OfferRates:any;
+  hasRate:boolean=false;
+  loadComment()
+  {
+    this._rateOfferService.GetRateing(this.doctorOfferId,this.commentNumber).subscribe(data=>
+    {     
+      this.OfferRates=data;
+      console.log(this.OfferRates)
+      if(data['getOfferRatingDtos'].length>0){
+        this.hasRate=true;
+      }   
+      console.log(this.hasRate)
+    });
+  }
+  
+  ShowMoreComment()
+  {
+    this.commentNumber+=5;
+    this.loadComment();
+  }
 
   
 

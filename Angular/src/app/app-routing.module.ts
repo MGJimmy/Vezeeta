@@ -44,10 +44,41 @@ import { UserUpdateComponent } from './components/user-update/user-update.compon
 import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
+import { OfferRatingComponent } from './components/client-offer/offer-rating/offer-rating.component';
+import { SugestionMakeOfferComponent } from './components/client-offer/sugestion-make-offer/sugestion-make-offer.component';
+import { DoctorCheckIsAcceptComponent } from './components/doctor-dashboard/doctor-check-is-accept/doctor-check-is-accept.component';
+import { UserRoles } from './_models/_enums/UserRoles';
 
 const routes: Routes = [
-  {
-    path:'dashboard',component:DashboardComponent,
+  // {
+
+  //   path:'dashboard',component:DashboardComponent,
+  //   canActivate: [AuthGuard],
+  //   canActivateChild : [AuthGuard],
+  //   data:{
+  //     role: UserRoles.Admin
+  //   },
+  //   children:[
+  //     {path: 'categories', component: CategoriesComponent},
+  //     {path: 'orders', component: OrderComponent},
+  //     {path: 'products', component: ProductsComponent},
+  //     {path: 'users', component: UsersComponent},
+  //     {path: 'colors', component: ColorsComponent},
+  //   ]
+  // },
+  /*********************** */
+  // canActivate: [AuthGuard],
+  // canActivateChild : [AuthGuard],
+  // data:{
+  //   role: UserRoles.Admin
+  // },
+
+  {path:'dashboard',component:DashboardComponent
+  ,canActivate: [AuthGuard],
+  canActivateChild : [AuthGuard],
+  data:{
+    role: UserRoles.Admin
+  },
     children:[
       {path: 'cities', component: CityComponent},
       {path: 'specialists', component: SpecialityComponent},
@@ -61,9 +92,15 @@ const routes: Routes = [
     
     ]
   },
-  {path:'doctorDashboard',component:DoctorDashboardComponent,
 
-    children:[
+
+  {path:'doctorDashboard',component:DoctorDashboardComponent
+    ,canActivate: [AuthGuard],
+    canActivateChild : [AuthGuard],
+    data:{
+      role: UserRoles.Doctor
+    },  
+    children:[   
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
       {path:'clinc',component:DoctorClincComponent},
       {path:'attachment',component:DoctorDashboardAttachmentComponent},
@@ -74,6 +111,7 @@ const routes: Routes = [
       {path:'doctorSpecialty',component:DocotorSpecialtyComponent},
       {path:'clinicServices',component:ChooseClinicServiceComponent},
       {path:'doctorMakeOffer',component:DoctorMakeOfferComponent},
+      {path:'checkIsAccepted',component:DoctorCheckIsAcceptComponent},
     ]
   },
 
@@ -82,24 +120,25 @@ const routes: Routes = [
       {path:"offers",component:HomeOfferComponent},
       {path:"offers/:id",component:OfferCategoryComponent},
       {path:"subOffers/:id",component:SubofferCategoryComponent},
-      {path:"OfferDetails",component:OfferDetailsComponent},
-      {path:"UserOfferAppointments",component:ShowOfferReserveToPatientComponent},
-      {path:"DoctorOfferAppointments",component:ShowOfferReserveToDoctorComponent},
+      {path:"OfferDetails",component:OfferDetailsComponent},         //////////////////////******** */
+      {path:"UserOfferAppointments",component:ShowOfferReserveToPatientComponent,canActivate: [AuthGuard],data:{role: UserRoles.User}},
+      {path:"DoctorOfferAppointments",component:ShowOfferReserveToDoctorComponent,canActivate: [AuthGuard],data:{role: UserRoles.Doctor}},
+      {path:"OfferRate/:ReservationId",component:OfferRatingComponent,canActivate: [AuthGuard],data:{role: UserRoles.User}},
     ]
   },
+  // ,canActivate: [AuthGuard],
+  //   canActivateChild : [AuthGuard],
+  //   data:{role: UserRoles.Doctor},  
 
   {path:"", component:ClientComponent ,
     children:[
       {path:"",component:HomePageComponent},
-      {path:"Reversation",component:CreatReservationComponent},
-      {path:"ReversationContinue",component:CreatReservationContinueComponent},
-      {path:"UserAppointments",component:ShowReservationToPatientComponent},
-      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},      
+      {path:"Reversation",component:CreatReservationComponent ,canActivate: [AuthGuard],data:{role: UserRoles.User}},
+      {path:"ReversationContinue",component:CreatReservationContinueComponent ,canActivate: [AuthGuard],data:{role: UserRoles.User}},
+      {path:"UserAppointments",component:ShowReservationToPatientComponent ,canActivate: [AuthGuard],data:{role: UserRoles.User}},
+      {path:"DoctorAppointments",component:ShowReservationToDoctorComponent ,canActivate: [AuthGuard],data:{role: UserRoles.Doctor}},      
       {path:"showDoctors", component:ShowDoctorsPageComponent},
       {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
-     
-      // {path:"home", component:ClientComponent},
-      // {path:"**", component:ClientComponent},
   ]},
 
   {path:"registerDoctor", component:RegisterDoctorComponent},
@@ -114,25 +153,14 @@ const routes: Routes = [
 
 
   {path:'MyInformation',component:UserInformationComponent,
-
+    canActivate: [AuthGuard],canActivateChild:[AuthGuard],
     children:[
       {path:"UserUpdate",component:UserUpdateComponent},
       {path:"ResetPassword",component:ResetPasswordComponent},     
     ]
   },
-  {path:"RateDoctor/:ReservationId", component:ClientRateComponent},
-  // {path:"Reversation",component:CreatReservationComponent},
-  // {path:"ReversationContinue",component:CreatReservationContinueComponent},
-  // {path:"UserAppointments",component:ShowReservationToPatientComponent},
-  // {path:"DoctorAppointments",component:ShowReservationToDoctorComponent},
-  
-  // {path:"registerDoctor", component:RegisterDoctorComponent},
-  // {path:"registerUser", component:UserRegisterComponent},
-  // {path:"login", component:LoginComponent},
-  // {path:"showDoctors", component:ShowDoctorsPageComponent},
-  // {path:"ShowDoctorDetails/:id", component:ShowDoctorDetailsComponent},
-  // {path:"home", component:ClientComponent},
-  // {path:"**", component:ClientComponent},
+  {path:"RateDoctor/:ReservationId", component:ClientRateComponent ,canActivate: [AuthGuard],data:{role: UserRoles.User}},
+  {path:"**", component:HomePageComponent},
 ];
 
 @NgModule({

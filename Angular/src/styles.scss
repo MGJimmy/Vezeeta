@@ -2,8 +2,11 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import '~ngx-bar-rating/themes/br-default-theme' ;
 
+// @import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
 body{
-    font-family: SourceSansPro !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
     background-color: rgb(226, 230, 234);
 }
 *{

@@ -12,6 +12,7 @@ import { ISpecialty } from '../_models/_interfaces/ISpecilaty';
 import { ISubSpecialty } from '../_models/_interfaces/ISubSpeciality';
 import { IDoctorSearch } from '../_models/_interfaces/IDoctorSearch';
 import { ISuggestDoctor } from '../_models/_interfaces/ISuggestDoctor';
+import { IIsDoctorAccept } from '../_models/_interfaces/IIsDoctorAccept';
 
 @Injectable({
   providedIn: 'root'
@@ -150,4 +151,10 @@ Updateservices(services)
          return throwError(err.message || "An Error Occur")
        })
      )}
+  checkDoctorAccoutIsAccept():Observable<IIsDoctorAccept>{
+    return this._http.get<IIsDoctorAccept>(`${environment.apiUrl}/api/Doctor/checkDoctorAccoutIsAccept`).pipe(catchError((err) => {
+      console.log(err);
+      return throwError(err.message || "An Error Occur")
+    })
+  )}
 }

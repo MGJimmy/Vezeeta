@@ -39,16 +39,19 @@ namespace BL.AppServices
             if (rateDto == null)
                 throw new ArgumentNullException();
 
-            var doctorId=TheUnitOfWork.ReservationRepo.GetById(rateDto.ReservationId).doctorId;
+            var reserve=TheUnitOfWork.ReservationRepo.GetById(rateDto.ReservationId);
 
-            var doctor=TheUnitOfWork.DoctorRepo.GetById(doctorId);
+            reserve.IsRated = true;
+            TheUnitOfWork.ReservationRepo.Update(reserve);
+
+            var doctor=TheUnitOfWork.DoctorRepo.GetById(reserve.doctorId);
             doctor.CountOfRating++;
             doctor.SumOfRating += rateDto.Rate;
             doctor.AverageRate = doctor.SumOfRating / doctor.CountOfRating;
 
             TheUnitOfWork.DoctorRepo.Update(doctor);
 
-            rateDto.DoctorId = doctorId;
+            rateDto.DoctorId = reserve.doctorId;
             Rating Rate = Mapper.Map<Rating>(rateDto);
        
             TheUnitOfWork.RatingRepo.Insert(Rate);

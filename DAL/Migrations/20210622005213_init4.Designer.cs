@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210621160047_init2")]
-    partial class init2
+    [Migration("20210622005213_init4")]
+    partial class init4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,16 +94,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba4bdfd6-abc9-4a75-9df4-a854f0789465",
+                            Id = "9f6d573f-6a2c-4ca1-b04c-5f211b4eeb07",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "242d4899-6e52-41e5-8952-9ccfc1c53868",
+                            ConcurrencyStamp = "1b78684a-14c9-4914-a6af-a2befb5854b8",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bd924ff6-7fec-4da7-9f6f-c41fcff66622",
+                            SecurityStamp = "102b1048-970d-49c7-ac40-ad3f3c138e73",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -320,6 +320,9 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Rejected")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("isBinding")
                         .HasColumnType("bit");
 
@@ -389,6 +392,12 @@ namespace DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("AverageRate")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CountOfRating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
@@ -415,6 +424,9 @@ namespace DAL.Migrations
 
                     b.Property<int>("SubOfferId")
                         .HasColumnType("int");
+
+                    b.Property<double>("SumOfRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -470,6 +482,36 @@ namespace DAL.Migrations
                     b.ToTable("Offers");
                 });
 
+            modelBuilder.Entity("DAL.Models.OfferRating", b =>
+                {
+                    b.Property<int>("ReserveOfferId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MakeOfferId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ReserveOfferId");
+
+                    b.HasIndex("MakeOfferId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OfferRatings");
+                });
+
             modelBuilder.Entity("DAL.Models.Rating", b =>
                 {
                     b.Property<int>("ReservationId")
@@ -516,6 +558,9 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -564,6 +609,9 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsRated")
+                        .HasColumnType("bit");
 
                     b.Property<int>("MakeOfferId")
                         .HasColumnType("int");
@@ -1006,6 +1054,33 @@ namespace DAL.Migrations
                     b.Navigation("MakeOffer");
                 });
 
+            modelBuilder.Entity("DAL.Models.OfferRating", b =>
+                {
+                    b.HasOne("DAL.Models.MakeOffer", "MakeOffer")
+                        .WithMany("OfferRating")
+                        .HasForeignKey("MakeOfferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.ReserveOffer", "ReserveOffer")
+                        .WithOne("OfferRating")
+                        .HasForeignKey("DAL.Models.OfferRating", "ReserveOfferId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("DAL.ApplicationUserIdentity", "User")
+                        .WithMany("OfferRating")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MakeOffer");
+
+                    b.Navigation("ReserveOffer");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("DAL.Models.Rating", b =>
                 {
                     b.HasOne("DAL.Models.Doctor", "Doctor")
@@ -1173,6 +1248,8 @@ namespace DAL.Migrations
                 {
                     b.Navigation("Doctor");
 
+                    b.Navigation("OfferRating");
+
                     b.Navigation("Rates");
 
                     b.Navigation("reservations");
@@ -1241,6 +1318,8 @@ namespace DAL.Migrations
                 {
                     b.Navigation("OfferImages");
 
+                    b.Navigation("OfferRating");
+
                     b.Navigation("ReserveOffer");
                 });
 
@@ -1254,6 +1333,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Models.Reservation", b =>
                 {
                     b.Navigation("Rate");
+                });
+
+            modelBuilder.Entity("DAL.Models.ReserveOffer", b =>
+                {
+                    b.Navigation("OfferRating");
                 });
 
             modelBuilder.Entity("DAL.Models.Specialty", b =>

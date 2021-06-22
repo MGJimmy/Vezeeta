@@ -1,0 +1,173 @@
+
+  
+  
+  .carousel-inner {
+    padding: 1em;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    background-color:lightseagreen;
+    width: 5vh;
+    height: 5vh;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @media (min-width: 768px) {
+    .card img {
+      height: 11em;
+    }
+  }
+.offerSection{
+//   background-color: white;
+  .offerSlider{ 
+    .offerSectionTitle{
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: rgb(102, 102, 102);
+    }
+    .offerCart{
+      background-color: white;
+      color: rgb(102, 102, 102);
+      img{
+        height: 10rem;
+        width: 100%;  
+      }
+      h4{
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 1rem;
+        margin: 0px;
+      }
+    }   
+  }
+}
+
+.carousel-control-prev,.carousel-control-next{
+  background-color: white;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid rgb(217, 217, 218);
+  .fas{
+    color: rgb(102, 102, 102);;
+  }
+}
+.fas,.far
+{
+    color: blue;
+}
+.pageTitle{
+    font-weight: 600;
+    font-size: 1.3rem;
+    padding: 1% 0px 1% 0%;
+    color: rgb(52, 52, 52) !important;
+}
+.sp{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.card{
+    position: relative;
+    .img-cart{
+        position: relative;
+        .doctorInfo{
+            display: none;
+            position: absolute;
+            bottom: 3%;
+            left: 3%;
+            img{
+                width: 4rem;
+                border-radius: 50%;
+            }
+            .doctorInfoName{
+                font-size: 1.1rem;
+            }
+        }
+    }
+    .card-img-top{
+        height: 14rem;
+    }
+    .card-body{
+       
+        .offerTitle{
+            color: rgb(0, 112, 205);
+            font-size: 1.2rem;
+            font-weight: 600;
+            line-height: 23px;
+        }
+        .offerSession{
+            font-size: 1rem;
+            color: rgb(185, 185, 185);
+            line-height: 18px;
+            padding: 1% 0px;
+        }
+        .offerFees{
+            color: rgb(128, 129, 132);
+            font-size: 1.1rem;
+            line-height: 20px;
+            text-decoration: line-through;   
+        }
+        .offerDiscount{
+            color: rgb(0, 213, 99);
+            font-size: 1rem;
+            line-height: 20px;
+            margin: 0% 3%;
+        }
+        .offerPrice{
+            color: rgb(0, 112, 205);
+            font-size: 1.2rem;
+            line-height: 25px;
+            font-weight: bold;
+        }
+        .bookDiv{
+            .btn-book{
+                color: #007bff;
+                border-color: #007bff;
+                padding: 1% 5%;
+            }
+        }
+    }
+    .state{
+        position: absolute;
+        top: 1%;
+        right: 1%;
+        padding: 2%;
+    }
+    
+}
+
+
+
+
+
+
+
+
+.card:hover{
+        cursor: pointer;
+        .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            opacity: .3;
+        }
+        .doctorInfo{
+            display: block !important;
+            
+        }
+        .btn-book{
+            color: #fff !important;
+            background-color: #007bff;
+        }
+    
+    
+}

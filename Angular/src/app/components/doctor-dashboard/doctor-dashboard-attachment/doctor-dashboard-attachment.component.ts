@@ -18,6 +18,7 @@ export class DoctorDashboardAttachmentComponent implements OnInit {
 
   isBinding:boolean=false;
   isAccepted:boolean=false;
+  isRejected:boolean=false;
   doctorEnterAttachmentInPast:boolean=false;
   doctorAttachmentData:IDoctorAttachmentGetOne=null;
 
@@ -30,6 +31,7 @@ export class DoctorDashboardAttachmentComponent implements OnInit {
       if(data != null){
         this.isBinding=data.isBinding;
         this.isAccepted=data.doctorIsAccepted;
+        this.isRejected=data.rejected;
         this.doctorEnterAttachmentInPast=true;
         this.setImagePath(data);
       }else{

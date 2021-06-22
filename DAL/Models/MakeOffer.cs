@@ -36,6 +36,13 @@ namespace DAL.Models
         public Doctor Doctor { get; set; }
         public List<MakeOfferImage> OfferImages { get; set; }
         public List<ReserveOffer> ReserveOffer { get; set; }
+        public List<OfferRating> OfferRating { get; set; }
+
+
+
+        public double SumOfRating { get; set; } = 0;
+        public double CountOfRating { get; set; } = 0;
+        public double AverageRate { get; set; } = 0;
 
     }
 }

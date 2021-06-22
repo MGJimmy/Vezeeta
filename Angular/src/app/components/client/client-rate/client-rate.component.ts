@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IRate } from 'src/app/_models/_interfaces/IRate';
 import { RateServiceService } from 'src/app/_services/rate-service.service';
 
@@ -12,7 +12,8 @@ import { RateServiceService } from 'src/app/_services/rate-service.service';
 export class ClientRateComponent implements OnInit {
 
   reversationID:number;
-  constructor(private fb:FormBuilder,private _activaterouter:ActivatedRoute,private _rateServiceService:RateServiceService) {
+  constructor(private fb:FormBuilder,private _activaterouter:ActivatedRoute
+    ,private _route:Router,private _rateServiceService:RateServiceService) {
       _activaterouter.paramMap.subscribe((param:ParamMap)=>
       {
        this.reversationID=parseInt(param.get("ReservationId"));
@@ -43,7 +44,7 @@ rate:number=0;
 
     this._rateServiceService.CreateRate(newRate).subscribe(data=>{
       console.log("done");
-      console.log(data);
+      this._route.navigate(['/UserAppointments']);
     })
     console.log(newRate);
   }

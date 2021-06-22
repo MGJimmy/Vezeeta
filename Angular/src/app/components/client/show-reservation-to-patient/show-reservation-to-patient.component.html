@@ -25,9 +25,9 @@
                     
                 </td>
                 <td>
-                    <button class="btn btn-primary text-danger p-0" routerLink="/RateDoctor/{{item.reservetionId}}">Rate</button>
-                    
-                </td>
+                    <button class="btn btn-primary text-light" *ngIf="item.date < dateNow && item.state==true && item.isRated==false" routerLink="/RateDoctor/{{item.reservetionId}}">Rate</button>
+                    <span class="text-primary" *ngIf="item.isRated==true">Rated</span>
+                </td> 
             </tr>
         </tbody>
     </table>

@@ -33,8 +33,12 @@ namespace DAL.Models
 
 
         public DayShift dayShift { get; set; }
+
+        public bool IsRated { get; set; } = false;
         public ApplicationUserIdentity User { get; set; }
         public Doctor Doctor { get; set; }
         public MakeOffer MakeOffer { get; set; }
+        public OfferRating OfferRating { get; set; }
+
     }
 }

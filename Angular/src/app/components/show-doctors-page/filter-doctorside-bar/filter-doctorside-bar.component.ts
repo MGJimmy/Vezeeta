@@ -27,8 +27,6 @@ export class FilterDoctorsideBarComponent implements OnInit {
   allSubSpecialty: ISubSpecialty[];
   titlesDegrees=["professor","teacher","consultative","specialist"];
 
-/********************************** */
-
   constructor(private activeRoute: ActivatedRoute, private _router: Router,
     private _dataSharedService: DataSharedService,
     private _doctorService: DoctorService, 
@@ -56,24 +54,8 @@ export class FilterDoctorsideBarComponent implements OnInit {
     
   }
 
-  LoadData(){
-    // this._doctorService.ShowSpecailtyDoctorswithFilter(this.doctorfilter).subscribe(data => {
-    //   console.log(data);
-    //   this.DoctorsList = data;
-    //   this.specialtyName = data[0].specialty.name;
-    //   this.NumberOfDoctors = data.length;
-    //   this.DoctorsList.forEach(element => {
-    //     element.presentDaysWork = this.chunks(this.loadDays(element.workingDays), 3);
-
-    //   });
-    //   this.oldlist = this.DoctorsList;
-
-    // }, err => {
-    //   console.log("Error");
-    // })
-    
+  LoadData(){  
     this._dataSharedService.sendDataToSearchComponent.next(this.doctorfilter);
-
   }
 
 
@@ -97,7 +79,6 @@ export class FilterDoctorsideBarComponent implements OnInit {
         this.doctorfilter.fee.push(feeLimt);
       }
       else {
-        // this.doctorfilter.fee = this.doctorfilter.fee.filter(e => e !== feeLimt);
         this.Removefee(feeLimt.MiniMoney,feeLimt.MaxMoney);
       }
     }

@@ -3,8 +3,7 @@
         Doctor Attachment
     </div>
 
-
-    <div *ngIf="!isBinding && !isAccepted && !doctorEnterAttachmentInPast">
+    <div *ngIf="!isBinding && !isRejected && !doctorEnterAttachmentInPast">
         <form [formGroup]="formAttachment" class="p-4">
         
             <label>Personal Id</label>
@@ -26,36 +25,15 @@
         </form>
     </div>
 
-    <div *ngIf="isBinding && !isAccepted && doctorEnterAttachmentInPast">
+    <div *ngIf="isBinding && !isRejected && doctorEnterAttachmentInPast">
         <div class="text-center p-4 font-weight-bold text-success">
             Waiting for revision attachment and accept by admin
         </div>
     </div>
 
-    <div *ngIf="!isBinding && isAccepted && doctorEnterAttachmentInPast">
-        <div class="p-4">
-            <div class="form-group">
-                <label >personal Id</label>
-                <div class="text-center">
-                    <img [src]="doctorAttachmentData.personalIdImage" class="img-fluid" style="width:35%">
-                </div>
-            </div>
-            <div class="form-group">
-                <label >Syndicate Id</label>
-                <div class="text-center">
-                    <img [src]="doctorAttachmentData.doctorSyndicateIdImage" class="img-fluid" style="width:35%">
-                </div>
-            </div>
-            <div class="form-group">
-                <label >open Clinic Permission</label>
-                <div class="text-center">
-                    <img [src]="doctorAttachmentData.openClinicPermissionImage" class="img-fluid" style="width:35%">
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
-    <div *ngIf="!isBinding && !isAccepted && doctorEnterAttachmentInPast">
+    <div *ngIf="!isBinding && isRejected && doctorEnterAttachmentInPast">
         <div class="alert-danger text-center p-1">
             Attachment are rejected . should upload correct attachment 
         </div>
@@ -80,6 +58,30 @@
         
         
         
+    </div>
+
+
+    <div *ngIf="!isBinding && !isRejected && doctorEnterAttachmentInPast">
+        <div class="p-4">
+            <div class="form-group">
+                <label >personal Id</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.personalIdImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label >Syndicate Id</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.doctorSyndicateIdImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+            <div class="form-group">
+                <label >open Clinic Permission</label>
+                <div class="text-center">
+                    <img [src]="doctorAttachmentData.openClinicPermissionImage" class="img-fluid" style="width:35%">
+                </div>
+            </div>
+        </div>
     </div>
 
 

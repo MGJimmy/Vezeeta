@@ -37,11 +37,12 @@ namespace BL.Repositories
                 .Skip(pageNumber * pageSize).Take(pageSize).ToList();
         }
       
-        public void changeBindingStatus(string doctorId)
+        public void changeBindingAndRejectedStatus(string doctorId,bool rejectState)
         {
             //accept attchment
             DoctorAttachment doctorAttachment= DbSet.FirstOrDefault(attachment => attachment.DoctorId == doctorId);
             doctorAttachment.isBinding = false;
+            doctorAttachment.Rejected = rejectState;
            
           
         }

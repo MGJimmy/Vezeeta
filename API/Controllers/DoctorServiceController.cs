@@ -1,10 +1,13 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs.DoctorServiceDtos;
+using BL.StaticClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -47,6 +50,7 @@ namespace API.Controllers
 
         // POST api/<DoctorServiceController>
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Create(DoctorServiceDto doctorServiceDto)
         {
             if (ModelState.IsValid == false)
@@ -62,11 +66,8 @@ namespace API.Controllers
 
             try
             {
-
-                doctorServiceDto = _doctorServiceAppService.Create(doctorServiceDto, true);
-                //this code will work after we add roles to our application 
-                /*
-                if (User.IsInRole("Admin"))
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+                if (userRole == UserRoles.Admin)
                 {
                     doctorServiceDto = _doctorServiceAppService.Create(doctorServiceDto, true);
                 }
@@ -74,7 +75,7 @@ namespace API.Controllers
                 {
                     doctorServiceDto = _doctorServiceAppService.Create(doctorServiceDto, false);
                 }
-                */
+
                 _generalAppService.CommitTransaction();
                 return Created("Area created", doctorServiceDto);
             }

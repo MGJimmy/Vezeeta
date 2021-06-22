@@ -49,6 +49,11 @@ namespace BL.Repositories
             return DbSet.Where(filter).Count();
         }
 
+        public List<MakeOffer> suggestiondoctorOffersTopRated(int countofreturneddoctors)
+        {
+            return DbSet.OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(i=>i.OfferImages).ToList();
+
+        }
 
     }
 }

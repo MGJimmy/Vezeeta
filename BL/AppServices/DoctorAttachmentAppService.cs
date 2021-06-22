@@ -41,10 +41,10 @@ namespace BL.AppServices
             return Mapper.Map<IEnumerable<DoctorAttachmentDto>>(TheUnitOfWork.DoctorAttachmentRepo.GetPageRecords(pageSize,pageNumber));
 
         }
-        public void changeBindingStatus(string doctorId)
+        public void changeBindingAndRejectedStatus(string doctorId,bool rejectState)
         {
            
-            TheUnitOfWork.DoctorAttachmentRepo.changeBindingStatus(doctorId);
+            TheUnitOfWork.DoctorAttachmentRepo.changeBindingAndRejectedStatus(doctorId,rejectState);
             TheUnitOfWork.SaveChanges();
            
         }

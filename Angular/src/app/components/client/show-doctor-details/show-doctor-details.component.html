@@ -149,13 +149,15 @@
                     <h3>Patient Evaluation</h3>
                     <div style="display: flex;flex-direction: column;align-items: center;">
                         <div style="display: flex;flex-direction: column;align-items: center;">
-                            <bar-rating  [rate]="doctorRates.averageRate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
-                            <h3>public Evauation : 
+                            <bar-rating [rate]="doctorRates.averageRate" [theme]="'default'" [readOnly]="true"
+                                [max]="5"></bar-rating>
+                            <h3>public Evauation :
                                 <span style="background-color: blue;color: white;padding: 10px;border-radius: 10px;">
                                     {{doctorRates.averageRate}}/5
-                            </span> </h3>
+                                </span>
+                            </h3>
                         </div>
-                       
+
                     </div>
 
                 </div>
@@ -165,20 +167,20 @@
             </div>
         </div>
         <div class="d-block card" *ngFor="let item of doctorRates.getRatingDtos">
-                    
+
             <div class="px-5 py-2">
-                <bar-rating  [rate]="item.rate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
+                <bar-rating [rate]="item.rate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
                 <p>" {{item.comment}} "</p>
                 <p>{{item.userFullName}}</p>
                 <p>{{item.date |
                     date:'fullDate'}}</p>
             </div>
-           
-    
-    </div>
-    <div class="card text-center" *ngIf="doctorRates.getRatingDtos.length>0">
-        <a class="py-2 text-decoration-none" style="cursor: pointer;"  (click)="ShowMoreComment()">Show More..</a>
-    </div>
+
+
+        </div>
+        <div class="card text-center" *ngIf="doctorRates.getRatingDtos.length>0">
+            <a class="py-2 text-decoration-none" style="cursor: pointer;" (click)="ShowMoreComment()">Show More..</a>
+        </div>
 
 
 
@@ -238,7 +240,9 @@
                                     date:'MMMM d'}}</button>
 
                                 <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
-                                    <div *ngFor="let shift of day._dayShift" (click)="reserve(shift.id,doctor.user.userName,day.datee)" class="mb-2 border clickReserve rounded">
+                                    <div *ngFor="let shift of day._dayShift"
+                                        (click)="reserve(shift.id,doctor.user.userName,day.datee)"
+                                        class="mb-2 border clickReserve rounded">
                                         <small>from : {{shift.from}}</small>
                                         <br>
                                         <!-- {{shift.id}}  -->

@@ -156,7 +156,11 @@ namespace API.Controllers
 
 
 
-
+        [HttpGet("GetSuggestionDoctorOffers")]
+        public IActionResult GetSuggestionDoctorOffers()
+        {
+            return Ok(_makeOfferAppService.GetSuggestiondoctorsTopRated());
+        }
 
     }
 }

@@ -56,16 +56,16 @@ namespace BL.AppServices
             TheUnitOfWork.SaveChanges();
             return createdDoctor;
         }
-        public void activateDoctor(string doctorId)
-        {
-            TheUnitOfWork.DoctorRepo.activateDoctor(doctorId);
-            TheUnitOfWork.SaveChanges();
-        }
-        public void deactivateDoctor(string doctorId)
-        {
-            TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
-            TheUnitOfWork.SaveChanges();
-        }
+        //public void activateDoctor(string doctorId)
+        //{
+        //    TheUnitOfWork.DoctorRepo.activateDoctor(doctorId);
+        //    TheUnitOfWork.SaveChanges();
+        //}
+        //public void deactivateDoctor(string doctorId)
+        //{
+        //    TheUnitOfWork.DoctorRepo.deactivateDoctor(doctorId);
+        //    TheUnitOfWork.SaveChanges();
+        //}
 
         public List<GetDoctorDto> GetAllDoctorWhere(int SpecailtyId)
         {
@@ -169,6 +169,81 @@ namespace BL.AppServices
         public List<SuggestionDoctorDto> GetSuggestiondoctorsTopRated()
         {
             return Mapper.Map<List<SuggestionDoctorDto>> (TheUnitOfWork.DoctorRepo.suggestiondoctorsTopRated(12));
+        }
+
+        public IsDoctorAcceptDTO checkAcceptinationOfDoctorAccount(string doctorId)
+        {
+            IsDoctorAcceptDTO isDoctorAcceptDto = new IsDoctorAcceptDTO();
+
+            var isAccept = true;
+            var report = new List<string>();
+            var doctor = TheUnitOfWork.DoctorRepo.GetById(doctorId);
+            var doctorAttachment = TheUnitOfWork.DoctorAttachmentRepo.GetFirstOrDefault(i => i.DoctorId == doctorId);
+
+            if (doctor.IsAccepted == true)
+            {
+                isDoctorAcceptDto.AcceptState = true;
+                isDoctorAcceptDto.ErrorDetails = null;
+                return isDoctorAcceptDto;
+            }
+            if (TheUnitOfWork.DoctorSubSpecializationRepo.GetFirstOrDefault(i=>i.DoctorId==doctorId) == null)
+            {
+                isAccept = false;
+                report.Add("SubSpecialty Not Been Assigned");
+            }
+            //attachment cases
+            if (doctorAttachment == null)
+            {
+                isAccept = false;
+                report.Add("Attachment Not Been Assigned");
+            }
+            else
+            {
+                if (doctorAttachment.Rejected == true && doctorAttachment.isBinding == false)
+                {
+                    isAccept = false;
+                    report.Add("Attachment were Been Rejected By Admin you should upload correct attachment");
+                }
+                else if(doctorAttachment.Rejected == false && doctorAttachment.isBinding == true)
+                {
+                    isAccept = false;
+                    report.Add("Waiting Attachment to Be Accept By Admin");
+                }
+            }
+            //end attachment cases
+            if (TheUnitOfWork.Doctor_DoctorServiceRepo.GetFirstOrDefault(i => i.doctorID == doctorId) == null)
+            {
+                isAccept = false;
+                report.Add("Doctor Services Not Been Assigned");
+            }
+            if (TheUnitOfWork.ClinicRepo.GetFirstOrDefault(i => i.DoctorId == doctorId) == null)
+            {
+                isAccept = false;
+                report.Add("Clinic Details Not Been Assigned");
+            }
+            if (TheUnitOfWork.ClinicClinicServiceRepo.GetFirstOrDefault(i => i.ClinicId == doctorId) == null)
+            {
+                isAccept = false;
+                report.Add("Clinic Services Not Been Assigned");
+            }
+
+            
+            
+
+            if (isAccept == true)
+            {
+                doctor.IsAccepted = true;
+                TheUnitOfWork.DoctorRepo.Update(doctor);
+                TheUnitOfWork.SaveChanges();
+
+                isDoctorAcceptDto.AcceptState = true;
+                isDoctorAcceptDto.ErrorDetails = null;
+                return isDoctorAcceptDto;
+            }
+
+            isDoctorAcceptDto.AcceptState = false;
+            isDoctorAcceptDto.ErrorDetails = report;
+            return isDoctorAcceptDto;
         }
     }
 }

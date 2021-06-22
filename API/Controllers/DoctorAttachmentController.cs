@@ -116,8 +116,8 @@ namespace API.Controllers
         {
             try
             {
-                _doctorAttachmentAppService.changeBindingStatus(id);
-                _doctorAppService.activateDoctor(id);
+                _doctorAttachmentAppService.changeBindingAndRejectedStatus(id,false);
+                //_doctorAppService.activateDoctor(id);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message="attachments is accepted"});
             }
@@ -132,8 +132,8 @@ namespace API.Controllers
         {
             try
             {
-                _doctorAttachmentAppService.changeBindingStatus(id);
-                _doctorAppService.deactivateDoctor(id);
+                _doctorAttachmentAppService.changeBindingAndRejectedStatus(id,true);
+                //_doctorAppService.deactivateDoctor(id);
                 _generalAppService.CommitTransaction();
                 return Ok(new Response { Message = "attachments is rejected" });
             }

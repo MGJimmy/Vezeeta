@@ -7,5 +7,6 @@ export interface IReserveOfferShowToPatient{
     date:string,
     state:boolean,
     dayShiftFrom?:string,
-    dayShiftTo?:string
+    dayShiftTo?:string,
+    isRated?:boolean
 }

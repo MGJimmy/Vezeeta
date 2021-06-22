@@ -56,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
     let newUser: IRegisterUser = {
       fullName: this.formFields.fullName.value,
       userName: this.formFields.username.value,
-      passwordHash: this.formFields.password.value,
+      passwordHash: this.formFields.PasswordHash.value,
       confirmPassword: this.formFields.confirmPassword.value,
       email: this.formFields.email.value,
       image: this.response.dbPath,
@@ -68,7 +68,7 @@ export class UserRegisterComponent implements OnInit {
       .subscribe(
         data => {
           //this._router.navigate(["login"]);
-          this._authService.login(this.formFields.username.value, this.formFields.password.value)
+          this._authService.login(this.formFields.username.value, this.formFields.PasswordHash.value)
         .pipe(first())
         .subscribe(
             data => {

@@ -76,6 +76,10 @@ import { ClientRateComponent } from './components/client/client-rate/client-rate
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
 import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
+import { OfferRatingComponent } from './components/client-offer/offer-rating/offer-rating.component';
+import { SugestionMakeOfferComponent } from './components/client-offer/sugestion-make-offer/sugestion-make-offer.component';
+import { DoctorCheckIsAcceptComponent } from './components/doctor-dashboard/doctor-check-is-accept/doctor-check-is-accept.component';
+import { SearchInHomePageComponent } from './components/client/search-in-home-page/search-in-home-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -141,6 +145,10 @@ import { ResetForgetPasswordComponent } from './components/reset-forget-password
       SuggestionDoctorsComponent,
       ChooseClinicServiceComponent,
       ResetForgetPasswordComponent,
+      OfferRatingComponent,
+      SugestionMakeOfferComponent,
+      DoctorCheckIsAcceptComponent,
+      SearchInHomePageComponent,
     
   ],
   imports: [

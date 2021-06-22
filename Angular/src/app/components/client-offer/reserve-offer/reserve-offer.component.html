@@ -23,8 +23,10 @@
 
     </div>
     <div class="submit mt-4">
-        <button class="btn btn-reserve" [disabled]="reservationData.invalid" (click)="submit()">Reserve</button>
+      <button class="btn btn-reserve" *ngIf="isUserDoctor()" disabled (click)="submit()">Reserve</button>
+      <button class="btn btn-reserve" *ngIf="!isUserDoctor()" [disabled]="reservationData.invalid" (click)="submit()">Reserve</button>
         <button class="btn btn-cancel" (click)="cancel()">cancel</button>
+        <span class="text-warning" *ngIf="isUserDoctor()">you can't reserve any offer because you are doctor</span>
     </div>
     
 </form>

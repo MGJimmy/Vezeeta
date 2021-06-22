@@ -73,6 +73,7 @@ import { ResetPasswordComponent } from './components/user-information/reset-pass
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
+import { ExtraInformationComponent } from './extra-information/extra-information.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -135,6 +136,7 @@ import { SuggestionDoctorsComponent } from './components/client/suggestion-docto
       ClientRateComponent,
       SuggestionDoctorsComponent,
       ChooseClinicServiceComponent,
+      ExtraInformationComponent,
     
   ],
   imports: [

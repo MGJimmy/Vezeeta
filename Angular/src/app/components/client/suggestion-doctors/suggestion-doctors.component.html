@@ -20,7 +20,7 @@
             <div class="carousel-item px-4" *ngFor="let dotorlist of SuggestDoctors;let i=index"
               [class.active]="i==0">
     
-              <div class="col-md-3 " style="float:left;cursor: pointer;" *ngFor="let doctor of dotorlist" (click)="ShowDetails(doctor.userId)">
+              <div class="col-6 col-md-3 px-md-3 px-1 rounded" style="float:left;cursor: pointer;" *ngFor="let doctor of dotorlist" (click)="ShowDetails(doctor.userId)">
                 <div class="mb-2 offerCart">
                   <img class="img-fluid rounded-lg" [src]="createImgPath(doctor.image)" alt="Card image cap">
     

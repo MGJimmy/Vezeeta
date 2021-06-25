@@ -117,15 +117,8 @@ namespace BL.AppServices
 
         public List<string> GetLast3doctorIdsReservedbyPatientforSuggestion(string userId)
         {
-     
-
             List<string> doctorsIdList = TheUnitOfWork.ReservationRepo.Getlast3doctorsIDfromReservationforSuggestion(i => i.userId == userId).ToList();
-            
-            if (doctorsIdList == null)
-            {
-                return null;
-            }
-
+           
             return doctorsIdList;
         }
 

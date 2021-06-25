@@ -56,6 +56,24 @@ export class SearchComponent implements OnInit {
     , private doctorService: DoctorService, private _activateRouter: ActivatedRoute,private location: Location,
     private _dataSharedService: DataSharedService, private _router: Router) {
 
+    // _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data => {
+    //   if (data != 0) {
+    //     this.specilatyId = data;
+    //     this.changeSpecialty(0)
+    //     this.search();
+    //   }
+    // })
+    this._activateRouter.queryParamMap.subscribe((params: any) => {
+      (params.get('cityId') == null||params.get('cityId') == '' )? this.cityId = null : this.cityId = parseInt(params.get('cityId'));
+      (params.get('areaId') == null || params.get('areaId') =='') ? this.areaId = null : this.areaId = parseInt(params.get('areaId'));
+      (params.get('specailtyid') == null|| params.get('specailtyid') =='') ? this.specilatyId = null : this.specilatyId = parseInt(params.get('specailtyid'));
+      this.doctorName = params.get('name');
+
+      if(this.specilatyId != null)
+        this.changeSpecialty(0);
+
+      this.search();
+    });
     _dataSharedService.sendDataToSearchComponent.subscribe(data => {
 
       this.doctorFilter.title = data.title;
@@ -64,15 +82,6 @@ export class SearchComponent implements OnInit {
 
       this.search();
     })
-
-    // _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data => {
-    //   if (data != 0) {
-    //     this.specilatyId = data;
-    //     this.changeSpecialty(0)
-    //     this.search();
-    //   }
-    // })
-
 
   }
 
@@ -102,17 +111,7 @@ export class SearchComponent implements OnInit {
     )
 
 
-    this._activateRouter.queryParamMap.subscribe((params: any) => {
-      (params.get('cityId') == null||params.get('cityId') == '' )? this.cityId = null : this.cityId = parseInt(params.get('cityId'));
-      (params.get('areaId') == null || params.get('areaId') =='') ? this.areaId = null : this.areaId = parseInt(params.get('areaId'));
-      (params.get('specailtyid') == null|| params.get('specailtyid') =='') ? this.specilatyId = null : this.specilatyId = parseInt(params.get('specailtyid'));
-      this.doctorName = params.get('name');
-
-      if(this.specilatyId != null)
-        this.changeSpecialty(0);
-
-      this.search();
-    });
+    
   }
 
 
@@ -123,6 +122,7 @@ export class SearchComponent implements OnInit {
     this.doctorFilter.specailtyid = this.specilatyId;
     this.doctorFilter.name = this.doctorName;
 
+    console.error(this.doctorFilter)
     this.doctorService.ShowSpecailtyDoctorswithFilter(this.doctorFilter).subscribe(data => {
       this._dataSharedService.sendAllDocterAfterFilterToShow.next(data);      
       this.location.replaceState(`/showDoctors?specailtyid=${this.specilatyId==null?'':this.specilatyId}&cityId=${this.cityId==null?'':this.cityId}&areaId=${this.areaId==null?'':this.areaId}&name=${this.doctorName==null?'':this.doctorName}`);

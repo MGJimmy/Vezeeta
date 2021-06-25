@@ -3,8 +3,8 @@
     <h4 class="card-header">Patient Registration</h4>
     <div class="card-body px-4">
       <form [formGroup]="registerDoctorForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-          <label for="fullName">Full Name</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="fullName">Full Name</label>
           <div class="col-8 float-right">
             <input formControlName="fullName" type="text" class="form-control" placeholder="Full Name" name="fullName"
               [class.is-invalid]="formFields.fullName?.invalid && formFields.fullName?.touched">
@@ -13,18 +13,19 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="username">Username</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="username">Username</label>
           <div class="col-8 float-right">
             <input formControlName="username" type="text" class="form-control" placeholder="User Name" name="username"
               [class.is-invalid]="formFields.username?.invalid && formFields.username?.touched">
             <div *ngIf="formFields.username?.invalid && formFields.username?.touched">
               <small class="text-danger" *ngIf="formFields.username?.errors.required">User Name is required</small>
+              <small class="text-danger" *ngIf="formFields.username.errors?.pattern">userName can't contain space</small>
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="password">Password</label>
           <div class="col-8 float-right">
             <input formControlName="PasswordHash" type="password" class="form-control" placeholder="Password"
               name="password" [class.is-invalid]="formFields.PasswordHash?.invalid && formFields.PasswordHash?.touched">
@@ -36,8 +37,8 @@
           </div>
 
         </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="confirmPassword">Confirm Password</label>
           <div class="col-8 float-right">
             <input formControlName="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"
               name="confirmPassword"
@@ -51,8 +52,8 @@
             </small>
           </div>
         </div>
-        <div class="form-group">
-          <label for="email">Email</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="email">Email</label>
           <div class="col-8 float-right">
             <input formControlName="email" type="email" class="form-control" placeholder="Email" name="email"
               [class.is-invalid]="formFields.email?.invalid && formFields.email?.touched">
@@ -61,8 +62,8 @@
             </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="phoneNumber">Phone number</label>
+        <div class="form-group row align-items-center">
+          <label class="col-4" for="phoneNumber">Phone number</label>
           <div class="col-8 float-right">
             <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone number"
               name="phoneNumber"
@@ -74,15 +75,15 @@
           </div>
         </div>
 
-        <div class="form-group my-3">
-          <label>Upload peronal image</label>
+        <!-- <div class="form-group row align-items-center my-3">
+          <label class="col-4">Upload peronal image</label>
           <div class="col-8 float-right">
             <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
             <div class="imgWrapper">
               <img class="w-100" [src]="createImgPath()" alt="">
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="registerBtnWrapper text-center mt-5">
           <button [disabled]="loading" class="btn btn-danger px-4">
@@ -94,7 +95,7 @@
       </form>
       <div class="alreadyRegistered">
         Already Registered in Vezeeta ?
-        <a routerLink="login">Login</a>
+        <a routerLink="/login">Login</a>
       </div>
     </div>
   </div>

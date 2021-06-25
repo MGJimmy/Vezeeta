@@ -4,31 +4,36 @@
     </p>
 
 </div>
-<div class="p-3" *ngIf="IsContainDoctor">
-    <!-- {{specialtyName}}  -->
-    {{NumberOfDoctors}} doctors
-</div>
 <div class="row" *ngFor="let doctor of DoctorsList;let x=index">
-    <div class="card mb-3 col-11">
-        <div class="row g-0 pb-5">
-            <div class="col-md-3 p-3">
+    <div class="card mb-3 col-12">
+        <div class="row g-0 pb-2">
+            <div class="col-md-3 p-3 d-none d-md-block">
                 <div class="text-center">
                     <img [src]="createImgPath(doctor.image)" alt="image 1" class="img-fluid DoctorImage">
 
                 </div>
-                <!-- <div class="mt-5 d-flex col-12 justify-content-center">
-                    <button
-                        style="background-color: burlywood;border-radius:15px 15px 15px 15px;width: 130px;height: 30px;">اعلان</button>
-
-                </div> -->
             </div>
 
+            <div class="col-12 d-block d-md-none mt-3">
+                <div class="row">
+                    <div class="col-4">
+                        <img [src]="createImgPath(doctor.image)" alt="image 1" style="height: auto;" class="img-fluid DoctorImage">
+                    </div>
+                    <div class="col-8" style="display: flex;flex-direction: column;justify-content: center;">
+                        <h4 class="card-title text-primary mb-0">Doctor : {{doctor.user.fullName}}</h4>
+    
+                        <bar-rating [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
+                        </bar-rating>
+                    </div>
+                </div>
 
-            <div class="col-md-4  border-primary" (click)="ShowDetails(doctor.userId)" style="cursor: pointer;">
+            </div>
+
+            <div class="col-12 col-md-4  border-primary" (click)="ShowDetails(doctor.userId)" style="cursor: pointer;">
                 <div class="card-body col-12">
-                    <h4 class="card-title text-primary">Doctor : {{doctor.user.fullName}}</h4>
+                    <h4 class="card-title text-primary d-none d-md-block">Doctor : {{doctor.user.fullName}}</h4>
 
-                    <bar-rating [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
+                    <bar-rating class=" d-none d-md-block" [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
                     </bar-rating>
 
                     <div class="card-text d-flex">
@@ -53,18 +58,18 @@
                     <div class="card-text d-flex  mt-2">
                         <i class="fas fa-money-bill-wave p-2"></i>
                         <div class="pt-1">
-                            Check Price {{doctor.clinic.fees}} EGP
+                            Check Price : {{doctor.clinic.fees}} EGP
                         </div>
                     </div>
 
                     <div class="card-text d-flex  mt-2">
                         <i class="far fa-clock p-2"></i>
                         <div class="pt-1">
-                            Waiting time {{doctor.clinic.watingTime}}
+                            Waiting time : {{doctor.clinic.watingTime}}
                         </div>
                     </div>
 
-                    <div class="card-text d-flex mt-2">
+                    <div class="card-text d-flex mt-2 align-items-center">
                         <i class="fas fa-phone p-2"></i>
 
                         <div>

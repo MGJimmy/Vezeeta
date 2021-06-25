@@ -39,7 +39,7 @@ export class RegisterDoctorComponent implements OnInit {
     },error=>console.error(error));
     this.registerDoctorForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      username: ['', Validators.required],
+      username: ['', [Validators.required,Validators.pattern("[^' ']+")]],
       PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
@@ -85,7 +85,7 @@ export class RegisterDoctorComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                this._router.navigate([this.returnUrl]);                
+                this._router.navigate(['/doctorDashboard/doctorSpecialty']);                
                 this._sharedDataService.currentLoginUserChange.next(true)
             },
             error => {
@@ -95,8 +95,7 @@ export class RegisterDoctorComponent implements OnInit {
             });
         },
         error => {
-          console.log(error);
-          this.error = error.body;
+          this.error = error.error.message;
           this.loading = false;
         });
     }

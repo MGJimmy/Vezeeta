@@ -32,7 +32,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerDoctorForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      username: ['',Validators.required],
+      username: ['',[Validators.required,Validators.pattern("[^' ']+")]],
       PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
@@ -64,7 +64,7 @@ export class UserRegisterComponent implements OnInit {
       
     }
     this._authService.registerUser(newUser)
-      .pipe(first())
+      // .pipe(first())
       .subscribe(
         data => {
           //this._router.navigate(["login"]);
@@ -76,13 +76,15 @@ export class UserRegisterComponent implements OnInit {
               this._sharedDataService.currentLoginUserChange.next(true)
             },
             error => {
-                this.error = error;
+                this.error = error.message;
                 this.loading = false;
                 console.log(error);
             });
         },
         error => {
-          this.error = error;
+          this.error = error.error.message
+          console.log(error.error);
+          
           this.loading = false;
         });
   }

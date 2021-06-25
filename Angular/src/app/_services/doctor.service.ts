@@ -151,6 +151,13 @@ Updateservices(services)
          return throwError(err.message || "An Error Occur")
        })
      )}
+     ShowSuggestionDoctorsForGuest(){
+     return this._http.get<ISuggestDoctor[]>(`${environment.apiUrl}/api/Doctor/GetSuggestionDoctorsforGuest`)
+     .pipe(catchError((err) => {
+         console.log(err);
+         return throwError(err.message || "An Error Occur")
+       })
+     )}
   checkDoctorAccoutIsAccept():Observable<IIsDoctorAccept>{
     return this._http.get<IIsDoctorAccept>(`${environment.apiUrl}/api/Doctor/checkDoctorAccoutIsAccept`).pipe(catchError((err) => {
       console.log(err);

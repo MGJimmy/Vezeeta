@@ -101,8 +101,7 @@ namespace BL.AppServices
                 allDoctor = allDoctor.Where(d => d.User.FullName.Contains(filterdoctorDto.Name));
             }
 
-
-            //return result.Skip((pagNumber - 1) * pageSize).Take(pageSize);
+            //expression tree
 
 
 
@@ -213,7 +212,7 @@ namespace BL.AppServices
             //end attachment cases
             if (TheUnitOfWork.Doctor_DoctorServiceRepo.GetFirstOrDefault(i => i.doctorID == doctorId) == null)
             {
-                isAccept = false;
+                //isAccept = false;
                 report.Add("Doctor Services Not Been Assigned");
             }
             if (TheUnitOfWork.ClinicRepo.GetFirstOrDefault(i => i.DoctorId == doctorId) == null)
@@ -223,7 +222,7 @@ namespace BL.AppServices
             }
             if (TheUnitOfWork.ClinicClinicServiceRepo.GetFirstOrDefault(i => i.ClinicId == doctorId) == null)
             {
-                isAccept = false;
+                //isAccept = false;
                 report.Add("Clinic Services Not Been Assigned");
             }
 

@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
                 this._dataSharedService.currentLoginUserChange.next(true)
             },
             error => {
-                this.error = error;
+                this.error = "Incorrect Username Or Password";
                 this.loading = false;
                 console.log(error);
             });

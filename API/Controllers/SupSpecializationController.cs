@@ -135,6 +135,7 @@ namespace API.Controllers
         }
 
         [HttpPost("insertList")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult InsertList(List<SupSpecailization> supSpecailizations)
         {
             if (!ModelState.IsValid)

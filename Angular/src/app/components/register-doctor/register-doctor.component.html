@@ -1,11 +1,11 @@
 <div class="col-md-6 offset-md-3 mt-5">
   <div class="card">
     <h4 class="card-header">Doctor Registration</h4>
-    <div class="card-body px-4">
+    <div class="card-body px-md-4">
       <form [formGroup]="registerDoctorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-          <label for="fullName">Full Name</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="fullName">Full Name</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="fullName" type="text" class="form-control" placeholder="Full Name" name="fullName"
               [class.is-invalid]="formFields.fullName?.invalid && formFields.fullName?.touched">
             <div *ngIf="formFields.fullName?.invalid && formFields.fullName?.touched">
@@ -14,18 +14,20 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="username">Username</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="username">Username</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="username" type="text" class="form-control" placeholder="User Name" name="username"
               [class.is-invalid]="formFields.username?.invalid && formFields.username?.touched">
             <div *ngIf="formFields.username?.invalid && formFields.username?.touched">
               <small class="text-danger" *ngIf="formFields.username?.errors.required">User Name is required</small>
+              <small class="text-danger" *ngIf="formFields.username.errors?.pattern">userName can't contain space</small>
+
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="password">Password</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="PasswordHash" type="password" class="form-control" placeholder="Password"
               name="password" [class.is-invalid]="formFields.PasswordHash?.invalid && formFields.PasswordHash?.touched">
             <div *ngIf="formFields.PasswordHash?.invalid && formFields.PasswordHash?.touched">
@@ -38,8 +40,8 @@
          
         </div>
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="confirmPassword">Confirm Password</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"
               name="confirmPassword"
               [class.is-invalid]="formFields.confirmPassword?.invalid && formFields.confirmPassword?.touched">
@@ -53,8 +55,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="email">Email</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="email" type="email" class="form-control" placeholder="Email" name="email"
               [class.is-invalid]="formFields.email?.invalid && formFields.email?.touched">
             <div *ngIf="formFields.email?.invalid && formFields.email?.touched">
@@ -63,8 +65,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="phoneNumber">Phone number</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="phoneNumber">Phone number</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone number"
               name="phoneNumber"
               [class.is-invalid]="formFields.phoneNumber?.invalid && formFields.phoneNumber?.touched">
@@ -75,8 +77,8 @@
           </div>
         </div>
         <!-- <div class="form-group">
-          <label for="titleDegree">Title Degree</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="titleDegree">Title Degree</label>
+          <div class="col-9 col-md-8 float-right">
             <input formControlName="titleDegree" type="text" class="form-control" placeholder="Your Title degree"
               name="titleDegree"
               [class.is-invalid]="formFields.titleDegree?.invalid && formFields.titleDegree?.touched">
@@ -88,8 +90,8 @@
         
         
         <div class="form-group">
-          <label for="titleDegree">Title Degree</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="titleDegree">Title Degree</label>
+          <div class="col-9 col-md-8 float-right">
             <select class="form-control" formControlName="titleDegree">
               <option value="" disabled selected hidden>Choose title Degree</option>
               <option *ngFor="let title of TitlesDegree" value="{{title}}">{{title}}</option>
@@ -105,8 +107,8 @@
         
         
         <div class="form-group my-3">
-          <label>Upload peronal image</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4">Upload peronal image</label>
+          <div class="col-9 col-md-8 float-right">
             <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
             <div class="imgWrapper">
               <img class="w-100" [src]="createImgPath()" alt="">
@@ -114,8 +116,8 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="doctorInfo">Your Info</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="doctorInfo">Your Info</label>
+          <div class="col-9 col-md-8 float-right">
             <textarea formControlName="doctorInfo" class="form-control" placeholder="Write about yourself"
               name="doctorInfo"
               [class.is-invalid]="formFields.doctorInfo?.invalid && formFields.doctorInfo?.touched"></textarea>
@@ -126,8 +128,8 @@
         </div>
         <!-- sdd -->
         <div class="form-group">
-          <label for="username">Specialty</label>
-          <div class="col-8 float-right">
+          <label class="col-3 col-md-4" for="username">Specialty</label>
+          <div class="col-9 col-md-8 float-right">
             <select class="form-control" formControlName="specialtyId">
               <option value="" disabled selected hidden>Choose specialty</option>
               <option *ngFor="let specialty of allSpecialty" [ngValue]="specialty.id">{{specialty.name}}</option>
@@ -149,7 +151,7 @@
       </form>
       <div class="alreadyRegistered">
         Already Registered in Vezeeta ? 
-        <a routerLink="login">Login</a>
+        <a routerLink="/login">Login</a>
       </div>
     </div>
   </div>

@@ -31,14 +31,14 @@ export class AuthenticationService {
     registerUser(registerUser: IRegisterUser) {
         return this.http.post<IRegisterUser>(`${environment.apiUrl}/api/Account/Register`, registerUser)
             .pipe(catchError((err) => {
-                return throwError(err.message || "Internal Server error contact site adminstarator");
+                return throwError(err || "Internal Server error contact site adminstarator");
             }
             ));
     }
     registerAdmin(registerUser: IRegisterUser) {
         return this.http.post<IRegisterUser>(`${environment.apiUrl}/api/Account/RegisterForAdmin`, registerUser)
-            .pipe(catchError((err) => {
-                return throwError(err.message || "Internal Server error contact site adminstarator");
+            .pipe(catchError((err) => {                            
+                return throwError(err || "Internal Server error contact site adminstarator");
             }
             ));
     }

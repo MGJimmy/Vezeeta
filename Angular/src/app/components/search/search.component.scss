@@ -137,8 +137,15 @@ hr {
   right: 10%;
 }
 @media (max-width:500px) {
-  .carousel-image{
-    height: 30rem;
+  .searchComponent{
+    padding-bottom: 15%;
   }
-  
+  .carousel-image{
+    height: -1;
+  }
+  .searchCart{
+    top: 50%;
+    left: 0%;
+    right: 0%;
+  }
 }

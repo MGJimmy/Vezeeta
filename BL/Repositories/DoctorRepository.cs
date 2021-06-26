@@ -91,7 +91,7 @@ namespace BL.Repositories
 
 
 
-            var result = DbSet.Where(d=>d.IsAccepted == true).Include(d => d.User)
+            var result = DbSet.Where(d=>d.IsAccepted == true).OrderByDescending(d=>d.AverageRate).Include(d => d.User)
                 .Include(d => d.clinic)
                 .ThenInclude(d => d.City)
                 .Include(d => d.clinic)

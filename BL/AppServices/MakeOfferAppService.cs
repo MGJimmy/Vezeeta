@@ -63,23 +63,34 @@ namespace BL.AppServices
         //}
         public CreateMakeOfferDTO update(CreateMakeOfferDTO offerDTO)
         {
-            var makeOffer = Mapper.Map<MakeOffer>(offerDTO);
             var offer = TheUnitOfWork.MakeOfferRepo.GetById(offerDTO.Id);
             offer.OfferImages = null;
+           
 
+            var makeOffer = Mapper.Map<MakeOffer>(offerDTO);
             offer.OfferImages = makeOffer.OfferImages;
             offer.Details = offerDTO.Details;
-            offer.Discount = offerDTO.Discount;
+            offer.Discount = offerDTO.Discount;    
             offer.Fees = offerDTO.Fees;
             offer.Information = offerDTO.Information;
             offer.NumberOfSession = offerDTO.NumberOfSession;
             offer.State = offerDTO.State;
             offer.Title = offerDTO.Title;
+            
+
+
 
             TheUnitOfWork.MakeOfferRepo.Update(offer);
             TheUnitOfWork.SaveChanges();
             return offerDTO;
         }
+        //public CreateMakeOfferDTO update(CreateMakeOfferDTO offerDTO)
+        //{
+        //    var makeOffer = Mapper.Map<MakeOffer>(offerDTO);
+        //    TheUnitOfWork.MakeOfferRepo.Update(makeOffer);
+        //    TheUnitOfWork.SaveChanges();
+        //    return offerDTO;
+        //}
 
 
         public int CountOfMakeOfferRelatedTo(Expression<Func<MakeOffer, bool>> filter = null)

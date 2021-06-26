@@ -109,10 +109,8 @@
         <div class="form-group my-3">
           <label class="col-3 col-md-4">Upload peronal image</label>
           <div class="col-9 col-md-8 float-right">
-            <app-upload (onUploadFinished)="uploadFinished($event)"></app-upload>
-            <div class="imgWrapper">
-              <img class="w-100" [src]="createImgPath()" alt="">
-            </div>
+            <app-upload-and-show (onUploadFinished)="uploadFinished($event)" [formGroupFromParent]="image"></app-upload-and-show>
+
           </div>
         </div>
         <div class="form-group">

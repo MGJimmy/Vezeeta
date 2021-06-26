@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(VezeetaContext))]
-    [Migration("20210624102150_init")]
-    partial class init
+    [Migration("20210625113934_init20")]
+    partial class init20
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -90,6 +90,23 @@ namespace DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7adbbec9-8b8d-4978-9fea-0b7586187197",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "6acc175e-6bc4-40ea-87a3-14bb83a5b724",
+                            Email = "example.gmail.com",
+                            EmailConfirmed = false,
+                            IsDoctor = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "123456",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4a3e6fb6-5fc8-4e8b-ad65-5cf8867439dd",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("DAL.Models.Area", b =>

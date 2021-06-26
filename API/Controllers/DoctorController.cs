@@ -396,23 +396,30 @@ namespace API.Controllers
 
                 List<string> DoctorsIds = _reservationAppService.GetLast3doctorIdsReservedbyPatientforSuggestion(UserId);
 
-                if (DoctorsIds == null)
+                if (DoctorsIds.Count == 0)
                     return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
 
                 return Ok(_doctorAppService.GetSuggestiondoctorsRelatedToSpecailties(DoctorsIds));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                try
-                {
-                    return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
-                }
-                catch(Exception ex2)
-                {
-                    return BadRequest(ex2.Message);
-                }
+
+                return BadRequest(ex.Message);
             }
-                
+        }
+
+        [HttpGet("GetSuggestionDoctorsforGuest")]
+        public IActionResult GetSuggestionDoctorsforGuest()
+        {
+            try
+            {
+                return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [Authorize(AuthenticationSchemes = "Bearer")]

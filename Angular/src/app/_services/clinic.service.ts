@@ -45,8 +45,13 @@ export class ClinicService {
     })); 
   }
   getClinicServicesForClinic():Observable<IClinicServices[]>{
-
     return this._http.get<IClinicServices[]>(`${this.url}/getClinicServices`).pipe(catchError(
+      (err)=> { 
+      return throwError(err.message ||"Internal Server error contact site adminstarator");
+      }))
+  }
+  getClinicServicesForClinicByDoctorId(doctorId:string):Observable<IClinicServices[]>{
+    return this._http.get<IClinicServices[]>(`${this.url}/getClinicServices/${doctorId}`).pipe(catchError(
       (err)=> { 
       return throwError(err.message ||"Internal Server error contact site adminstarator");
       }))

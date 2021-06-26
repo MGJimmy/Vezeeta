@@ -107,5 +107,13 @@ namespace API.Controllers
             IEnumerable<ClinicServiceDto> clinicServices = _clinicClinicServiceAppService.GetClinicServices(DoctorId);
             return Ok(clinicServices);
         }
+
+
+        [HttpGet("getClinicServices/{doctorId}")]
+        public IActionResult GetClinicServices(string doctorId)
+        {
+            IEnumerable<ClinicServiceDto> clinicServices = _clinicClinicServiceAppService.GetClinicServices(doctorId);
+            return Ok(clinicServices);
+        }
     }
 }

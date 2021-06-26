@@ -32,9 +32,7 @@ namespace DAL
             builder.Entity<Specialty>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
-            builder.Entity<ApplicationUserIdentity>().HasData(
-             new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com", PasswordHash = "123456" }
-            );
+            
             builder.Entity<City>()
                 .HasMany(ci => ci.Clinics)
                 .WithOne(cl => cl.City)

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Days, IDoctor, IdoctorDayWork, _WorkingDay } from 'src/app/_models/_interfaces/IDoctorPresentaion';
 import { IRate } from 'src/app/_models/_interfaces/IRate';
 import { IRates } from 'src/app/_models/_interfaces/IRatesWithAverageRate';
+import { ClinicService } from 'src/app/_services/clinic.service';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 import { RateServiceService } from 'src/app/_services/rate-service.service';
@@ -20,7 +21,9 @@ export class ShowDoctorDetailsComponent implements OnInit {
   DoctorID: string;
   hasImage:boolean=false;
   hasdoctorServices:boolean=false;
-  constructor(private _doctorService:DoctorService,private datePipe: DatePipe,private _router:Router,
+  clinicServices
+  constructor(private _doctorService:DoctorService,private datePipe: DatePipe,
+    private _router:Router,private _clinicService:ClinicService,
     private _dataSharedService:DataSharedService,
     private activeRoute: ActivatedRoute,
     private _rateServiceService:RateServiceService) { 
@@ -49,6 +52,10 @@ commentNumber:number=1;
         }
         this.doctor.presentDaysWork = this.chunks(this.loadDays(this.doctor.workingDays),3);
 
+      })
+      this._clinicService.getClinicServicesForClinicByDoctorId(this.DoctorID).subscribe(data=>{
+        this.clinicServices=data;
+        console.log(data)
       })
       this.loadComment();
       

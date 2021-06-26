@@ -60,3 +60,20 @@
 {
     color: blue;
 }
+
+
+
+@media (max-width:500px) {
+  .offerSlider{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .offerSectionTitle{
+    padding-left: 15px;
+  }
+  .offerSection{
+    padding: 0px !important;
+    padding-top: 30% !important;
+  }
+
+}

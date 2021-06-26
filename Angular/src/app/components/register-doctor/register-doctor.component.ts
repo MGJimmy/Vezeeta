@@ -43,6 +43,9 @@ export class RegisterDoctorComponent implements OnInit {
       PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
+      image:this.formBuilder.group({
+        Image:["",Validators.required]
+      }),
       phoneNumber: ['', Validators.required],
       doctorInfo: ['', Validators.required],
       titleDegree: ['', Validators.required],
@@ -68,7 +71,7 @@ export class RegisterDoctorComponent implements OnInit {
       passwordHash: this.formFields.PasswordHash.value,
       confirmPassword: this.formFields.confirmPassword.value,
       email: this.formFields.email.value,
-      image: this.response.dbPath,
+      image:   this.image.get("Image").value[0].dbPath,
       phoneNumber: this.formFields.phoneNumber.value,
       titleDegree: this.formFields.titleDegree.value,
       doctorInfo: this.formFields.doctorInfo.value,
@@ -99,15 +102,21 @@ export class RegisterDoctorComponent implements OnInit {
           this.loading = false;
         });
     }
+
   public uploadFinished = (event) => { 
-    this.response = event;
+    this.image.setValue({
+      Image:[event]
+    })
+   // this.response = event;
   }
-  public createImgPath = () => {
-    if(this.response.dbPath !='')
-    {
-      return `${environment.apiUrl}/${this.response.dbPath}`;
-    }
-    else{return '';}
-  }
+  // public createImgPath = () => {
+  //   if(this.response.dbPath !='')
+  //   {
+  //     return `${environment.apiUrl}/${this.response.dbPath}`;
+  //   }
+  //   else{return '';}
+  // }
+  get image(){ return this.registerDoctorForm.get("image"); }
+
 }
 

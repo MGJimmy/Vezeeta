@@ -156,5 +156,19 @@ namespace BL.AppServices
 
         }
 
+
+
+        public async Task<bool> ForgetPassword(string email)
+        {
+           return await TheUnitOfWork.AccountRepo.forgetPasswordAsync(email);
+        }
+
+        public async Task<bool> ResetPasswordAsync(ResetPasswordDTO model)
+        {
+            var result= await TheUnitOfWork.AccountRepo.ResetPasswordAsync(model);
+            TheUnitOfWork.SaveChanges();
+            return result;
+        }
+
     }
 }

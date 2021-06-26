@@ -25,6 +25,7 @@ using BL.DTOs.MakeOfferDTO;
 using BL.DTOs.MakeOfferImageDTO;
 using BL.DTOs.ReserveOfferDTO;
 using BL.DTOs.RatingDtos;
+using BL.DTOs.OfferRatingDTO;
 
 namespace BL.Configurations
 {
@@ -216,7 +217,12 @@ namespace BL.Configurations
             CreateMap<Doctor, SuggestionDoctorDto>()
             .ReverseMap();
 
-            
+            CreateMap<OfferRating, CreateOfferRatingDto>()
+            .ReverseMap();
+            CreateMap<OfferRating, GetOfferRatingDto>()
+            .ReverseMap();
+
+
 
 
 

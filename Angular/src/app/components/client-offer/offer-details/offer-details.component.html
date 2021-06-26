@@ -3,7 +3,7 @@
         <div class="img-container">
             <img src="{{url}}/{{imageSelected}}" class="img-fluid">
             <div class="otherImag p-2">
-                <img *ngFor="let item of offerDetails.offerImages" src="{{url}}/{{item.image}}"
+                <img *ngFor="let item of offerDetails?.offerImages" src="{{url}}/{{item.image}}"
                     class="img-fluid rounded m-1" (click)="changeImage(item.image)"
                     [class.active]="imageSelected==item.image">
             </div>
@@ -11,15 +11,15 @@
 
         <div class="doctorInfo">
             <span class="doctorImage d-inline-bloc">
-                <img src="{{url}}/{{offerDetails.doctor.image}}" class="img-fluid">
+                <img src="{{url}}/{{offerDetails?.doctor?.image}}" class="img-fluid">
             </span>
-            <span class="doctorName p-1">Doctor {{offerDetails.doctor.userFullName}}</span>
+            <span class="doctorName p-1">Doctor {{offerDetails?.doctor?.userFullName}}</span>
         </div>
 
         <div class="description">
             <span class="title d-block">Description</span>
             <span class="body d-block m-0">
-                {{offerDetails.details}}
+                {{offerDetails?.details}}
             </span>
         </div>
         <div class="description">
@@ -104,6 +104,50 @@
             Reservation required, first-come, first-served
         </div>
         <hr>
+
+        <div>
+            <div class="card mb-3 p-3" *ngIf="hasRate">
+                <div class="row">
+                    <i class="fas fa-star-half-alt col-1 fa-2x"></i>
+                    <div class="col-md-10">
+                        <h3>Patient Evaluation</h3>
+                        <div style="display: flex;flex-direction: column;align-items: center;">
+                            <div style="display: flex;flex-direction: column;align-items: center;">
+                                <bar-rating [rate]="OfferRates.averageRate" [theme]="'default'" [readOnly]="true"
+                                    [max]="5"></bar-rating>
+                                <h3>public Evauation :
+                                    <span style="background-color: blue;color: white;padding: 10px;border-radius: 10px;">
+                                        {{OfferRates.averageRate}}/5
+                                    </span>
+                                </h3>
+                            </div>
+    
+                        </div>
+    
+                    </div>
+                    <hr>
+    
+    
+                </div>
+            </div>
+            <div class="d-block card" *ngFor="let item of OfferRates?.getOfferRatingDtos">
+    
+                <div class="px-5 py-2">
+                    <bar-rating [rate]="item.rate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
+                    <p>" {{item.comment}} "</p>
+                    <p>{{item.userFullName}}</p>
+                    <p>{{item.date |
+                        date:'fullDate'}}</p>
+                </div>
+    
+    
+            </div>
+            <div class="card text-center" *ngIf="OfferRates?.getOfferRatingDtos.length>0">
+                <a class="py-2 text-decoration-none" style="cursor: pointer;" (click)="ShowMoreComment()">Show More..</a>
+            </div>
+    
+        </div>
+        
     </div>
 
 

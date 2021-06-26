@@ -31,48 +31,46 @@ export class HomePageComponent implements OnInit {
 
     this._specilatyService.getAllSpecialities().subscribe(data=>
       {
-        console.log(data);
         this.SpecailtyList=this.chunks(data,4);
         console.log(this.SpecailtyList);
       })
   }
     // owl carousel
-    customOptions: OwlOptions = {
-      loop: true,
-      mouseDrag: true,
-      touchDrag: true,
-      pullDrag: false,
-      stagePadding:150,
-      margin:30,
-      autoplayTimeout: 3000,
-      autoplayHoverPause: true,
-      dots: false,
-      autoplay:false,
-      navSpeed: 600,
-      navText: ['&#8249', '&#8250;'],
-      responsive: {
-        0: {
-          stagePadding: 100,
-          items: 1 
-        },
-        400: {
-          stagePadding: 100,
-          items: 2
-        },
-        760: {
-          stagePadding: 130,
-          items: 3
-        },
-        1000: {
-          items: 4
-        }
-      },
-      nav: false
-    }
+    // customOptions: OwlOptions = {
+    //   loop: true,
+    //   mouseDrag: true,
+    //   touchDrag: true,
+    //   pullDrag: false,
+    //   stagePadding:150,
+    //   margin:30,
+    //   autoplayTimeout: 3000,
+    //   autoplayHoverPause: true,
+    //   dots: false,
+    //   autoplay:false,
+    //   navSpeed: 600,
+    //   navText: ['&#8249', '&#8250;'],
+    //   responsive: {
+    //     0: {
+    //       stagePadding: 100,
+    //       items: 1 
+    //     },
+    //     400: {
+    //       stagePadding: 100,
+    //       items: 2
+    //     },
+    //     760: {
+    //       stagePadding: 130,
+    //       items: 3
+    //     },
+    //     1000: {
+    //       items: 4
+    //     }
+    //   },
+    //   nav: false
+    // }
+    /**** */
   ShowDoctors(specailtyId)
   {
-    // console.log(specailtyId);
-    // this._router.navigate(['showDoctors',specailtyId]);
     this._dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.next(specailtyId);
   }
   chunks(array, size) {
@@ -87,4 +85,5 @@ export class HomePageComponent implements OnInit {
   goToOfferCategory(offerId){
     this._router.navigate(['ClientOffer/offers',offerId])
   }
+
 }

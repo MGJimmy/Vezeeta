@@ -23,7 +23,7 @@ namespace BL.AppServices
         {
             List<GetAllReserveOfferToPatientDTO> dto = new List<GetAllReserveOfferToPatientDTO>();
 
-            List<ReserveOffer> reservation = TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.userId == userId).ToList();
+            List<ReserveOffer> reservation = TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.userId == userId).OrderByDescending(i=>i.Date).ToList();
 
             reservation.ForEach(reserve =>
             {
@@ -42,8 +42,10 @@ namespace BL.AppServices
                 insertDto.DoctorName = user.FullName;
                 insertDto.ReserveOfferId = reserve.Id;
                 insertDto.State = reserve.State;
+                insertDto.IsRated = reserve.IsRated;
                 insertDto.DayShiftFrom = dayShift.From;
                 insertDto.DayShiftTo = dayShift.To;
+
 
                 dto.Add(insertDto);
 
@@ -55,7 +57,7 @@ namespace BL.AppServices
 
         public List<GetAllReserveOfferToDoctorDTO> GetAllReservationToDoctor(string userId)
         {
-            List<GetAllReserveOfferToDoctorDTO> dto = Mapper.Map<List<GetAllReserveOfferToDoctorDTO>>(TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.doctorId == userId).OrderBy(i => i.Date).ThenBy(i => i.MakeOfferId)).ToList();
+            List<GetAllReserveOfferToDoctorDTO> dto = Mapper.Map<List<GetAllReserveOfferToDoctorDTO>>(TheUnitOfWork.ReserveOfferRepo.GetWhere(i => i.doctorId == userId).OrderByDescending(i => i.Date).ThenBy(i => i.MakeOfferId)).ToList();
             dto.ForEach(element =>
                 {
                     var dayShift = TheUnitOfWork.DayShiftRepo.GetById(element.dayShiftId);
@@ -70,11 +72,10 @@ namespace BL.AppServices
 
         public ReserveOffer CreateReservation(string userId, CreateReserveOfferDTO createDto)
         {
-            //DayShift dayShift = TheUnitOfWork.DayShiftRepo.GetById(createDto.dayShiftId);
-
             createDto.Date = createDto.Date.Date;
             ReserveOffer reservation = Mapper.Map<ReserveOffer>(createDto);
             reservation.State = true;
+            reservation.IsRated = false;
             reservation.userId = userId;
 
             var reseve = TheUnitOfWork.ReserveOfferRepo.Insert(reservation);
@@ -90,5 +91,21 @@ namespace BL.AppServices
             TheUnitOfWork.ReserveOfferRepo.Update(reservation);
             TheUnitOfWork.SaveChanges();
         }
+
+
+
+        //public List<string> GetLast3doctorOfferIdsReservedbyPatientforSuggestion(string userId)
+        //{
+
+
+        //    List<string> doctorsIdList = TheUnitOfWork.ReserveOfferRepo.Getlast3doctorOffersIDfromReservationforSuggestion(i => i. == userId).ToList();
+
+        //    if (doctorsIdList == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    return doctorsIdList;
+        //}
     }
 }

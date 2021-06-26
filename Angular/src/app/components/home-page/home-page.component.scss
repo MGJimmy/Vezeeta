@@ -1,7 +1,6 @@
 
 .cards-wrapper {
     display: flex;
-    justify-content: center;
   }
   .card img {
     max-width: 100%;
@@ -26,9 +25,9 @@
     top: 50%;
     transform: translateY(-50%);
   }
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     .card img {
-      height: 11em;
+      height: 10rem;
     }
   }
 .offerSection{
@@ -42,6 +41,7 @@
     .offerCart{
       background-color: white;
       color: rgb(102, 102, 102);
+      cursor: pointer;
       img{
         height: 10rem;
         width: 100%;  
@@ -76,4 +76,29 @@
   font-size: 1.5rem;
   font-weight: 600;
   color: rgb(102, 102, 102);
+}
+
+.specialtName{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  background-color: white;
+  margin: -4px 0px 0px;
+  color: rgb(102, 102, 102);
+}
+
+
+@media (max-width:500px) {
+  .offerSlider{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .offerSectionTitle{
+    padding-left: 15px;
+  }
+  .offerSection{
+    padding: 0px !important;
+  }
+
 }

@@ -31,6 +31,7 @@ namespace DAL.Models
         public System.Nullable<Gender> gender { get; set; }
         public string Symptoms { get; set; }
         public bool State { get; set; }
+        public bool IsRated { get; set; } = false;
 
 
 

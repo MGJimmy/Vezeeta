@@ -31,7 +31,6 @@ export class FilterDoctorDataComponent implements OnInit {
     private _subSpecialityService: SubSpecialityService) {
         _dataSharedService.sendAllDocterAfterFilterToShow.subscribe(data=>{
           if(data.length!=0){
-            console.log(data);
             this.LoadData(data);
             this.IsContainDoctor=true;
           }
@@ -83,14 +82,6 @@ export class FilterDoctorDataComponent implements OnInit {
       workingDays.push(newDayWork);
     }
 
-
-
-    console.log(workingDays);
-
-
-
-    console.log(workingDays);
-
     return workingDays;
   }
 
@@ -106,13 +97,6 @@ export class FilterDoctorDataComponent implements OnInit {
       .then(() => {
         this._dataSharedService.GoToReservationPage.next({ dayShiftId: shiftId, doctorName: doctorName, date: date })
       })
-
-
-
-    // date=date.
-
-    // // console.log(date.toLocaleDateString('en-GB'))
-    // console.log(date.toISOString())
   }
   chunks(array, size) {
     let results = [];

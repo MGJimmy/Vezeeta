@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { _IdoctorFilter } from 'src/app/_models/_interfaces/IDoctorPresentaion';
 import { ISpecialty } from 'src/app/_models/_interfaces/ISpecilaty';
 import { AreaService } from 'src/app/_services/area.service';
@@ -8,24 +8,24 @@ import { CityService } from 'src/app/_services/city.service';
 import { DataSharedService } from 'src/app/_services/data-shared.service';
 import { DoctorService } from 'src/app/_services/doctor.service';
 import { SpecilatyService } from 'src/app/_services/specilaty.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  
-  
+
+
   //SpecilatyService
   specilaties = [];
-  SpecilatyBuffer = []; 
+  SpecilatyBuffer = [];
   loadingSpecilaty = false;
   //CityService
   cites = [];
   citesBuffer = [];
   loadingCity = false;
-  
+
   //areaService`
   areas = [];
   areasBuffer = [];
@@ -35,60 +35,63 @@ export class SearchComponent implements OnInit {
   specilatyId: number;
   cityId: number;
   areaId: number;
-  doctorName : string = null;
+  doctorName: string = null;
 
-  doctorFilter:_IdoctorFilter={
-    specailtyid:1,
+  doctorFilter: _IdoctorFilter = {
+    specailtyid: null,
     title: [],
     fee: [],
-    subspecails:[],
-    name:"",
-    areaId:null,
-    cityId:null
+    subspecails: [],
+    name: "",
+    areaId: null,
+    cityId: null
   };
 
   bufferSize = 50;
   numberOfItemsFromEndBeforeFetchingMore = 10;
-  
+
 
 
   constructor(private specilatyService: SpecilatyService, private ciryService: CityService, private areaService: AreaService
-    , private doctorService : DoctorService,private _dataSharedService:DataSharedService,private _router:Router) {
+    , private doctorService: DoctorService, private _activateRouter: ActivatedRoute,private location: Location,
+    private _dataSharedService: DataSharedService, private _router: Router) {
 
-      _dataSharedService.sendDataToSearchComponent.subscribe(data=>{
-        // if(data.title.length!=0||
-        //   data.fee.length!=0||data.subspecails.length!=0){
-            this.doctorFilter.title=data.title;
-            this.doctorFilter.subspecails=data.subspecails;
-            this.doctorFilter.fee=data.fee;
-           
-            
-      //  }
-        this.search();
-      })
+    // _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data => {
+    //   if (data != 0) {
+    //     this.specilatyId = data;
+    //     this.changeSpecialty(0)
+    //     this.search();
+    //   }
+    // })
+    this._activateRouter.queryParamMap.subscribe((params: any) => {
+      (params.get('cityId') == null||params.get('cityId') == '' )? this.cityId = null : this.cityId = parseInt(params.get('cityId'));
+      (params.get('areaId') == null || params.get('areaId') =='') ? this.areaId = null : this.areaId = parseInt(params.get('areaId'));
+      (params.get('specailtyid') == null|| params.get('specailtyid') =='') ? this.specilatyId = null : this.specilatyId = parseInt(params.get('specailtyid'));
+      this.doctorName = params.get('name');
 
-      _dataSharedService.sendSpecialtyIdFromHomePageToSearchComponent.subscribe(data=>{
-        if(data!=0){
-          this.specilatyId=data;
-          this.changeSpecialty(0)
-          this.search();
-        }
-      })
+      if(this.specilatyId != null)
+        this.changeSpecialty(0);
 
-    }
+      this.search();
+    });
+    _dataSharedService.sendDataToSearchComponent.subscribe(data => {
+
+      this.doctorFilter.title = data.title;
+      this.doctorFilter.subspecails = data.subspecails;
+      this.doctorFilter.fee = data.fee;
+
+      this.search();
+    })
+
+  }
 
   ngOnInit(): void {
-    
-
     //SpecilatyService 
     this.specilatyService.getAllSpecialities().subscribe(
       data => {
         this.specilaties = data;
         this.SpecilatyBuffer = this.specilaties.slice(0, this.bufferSize);
-      
-      
       }
-
     )
 
     //CityService
@@ -106,32 +109,46 @@ export class SearchComponent implements OnInit {
         this.areasBuffer = this.areas.slice(0, this.bufferSize);
       }
     )
-  }
 
-
-  
-  search(){
-    this.doctorFilter.cityId=this.cityId;
-    this.doctorFilter.areaId=this.areaId;
-    this.doctorFilter.specailtyid=this.specilatyId;
-    this.doctorFilter.name=this.doctorName;
 
     
-    this.doctorService.ShowSpecailtyDoctorswithFilter(this.doctorFilter).subscribe(data=>{
-      this._dataSharedService.sendAllDocterAfterFilterToShow.next(data);
-      this._router.navigate(["showDoctors"])
-    })
-
   }
 
 
-  changeSpecialty(event){
+
+  search() {
+    this.doctorFilter.cityId = this.cityId;
+    this.doctorFilter.areaId = this.areaId;
+    this.doctorFilter.specailtyid = this.specilatyId;
+    this.doctorFilter.name = this.doctorName;
+
+    console.error(this.doctorFilter)
+    this.doctorService.ShowSpecailtyDoctorswithFilter(this.doctorFilter).subscribe(data => {
+      this._dataSharedService.sendAllDocterAfterFilterToShow.next(data);      
+      this.location.replaceState(`/showDoctors?specailtyid=${this.specilatyId==null?'':this.specilatyId}&cityId=${this.cityId==null?'':this.cityId}&areaId=${this.areaId==null?'':this.areaId}&name=${this.doctorName==null?'':this.doctorName}`);
+    })
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  changeSpecialty(event) {
     this._dataSharedService.sendSpecialtyIdToSideBarComponent.next(this.specilatyId);
   }
-
-
-
-  
 
   onScrollToEndForSpecilaty() {
     this.fetchMoreForSpecilaty();

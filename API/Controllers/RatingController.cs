@@ -57,15 +57,14 @@ namespace API.Controllers
 
 
         [HttpPost]
-       // [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Create(CreateRatingDto rateDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                // var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                var UserId = "ad4eac79-d9f6-4d36-be4d-bcfeb3145b00";
+                var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 rateDto.UserId = UserId;
                 var result=_ratingAppService.Insert(rateDto);
                 _generalAppService.CommitTransaction();

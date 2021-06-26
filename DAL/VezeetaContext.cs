@@ -32,9 +32,7 @@ namespace DAL
             builder.Entity<Specialty>()
                 .HasIndex(u => u.Name)
                 .IsUnique();
-            builder.Entity<ApplicationUserIdentity>().HasData(
-             new ApplicationUserIdentity { UserName = "admin", Email = "example.gmail.com", PasswordHash = "123456" }
-            );
+            
             builder.Entity<City>()
                 .HasMany(ci => ci.Clinics)
                 .WithOne(cl => cl.City)
@@ -77,13 +75,10 @@ namespace DAL
                 .OnDelete(DeleteBehavior.NoAction);
 
 
-            //builder.Entity<MakeOffer>()
-            //    .HasOne(m=>m)
-            //    .HasMany(s => s.MakeOffers)
-            //    .WithOne(m => m.SubOffer)
-            //    .HasForeignKey(m => m.SubOfferId).OnDelete(DeleteBehavior.NoAction);
-
-
+            builder.Entity<OfferRating>()
+                .HasOne(o => o.ReserveOffer)
+                .WithOne(r => r.OfferRating)
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
 
@@ -103,6 +98,7 @@ namespace DAL
 
         public DbSet<MakeOfferImage> MakeOfferImages { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<OfferRating> OfferRatings { get; set; }
 
     }
 }

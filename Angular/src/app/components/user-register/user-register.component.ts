@@ -32,7 +32,7 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerDoctorForm = this.formBuilder.group({
       fullName: ['', Validators.required],
-      username: ['',Validators.required],
+      username: ['',[Validators.required,Validators.pattern("[^' ']+")]],
       PasswordHash: ['',[Validators.required,Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$")]],
       confirmPassword: ['', Validators.required],
       email: ['', Validators.required],
@@ -56,7 +56,7 @@ export class UserRegisterComponent implements OnInit {
     let newUser: IRegisterUser = {
       fullName: this.formFields.fullName.value,
       userName: this.formFields.username.value,
-      passwordHash: this.formFields.password.value,
+      passwordHash: this.formFields.PasswordHash.value,
       confirmPassword: this.formFields.confirmPassword.value,
       email: this.formFields.email.value,
       image: this.response.dbPath,
@@ -64,25 +64,27 @@ export class UserRegisterComponent implements OnInit {
       
     }
     this._authService.registerUser(newUser)
-      .pipe(first())
+      // .pipe(first())
       .subscribe(
         data => {
           //this._router.navigate(["login"]);
-          this._authService.login(this.formFields.username.value, this.formFields.password.value)
+          this._authService.login(this.formFields.username.value, this.formFields.PasswordHash.value)
         .pipe(first())
         .subscribe(
             data => {
-              this._sharedDataService.IsUserLogIn.next(true)
-                this._router.navigate([this.returnUrl]);
+              this._router.navigate([this.returnUrl]);
+              this._sharedDataService.currentLoginUserChange.next(true)
             },
             error => {
-                this.error = error;
+                this.error = error.message;
                 this.loading = false;
                 console.log(error);
             });
         },
         error => {
-          this.error = error;
+          this.error = error.error.message
+          console.log(error.error);
+          
           this.loading = false;
         });
   }

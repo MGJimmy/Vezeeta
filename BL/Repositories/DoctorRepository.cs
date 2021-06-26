@@ -37,16 +37,16 @@ namespace BL.Repositories
         //    Doctor doctor = DbSet.Where(i => i.UserId == id).Include(i=>i.supSpecializations).FirstOrDefault();
         //    return doctor;
         //}
-        public void activateDoctor(string doctorID)
-        {
-            Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
-            doctor.IsAccepted = true;
-        }
-        public void deactivateDoctor(string doctorID)
-        {
-            Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
-            doctor.IsAccepted = false;
-        }
+        //public void activateDoctor(string doctorID)
+        //{
+        //    Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
+        //    doctor.IsAccepted = true;
+        //}
+        //public void deactivateDoctor(string doctorID)
+        //{
+        //    Doctor doctor = DbSet.FirstOrDefault(d => d.UserId == doctorID);
+        //    doctor.IsAccepted = false;
+        //}
         //public Doctor GetByStringId(string id)
         //{
         //    return DbSet.Include(i => i.doctorServices).FirstOrDefault(d=>d.UserId==id);
@@ -148,13 +148,13 @@ namespace BL.Repositories
 
         public List<Doctor> suggestiondoctorswithspecailtyid(int specialtyid, int countofreturneddoctors)
         {
-           return DbSet.Where(d => d.specialtyId == specialtyid).OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d=>d.User).Include(d=>d.specialty).
+           return DbSet.Where(d => d.specialtyId == specialtyid && d.IsAccepted==true).OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d=>d.User).Include(d=>d.specialty).
                 Include(d=>d.clinic.City).ToList();
         }
 
         public List<Doctor> suggestiondoctorsTopRated(int countofreturneddoctors)
         {
-            return DbSet.OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d => d.User).Include(d => d.specialty).
+            return DbSet.Where(d=> d.IsAccepted == true).OrderByDescending(d => d.AverageRate).Take(countofreturneddoctors).Include(d => d.User).Include(d => d.specialty).
                  Include(d => d.clinic.City).ToList();
         }
 

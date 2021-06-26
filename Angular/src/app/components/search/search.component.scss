@@ -78,11 +78,10 @@ hr {
 }
 
 .card-margin {
-
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-  padding-top: 1rem !important;
-  padding-bottom: 1rem !important;
+  padding-left: 0.5px !important;
+  padding-right: .5rem !important;
+  padding-top: .5rem !important;
+  padding-bottom: .5rem !important;
 }
 
 .row-margin {
@@ -109,7 +108,7 @@ hr {
 
 
 .carousel-image{
-  height: 43rem;
+  height: 12rem;
 }
 .carousel-caption {
   position: absolute;
@@ -133,13 +132,20 @@ hr {
 }
 .searchCart{
   position: absolute;
-  top: 44%;
+  bottom: 2%;
   left: 10%;
   right: 10%;
 }
 @media (max-width:500px) {
-  .carousel-image{
-    height: 30rem;
+  .searchComponent{
+    padding-bottom: 15%;
   }
-  
+  .carousel-image{
+    height: -1;
+  }
+  .searchCart{
+    top: 50%;
+    left: 0%;
+    right: 0%;
+  }
 }

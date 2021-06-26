@@ -16,14 +16,16 @@ namespace BL.Bases
         DbContext Context;
         UserManager<ApplicationUserIdentity> _userManager;
         RoleManager<IdentityRole> _roleManager;
+        IMailService _mailService;
 
         public UnitOfWork(VezeetaContext context,
-            UserManager<ApplicationUserIdentity> userManager,
+            UserManager<ApplicationUserIdentity> userManager, IMailService mailService,
             RoleManager<IdentityRole> roleManager)
         {
             Context = context;
             _roleManager = roleManager;
             _userManager = userManager;
+            _mailService = mailService;
             BeginTransaction();
         }
 
@@ -130,7 +132,7 @@ namespace BL.Bases
             get
             {
                 if (accountRepo == null)
-                    accountRepo = new AccountRepository(Context,_userManager, _roleManager);
+                    accountRepo = new AccountRepository(Context,_userManager,_mailService, _roleManager);
                 return accountRepo;
             }
         }
@@ -306,7 +308,18 @@ namespace BL.Bases
                 return ratingRepo;
             }
         }
-        
+
+        private OfferRatingRepository offerRatingRepo;
+        public OfferRatingRepository OfferRatingRepo
+        {
+            get
+            {
+                if (offerRatingRepo == null)
+                    offerRatingRepo = new OfferRatingRepository(Context);
+                return offerRatingRepo;
+            }
+        }
+
         public void Dispose()
         {
             Context.Dispose();

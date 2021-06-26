@@ -1,12 +1,12 @@
-<div class="col-md-6 offset-md-3 mt-5">
+<div class="col-md-6 col-lg-4 offset-md-3 mt-5 " style="margin: auto;">
     <div class="card">
       <h4 class="card-header">Login</h4>
       <div class="card-body px-4">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         
-          <div class="form-group">
-            <label for="username">Username</label>
-            <div class="inputWrapper float-right">
+          <div class="form-group row align-items-center">
+            <label class="col-4 col-lg-4" for="username">Username</label>
+            <div class="col-8 col-lg-8 float-right">
               <input formControlName="username" type="text" class="form-control" placeholder="User Name" name="username"
                 [class.is-invalid]="formFields.username?.invalid && formFields.username?.touched">
               <div *ngIf="formFields.username?.invalid && formFields.username?.touched">
@@ -14,9 +14,9 @@
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div class="inputWrapper float-right">
+          <div class="form-group row align-items-center">
+            <label class="col-4 col-lg-4" for="password">Password</label>
+            <div class="col-8 col-lg-8 float-right">
               <input formControlName="password" type="password" class="form-control" placeholder="Password"
                 name="password" [class.is-invalid]="formFields.password?.invalid && formFields.password?.touched">
               <div *ngIf="formFields.password?.invalid && formFields.password?.touched">
@@ -38,6 +38,8 @@
         <div class="haveNotAccount">
           don't have an account in Vezeeta ? 
           <a routerLink="/registerDoctor">Register</a>
+          <a routerLink="/forgetPassword" class="d-block border-0">forget password</a>
+
         </div>
       </div>
     </div>

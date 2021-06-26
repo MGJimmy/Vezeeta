@@ -67,5 +67,10 @@ namespace BL.AppServices
         {
             return TheUnitOfWork.MakeOfferRepo.CountOfMakeOfferRelatedTo(filter);
         }
+
+        public List<GetMakeOfferWithDoctorInfoDTO> GetSuggestiondoctorsTopRated()
+        {
+            return Mapper.Map<List<GetMakeOfferWithDoctorInfoDTO>>(TheUnitOfWork.MakeOfferRepo.suggestiondoctorOffersTopRated(12));
+        }
     }
 }

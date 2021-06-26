@@ -28,7 +28,7 @@ namespace BL.AppServices
         {
             List<GetAllReservationToPatientDTO> dto = new List<GetAllReservationToPatientDTO>();
 
-            List<Reservation> reservation = TheUnitOfWork.ReservationRepo.GetWhere(i => i.userId == userId).ToList();
+            List<Reservation> reservation = TheUnitOfWork.ReservationRepo.GetWhere(i => i.userId == userId).OrderByDescending(i=>i.Date).ToList();
 
             reservation.ForEach(reserve =>
             {
@@ -44,6 +44,7 @@ namespace BL.AppServices
                 insertDto.ClinicStreeet = clinic.Street;
                 insertDto.ClinicArea = clinic.Area.Name;
                 insertDto.State = reserve.State;
+                insertDto.IsRated = reserve.IsRated;
                 insertDto.DayShiftFrom = dayShift.From;
                 insertDto.DayShiftTo = dayShift.To;
 
@@ -56,7 +57,7 @@ namespace BL.AppServices
 
         public List<GetAllReservationToDoctorDTO> GetAllReservationToDoctor(string userId)
         {
-            List<GetAllReservationToDoctorDTO> dto=Mapper.Map<List<GetAllReservationToDoctorDTO>>(TheUnitOfWork.ReservationRepo.GetWhere(i => i.doctorId == userId).OrderBy(i=>i.Date).ThenBy(i=>i.UserName)).ToList();
+            List<GetAllReservationToDoctorDTO> dto=Mapper.Map<List<GetAllReservationToDoctorDTO>>(TheUnitOfWork.ReservationRepo.GetWhere(i => i.doctorId == userId).OrderByDescending(i => i.Date).ThenBy(i=>i.UserName)).ToList();
             dto.ForEach(element =>
             {
                 var dayShift = TheUnitOfWork.DayShiftRepo.GetById(element.dayShiftId);
@@ -79,6 +80,7 @@ namespace BL.AppServices
 
             createDto.Date = createDto.Date.Date;
             Reservation reservation = Mapper.Map<Reservation>(createDto);
+            reservation.IsRated = false;
             reservation.userId = userId;
 
             if (CountOfReversationInDate(createDto.dayShiftId, createDto.Date) < dayShift.MaxNumOfReservation)
@@ -115,16 +117,12 @@ namespace BL.AppServices
 
         public List<string> GetLast3doctorIdsReservedbyPatientforSuggestion(string userId)
         {
-     
-
             List<string> doctorsIdList = TheUnitOfWork.ReservationRepo.Getlast3doctorsIDfromReservationforSuggestion(i => i.userId == userId).ToList();
-            
-            if (doctorsIdList == null)
-            {
-                return null;
-            }
-
+           
             return doctorsIdList;
         }
+
+
+        
     }
 }

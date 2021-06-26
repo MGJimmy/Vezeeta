@@ -22,6 +22,7 @@ namespace DAL
         public List<Reservation> reservations { get; set; }
         public List<ReserveOffer> ReserveOffer { get; set; }
         public List<Rating> Rates { get; set; }
+        public List<OfferRating> OfferRating { get; set; }
     }
     public class ApplicationUserStore : UserStore<ApplicationUserIdentity>
     {

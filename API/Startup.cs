@@ -85,6 +85,11 @@ namespace API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+            
+            services.AddIdentityCore<ApplicationUserIdentity>().AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<VezeetaContext>()
+            .AddDefaultTokenProviders();
+
 
             // DI
             services.AddDbContext<VezeetaContext>(option =>
@@ -125,8 +130,11 @@ namespace API
             services.AddScoped<MakeOfferImageAppService>();
             services.AddScoped<ReserveOfferAppService>();
             services.AddScoped<RatingAppService>();
-            
+            services.AddScoped<OfferRatingAppService>();
 
+
+
+            services.AddTransient<IMailService, SendGridMailService>();
 
         }
 
@@ -143,7 +151,7 @@ namespace API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
+            
             app.UseRouting();
 
             app.UseAuthentication();

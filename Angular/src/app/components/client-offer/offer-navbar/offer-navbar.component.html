@@ -61,7 +61,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown px-2" *ngFor="let offer of allOffer.slice(0,5);let i=index">
+                <li class="nav-item dropdown px-2" *ngFor="let offer of allOffer?.slice(0,5);let i=index">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{offer.name}}

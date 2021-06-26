@@ -1,0 +1,91 @@
+<div class="col-md-6 offset-md-3 mt-5">
+  <div class="card">
+    <h4 class="card-header">Admin Registration</h4>
+    <div class="card-body px-4">
+      <form [formGroup]="registerAdminForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="fullName">Full Name</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="fullName" type="text" class="form-control" placeholder="Full Name" name="fullName"
+              [class.is-invalid]="formFields.fullName?.invalid && formFields.fullName?.touched">
+            <div *ngIf="formFields.fullName?.invalid && formFields.fullName?.touched">
+              <small class="text-danger" *ngIf="formFields.fullName?.errors.required">Full Name is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="username">Username</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="username" type="text" class="form-control" placeholder="User Name" name="username"
+              [class.is-invalid]="formFields.username?.invalid && formFields.username?.touched">
+            <div *ngIf="formFields.username?.invalid && formFields.username?.touched">
+              <small class="text-danger" *ngIf="formFields.username?.errors.required">User Name is required</small>
+              <small class="text-danger" *ngIf="formFields.username.errors?.pattern">userName can't contain space</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="password">Password</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="PasswordHash" type="password" class="form-control" placeholder="Password"
+              name="password" [class.is-invalid]="formFields.PasswordHash?.invalid && formFields.PasswordHash?.touched">
+            <div *ngIf="formFields.PasswordHash?.invalid && formFields.PasswordHash?.touched">
+              <small class="text-danger" *ngIf="formFields.PasswordHash?.errors.required">Password is required</small>
+              <small class="text-danger" *ngIf="formFields.PasswordHash.errors?.pattern"> Password should more
+                than 7 letter and have UpperCase Letter & LowerCase Letter & nonalphaChar & number</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="confirmPassword">Confirm Password</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="confirmPassword" type="password" class="form-control" placeholder="Confirm Password"
+              name="confirmPassword"
+              [class.is-invalid]="formFields.confirmPassword?.invalid && formFields.confirmPassword?.touched">
+            <div *ngIf="formFields.confirmPassword?.invalid && formFields.confirmPassword?.touched">
+              <small class="text-danger" *ngIf="formFields.confirmPassword?.errors.required">Confirm Password is
+                required</small>
+            </div>
+            <small *ngIf="registerAdminForm.errors?.misMatch && formFields.confirmPassword.touched" class="text-danger">
+              Not Match Password
+            </small>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="email">Email</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="email" type="email" class="form-control" placeholder="Email" name="email"
+              [class.is-invalid]="formFields.email?.invalid && formFields.email?.touched">
+            <div *ngIf="formFields.email?.invalid && formFields.email?.touched">
+              <small class="text-danger" *ngIf="formFields.email?.errors.required">Email is required</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-3 col-md-4" for="phoneNumber">Phone number</label>
+          <div class="col-9 col-md-8 float-right">
+            <input formControlName="phoneNumber" type="text" class="form-control" placeholder="Phone number"
+              name="phoneNumber"
+              [class.is-invalid]="formFields.phoneNumber?.invalid && formFields.phoneNumber?.touched">
+            <div *ngIf="formFields.phoneNumber?.invalid && formFields.phoneNumber?.touched">
+              <small class="text-danger" *ngIf="formFields.phoneNumber?.errors.required">Phone number is
+                required</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="registerBtnWrapper text-center mt-5">
+          <button [disabled]="loading" class="btn btn-danger px-4">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Register
+          </button>
+        </div>
+        <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+      </form>
+      <div class="alreadyRegistered">
+        Already Registered in Vezeeta ?
+        <a routerLink="/login">Login</a>
+      </div>
+    </div>
+  </div>
+</div>

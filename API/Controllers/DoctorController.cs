@@ -390,14 +390,55 @@ namespace API.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetSuggestionDoctors()
         {
-            var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            try
+            {
+                var UserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            List<string> DoctorsIds=_reservationAppService.GetLast3doctorIdsReservedbyPatientforSuggestion(UserId);
+                List<string> DoctorsIds = _reservationAppService.GetLast3doctorIdsReservedbyPatientforSuggestion(UserId);
 
-            if (DoctorsIds == null)
-               return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
+                if (DoctorsIds.Count == 0)
+                    return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
 
-            return Ok(_doctorAppService.GetSuggestiondoctorsRelatedToSpecailties(DoctorsIds));
+                return Ok(_doctorAppService.GetSuggestiondoctorsRelatedToSpecailties(DoctorsIds));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetSuggestionDoctorsforGuest")]
+        public IActionResult GetSuggestionDoctorsforGuest()
+        {
+            try
+            {
+                return Ok(_doctorAppService.GetSuggestiondoctorsTopRated());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpGet("checkDoctorAccoutIsAccept")]
+        public IActionResult checkAcceptinationOfDoctorAccount()
+        {
+            try
+            {
+                var doctorId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                var isDoctorAcceptDTO = _doctorAppService.checkAcceptinationOfDoctorAccount(doctorId);
+                _generalAppService.CommitTransaction();
+                return Ok(isDoctorAcceptDTO);
+            }
+            catch(Exception ex)
+            {
+                _generalAppService.RollbackTransaction();
+                return BadRequest(ex.Message);
+            }
         }
 
     }

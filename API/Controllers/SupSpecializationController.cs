@@ -1,10 +1,13 @@
 ﻿using API.helpers;
 using BL.AppServices;
 using BL.DTOs;
+using BL.StaticClasses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -92,6 +95,7 @@ namespace API.Controllers
 
         // POST api/<SupSpecializationController>
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult Create(SupSpecailization createSupSpecailizationDtoDTO)
         {
             if (ModelState.IsValid == false)
@@ -109,7 +113,9 @@ namespace API.Controllers
             try
             {
                 SupSpecailization newSupDTO;
-                if (User.IsInRole("Admin"))
+
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+                if (userRole == UserRoles.Admin)
                 {
                     newSupDTO= _supSpecializationAppService.Insert(createSupSpecailizationDtoDTO, true);
                 }
@@ -129,14 +135,16 @@ namespace API.Controllers
         }
 
         [HttpPost("insertList")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult InsertList(List<SupSpecailization> supSpecailizations)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                List<SupSpecailization> newSup;
-                if (User.IsInRole("Admin"))
+                List<SupSpecailization> newSup; 
+                string userRole = HttpContext.User.FindFirst(ClaimTypes.Role).Value;
+                if (userRole == UserRoles.Admin)
                 {
                     newSup = _supSpecializationAppService.InsertList(supSpecailizations, true);
                 }

@@ -67,12 +67,20 @@ import { SubofferCategoryComponent } from './components/client-offer/suboffer-ca
 import { NewestOfferComponent } from './components/client-offer/home-offer/newest-offer/newest-offer.component';
 import { CarsoulOfferComponent } from './components/client-offer/home-offer/carsoul-offer/carsoul-offer.component'
 import { UserUpdateComponent } from './components/user-update/user-update.component'
+import { RegisterAdminComponent } from './components/register-admin/register-admin.component';
+import { ForgetPasswordComponent } from './components/forget-password/forget-password.component';
 import { UserInformationComponent } from './components/user-information/user-information.component';
 import { UserInfoSideBarComponent } from './components/user-information/user-info-side-bar/user-info-side-bar.component';
 import { ResetPasswordComponent } from './components/user-information/reset-password/reset-password.component';
 import { ClientRateComponent } from './components/client/client-rate/client-rate.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { SuggestionDoctorsComponent } from './components/client/suggestion-doctors/suggestion-doctors.component';
+import { ResetForgetPasswordComponent } from './components/reset-forget-password/reset-forget-password.component';
+import { OfferRatingComponent } from './components/client-offer/offer-rating/offer-rating.component';
+import { SugestionMakeOfferComponent } from './components/client-offer/sugestion-make-offer/sugestion-make-offer.component';
+import { DoctorCheckIsAcceptComponent } from './components/doctor-dashboard/doctor-check-is-accept/doctor-check-is-accept.component';
+import { SearchInHomePageComponent } from './components/client/search-in-home-page/search-in-home-page.component';
+import { ExtraInformationComponent } from './extra-information/extra-information.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,11 +138,19 @@ import { SuggestionDoctorsComponent } from './components/client/suggestion-docto
       CarsoulOfferComponent,
       UserUpdateComponent,
       ResetPasswordComponent,
+      RegisterAdminComponent,
+      ForgetPasswordComponent,
       UserInformationComponent,
       UserInfoSideBarComponent,
       ClientRateComponent,
       SuggestionDoctorsComponent,
       ChooseClinicServiceComponent,
+      ResetForgetPasswordComponent,
+      OfferRatingComponent,
+      SugestionMakeOfferComponent,
+      DoctorCheckIsAcceptComponent,
+      SearchInHomePageComponent,
+      ExtraInformationComponent,
     
   ],
   imports: [

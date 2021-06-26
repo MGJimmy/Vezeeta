@@ -12,6 +12,7 @@ export class ShowReservationToPatientComponent implements OnInit {
   constructor(private _reserveService:ReservationService) { }
 
   allReservation:IReservationShowToPatient[];
+  dateNow=new Date().toJSON()
 
   ngOnInit(): void {
     this.loadData();

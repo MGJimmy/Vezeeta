@@ -23,3 +23,29 @@ label{
   }
   input.form-control.numOfReservations{width: 10%;}
 }
+
+
+
+@media (max-width:500px) {
+
+    .shift{
+      margin-left: 0rem !important;
+      display: block;
+    }
+    input[type=time]{
+      width: 50% !important;
+    }
+    input[type=number]{
+      width: 20% !important;
+    }
+    .toLabel{
+      &::before {
+        content: "\A";
+        white-space: pre;
+      }
+    }
+    
+
+  
+  
+}

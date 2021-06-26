@@ -18,15 +18,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
-             <label class="d-inline-block">Reservations</label>
+            <br class="d-block d-md-none">
+            <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Saturday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Saturday)">-</a>
         </div>
@@ -42,15 +44,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Sunday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Sunday)">-</a>
         </div>
@@ -66,15 +70,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Monday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Monday)">-</a>
         </div>
@@ -90,15 +96,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Tuesday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Tuesday)">-</a>
         </div>
@@ -114,15 +122,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Wednesday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Wednesday)">-</a>
         </div>
@@ -138,15 +148,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Thursday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Thursday)">-</a>
         </div>
@@ -162,15 +174,17 @@
           <div class="form-group" formGroupName={{i}}>
             <label class="shift">Shift {{i+1}}:</label>
             <label class="d-inline-block">From</label>
-            <input type="time" class="form-control" formControlName="from">
-            <label class="d-inline-block">To</label>
+            <input type="time" class="form-control fromInput" formControlName="from">
+            <br class="d-block d-md-none">
+            <label class="d-inline-block toLabel">To</label>
             <input type="time" class="form-control" formControlName="to">
+            <br class="d-block d-md-none">
              <label class="d-inline-block">Reservations</label>
             <input type="number" class="form-control numOfReservations" formControlName="maxNumOfReservation">
           </div>
         </div>
         <div class="text-right">
-          <span class="text-info mx-4 font-weight-bold">Add up to three shifts</span>
+          <span class="text-info mx-md-4 font-weight-bold">Add up to three shifts</span>
           <a class="btn btn-success mx-2 px-3 py-0" (click)="addDayShift(Friday)">+</a>
           <a class="btn btn-danger mx-2 px-3 py-0" (click)="deleteDayShift(Friday)">-</a>
         </div>

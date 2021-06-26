@@ -7,7 +7,7 @@
     <div class="d-flex" style="justify-content: center;">
 
 
-        <form [formGroup]="ClinicForm"  class="p-5 border col-12">
+        <form [formGroup]="ClinicForm"  class="p-2 p-md-5 border col-12">
             <div class="form-group d-flex">
                 <label for="Street" class="col-3">Street</label>
                 <div class="col-9">
@@ -95,7 +95,7 @@
             <app-upload-multiple (onUploadFinished)="uploadClinicImages($event)"></app-upload-multiple>
 
             
-            <div class="mt-5">
+            <div class="mt-5 text-right">
                 <button class="btn btn-primary mr-3 col-3" (click)="onAddSubmit()" [disabled]="ClinicForm.invalid" *ngIf="!hasClinic">
                     <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
                     Save

@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row offerDetailsComponent">
     <div class="col-12 col-md-6 offerDetails">
-        <div class="img-container">
+        <div class="img-container d-none d-md-block">
             <img src="{{url}}/{{imageSelected}}" class="img-fluid">
             <div class="otherImag p-2">
                 <img *ngFor="let item of offerDetails?.offerImages" src="{{url}}/{{item.image}}"
@@ -33,6 +33,15 @@
 
     </div>
     <div class="col-12 col-md-6 border-left reservation pt-3">
+        <div class="img-container d-block d-md-none">
+            <img src="{{url}}/{{imageSelected}}" class="img-fluid">
+            <div class="otherImag p-2">
+                <img *ngFor="let item of offerDetails?.offerImages" src="{{url}}/{{item.image}}"
+                    class="img-fluid rounded m-1" (click)="changeImage(item.image)"
+                    [class.active]="imageSelected==item.image">
+            </div>
+        </div>
+
         <span class="title d-block">{{offerDetails.title}}</span>
         <span class="nuOfSession py-2">{{offerDetails.numberOfSession}} Session {{offerDetails.title}}</span>
         <div class="price d-block py-1">

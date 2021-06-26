@@ -90,3 +90,10 @@
         }
     }
 }
+
+@media (max-width:500px) {
+    .dropListOfColumn{
+        max-height: 20rem !important;
+    }
+    
+}

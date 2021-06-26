@@ -96,7 +96,23 @@
         }
     }
 }
-
+.img-container{
+    img{
+        border-radius: 1%;
+        width: 100%;
+        height: 23rem
+    }
+    .otherImag{
+        .active{
+            border: 1px solid blue;
+        }
+        img{
+            width: 30%;
+            padding: 2px;
+            height: 7rem;
+        }
+    }
+}
 
 /***********************/
 
@@ -139,4 +155,13 @@
  border-radius: 5px 5px; 
  padding: 0px !important;
  margin-left: 2%;
+}
+
+
+
+@media (max-width:500px) {
+    .offerDetailsComponent{
+        flex-direction: column-reverse;
+    }
+    
 }

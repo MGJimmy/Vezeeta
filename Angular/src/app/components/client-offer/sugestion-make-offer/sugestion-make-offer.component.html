@@ -19,46 +19,9 @@
                 <div class="carousel-item px-4" *ngFor="let dotorlist of SuggestDoctorOffers;let i=index"
                     [class.active]="i==0">
 
-                    <div class="col-md-3 " style="float:left;cursor: pointer;" *ngFor="let item of dotorlist"
-                        >
-                        <!-- (click)="ShowDetails(doctor.userId)" -->
+                    <div class="col-6 col-md-3 px-1 px-md-3" style="float:left;cursor: pointer;" *ngFor="let item of dotorlist">
                         <div class="mb-2 offerCart">
-                            <!-- {{doctor|json}}
-                            <img class="img-fluid rounded-lg" [src]="createImgPath(doctor.image)" alt="Card image cap">
-
-                            <div class="p-2">
-                                <bar-rating [rate]="doctor.averageRate" [theme]="'default'" [readOnly]="true" [max]="5">
-                                </bar-rating>
-                                <h4 class="">Doctor : {{doctor.userFullName}}</h4>
-                                <div class="card-text d-flex">
-                                    <i class="fas fa-stethoscope p-2"></i>
-                                    <div class="pt-1">
-                                        {{doctor.specialtyName}}
-                                    </div>
-
-                                </div>
-
-                                <div class="card-text d-flex">
-                                    <!-- <i class="fas fa-stethoscope p-2"></i> ->
-                                    <i class="fas fa-user-md p-2"></i>
-                                    <div class="pt-1">
-                                        {{doctor.titleDegree}}
-                                    </div>
-
-                                </div>
-                                <div class="card-text d-flex  mt-2">
-                                    <div>
-                                        <i class="fas fa-map-marker-alt p-2"></i>
-                                    </div>
-
-                                    <div class="pt-1">
-                                        {{doctor.clinicCityName}}
-                                    </div>
-                                </div>
-                            </div> -->
-                        
-                        <!-- ----------------------------------------------- -->
-                        
+                            
                         <div class="">
                             <div class="card" (click)="Book(item.id)">
                                 <div class="img-cart">

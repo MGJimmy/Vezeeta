@@ -35,7 +35,7 @@
   
 .fas,.far
 {
-    color: blue;
+    color: #007bff;
 }
 
 .appointmentsDiv
@@ -53,6 +53,22 @@
 .btn:hover
 {
   color: white;
-  background-color: blue !important;
+  background-color: #007bff !important;
 }
 
+.clinicImage{
+  img{
+    height: 10rem;
+  }
+}
+
+@media (max-width:500px) {
+  
+  .clinicImage{
+    img{
+      height: 3rem;
+      margin-bottom: 5%;
+    }
+  }
+  
+}

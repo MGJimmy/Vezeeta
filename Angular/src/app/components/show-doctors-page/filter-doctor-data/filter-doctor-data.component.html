@@ -1,5 +1,5 @@
 <div *ngIf="!IsContainDoctor" style="display: flex;justify-content: center">
-    <p class="pt-5" style="font-size: 40px;color: brown;">
+    <p class="pt-5" style="font-size: 40px;color: brown;line-height: 2rem;">
         there is no doctors that match your search
     </p>
 
@@ -83,7 +83,7 @@
             </div>
 
 
-            <div class="col-md-5 p-3">
+            <div class="col-md-5 p-3 d-none d-md-block">
                 <div id="carouselExampleControls{{x}}" class="carousel slide" data-ride="carousel"
                     style="display: flex;justify-content: center;" data-interval="false">
                     <div class="carousel-inner col-12" style="justify-content: center;">
@@ -91,7 +91,7 @@
                         <div class="carousel-item p-2" style="justify-content: center;"
                             *ngFor="let days of doctor.presentDaysWork;let i=index" [class.active]="i==0">
 
-                            <div class="d-flex col-12 px-5" style="justify-content: center;">
+                            <div class="d-flex col-12 px-4" style="justify-content: center;">
 
                                 <div class="col-4 appointmentsDiv" *ngFor="let day of days">
                                     <button class="btn btn-primary w-100">{{ day.datee |

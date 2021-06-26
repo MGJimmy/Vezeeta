@@ -171,3 +171,15 @@
     
     
 }
+
+@media (max-width:500px) {
+  .offerSection{
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+    .offerSlider {
+      padding-left: 0% !important;
+      padding-right: 0% !important;
+
+    }
+  }
+}

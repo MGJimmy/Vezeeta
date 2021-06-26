@@ -1,18 +1,33 @@
-<div class="container-fluid">
+<div class="container">
     <div class="row">
 
         <div class="col-12 col-md-7 mt-3">
             <div class="card mb-3">
                 <div class="row">
-                    <div class="mb-3 col-md-4">
+                    <div class="col-md-4 mb-3 d-none d-md-block">
                         <div class="p-3">
                             <img [src]="createImgPath(doctor.image)" alt="image 1" class="img-fluid DoctorImage">
                         </div>
                     </div>
-                    <div class="col-md-8 border-primary">
+
+                    <div class="col-12 d-block d-md-none">
+                        <div class="row m-0 mt-2 ">
+                            <div class="col-4">
+                                <img [src]="createImgPath(doctor.image)" alt="image 1" style="height: auto;" class="img-fluid DoctorImage">
+                            </div>
+                            <div class="col-8" style="display: flex;flex-direction: column;justify-content: center;">
+                                <h4 class="card-title text-primary mb-0">Doctor : {{doctor.user.fullName}}</h4>
+                                <h3 class="card-text">
+                                    {{doctor.titleDegree}}
+                                </h3>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-8 border-primary">
                         <div class="card-body col-12">
-                            <h2 class="card-title">Doctor : {{doctor.user.fullName}}</h2>
-                            <h3 class="card-text">
+                            <h2 class="card-title  d-none d-md-block">Doctor : {{doctor.user.fullName}}</h2>
+                            <h3 class="card-text  d-none d-md-block">
                                 {{doctor.titleDegree}}
                             </h3>
                             <div class="card-text">
@@ -21,15 +36,15 @@
                                 <span *ngFor="let sub of doctor.subspecails" class="text-primary">{{sub.name}},
                                 </span>
                             </div>
-    
-    
-    
+
+
+
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
             <div class="card mb-3 p-3">
                 <div class="row">
                     <i class="fas fa-info col-1 p-0 fa-2x text-center"></i>
@@ -39,11 +54,11 @@
                             {{doctor.doctorInfo}}
                         </div>
                     </div>
-    
+
                 </div>
-    
+
             </div>
-    
+
             <div class="card mb-3 p-3" *ngIf="hasdoctorServices">
                 <div class="row">
                     <i class="fas fa-stethoscope col-1 p-0 fa-2x  text-center"></i>
@@ -54,9 +69,9 @@
                             {{service.name}}
                         </button>
                     </div>
-    
+
                 </div>
-    
+
             </div>
             <div class="card mb-3 p-3" *ngIf="clinicServices">
                 <div class="row">
@@ -68,9 +83,9 @@
                             {{service.name}}
                         </button>
                     </div>
-    
+
                 </div>
-    
+
             </div>
             <!-- <div class="card mb-3 p-3" *ngIf="hasImage">
                 <div class="row">
@@ -87,25 +102,25 @@
                 </div>
     
             </div> -->
-    
+
             <!-- ImagePreview -->
             <div class="card mb-3 p-3" *ngIf="hasImage">
                 <div class="row">
-                    <i class="fas fa-image col-1 fa-2x  text-center"></i>
-                    <div class="col-md-10">
+                    <i class="fas fa-image col-1 p-0 fa-2x  text-center"></i>
+                    <div class="col-11">
                         <h3>Clinic Images</h3>
                         <div class="mt-3 border d-flex" style="flex-direction: row;flex-wrap: wrap;" id="gallery"
                             data-toggle="modal" data-target="#exampleModal">
-                            <div class="col-3  mt-2" *ngFor="let item of doctor.clinic_Images;let i=index">
+                            <div class="col-3  mt-2 clinicImage" *ngFor="let item of doctor.clinic_Images;let i=index">
                                 <img [src]="createImgPath(item.image)" class="img-fluid" data-target="#carouselExample"
-                                    data-slide-to="{{i}}" style="height: 10rem;">
+                                    data-slide-to="{{i}}">
                             </div>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-    
+
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -115,7 +130,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-    
+
                             <!-- Carousel markup: https://getbootstrap.com/docs/4.4/components/carousel/ -->
                             <div id="carouselExample" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
@@ -125,24 +140,26 @@
                                             style="height: 600px !important;">
                                     </div>
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+                                <a class="carousel-control-prev" href="#carouselExample" role="button"
+                                    data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Previous</span>
                                 </a>
-                                <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+                                <a class="carousel-control-next" href="#carouselExample" role="button"
+                                    data-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="sr-only">Next</span>
                                 </a>
                             </div>
                         </div>
-    
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-    
+
             <div class="card mb-3 p-3" *ngIf="hasRate">
                 <div class="row">
                     <i class="fas fa-star-half-alt col-1 fa-2x  text-center"></i>
@@ -153,22 +170,23 @@
                                 <bar-rating [rate]="doctorRates.averageRate" [theme]="'default'" [readOnly]="true"
                                     [max]="5"></bar-rating>
                                 <h3>public Evauation :
-                                    <span style="background-color: blue;color: white;padding: 10px;border-radius: 10px;">
+                                    <span
+                                        style="background-color: #007bff;color: white;padding: 10px;border-radius: 10px;">
                                         {{doctorRates.averageRate}}/5
                                     </span>
                                 </h3>
                             </div>
-    
+
                         </div>
-    
+
                     </div>
                     <hr>
-    
-    
+
+
                 </div>
             </div>
             <div class="d-block card" *ngFor="let item of doctorRates.getRatingDtos">
-    
+
                 <div class="px-5 py-2">
                     <bar-rating [rate]="item.rate" [theme]="'default'" [readOnly]="true" [max]="5"></bar-rating>
                     <p>" {{item.comment}} "</p>
@@ -176,127 +194,132 @@
                     <p>{{item.date |
                         date:'fullDate'}}</p>
                 </div>
-    
-    
+
+
             </div>
             <div class="card text-center" *ngIf="doctorRates.getRatingDtos.length>0">
-                <a class="py-2 text-decoration-none" style="cursor: pointer;" (click)="ShowMoreComment()">Show More..</a>
+                <a class="py-2 text-decoration-none" style="cursor: pointer;" (click)="ShowMoreComment()">Show
+                    More..</a>
             </div>
-    
-    
-    
-    
+
+
+
+
         </div>
-    
-        <div class="col-12 col-md-5 card my-3 p-0" style="border-radius:25px 25px 25px 25px;height: fit-content;">
-    
-            <p class="d-flex w-100"
-                style="background-color: blue;justify-content: center;height: 50px;color: white;border-radius:25px 25px 0 0;align-items: center;margin-bottom: 0px !important;">
-                Reservation Information
-            </p>
-            <div style="text-align: center;" class="pt-3">
-                <p>Reserve</p>
-                <h3 style="color: blue;">medical check</h3>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-6" style="text-align: center;">
-                    <i class="far fa-clock p-2  text-center"></i>
-                    <p>Waiting time {{doctor.clinic.watingTime}} Minute</p>
-    
+
+        <div class="col-12 col-md-5 card p-0 mt-3" style="border-radius:25px 25px 25px 25px;height: fit-content;">
+            <div class="">
+
+                <p class="d-flex w-100"
+                    style="background-color: #007bff;justify-content: center;height: 50px;color: white;border-radius:25px 25px 0 0;align-items: center;margin-bottom: 0px !important;">
+                    Reservation Information
+                </p>
+                <div style="text-align: center;" class="pt-3">
+                    <p>Reserve</p>
+                    <h3 style="color: #007bff;">medical check</h3>
                 </div>
-                <div class="col-6" style="text-align: center;">
-                    <i class="fas fa-money-bill-wave p-2  text-center"></i>
-                    <p>Check Price {{doctor.clinic.fees}} EGP</p>
-    
-                </div>
-            </div>
-            <hr>
-            <div class="row px-3">
-                <div class="col-1">
-                    <i class="fas fa-map-marker-alt p-2  text-center"></i>
-    
-                </div>
-                <div class="col-8" style="line-height: .5rem;">
-                    <p>{{doctor.clinicCityName}}-{{doctor.clinicAreaName}}-{{doctor.clinic.street}}</p>
-                    <p style="font-weight: bold;">Reserve now and will send message for the whole address</p>
-                </div>
-            </div>
-            <hr>
-            <h1 class="py-3" style="text-align: center;">
-                Choose Reservation Time
-            </h1>
-            <div class="p-3 mb-3">
-                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
-                    style="display: flex;justify-content: center;" data-interval="false">
-                    <div class="carousel-inner col-12" style="justify-content: center;">
-    
-                        <div class="carousel-item p-2" style="justify-content: center;"
-                            *ngFor="let days of doctor.presentDaysWork;let i=index" [class.active]="i==0">
-    
-                            <div class="d-flex col-12 px-5" style="justify-content: center;">
-    
-                                <div class="col-4 appointmentsDiv" *ngFor="let day of days">
-                                    <button class="btn btn-primary w-100">{{ day.datee |
-                                        date:'MMMM d'}}</button>
-    
-                                    <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
-                                        <div *ngFor="let shift of day._dayShift"
-                                            (click)="reserve(shift.id,doctor.user.userName,day.datee)"
-                                            class="mb-2 border clickReserve rounded">
-                                            <small>from : {{shift.from}}</small>
-                                            <br>
-                                            <!-- {{shift.id}}  -->
-                                            <small>to : {{shift.to}}</small>
-                                        </div>
-    
-                                    </div>
-                                    <div style="text-align: center;" class="appointment mt-3" *ngIf="!day.IsWork">
-                                        <p>no available appointment</p>
-                                    </div>
-                                    <button class="btn btn-danger w-100" [disabled]="!day.IsWork">احجز</button>
-    
-                                </div>
-                            </div>
-    
-    
-                        </div>
-    
+                <hr>
+                <div class="row m-0">
+                    <div class="col-6" style="text-align: center;">
+                        <i class="far fa-clock p-2  text-center"></i>
+                        <p>Waiting time {{doctor.clinic.watingTime}} Minute</p>
+
                     </div>
-    
-    
-                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                        <!-- style="left: -7% !important;" -->
-                        <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-                        <i class="fas fa-chevron-left"></i>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                        <!-- style="right: -7% !important;" -->
-                        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-                        <i class="fas fa-chevron-right"></i>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="col-6" style="text-align: center;">
+                        <i class="fas fa-money-bill-wave p-2  text-center"></i>
+                        <p>Check Price {{doctor.clinic.fees}} EGP</p>
+
+                    </div>
                 </div>
-    
+                <hr>
+                <div class="row px-0 px-md-3 m-0">
+                    <div class="col-1">
+                        <i class="fas fa-map-marker-alt p-2  text-center"></i>
+
+                    </div>
+                    <div class="col-11" style="line-height: .5rem;">
+                        <p>{{doctor.clinicCityName}}-{{doctor.clinicAreaName}}-{{doctor.clinic.street}}</p>
+                        <p style="font-weight: bold;line-height: 1rem;">Reserve now and will send message for the whole address</p>
+                    </div>
+                </div>
+                <hr>
+                <h1 class="py-3" style="text-align: center;">
+                    Choose Reservation Time
+                </h1>
+                <div class="p-3 mb-3">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel"
+                        style="display: flex;justify-content: center;" data-interval="false">
+                        <div class="carousel-inner col-12" style="justify-content: center;">
+
+                            <div class="carousel-item p-2" style="justify-content: center;"
+                                *ngFor="let days of doctor.presentDaysWork;let i=index" [class.active]="i==0">
+
+                                <div class="d-flex col-12 px-4" style="justify-content: center;">
+
+                                    <div class="col-4 appointmentsDiv" *ngFor="let day of days">
+                                        <button class="btn btn-primary w-100">{{ day.datee |
+                                            date:'MMMM d'}}</button>
+
+                                        <div style="text-align: center;" class="appointment mt-3" *ngIf="day.IsWork">
+                                            <div *ngFor="let shift of day._dayShift"
+                                                (click)="reserve(shift.id,doctor.user.userName,day.datee)"
+                                                class="mb-2 border clickReserve rounded">
+                                                <small>from : {{shift.from}}</small>
+                                                <br>
+                                                <!-- {{shift.id}}  -->
+                                                <small>to : {{shift.to}}</small>
+                                            </div>
+
+                                        </div>
+                                        <div style="text-align: center;" class="appointment mt-3" *ngIf="!day.IsWork">
+                                            <p>no available appointment</p>
+                                        </div>
+                                        <button class="btn btn-danger w-100" [disabled]="!day.IsWork">احجز</button>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <!-- style="left: -7% !important;" -->
+                            <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                            <i class="fas fa-chevron-left"></i>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <!-- style="right: -7% !important;" -->
+                            <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                            <i class="fas fa-chevron-right"></i>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+
+                </div>
+                <hr>
+                <p style="text-align: center;">
+                    Pre-booking and first-come-first-served entry
+                </p>
+                <hr>
+                <div class="row m-0 p-3">
+                    <div class="col-4 d-flex" style="justify-content: flex-end;">
+                        <i class="far fa-calendar-alt fa-3x  text-center"></i>
+                    </div>
+                    <div class="col-8" style="line-height: 1rem;">
+                        <h4>Reserve online, pay on clinic</h4>
+                        <p>Doctor has condition of previous reservation</p>
+                    </div>
+                </div>
+                <hr>
+
             </div>
-            <hr>
-            <p style="text-align: center;">
-                Pre-booking and first-come-first-served entry
-            </p>
-            <hr>
-            <div class="row p-3">
-                <div class="col-4 d-flex" style="justify-content: flex-end;">
-                    <i class="far fa-calendar-alt fa-3x  text-center"></i>
-                </div>
-                <div class="col-8" style="line-height: .1rem;">
-                    <h4>Reserve online, pay on clinic</h4>
-                    <p>Doctor has condition of previous reservation</p>
-                </div>
-            </div>
-            <hr>
-    
         </div>
-    
+
     </div>
 </div>

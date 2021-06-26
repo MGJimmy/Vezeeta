@@ -92,16 +92,16 @@ namespace DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d016ea44-8551-4a7c-b09d-df720b3f35cf",
+                            Id = "6d733d81-558e-4e1e-b4e3-8668dc85efea",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ba6fe66-8d8d-48b4-8e06-07953217df6a",
+                            ConcurrencyStamp = "862ebaa0-b589-4a62-9332-dd314d726d09",
                             Email = "example.gmail.com",
                             EmailConfirmed = false,
                             IsDoctor = false,
                             LockoutEnabled = false,
                             PasswordHash = "123456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b78ce4ad-0ac7-43f2-9c7e-c9b939985339",
+                            SecurityStamp = "c717599e-0ade-45a5-9cf5-f99069e93434",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -603,6 +603,9 @@ namespace DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

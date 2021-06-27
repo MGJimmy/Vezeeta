@@ -81,10 +81,17 @@ export class ChooseClinicServiceComponent implements OnInit {
     this.insertClinicServiceInputValue='';
     this.addNewClinicServices.push({id:0,name:value, byAdmin: false})
   }
-  removefromNewSubSpecial(option){
-    let clinicService = this.addNewClinicServices.find(i=>i.id==option);
-    let elementIndex =this.addNewClinicServices.indexOf(clinicService);
-    this.addNewClinicServices.splice(elementIndex,1)
+  // removefromNewSubSpecial(option){
+  //   let clinicService = this.addNewClinicServices.find(i=>i.id==option);
+  //   let elementIndex =this.addNewClinicServices.indexOf(clinicService);
+  //   this.addNewClinicServices.splice(elementIndex,1)
+  // }
+
+  removefromNewClinicServices(index) {
+    this.addNewClinicServices.splice(index, 1)
+  }
+  removefromNotAcceptedClinicServices(index) {
+    this.NotAcceptByAdminClinicServicesSelected.splice(index, 1)
   }
   
 }

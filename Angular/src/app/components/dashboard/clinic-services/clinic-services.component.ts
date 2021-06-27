@@ -28,6 +28,7 @@ export class ClinicServicesComponent implements OnInit {
   currentPageNumber:number = 1;
   numberOfPages:number; 
   public response: {dbPath: ''};
+  IsAccept: boolean=false;
   
   get formFields() { return this.clinicServiceForm.controls; }
 
@@ -94,12 +95,17 @@ export class ClinicServicesComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.clinicServiceForm.invalid) {
+    if (!this.IsAccept) {
+    
+      if (this.clinicServiceForm.invalid) {
         return;
       }
+      this._clinicServiceToUpdate.name = this.formFields.name.value;
+  
+    }
+    this._clinicServiceToUpdate.byAdmin=true;
 
     this.loading = true;
-    this._clinicServiceToUpdate.name = this.formFields.name.value;
   
   
     this._cliincServicesServie.updateClinicService(this._clinicServiceToUpdate.id, this._clinicServiceToUpdate)
@@ -178,5 +184,30 @@ export class ClinicServicesComponent implements OnInit {
     ) 
   }
 
+//   StatusChanged(filterBy:string){
+//     if(filterBy==="ByAdmin")
+//       this.byAdmin=true;
+//     else
+//      this.byAdmin=false;
+
+//      this.getDoctorServicesCount(this.byAdmin);
+//      this.getSelectedPage(this.currentPageNumber,this.byAdmin);
+//  }
+
+AcceptClinicService(ClinicserviceID)
+{
+ console.log(ClinicserviceID);
+ this._cliincServicesServie.getClinicServicesById(ClinicserviceID)
+ .subscribe(
+   data => {
+     this._clinicServiceToUpdate = data;
+     console.log(this._clinicServiceToUpdate);
+     this.IsAccept = true;
+     this.onUpdateClincServicesSubmit();
+   },
+   error => {
+     this.errorMsg = error;
+   });
+}
 
 }
